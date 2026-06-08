@@ -25,7 +25,7 @@ None. Read the request, repository guidance, relevant SDD documents, and current
 2. Assess uncertainty, impact, reversibility, and verification cost.
 3. Route to one skill:
    - unclear goal or costly trade-off: `sdd-brainstorm`
-   - plan or design to stress-test, or user says "grill me": `sdd-grill`
+   - stress-test a plan or design, or user says "grill me": `sdd-grill`
    - no confirmed specification: `sdd-spec`
    - confirmed specification without a plan: `sdd-plan`
    - approved plan with unfinished work: `sdd-build`

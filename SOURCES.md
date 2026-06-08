@@ -50,9 +50,9 @@ Sources:
 
 Local decisions:
 
-- Optional SDD stage but works standalone for any decision.
-- Body follows `grill-me` pattern: one question at a time with recommended answers.
-- Does not write spec, plan, or code.
+- Optional SDD stage but works standalone; aligns with `grill-me` (no disk artifact required).
+- Body follows `grill-me`; SDD stop routing only.
+- Do not write spec, plan, or code in this skill.
 - Stop conditions recommend next steps contextually rather than forcing SDD routing.
 
 ### `sdd-spec`

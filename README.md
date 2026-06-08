@@ -35,7 +35,7 @@ not invoke it automatically.
 | --- | --- |
 | `using-sdd` | The correct SDD stage is unclear |
 | `sdd-brainstorm` | Goals, boundaries, or costly trade-offs are unresolved |
-| `sdd-grill` | Stress-test a plan or design; user says "grill me" |
+| `sdd-grill` | Stress-test a plan or design; user says "grill me" (no disk artifact required) |
 | `sdd-spec` | A durable behavior contract and acceptance criteria are needed |
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |

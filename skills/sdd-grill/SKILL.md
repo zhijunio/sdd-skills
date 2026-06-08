@@ -1,63 +1,56 @@
 ---
 name: sdd-grill
-description: Use when an existing plan, design, or draft needs stress-testing before committing to it, or when the user says "grill me". Works within SDD or standalone.
+description: Use when the user wants to stress-test a plan or design, get grilled on their design, or mentions "grill me". Works within SDD or standalone.
 ---
 
 # SDD Grill
 
 ## Goal
 
-Reach shared understanding by challenging every aspect of an existing plan or design until all decision-tree branches align.
+Reach shared understanding by grilling every aspect of the plan or design under discussion.
 
 ## When to Use
 
-Use when a plan, design, or draft already exists and needs stress-testing before approval, or when the user mentions "grill me". Can be used within the SDD workflow or standalone for any decision.
+Use when the user wants to stress-test a plan, get grilled on their design, or mentions "grill me".
 
-**Requires an existing artifact** (a written plan, design document, draft, or a pasted summary). If no artifact exists and goals are still unclear, use `sdd-brainstorm` first.
+The subject may be a file, a pasted summary, or the plan as stated in the conversation. A disk artifact is not required.
 
-Do not use when multiple directions are still open — use `sdd-brainstorm` first.
+Use within the SDD workflow or standalone for any decision.
 
-If the user provides a scope hint (e.g., "grill the database migration only"), limit grilling to that scope; do not expand into unrelated subsystems.
+Skip when the user still needs to choose between multiple unexplored directions and wants options compared — use `sdd-brainstorm` first.
 
 ## Prerequisites
 
-Read the existing artifact and relevant context. Explore available facts before asking the user — do not ask for information that can be discovered locally.
+Read repository guidance and any subject the user gave.
+
+If a question can be answered by exploring the codebase, explore the codebase instead of asking the user.
 
 ## Process
 
-1. Confirm the subject (pasted text, file path, or summary from the current thread).
-2. List the major decision branches (briefly; no long essay).
-3. Walk branches in dependency order: prerequisites first, then downstream questions.
-4. **One question at a time**; wait for an answer before the next.
-5. Each question includes a recommended answer with a short rationale.
-6. Record resolved decisions, accepted trade-offs, and items explicitly deferred by the user.
+Interview the user relentlessly about every aspect of this plan until you reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
 
-Stop when open items are zero or all remaining items are marked deferred.
+Ask the questions one at a time.
 
-**Hard rules:**
-- Do not write or edit any files — no design docs, no plans, no product code.
-- If the user wants artifacts on disk after grilling, suggest writing them down; the user must request it explicitly.
+If a question can be answered by exploring the codebase, explore the codebase instead.
 
 ## Red Flags
 
-- Asking the user questions that can be answered from available context.
-- Writing or editing plans, designs, or product code in this skill.
-- Treating grill as mandatory before every decision.
-- Expanding scope beyond what the user provided without asking.
+- Asking the user questions the repository can answer.
+- Writing or editing spec, plan, design docs, or product code in this skill.
+- Treating grill as mandatory before every spec or plan.
 
 ## Verification
 
-Confirm all decision-tree branches are either resolved or explicitly accepted/deferred before stopping.
+Confirm open branches are resolved or explicitly accepted before stopping.
 
 ## Output
 
-Shared understanding reached, open branches resolved, and a recommended next step:
-
-- direction still unset → suggest `sdd-brainstorm`
-- plan needs writing or rewriting → suggest writing it down
-- good enough to proceed → say so and stop
-- within SDD flow → recommend the next SDD stage (`sdd-spec`, `sdd-plan`, etc.) if applicable
+Shared understanding reached and the recommended next step.
 
 ## Stop Conditions
 
-Stop after shared understanding. Recommend one next step only; do not invoke it automatically.
+Stop after shared understanding. Recommend one next skill only; do not invoke it automatically:
+
+- still choosing between directions → `sdd-brainstorm`
+- spec needs work → `sdd-spec`
+- plan needs work → `sdd-plan`
