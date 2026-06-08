@@ -58,7 +58,7 @@ Fresh command output and full acceptance evidence belong in `sdd-ship`, not here
 3. Read the spec and plan when available; use domain glossary (for example `CONTEXT.md`) as a lightweight spec when no separate spec exists.
 4. Review test changes first: coverage, edge cases, regression value.
 5. Walk implementation against core and applicable conditional dimensions.
-6. Report findings before summary, ordered by severity.
+6. Report using the output template below. Findings first, ordered by severity; end with verdict.
 
 Use a fresh agent or subagent when available; otherwise reread the baseline before reviewing.
 
@@ -84,17 +84,56 @@ Classify findings:
 
 ## Output
 
-Provide:
+Use this heading structure. Do not rename top-level sections.
 
-- **Scope** — baseline, included commits or files, excluded areas.
-- **Strengths** — one to three specific positives when present (optional).
-- **Findings** — file and line references, ordered `must-fix` → `should-fix` → `suggestion`.
-- **Assumptions and residual verification gaps** — what was not run or not verified.
-- **Verdict** — recommend `sdd-build` or `sdd-ship`.
+```markdown
+# SDD Review
+
+## Scope
+
+| Item | Content |
+| ---- | ------- |
+| Baseline | … |
+| Included | commits, files, or unstaged task changes |
+| Excluded | … |
+| Spec / Plan | sources used, or disclosure when missing |
+
+## Strengths
+
+Optional. One to three specific positives.
+
+## Findings
+
+List only in-scope issues. Use `file:line` references.
+
+### must-fix
+
+…
+
+### should-fix
+
+…
+
+### suggestion
+
+…
+
+If a severity has no items, write `None.`
+
+## Dimension Coverage
+
+Brief pass/fail (or skip) for each reviewed dimension: spec/plan, correctness, tests, docs, and any conditional dimensions examined.
+
+## Assumptions & Gaps
+
+What was assumed, not run, or observed outside scope. Label out-of-scope notes explicitly.
+
+## Verdict
+
+**`sdd-build`** or **`sdd-ship`** — one or two sentences of reason.
+```
 
 Do not update the plan; accepted risks are recorded later by the user or `sdd-build`.
-
-Out-of-scope observations may appear in assumptions; label them clearly.
 
 ## Stop Conditions
 

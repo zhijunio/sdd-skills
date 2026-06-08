@@ -99,7 +99,8 @@ Local decisions:
 - Core dimensions: spec/plan, correctness, tests, docs/traceability.
 - Conditional dimensions: architecture, security, performance, readability/change size.
 - Process tests-first; optional two-pass review for large plans.
-- Output includes strengths, verdict, and residual verification gaps; full verification stays in `sdd-ship`.
+- Output includes strengths, dimension coverage, verdict, and residual gaps; full verification stays in `sdd-ship`.
+- Output uses fixed headings: Scope → Strengths → Findings (must-fix / should-fix / suggestion) → Dimension Coverage → Assumptions & Gaps → Verdict.
 
 ### `sdd-ship`
 
