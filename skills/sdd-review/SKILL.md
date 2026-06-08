@@ -55,7 +55,7 @@ Fresh command output and full acceptance evidence belong in `sdd-ship`, not here
 
 1. State `Scope`, `Included`, and `Excluded`.
 2. Read the complete scoped diff.
-3. Read the spec and plan when available; use domain glossary (for example `CONTEXT.md`) as a lightweight spec when no separate spec exists.
+3. Read the spec and plan when available; disclose when the spec file is missing.
 4. Review test changes first: coverage, edge cases, regression value.
 5. Walk implementation against core and applicable conditional dimensions.
 6. Report using the output template below. Findings first, ordered by severity; end with verdict.

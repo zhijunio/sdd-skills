@@ -19,18 +19,21 @@ Do not use to explore unresolved design directions or to write implementation ta
 
 Read repository guidance, relevant code and docs, and any brainstorm outcome. Ask only for decisions that cannot be discovered locally.
 
+Repository domain docs may inform scope and constraints; they are **not** a substitute for this skill's output.
+
 ## Process
 
 1. Start from [spec-template.md](spec-template.md).
 2. Define the goal, scope, and non-goals.
 3. Record only repository facts that constrain the change.
-4. Write requirements and necessary compatibility, migration, security, or interface constraints.
+4. Write requirements and necessary compatibility, migration, security, or interface constraints when relevant.
 5. Give each observable acceptance criterion a stable identifier such as `AC-1`.
 6. Remove irrelevant template sections.
 7. Present the written specification for user approval.
 
 ## Red Flags
 
+- Treating a repository domain doc as the spec without writing `docs/sdd/...-spec.md`.
 - Hiding implementation steps inside acceptance criteria.
 - Copying the brainstorm transcript.
 - Leaving open questions that block planning.
@@ -47,4 +50,3 @@ Write `docs/sdd/YYYY-MM-DD-<topic>-spec.md`.
 ## Stop Conditions
 
 Stop after the user approves the specification. Recommend `sdd-plan`.
-

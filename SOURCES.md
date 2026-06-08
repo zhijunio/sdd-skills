@@ -53,6 +53,7 @@ Local decisions:
 
 - Keep behavior and necessary technical constraints in one concise document.
 - Require observable acceptance criteria and explicit user approval.
+- Always write `docs/sdd/YYYY-MM-DD-<topic>-spec.md`; repository domain docs inform context only.
 
 ### `sdd-plan`
 
@@ -66,6 +67,7 @@ Local decisions:
 
 - Prefer 15-60 minute vertical slices over microtasks.
 - Do not maintain a separate traceability matrix or workflow status.
+- Small increments may use one slice; keep the slice plan structure.
 
 ### `sdd-build`
 
