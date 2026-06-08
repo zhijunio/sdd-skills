@@ -95,6 +95,11 @@ Local decisions:
 - Keep review strictly read-only.
 - Require an explicit diff range; spec and plan are optional.
 - Never assume `main` is the integration branch.
+- Default scope is merge-base diff only; pre-existing issues outside scope are not `must-fix`.
+- Core dimensions: spec/plan, correctness, tests, docs/traceability.
+- Conditional dimensions: architecture, security, performance, readability/change size.
+- Process tests-first; optional two-pass review for large plans.
+- Output includes strengths, verdict, and residual verification gaps; full verification stays in `sdd-ship`.
 
 ### `sdd-ship`
 
