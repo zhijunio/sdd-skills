@@ -17,7 +17,7 @@ Do not use to fix review findings.
 
 ## Prerequisites
 
-Require the approved spec file, plan, reviewed diff, and review outcome.
+Require the spec, plan, reviewed diff, and review outcome.
 
 ## Process
 

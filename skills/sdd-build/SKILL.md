@@ -17,7 +17,7 @@ Do not use when acceptance criteria or major constraints still need revision.
 
 ## Prerequisites
 
-Require user-approved specification criteria and an approved plan. Read repository guidance, inspect the current diff, and exclude unrelated changes.
+Require an approved spec and plan. Read repository guidance, inspect the current diff, and exclude unrelated changes.
 
 ## Process
 

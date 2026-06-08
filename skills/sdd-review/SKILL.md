@@ -17,19 +17,47 @@ It can run with only a diff. Missing spec or plan reduces traceability and must 
 
 ## Prerequisites
 
-Determine scope in this order:
+Require a defined diff range before reviewing code. Determine scope using **Scope** below.
 
-1. User-specified files, PR, commit, branch, or baseline.
+## Scope
+
+Determine the diff range in this order:
+
+1. User-specified files, PR, commit range, branch pair, or baseline.
 2. Scope recorded by the current task or plan.
-3. Staged changes.
-4. Task-related uncommitted changes.
-5. Merge-base diff against the real integration branch.
+3. Staged changes only when the user or task explicitly limits review to staged work.
+4. Task-related uncommitted changes that belong to the same increment.
+5. Merge-base diff against the real integration branch: `merge-base(<integration-base>, HEAD)...HEAD`.
 
-Default scope is the full merge-base diff (`integration-base...HEAD`), not the whole repository unless the user gives an explicit commit range or PR.
+### Integration base
 
-Never assume `main`. Ask when unrelated changes, an unknown integration branch, multiple topics, an oversized diff, or a repo path without a commit range makes the scope ambiguous.
+- Prefer the repository's default integration branch (`origin/HEAD`, or the branch named in repository guidance).
+- Use the branch the user names when it differs from defaults.
+- **Never assume `main`**, `master`, or any branch name without evidence.
 
-Pre-existing issues outside the scoped diff may be noted as out-of-scope observations; do not classify them as `must-fix` for this increment.
+### Default range
+
+When nothing more specific applies, review the **full** merge-base diff for the current branch, not the entire repository history and not an arbitrary subset of files.
+
+Include task-related **uncommitted** changes in the same review when they complete the increment (for example fixes still sitting in the working tree).
+
+### Narrow or split scope
+
+Ask before reviewing when:
+
+- The user gives a repository path but no commit range, PR, or baseline.
+- Unrelated dirty files would pollute the diff.
+- The integration branch is unknown or ambiguous.
+- One diff mixes multiple independent topics or increments.
+- The range is too large to review reliably in one pass.
+
+When the user names a subset, honor it and record what was excluded.
+
+### Pre-existing code
+
+Issues in code **outside** the scoped diff may be noted as **out-of-scope observations**. Do not classify them as `must-fix` or `should-fix` for this increment unless the scoped diff reintroduces, exposes, or worsens them.
+
+Fresh command output and full acceptance evidence belong in `sdd-ship`, not here.
 
 ## Review Dimensions
 
@@ -38,47 +66,46 @@ Pre-existing issues outside the scoped diff may be noted as out-of-scope observa
 - **Spec / plan compliance** — acceptance criteria, out-of-scope boundaries; disclose when spec or plan is missing.
 - **Correctness and regressions** — logic, edge cases, concurrency, data consistency.
 - **Tests** — gaps, behavior vs implementation focus, assertions that would catch regressions.
-- **Docs and traceability** — glossary/domain docs, ADR/plan paths, CHANGELOG, commit messages vs diff.
+- **Docs and traceability** — spec/plan paths, CHANGELOG, commit messages vs diff.
 
 ### Conditional (when the diff touches them)
 
 - **Architecture** — new modules, cross-layer calls, shared APIs, duplication.
-- **Security** — auth, user input, secrets in repo/logs, SQL or untrusted external data.
-- **Performance** — N+1 queries, unbounded loops or fetches, hot paths, heavy sync work.
-- **Readability and change size** — naming, control flow, unnecessary complexity; warn when a single increment is roughly >300 lines or one file grows substantially.
+- **Security** — auth, user input, secrets in repo or logs, SQL or untrusted external data.
+- **Performance** — N+1 queries, unbounded loops or fetches, hot paths, heavy synchronous work.
+- **Readability and change size** — naming, control flow, unnecessary complexity; flag when a single increment is roughly **>300 lines** or one file grows substantially without justification.
 
-Skip conditional dimensions that the diff does not touch (for example, docs-only diffs skip security and performance).
-
-Fresh command output and full acceptance evidence belong in `sdd-ship`, not here.
+Skip conditional dimensions the diff does not touch (for example, docs-only diffs skip security and performance).
 
 ## Process
 
-1. State `Scope`, `Included`, and `Excluded`.
-2. Read the complete scoped diff.
-3. Read the spec and plan when available; disclose when the spec file is missing.
+1. State scope using the output template below (`Scope` table).
+2. Read the **complete** scoped diff before judging correctness.
+3. Read the spec and plan when available.
 4. Review test changes first: coverage, edge cases, regression value.
 5. Walk implementation against core and applicable conditional dimensions.
-6. Report using the output template below. Findings first, ordered by severity; end with verdict.
+6. Report findings before summary, ordered by severity; end with verdict.
 
 Use a fresh agent or subagent when available; otherwise reread the baseline before reviewing.
 
-Optional two-pass review when plan is large: spec/plan compliance first, then code quality. Default is one pass.
+Optional two-pass review when the plan is large: spec/plan compliance first, then code quality. Default is one pass.
 
 ## Red Flags
 
 - Editing while reviewing.
-- Reviewing only staged files when the task includes unstaged work.
-- Defaulting the baseline to `main`.
+- Reviewing only staged files when the task includes unstaged increment work.
+- Defaulting the baseline to `main` or `master` without evidence.
+- Reviewing the whole repository without a commit range.
+- Treating a directory path alone as scope.
+- Expanding scope to pre-existing code not in the scoped diff and marking it `must-fix`.
 - Claiming specification compliance without a specification.
-- Expanding scope to pre-existing code not in the scoped diff.
-- Treating a repository path alone as scope without a commit range or baseline.
 - Running full verification or updating the plan during review.
 
 ## Verification
 
 Classify findings:
 
-- `must-fix`: blocks delivery.
+- `must-fix`: blocks delivery within the scoped increment.
 - `should-fix`: normally fixed; only the user accepts the risk.
 - `suggestion`: non-blocking improvement.
 
@@ -93,10 +120,11 @@ Use this heading structure. Do not rename top-level sections.
 
 | Item | Content |
 | ---- | ------- |
-| Baseline | … |
-| Included | commits, files, or unstaged task changes |
-| Excluded | … |
-| Spec / Plan | sources used, or disclosure when missing |
+| Baseline | integration branch or commit |
+| Range | `merge-base...HEAD`, PR, commits, or user-specified span |
+| Included | commits, files, staged/unstaged task changes |
+| Excluded | unrelated changes, out-of-scope areas |
+| Spec / Plan | paths used, or disclosure when missing |
 
 ## Strengths
 
@@ -122,7 +150,7 @@ If a severity has no items, write `None.`
 
 ## Dimension Coverage
 
-Brief pass/fail (or skip) for each reviewed dimension: spec/plan, correctness, tests, docs, and any conditional dimensions examined.
+Brief pass, fail, or skip for each dimension examined: spec/plan, correctness, tests, docs, and any conditional dimensions reviewed.
 
 ## Assumptions & Gaps
 

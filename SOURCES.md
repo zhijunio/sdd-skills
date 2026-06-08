@@ -53,7 +53,6 @@ Local decisions:
 
 - Keep behavior and necessary technical constraints in one concise document.
 - Require observable acceptance criteria and explicit user approval.
-- Always write `docs/sdd/YYYY-MM-DD-<topic>-spec.md`; repository domain docs inform context only.
 
 ### `sdd-plan`
 
@@ -67,7 +66,6 @@ Local decisions:
 
 - Prefer 15-60 minute vertical slices over microtasks.
 - Do not maintain a separate traceability matrix or workflow status.
-- Small increments may use one slice; keep the slice plan structure.
 
 ### `sdd-build`
 
@@ -95,14 +93,11 @@ Sources:
 Local decisions:
 
 - Keep review strictly read-only.
-- Require an explicit diff range; spec and plan are optional.
-- Never assume `main` is the integration branch.
-- Default scope is merge-base diff only; pre-existing issues outside scope are not `must-fix`.
-- Core dimensions: spec/plan, correctness, tests, docs/traceability.
-- Conditional dimensions: architecture, security, performance, readability/change size.
-- Process tests-first; optional two-pass review for large plans.
-- Output includes strengths, dimension coverage, verdict, and residual gaps; full verification stays in `sdd-ship`.
-- Output uses fixed headings: Scope → Strengths → Findings (must-fix / should-fix / suggestion) → Dimension Coverage → Assumptions & Gaps → Verdict.
+- Default scope is merge-base diff plus task-related uncommitted work; never assume `main`.
+- Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
+- Require explicit diff range; a repository path alone is insufficient.
+- Core and conditional review dimensions; fixed output headings including Dimension Coverage and Verdict.
+- Full verification stays in `sdd-ship`.
 
 ### `sdd-ship`
 
