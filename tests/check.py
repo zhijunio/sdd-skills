@@ -7,7 +7,6 @@ import re
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
     "using-sdd",
@@ -29,7 +28,13 @@ REQUIRED_SECTIONS = (
     "Output",
     "Stop Conditions",
 )
-LOCAL_LINK = re.compile(r"\[[^\]]+\]\((?!https?://|mailto:|#)([^)]+)\)")
+LOCAL_LINK = re.compile(r"\[[^\]]+\]\((?!https?://|mailto:|#)([^)]+)")
+
+# Template content requirements: each template must contain these headings/anchors.
+TEMPLATE_REQUIREMENTS = {
+    "spec-template.md": ["Goal", "Scope", "Non-goals", "Requirements", "Acceptance Criteria"],
+    "plan-template.md": ["Slice", "Goal", "Acceptance", "Verification"],
+}
 
 
 def parse_frontmatter(text: str) -> dict[str, str]:
@@ -86,6 +91,24 @@ def check_skill(name: str) -> list[str]:
     return errors
 
 
+def check_template(template: Path) -> list[str]:
+    errors: list[str] = []
+    if not template.is_file():
+        return [f"missing template: {template.relative_to(ROOT)}"]
+
+    text = template.read_text(encoding="utf-8")
+    if len(text.strip()) < 100:
+        errors.append(f"{template.relative_to(ROOT)}: too short ({len(text)} bytes), add writing guidance")
+
+    name = template.name
+    if name in TEMPLATE_REQUIREMENTS:
+        for required in TEMPLATE_REQUIREMENTS[name]:
+            if required not in text:
+                errors.append(f"{template.relative_to(ROOT)}: missing required content '{required}'")
+
+    return errors
+
+
 def main() -> int:
     errors: list[str] = []
     for skill in SKILLS:
@@ -95,8 +118,7 @@ def main() -> int:
         ROOT / "skills" / "sdd-spec" / "spec-template.md",
         ROOT / "skills" / "sdd-plan" / "plan-template.md",
     ):
-        if not template.is_file():
-            errors.append(f"missing template: {template.relative_to(ROOT)}")
+        errors.extend(check_template(template))
 
     for markdown_file in ROOT.rglob("*.md"):
         if ".git" in markdown_file.parts:
@@ -110,7 +132,7 @@ def main() -> int:
             print(f"- {error}")
         return 1
 
-    print(f"Repository checks passed: {len(SKILLS)} skills validated.")
+    print(f"Repository checks passed: {len(SKILLS)} skills, {sum(1 for _ in (1, 2))} templates validated.")
     return 0
 
 

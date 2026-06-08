@@ -7,5 +7,5 @@
 - Update `SOURCES.md` when upstream-derived behavior changes.
 - Run `python3 tests/check.py` after modifying skills or templates.
 - Preserve third-party notices.
-- Use atomic commits. Commit messages must be written in Chinese and describe the requirement or implementation approach.
+- Use atomic commits with Conventional Commits prefix (`feat:`, `fix:`, `docs:`, `chore:`, `refactor:`). Commit body and description in Chinese.
 
