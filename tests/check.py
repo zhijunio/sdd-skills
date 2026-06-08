@@ -97,6 +97,12 @@ def main() -> int:
         if not template.is_file():
             errors.append(f"missing template: {template.relative_to(ROOT)}")
 
+    for markdown_file in ROOT.rglob("*.md"):
+        if ".git" in markdown_file.parts:
+            continue
+        text = markdown_file.read_text(encoding="utf-8")
+        errors.extend(check_local_links(markdown_file, text))
+
     if errors:
         print("Repository checks failed:")
         for error in errors:
