@@ -41,6 +41,18 @@ Local decisions:
 - Ask one decision at a time and provide a recommendation.
 - Make the stage optional and avoid a durable artifact by default.
 
+### `sdd-grill`
+
+Sources:
+
+- `mattpocock/skills`: `skills/productivity/grill-me`
+- `addyosmani/agent-skills`: `skills/interview-me`
+
+Local decisions:
+
+- Optional SDD stage; body follows `grill-me` with SDD stop routing only.
+- Do not write spec, plan, or code in this skill.
+
 ### `sdd-spec`
 
 Sources:

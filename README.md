@@ -12,6 +12,8 @@ using-sdd
   |
 sdd-brainstorm (optional)
   |
+sdd-grill (optional)
+  |
 sdd-spec -> user approval
   |
 sdd-plan -> user approval
@@ -33,13 +35,14 @@ not invoke it automatically.
 | --- | --- |
 | `using-sdd` | The correct SDD stage is unclear |
 | `sdd-brainstorm` | Goals, boundaries, or costly trade-offs are unresolved |
+| `sdd-grill` | Stress-test a plan or design; user says "grill me" |
 | `sdd-spec` | A durable behavior contract and acceptance criteria are needed |
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |
 | `sdd-review` | A defined diff needs independent read-only review |
 | `sdd-ship` | A reviewed increment needs final acceptance evidence |
 
-All seven skills can be installed independently. Some require artifacts rather
+All eight skills can be installed independently. Some require artifacts rather
 than other skills: `sdd-plan` needs an approved spec, `sdd-build` needs a spec
 and plan, and `sdd-ship` needs a passed review.
 
@@ -65,7 +68,7 @@ docs/sdd/YYYY-MM-DD-<topic>-spec.md
 docs/sdd/YYYY-MM-DD-<topic>-plan.md
 ```
 
-Brainstorm and review documents are optional. The workflow does not require
+Brainstorm, grill, and review documents are optional. The workflow does not require
 status fields or a persistent active-increment file.
 
 ## Review Scope
