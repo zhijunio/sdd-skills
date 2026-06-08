@@ -1,6 +1,6 @@
 ---
 name: sdd-grill
-description: Use when an existing spec, plan, or design draft needs stress-testing before approval, or when the user says "grill me".
+description: Use when an existing plan, design, or draft needs stress-testing before committing to it, or when the user says "grill me". Works within SDD or standalone.
 ---
 
 # SDD Grill
@@ -11,9 +11,9 @@ Reach shared understanding by challenging every aspect of an existing plan or de
 
 ## When to Use
 
-Use when a spec, plan, or design draft already exists and needs stress-testing before approval, or when the user mentions "grill me".
+Use when a plan, design, or draft already exists and needs stress-testing before approval, or when the user mentions "grill me". Can be used within the SDD workflow or standalone for any decision.
 
-**Requires an existing artifact** (spec draft, plan draft, design document, or a pasted summary). If no artifact exists and goals are still unclear, use `sdd-brainstorm` first.
+**Requires an existing artifact** (a written plan, design document, draft, or a pasted summary). If no artifact exists and goals are still unclear, use `sdd-brainstorm` first.
 
 Do not use when multiple directions are still open — use `sdd-brainstorm` first.
 
@@ -21,7 +21,7 @@ If the user provides a scope hint (e.g., "grill the database migration only"), l
 
 ## Prerequisites
 
-Read the existing artifact and repository guidance. Explore the codebase and documentation before asking the user — do not ask for facts that can be discovered locally.
+Read the existing artifact and relevant context. Explore available facts before asking the user — do not ask for information that can be discovered locally.
 
 ## Process
 
@@ -35,14 +35,14 @@ Read the existing artifact and repository guidance. Explore the codebase and doc
 Stop when open items are zero or all remaining items are marked deferred.
 
 **Hard rules:**
-- Do not write or edit any files — no spec, plan, design docs, or product code.
-- If the user wants artifacts on disk after grilling, suggest `sdd-spec`, `sdd-plan`, or `sdd-brainstorm`; the user must switch explicitly.
+- Do not write or edit any files — no design docs, no plans, no product code.
+- If the user wants artifacts on disk after grilling, suggest writing them down; the user must request it explicitly.
 
 ## Red Flags
 
-- Asking the user questions the repository can answer.
-- Writing or editing spec, plan, or product code in this skill.
-- Treating grill as mandatory before every spec or plan.
+- Asking the user questions that can be answered from available context.
+- Writing or editing plans, designs, or product code in this skill.
+- Treating grill as mandatory before every decision.
 - Expanding scope beyond what the user provided without asking.
 
 ## Verification
@@ -51,12 +51,13 @@ Confirm all decision-tree branches are either resolved or explicitly accepted/de
 
 ## Output
 
-Shared understanding reached, open branches resolved, and the recommended next SDD skill.
+Shared understanding reached, open branches resolved, and a recommended next step:
+
+- direction still unset → suggest `sdd-brainstorm`
+- plan needs writing or rewriting → suggest writing it down
+- good enough to proceed → say so and stop
+- within SDD flow → recommend the next SDD stage (`sdd-spec`, `sdd-plan`, etc.) if applicable
 
 ## Stop Conditions
 
-Stop after shared understanding. Recommend one next skill only; do not invoke it automatically:
-
-- direction still unset → `sdd-brainstorm`
-- spec needs work → `sdd-spec`
-- plan needs work → `sdd-plan`
+Stop after shared understanding. Recommend one next step only; do not invoke it automatically.
