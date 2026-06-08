@@ -29,7 +29,12 @@ Require an approved spec and plan. Read repository guidance, inspect the current
 6. Append only the result, command outcome, and material deviation to the plan.
 7. Repeat for the next slice.
 
-Documentation, pure configuration, mechanical changes, or projects without a reasonable automated test entry may use repeatable alternative proof.
+**Fallback rules — stop immediately and route back when:**
+- A slice cannot deliver its acceptance criterion without changing the criterion: record the deviation, stop, and return to `sdd-spec`.
+- A slice boundary must change (merge, split, or reorder slices): record the change, stop, and return to `sdd-plan`.
+- An open question from the spec is discovered to block implementation: record it, stop, and return to `sdd-spec`.
+
+Documentation, pure configuration, mechanical changes, or projects without a reasonable automated test entry may use a **repeatable alternative proof** — a command or observable check that verifies the slice's goal without a unit or integration test (for example: a curl request returning expected JSON, a rendered HTML file containing expected text, or a CLI command producing correct output). The proof must be deterministic and rerunnable.
 
 ## Red Flags
 

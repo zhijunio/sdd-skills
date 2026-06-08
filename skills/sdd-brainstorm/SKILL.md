@@ -11,9 +11,9 @@ Resolve the decisions that block a reliable specification.
 
 ## When to Use
 
-Use for ambiguous intent, multiple viable directions, irreversible choices, or unclear acceptance criteria.
+Use for ambiguous intent, multiple viable directions, irreversible choices, or unclear acceptance criteria **when no spec, plan, or design draft exists yet**.
 
-Skip when behavior and boundaries are already explicit.
+Skip when behavior and boundaries are already explicit — route directly to `sdd-spec` or `sdd-grill`.
 
 ## Prerequisites
 

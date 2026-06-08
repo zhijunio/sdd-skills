@@ -43,7 +43,46 @@ Every acceptance criterion must have fresh, proportionate evidence. Explain any 
 
 ## Output
 
-Provide a ship summary with acceptance results, commands, outcomes, unrun checks, and remaining risks. Record only user-visible changes in CHANGELOG.
+Use this heading structure. Do not rename top-level sections.
+
+```markdown
+# SDD Ship
+
+## Acceptance Evidence
+
+| Criterion | Implementation | Evidence (command + result) | Pass/Fail |
+|-----------|---------------|----------------------------|-----------|
+| AC-1      |               |                            |           |
+| AC-2      |               |                            |           |
+
+## Regression Checks
+
+<!-- Verification beyond the scoped ACs: related modules, shared data, configuration. -->
+
+- …
+
+## Unrun Checks
+
+<!-- Checks that were skipped and why (cost, risk, irrelevance). -->
+
+- …
+
+## Remaining Risks
+
+<!-- Known gaps, accepted `should-fix` findings, or assumptions. -->
+
+- …
+
+## CHANGELOG
+
+<!-- User-visible changes only, or "No CHANGELOG update needed." -->
+
+## Delivery Status
+
+<!-- What is ready and what remains as explicit user action (commit, push, PR, deploy). -->
+```
+
+Record only user-visible changes in CHANGELOG. Do not push, open a PR, publish, or deploy unless separately requested.
 
 ## Stop Conditions
 

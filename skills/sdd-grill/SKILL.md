@@ -1,17 +1,19 @@
 ---
 name: sdd-grill
-description: Use when the user wants to stress-test a plan or design, get grilled, or says "grill me", before locking the next SDD stage.
+description: Use when an existing spec, plan, or design draft needs stress-testing before approval, or when the user says "grill me".
 ---
 
 # SDD Grill
 
 ## Goal
 
-Reach shared understanding by grilling every aspect of the current plan or design.
+Reach shared understanding by challenging every aspect of an existing plan or design.
 
 ## When to Use
 
-Use when the user wants to stress-test a plan, get grilled on their design, or mentions "grill me".
+Use when a spec, plan, or design draft already exists and needs stress-testing before approval, or when the user mentions "grill me".
+
+**Requires an existing artifact** (spec draft, plan draft, or design document). If no artifact exists and goals are still unclear, use `sdd-brainstorm` first.
 
 Do not use when multiple directions are still open — use `sdd-brainstorm` first.
 
@@ -21,11 +23,14 @@ Read repository guidance. If a question can be answered by exploring the codebas
 
 ## Process
 
-Interview the user relentlessly about every aspect of this plan until you reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
+1. Read the existing artifact (spec, plan, or design) and repository context.
+2. Identify weak points: missing edge cases, unstated assumptions, dependency risks, or unclear boundaries.
+3. Ask one focused question at a time about each weak point.
+4. Provide a recommended answer with each question.
+5. Walk down each branch of the decision tree, resolving dependencies one-by-one.
+6. Record resolved decisions, accepted trade-offs, and remaining open items.
 
-Ask the questions one at a time.
-
-If a question can be answered by exploring the codebase, explore the codebase instead.
+Do not write or edit the spec, plan, or product code during this skill.
 
 ## Red Flags
 
