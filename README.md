@@ -27,7 +27,11 @@ sdd-ship
 Each skill stops after its own output. Skills recommend the next stage but do
 not invoke it automatically.
 
+The **core delivery loop** has seven stages below. **`sdd-deepen`** is an optional satellite for architecture deepening — install when needed; it is not mandatory before ship.
+
 ## Skills
+
+### Core loop
 
 | Skill | Use when |
 | --- | --- |
@@ -39,7 +43,13 @@ not invoke it automatically.
 | `sdd-review` | A defined diff needs independent read-only review |
 | `sdd-ship` | A reviewed increment needs final acceptance evidence |
 
-All seven skills can be installed independently. Some require artifacts rather
+### Optional satellite
+
+| Skill | Use when |
+| --- | --- |
+| `sdd-deepen` | Architecture deepening, shallow modules, seam friction, or mud-ball concerns outside the scoped delivery diff |
+
+All core skills can be installed independently. Some require artifacts rather
 than other skills: `sdd-plan` needs an approved spec, `sdd-build` needs a spec
 and plan, and `sdd-ship` needs a passed review.
 
@@ -49,6 +59,7 @@ and plan, and `sdd-ship` needs a passed review.
 | --- | --- |
 | Unsure which stage fits | `using-sdd` |
 | Goal, boundaries, trade-offs, or plan/design still open | `sdd-grill` |
+| Architecture deepening, shallow modules, or mud-ball concerns (optional) | `sdd-deepen` |
 | No approved spec yet | `sdd-spec` |
 | Spec approved, no plan | `sdd-plan` |
 | Plan approved, coding | `sdd-build` |
@@ -82,7 +93,13 @@ npx skills@latest add zhijunio/sdd-skills@v0.1.1 -a cursor -a codex -a claude-co
 | **Project** (default) | — | `./.agents/skills/` — shared by Cursor and Codex in the same repo |
 | **Global** | `-g` | Cursor: `~/.cursor/skills/` · Codex: `~/.codex/skills/` · Claude Code: `~/.claude/skills/` |
 
-Select all seven skills for the full loop, or start minimal:
+Select all seven core skills for the full loop, or add the optional satellite:
+
+```bash
+npx skills@latest add zhijunio/sdd-skills -s sdd-deepen -y
+```
+
+Minimal core install:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills -s using-sdd -s sdd-spec -y

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Optional satellite skill **`sdd-deepen`** for architecture deepening (Matt `improve-codebase-architecture` adapted; conversation deliverable)
+
+### Changed
+
+- **`using-sdd`**: optional satellite routing for deepening / mud-ball intent
+- **README** / **SOURCES** / **project-decisions**: seven core stages + optional `sdd-deepen`
+
 ## [0.1.1] - 2026-06-09
 
 ### Changed

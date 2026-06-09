@@ -21,7 +21,8 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Seven skills cover the delivery loop:** route → (optional) clarify → spec → plan → build → review → ship.
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no worktrees, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` covers explore-and-challenge before spec or plan; the required artifacts remain spec and plan only.
-- **No skill sprawl before evidence:** new stages need repeated real-project gaps, not parity with upstream skill counts.
+- **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
+- **Optional satellites stay outside the core loop:** `sdd-deepen` is published separately for architecture deepening; it does not change the seven-stage delivery loop.
 
 For routing, see [README.md](README.md#quick-routing) and [skills/using-sdd/SKILL.md](skills/using-sdd/SKILL.md#routing-examples).
 
@@ -41,6 +42,7 @@ Local decisions:
 - Route one stage without automatic invocation.
 - Infer progress from artifacts and diff; do not persist workflow state.
 - May briefly announce the routing check and recommended skill; still do not invoke it automatically.
+- List **`sdd-deepen`** under optional satellites; route deepening intent there without auto-invocation.
 
 ### `sdd-grill`
 
@@ -73,6 +75,20 @@ Local decisions:
 - Revise approved specs in place with a Revision log; distinguish clarification-only edits from AC changes.
 - Optional template sections: Decisions (this change), Related ADRs (links only); optional consumer `docs/adr/` per README.
 - Self-review checklist before user approval (adapted from sibling [sdd-lite](https://github.com/zhijunio/sdd-lite) written-artifact gate; kept inline, no shared fragment file).
+
+### `sdd-deepen`
+
+Sources:
+
+- `mattpocock/skills`: `skills/improve-codebase-architecture` (depth, seam, deletion-test vocabulary; grilling after candidate selection)
+
+Local decisions:
+
+- Optional **satellite** — not a mandatory core stage before `sdd-ship`.
+- Conversation deliverable only; no HTML reports, subagents, or default on-disk deepen file.
+- Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
+- Stop → recommend **`using-sdd`** only; default next stage after candidate selection is **`sdd-spec`** when acceptance criteria are needed.
+- **`v0.2.0` tag** waits for a third consumer loop with deepening friction evidence.
 
 ### `sdd-plan`
 

@@ -61,7 +61,7 @@ sdd-skills/
 | **AGENTS.md** | skill 自包含；`SKILL.md` frontmatter 写触发条件；无真实用法证据不加状态字段；改 skill 跑 `check.py`；Conventional Commits + 中文 body |
 | **README.md** |  workflow 图 + 技能表 + Quick routing → 链到 `using-sdd` 详例；Design 段列 non-goals |
 | **SOURCES.md** | 记录三上游 **pin commit**；每 skill 映射来源 + **Local decisions**（本仓 maintainer 的「ADR 等价物」） |
-| **tests/check.py** | 校验 7 skill 目录、frontmatter、`Use when` 描述、八段标题、模板最小内容、本地链接 |
+| **tests/check.py** | 校验 8 skill 目录（7 core + optional `sdd-deepen`）、frontmatter、`Use when` 描述、八段标题、模板最小内容、本地链接 |
 | **docs/design/** | 决策过程、方法论、proposed 子方案；**不**替代 `SKILL.md` |
 
 ---
@@ -97,14 +97,15 @@ sdd-skills/
 
 ---
 
-## 4. 技能集演化：为何是 7 个
+## 4. 技能集演化：为何是 7 个 core + optional satellite
 
 ### 4.1 决策过程（grill 摘要）
 
 | 问题 | 结论 |
 |------|------|
 | 扩仓目标 | 只补 SDD 流水线断档，不对齐上游数量 |
-| 8 技能环是否有洞 | 暂无重复痛点 → 不加第 8 个 **stage** |
+| 8 技能环是否有洞 | 暂无重复痛点 → 不加第 8 个 **core stage** |
+| **`sdd-deepen` satellite** | 2026-06-09 grill — Matt architecture deepening；**optional**，不进 core loop；`v0.2.0` 等第三次 consumer 闭环 |
 | brainstorm vs grill | 流程高度重叠（一问一答）→ **合并为 `sdd-grill`** |
 | 合并后命名 | **`sdd-grill`**（保留 "grill me" 触发） |
 | 合并后相位 | **Explore**（比方案、rejected）+ **Challenge**（压测 plan） |
@@ -122,6 +123,8 @@ using-sdd
   → sdd-plan → user approval
   → sdd-build
   → sdd-review → (findings) sdd-build | (pass) sdd-ship
+
+Optional satellite (not in loop above): **sdd-deepen** — architecture deepening; route via `using-sdd`.
 ```
 
 ---
@@ -212,6 +215,17 @@ using-sdd
 | CHANGELOG | [CHANGELOG.md](../../CHANGELOG.md)；发版时由 `sdd-ship` 或显式维护更新 |
 | 拒绝 | 静默发布 |
 
+### 5.8 `sdd-deepen`（optional satellite）
+
+| 项 | 决策 |
+|----|------|
+| 来源 | Matt `improve-codebase-architecture`（精简适配） |
+| 定位 | **Optional satellite** — 不进 core 七阶段环 |
+| 产物 | 对话报告；默认**不落盘** |
+| CONTEXT/ADR | 有则读；无则仅代码 + SDD artifact；**不** inline 写 |
+| Stop | → **`using-sdd`**；候选需 AC 时默认下一环 **`sdd-spec`** |
+| 发版 | 合并 main；**`v0.2.0`** 等第三次 consumer deepening 闭环 |
+
 ---
 
 ## 6. 工作流与产物决策
@@ -258,6 +272,8 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 |----|------|----------|
 | **0.1.0 tag** | **已发布** `v0.1.0`（2026-06-09，todo-web 第二次闭环） |
 | **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
+| **0.2.0 tag** | **待定** | 第三次 consumer 闭环含 **`sdd-deepen`** 摩擦证据 |
+| **`sdd-deepen`** | **进行中** `feat/sdd-deepen` | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-deepen-spec.md) |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |
