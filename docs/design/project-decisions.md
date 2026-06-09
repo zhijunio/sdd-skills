@@ -97,6 +97,7 @@ sdd-skills/
 | `2d81023` | todo-web 闭环记录；**`v0.1.0`** tag |
 | 2026-06-09 | **`v0.1.1`** — maintainer 轻量 SDD 实践借鉴（self-review、plan Risks；原独立仓库已退役）；PR #1 |
 | 2026-06-09 | 消费者 **todo-web** 闭环 Pass — [todo-web-0.1.0.md](./consumer-loops/todo-web-0.1.0.md) |
+| 2026-06-09 | **`v0.2.0`** — `sdd-architect` + `sdd-zoom`；todo-web 第三次闭环 — [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
 
 **版本门禁（设计稿共识）：** **`v0.1.0`** 已于 todo-web 第二次闭环后发布（2026-06-09）。此后新增 skill 或 major 行为变更，需新 consumer 闭环与摩擦证据；不为对齐而上新 skill。
 
@@ -233,7 +234,7 @@ Optional satellites (not in loop above): **`sdd-zoom`** — territory map; **`sd
 | 产物 | 对话报告；默认**不落盘** |
 | CONTEXT/ADR | 有则读；无则仅代码 + SDD artifact；**不** inline 写 |
 | Stop | → **`using-sdd`**；候选需 AC 时默认下一环 **`sdd-spec`** |
-| 发版 | consumer 闭环 Pass（[todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md)）；**`v0.2.0`** 待本仓 ship + tag |
+| 发版 | **`v0.2.0`** 已发布（2026-06-09）；consumer — [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
 
 ### 5.9 `sdd-zoom`（optional satellite）
 
@@ -305,7 +306,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 |----|------|----------|
 | **0.1.0 tag** | **已发布** `v0.1.0`（2026-06-09，todo-web 第二次闭环） |
 | **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
-| **0.2.0 tag** | **闭环 Pass，待 ship/tag** | 第三次 consumer — [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
+| **0.2.0 tag** | **已发布** `v0.2.0`（2026-06-09，todo-web 第三次闭环 + `sdd-zoom` 同批） | [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
 | **`sdd-architect`** | **已合并** PR #2（2026-06-09；初名 `sdd-deepen`，已更名） | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
 | **`sdd-zoom`** | **已添加；v0.2.0 同批发布，gate 未覆盖** | 待第四次 consumer 闭环或重复 zoom-out 摩擦；见 [runbook-0.2.0.md](./consumer-loops/runbook-0.2.0.md) 脚注 |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
