@@ -82,6 +82,10 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md
 Clarify, grill, and review documents are optional. The workflow does not require
 status fields or a persistent active-increment file.
 
+Cross-feature architecture decisions may live in `docs/adr/0001-short-title.md`
+and be linked from spec **Related ADRs**; that layout is optional and not part
+of the default two-document workflow.
+
 ## Review Scope
 
 `sdd-review` can run with only a diff. A spec and plan improve traceability but
