@@ -122,9 +122,7 @@ scope takes precedence.
 
 ## Changelog
 
-`sdd-ship` may update an existing CHANGELOG when repository convention and
-user-visible impact require it. It does not create a new format or release tool
-without explicit instruction.
+See [CHANGELOG.md](CHANGELOG.md). `sdd-ship` updates it when user-visible releases require it.
 
 ## Validation
 

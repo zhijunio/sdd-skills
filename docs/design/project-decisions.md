@@ -208,7 +208,7 @@ using-sdd
 | 前置 | spec、plan、review 结论、diff |
 | 证据 | 按风险比例 Fresh verification |
 | 交付 | commit/push/PR/release/**用户显式** |
-| CHANGELOG | 仅当仓库惯例需要时更新 |
+| CHANGELOG | [CHANGELOG.md](../../CHANGELOG.md)；发版时由 `sdd-ship` 或显式维护更新 |
 | 拒绝 | 静默发布 |
 
 ---
