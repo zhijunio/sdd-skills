@@ -66,7 +66,7 @@ sdd-skills/
 | **AGENTS.md** | skill 自包含；`SKILL.md` frontmatter 写触发条件；无真实用法证据不加状态字段；改 skill 跑 `check.py`；Conventional Commits + 中文 body |
 | **README.md** |  workflow 图 + 技能表 + Quick routing → 链到 `using-sdd` 详例；Design 段列 non-goals |
 | **SOURCES.md** | 记录三上游 **pin commit**；每 skill 映射来源 + **Local decisions**（本仓 maintainer 的「ADR 等价物」） |
-| **tests/check.py** | 校验 8 skill 目录（7 core + optional `sdd-architect`）、frontmatter、`Use when` 描述、八段标题、模板最小内容、本地链接 |
+| **tests/check.py** | 自动发现 `skills/*/SKILL.md`；校验 core 七技能齐全、frontmatter、八段标题、模板、本地链接 |
 | **docs/design/** | 决策过程、方法论、proposed 子方案；**consumer-loops/** 存发版 gate 实证；**不**替代 `SKILL.md` |
 
 ---
@@ -129,7 +129,7 @@ using-sdd
   → sdd-build
   → sdd-review → (findings) sdd-build | (pass) sdd-ship
 
-Optional satellite (not in loop above): **sdd-architect** — architecture deepening; route via `using-sdd`.
+Optional satellites (not in loop above): **`sdd-zoom`** — territory map; **`sdd-architect`** — architecture deepening; route via `using-sdd`.
 ```
 
 ---
@@ -147,7 +147,7 @@ Optional satellite (not in loop above): **sdd-architect** — architecture deepe
 | 职责 | 从 artifact/diff **推断**阶段；**不**持久化状态 |
 | 路由 | 一条 next skill；含 Pre-spec / Core / Review loop / **Escalation from build** |
 | Escalation | slice 细节 → stay build；slice/验证变 → plan；AC/约束变 → **spec Revision** |
-| 文档 | [Routing examples](../../skills/using-sdd/SKILL.md#routing-examples) 为详例源，README Quick routing 为短表 |
+| 文档 | [Routing matrix](../../skills/using-sdd/SKILL.md#routing-matrix) 为详例源，README Quick routing 为入口短表 |
 
 ### 5.2 `sdd-grill`
 
@@ -235,6 +235,17 @@ Optional satellite (not in loop above): **sdd-architect** — architecture deepe
 | Stop | → **`using-sdd`**；候选需 AC 时默认下一环 **`sdd-spec`** |
 | 发版 | consumer 闭环 Pass（[todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md)）；**`v0.2.0`** 待本仓 ship + tag |
 
+### 5.9 `sdd-zoom`（optional satellite）
+
+| 项 | 决策 |
+|----|------|
+| 来源 | Maintainer zoom-out 实践（consumer 会话中 unfamiliar territory 前置） |
+| 定位 | **Optional satellite** — 不进 core 七阶段环 |
+| 产物 | 对话 territory map；**Map 默认 Mermaid 关系图**（≥3 单元）；表列 role/inbound/outbound；默认**不落盘** |
+| 边界 | **只描述**模块/caller/域词汇；**不给** refactor 候选（→ **`sdd-architect`**）；与 architect 不同，zoom **鼓励** diagram deliverable |
+| CONTEXT/ADR | 有则读；无则代码 + SDD artifact；**不** inline 写 |
+| Stop | → **`using-sdd`**；常见下一环 spec / grill / architect |
+
 ---
 
 ## 6. 工作流与产物决策
@@ -283,6 +294,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
 | **0.2.0 tag** | **闭环 Pass，待 ship/tag** | 第三次 consumer — [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
 | **`sdd-architect`** | **已合并** PR #2（2026-06-09；初名 `sdd-deepen`，已更名） | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
+| **`sdd-zoom`** | **已添加**（2026-06-09） | optional satellite；territory map；见 [skills/sdd-zoom/SKILL.md](../../skills/sdd-zoom/SKILL.md) |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |

@@ -22,9 +22,9 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no worktrees, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` covers explore-and-challenge before spec or plan; the required artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** `sdd-architect` is published separately for architecture deepening; it does not change the seven-stage delivery loop.
+- **Optional satellites stay outside the core loop:** `sdd-architect` (architecture deepening) and `sdd-zoom` (territory map) are published separately; they do not change the seven-stage delivery loop.
 
-For routing, see [README.md](README.md#quick-routing) and [skills/using-sdd/SKILL.md](skills/using-sdd/SKILL.md#routing-examples).
+For routing, see [README.md](README.md#quick-routing) and [skills/using-sdd/SKILL.md — Routing matrix](skills/using-sdd/SKILL.md#routing-matrix).
 
 Sources and methodology: [docs/design/](docs/design/) ([index](docs/design/README.md)).
 
@@ -42,7 +42,7 @@ Local decisions:
 - Route one stage without automatic invocation.
 - Infer progress from artifacts and diff; do not persist workflow state.
 - May briefly announce the routing check and recommended skill; still do not invoke it automatically.
-- List **`sdd-architect`** under optional satellites; route deepening intent there without auto-invocation.
+- List **`sdd-architect`** and **`sdd-zoom`** under optional satellites; route deepening intent to architect and territory-map intent to zoom without auto-invocation.
 
 ### `sdd-grill`
 
@@ -89,6 +89,21 @@ Local decisions:
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
 - Stop → recommend **`using-sdd`** only; default next stage after candidate selection is **`sdd-spec`** when acceptance criteria are needed.
 - **`v0.2.0` tag** waits for a third consumer loop with deepening friction evidence.
+
+### `sdd-zoom`
+
+Sources:
+
+- Maintainer local practice (zoom-out orientation before spec or build in consumer sessions)
+
+Local decisions:
+
+- Optional **satellite** — not a mandatory core stage before `sdd-ship`.
+- **Orientation only**: module/caller map and domain vocabulary; no refactor candidates (contrast **`sdd-architect`**).
+- **Map deliverable**: relationship **diagram** by default when three or more units interact — prefer **Mermaid** `flowchart` (ASCII for tiny maps); table/bullets for role, inbound, outbound under the diagram (contrast **`sdd-architect`**, which does not require diagram deliverables).
+- Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
+- Conversation deliverable only; no default on-disk map file.
+- Stop → recommend **`using-sdd`** only; common next stages are **`sdd-spec`**, **`sdd-grill`**, or **`sdd-architect`** depending on what the map revealed.
 
 ### `sdd-plan`
 

@@ -25,50 +25,34 @@ When routing, you may state briefly that you are checking the SDD stage and name
 
 1. Identify the active, independently testable increment.
 2. Assess uncertainty, impact, reversibility, and verification cost.
-3. Route to one skill:
-   - unclear goal, costly trade-off, or stress-test a plan or design: `sdd-grill`
-   - pre-spec architecture opportunity scan (shallow modules, seams, mud-ball; optional satellite): `sdd-architect`
-   - no confirmed specification: `sdd-spec`
-   - confirmed specification without a plan: `sdd-plan`
-   - approved plan with unfinished work: `sdd-build`
-   - defined diff ready for independent delivery review (defects, not architecture opportunity scan): `sdd-review`
-   - review passed and final evidence is needed: `sdd-ship`
+3. Route to **one** skill using the **Routing matrix** below.
 4. Explain any skipped stage briefly.
 
-## Optional satellites
+## Routing matrix
 
-Not part of the mandatory core loop. Recommend one only; do not invoke automatically.
+Normative routing for this skill. Recommend **one** skill only; do not invoke automatically.
 
-| Skill | Route when |
+**Optional satellites** (`sdd-zoom`, `sdd-architect`) are not part of the mandatory core loop before `sdd-ship`. After a satellite, route through **`using-sdd`** again. When the user selects an architect candidate that needs acceptance criteria, default next stage is **`sdd-spec`** unless trade-offs remain open.
+
+### Disambiguation
+
+| User says / means | Route |
 | --- | --- |
-| `sdd-architect` | Pre-spec architecture opportunity scan: shallow modules, seam friction, mud-ball — **not** delivery review of a diff |
+| "zoom out", "big picture", unfamiliar territory — **map**, not refactor | `sdd-zoom` |
+| "review" **without** a defined diff | Ask: delivery review (`sdd-review`) vs architecture scan (`sdd-architect`) |
+| Deepen, shallow modules, seams, mud-ball — **candidates**, not diff defects | `sdd-architect` |
+| Goals, boundaries, trade-offs still open | `sdd-grill` |
 
-After `sdd-architect`, route through `using-sdd` again. When the user selects a candidate that needs acceptance criteria, the default next stage is `sdd-spec` unless trade-offs remain open.
-
-## Review vs architect
-
-Both read code; they answer different questions. Route one only.
-
-| User intent | Skill | Scope | Output |
-| --- | --- | --- | --- |
-| Can **this increment's diff** ship? Defects, AC, tests | `sdd-review` | Defined diff (merge-base…HEAD) | must/should-fix → `sdd-build` or `sdd-ship` |
-| Where should the **codebase** deepen before we spec work? | `sdd-architect` | Whole repo / modules (optional satellite) | Candidates → `using-sdd` → usually `sdd-spec` |
-
-When the user says "review" without a diff: ask whether they mean **delivery review** (`sdd-review`) or **architecture opportunity scan** (`sdd-architect`).
-
-## Routing examples
-
-Use one next skill only. Do not invoke it automatically.
-
-**Pre-spec**
+### Pre-spec
 
 | Situation | Route | Skip |
 | --- | --- | --- |
+| Unfamiliar territory; need map before spec, grill, or build | `sdd-zoom` | — |
 | Goals, boundaries, trade-offs, or plan/design still need decisions | `sdd-grill` | — |
-| Architecture opportunity scan before spec (optional); not delivery review | `sdd-architect` | — |
+| Architecture opportunity scan before spec; not delivery review | `sdd-architect` | — |
 | Boundaries clear; small reversible change | `sdd-spec` | grill |
 
-**Core loop**
+### Core loop
 
 | Situation | Route |
 | --- | --- |
@@ -78,14 +62,14 @@ Use one next skill only. Do not invoke it automatically.
 | Build done; diff ready | `sdd-review` |
 | No must-fix; should-fix fixed or accepted | `sdd-ship` |
 
-**Review loop**
+### Review loop
 
 | Review verdict | Route |
 | --- | --- |
 | must-fix or should-fix to address | `sdd-build` |
 | pass | `sdd-ship` |
 
-**Escalation from build**
+### Escalation from build
 
 | Change type | Route |
 | --- | --- |
@@ -93,7 +77,7 @@ Use one next skill only. Do not invoke it automatically.
 | Slice boundaries or verification changed | `sdd-plan` |
 | Acceptance or constraints changed | `sdd-spec` (revise in place; log; re-approve if AC or constraints change) |
 
-**User named a stage**
+### User named a stage
 
 Honor it. Do not route through `using-sdd` again unless the named stage is wrong for the artifacts in hand.
 

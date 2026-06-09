@@ -21,6 +21,8 @@ Skip when the task is **delivery review** of a defined diff — use `sdd-review`
 
 Skip when goals, boundaries, or trade-offs are still unclear — use `sdd-grill`.
 
+Skip when the user only needs a **territory map** (modules, callers, domain vocabulary) without refactor recommendations — use **`sdd-zoom`**.
+
 Skip when the user only needs a behavior contract for a known slice — use `sdd-spec`.
 
 This is an **optional satellite**. It is not part of the mandatory core loop before `sdd-ship`.

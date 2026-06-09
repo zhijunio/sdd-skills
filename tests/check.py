@@ -8,15 +8,17 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = (
-    "using-sdd",
-    "sdd-grill",
-    "sdd-spec",
-    "sdd-plan",
-    "sdd-build",
-    "sdd-review",
-    "sdd-ship",
-    "sdd-architect",
+SKILLS_DIR = ROOT / "skills"
+REQUIRED_CORE_SKILLS = frozenset(
+    {
+        "using-sdd",
+        "sdd-grill",
+        "sdd-spec",
+        "sdd-plan",
+        "sdd-build",
+        "sdd-review",
+        "sdd-ship",
+    }
 )
 REQUIRED_SECTIONS = (
     "Goal",
@@ -35,6 +37,17 @@ TEMPLATE_REQUIREMENTS = {
     "spec-template.md": ["Goal", "Scope", "Non-goals", "Requirements", "Acceptance Criteria"],
     "plan-template.md": ["Slice", "Goal", "Acceptance", "Verification"],
 }
+
+
+def discover_skills() -> list[str]:
+    if not SKILLS_DIR.is_dir():
+        return []
+
+    names: list[str] = []
+    for skill_dir in sorted(SKILLS_DIR.iterdir()):
+        if skill_dir.is_dir() and (skill_dir / "SKILL.md").is_file():
+            names.append(skill_dir.name)
+    return names
 
 
 def parse_frontmatter(text: str) -> dict[str, str]:
@@ -64,7 +77,7 @@ def check_local_links(path: Path, text: str) -> list[str]:
 
 def check_skill(name: str) -> list[str]:
     errors: list[str] = []
-    skill_dir = ROOT / "skills" / name
+    skill_dir = SKILLS_DIR / name
     skill_file = skill_dir / "SKILL.md"
 
     if not skill_dir.is_dir():
@@ -111,12 +124,21 @@ def check_template(template: Path) -> list[str]:
 
 def main() -> int:
     errors: list[str] = []
-    for skill in SKILLS:
+    skills = discover_skills()
+
+    if not skills:
+        errors.append("no skills discovered under skills/*/SKILL.md")
+
+    missing_core = sorted(REQUIRED_CORE_SKILLS - set(skills))
+    if missing_core:
+        errors.append(f"missing core skills: {', '.join(missing_core)}")
+
+    for skill in skills:
         errors.extend(check_skill(skill))
 
     for template in (
-        ROOT / "skills" / "sdd-spec" / "spec-template.md",
-        ROOT / "skills" / "sdd-plan" / "plan-template.md",
+        SKILLS_DIR / "sdd-spec" / "spec-template.md",
+        SKILLS_DIR / "sdd-plan" / "plan-template.md",
     ):
         errors.extend(check_template(template))
 
@@ -132,7 +154,10 @@ def main() -> int:
             print(f"- {error}")
         return 1
 
-    print(f"Repository checks passed: {len(SKILLS)} skills, {sum(1 for _ in (1, 2))} templates validated.")
+    print(
+        f"Repository checks passed: {len(skills)} skills discovered, "
+        f"{sum(1 for _ in (1, 2))} templates validated."
+    )
     return 0
 
 

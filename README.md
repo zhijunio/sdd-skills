@@ -27,7 +27,7 @@ sdd-ship
 Each skill stops after its own output. Skills recommend the next stage but do
 not invoke it automatically.
 
-The **core delivery loop** has seven stages below. **`sdd-architect`** is an optional satellite for architecture deepening — install when needed; it is not mandatory before ship.
+The **core delivery loop** has seven stages below. **`sdd-architect`** and **`sdd-zoom`** are optional satellites—install when needed; neither is mandatory before ship.
 
 ## Skills
 
@@ -43,10 +43,11 @@ The **core delivery loop** has seven stages below. **`sdd-architect`** is an opt
 | `sdd-review` | A **defined diff** needs independent delivery review (defects, AC, tests)—not a whole-repo architecture scan |
 | `sdd-ship` | A reviewed increment needs final acceptance evidence |
 
-### Optional satellite
+### Optional satellites
 
 | Skill | Use when |
 | --- | --- |
+| `sdd-zoom` | Unfamiliar code—need a **territory map** (modules, callers, domain vocabulary); not refactor advice |
 | `sdd-architect` | Pre-spec **architecture opportunity scan** (shallow modules, seams, mud-ball)—optional; not delivery review |
 
 All core skills can be installed independently. Some require artifacts rather
@@ -58,17 +59,11 @@ and plan, and `sdd-ship` needs a passed review.
 | If… | Start with |
 | --- | --- |
 | Unsure which stage fits | `using-sdd` |
-| Goal, boundaries, trade-offs, or plan/design still open | `sdd-grill` |
-| Architecture opportunity scan before spec (optional) | `sdd-architect` |
-| No approved spec yet | `sdd-spec` |
-| Spec approved, no plan | `sdd-plan` |
-| Plan approved, coding | `sdd-build` |
-| **Defined diff** ready for delivery review | `sdd-review` |
-| Review clear, need fresh verification | `sdd-ship` |
+| User already named a stage skill | Honor it — see [using-sdd — User named a stage](skills/using-sdd/SKILL.md#user-named-a-stage) |
 
-**Review vs architect:** delivery defect review of a diff → `sdd-review`. Whole-codebase deepening before spec → `sdd-architect`. Details: [using-sdd — Review vs architect](skills/using-sdd/SKILL.md#review-vs-architect).
+**Normative routing** (pre-spec, core loop, review loop, escalation, disambiguation): [using-sdd — Routing matrix](skills/using-sdd/SKILL.md#routing-matrix).
 
-Full examples and edge cases: [skills/using-sdd/SKILL.md](skills/using-sdd/SKILL.md#routing-examples).
+Satellite summary: territory map → `sdd-zoom`; architecture deepening → `sdd-architect`; delivery diff review → `sdd-review`.
 
 ## Installation
 
@@ -95,10 +90,10 @@ npx skills@latest add zhijunio/sdd-skills@v0.1.1 -a cursor -a codex -a claude-co
 | **Project** (default) | — | `./.agents/skills/` — shared by Cursor and Codex in the same repo |
 | **Global** | `-g` | Cursor: `~/.cursor/skills/` · Codex: `~/.codex/skills/` · Claude Code: `~/.claude/skills/` |
 
-Select all seven core skills for the full loop, or add the optional satellite:
+Select all seven core skills for the full loop, or add optional satellites:
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s sdd-architect -y
+npx skills@latest add zhijunio/sdd-skills -s sdd-architect -s sdd-zoom -y
 ```
 
 If you previously installed **`sdd-deepen`**, remove that directory and reinstall with **`-s sdd-architect`** (same satellite, renamed pre-`v0.2.0`).
