@@ -86,7 +86,8 @@ sdd-skills/
 | `eb1472c` | 新增 `docs/design/`（project-decisions、context-adr） |
 | `655508b` | README 链到 project-decisions |
 | `397aa90` | spec-template Decisions/Related ADRs；README optional ADR |
-| `8f41dfd`–`9349079` | 方法论文档、上游解读、design 检修 |
+| `5926403` | README Installation 多 Agent 说明 |
+| — | 第二次闭环 | 见 [second-loop-runbook.md](./second-loop-runbook.md) |
 
 **版本门禁（设计稿共识）：** 第二次真实项目跑通 spec→ship 后再考虑 **0.1.0**；此前不为一齐而上新 skill。
 
@@ -251,7 +252,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 
 | 项 | 状态 | 触发条件 |
 |----|------|----------|
-| **0.1.0 tag** | 待定 | 第二次 spec→ship 闭环 |
+| **0.1.0 tag** | **进行中** | 第二次闭环 — [second-loop-runbook.md](./second-loop-runbook.md) |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |
@@ -275,4 +276,5 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 - [AGENTS.md](../../AGENTS.md)
 - [software-engineering-rationale.md](./software-engineering-rationale.md)
 - [upstream-engineering-rationale.md](./upstream-engineering-rationale.md)
-- [context-adr-workflow.md](./context-adr-workflow.md) — CONTEXT/ADR 子方案（proposed）
+- [context-adr-workflow.md](./context-adr-workflow.md)
+- [second-loop-runbook.md](./second-loop-runbook.md) — 0.1.0 闭环手册
