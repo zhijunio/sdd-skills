@@ -281,6 +281,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 |----|------|
 | **`main`** | **集成分支** — 禁止日常直接 commit/push |
 | 开发 | `feat/*` / `fix/*` / `docs/*` 分支 → PR → merge |
+| **PR 粒度** | **按主题合并，避免频繁 PR** — 一个 PR 一个可 review 主题；分支上可多条 atomic commit；发版准备 + watchlist/tag 收尾尽量同一 PR，不为小 doc 修单独开 PR |
 | 验证 | PR 前 `python3 tests/check.py`；发版前 `sdd-ship` |
 | Tag | 仅在 merge 后的 `main` 上打 semver tag |
 | 与 skill non-goals 关系 | **不**强推 worktree、每 slice commit — 仅约束 **本仓** 集成方式 |

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **`spec-template` / README**: L1+ optional `CONTEXT.md` / `CONTEXT-MAP.md` guidance; spec **Current Context** as increment facts (link shared terms from CONTEXT)
+- **`AGENTS.md` / `project-decisions` §6.4**: maintainer PR 按主题合并，避免频繁 micro-PR
 
 ## [0.2.1] - 2026-06-09
 

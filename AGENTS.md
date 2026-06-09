@@ -14,9 +14,11 @@
 **Do not commit directly to `main`.** This repo treats `main` as the integration branch only.
 
 1. Branch from updated `main`: `feat/<topic>`, `fix/<topic>`, or `docs/<topic>`.
-2. Commit on the branch; run `python3 tests/check.py` before opening a PR (CI runs the same check on GitHub Actions for PRs to `main`).
-3. Open a PR into `main`; merge after review (or self-review with a recorded diff when solo).
-4. Tag releases on `main` only after merge and `sdd-ship` checks (`CHANGELOG`, `check.py`).
+2. Commit on the branch (**atomic commits** — one logical change per commit; several commits per PR is fine).
+3. **Batch before opening a PR.** One PR = one reviewable theme (e.g. a release slice, a skill change + docs, audit follow-ups). Do not open a separate PR for every small doc fix or post-tag housekeeping — accumulate on the branch or extend an open PR until the theme is complete.
+4. Run `python3 tests/check.py` before opening the PR (CI runs the same check on GitHub Actions for PRs to `main`).
+5. Open a PR into `main`; merge after review (or self-review with a recorded diff when solo).
+6. Tag releases on `main` only after merge and `sdd-ship` checks (`CHANGELOG`, `check.py`). Include release notes, watchlist sync, and tag follow-ups in the **same release PR** when possible — not a chain of micro-PRs.
 
 Direct pushes to `main` are for one-time baseline sync or emergencies only—not day-to-day skill or doc edits.
 
