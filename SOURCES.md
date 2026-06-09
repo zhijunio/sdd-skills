@@ -74,7 +74,7 @@ Local decisions:
 - Require observable acceptance criteria and explicit user approval.
 - Revise approved specs in place with a Revision log; distinguish clarification-only edits from AC changes.
 - Optional template sections: Decisions (this change), Related ADRs (links only); optional consumer `docs/adr/` per README.
-- Self-review checklist before user approval (adapted from sibling [sdd-lite](https://github.com/zhijunio/sdd-lite) written-artifact gate; kept inline, no shared fragment file).
+- Self-review checklist before user approval (maintainer prior lightweight SDD patterns; kept inline, no shared fragment file).
 
 ### `sdd-architect`
 
@@ -118,7 +118,7 @@ Local decisions:
 - Prefer 15-60 minute vertical slices over microtasks.
 - Do not maintain a separate traceability matrix or workflow status.
 - Optional **Risks / Dependencies** section in the plan template when build order or verification is affected.
-- Self-review checklist before user approval (adapted from sibling sdd-lite; inline in skill, not a cross-skill file).
+- Self-review checklist before user approval (maintainer prior lightweight SDD patterns; inline in skill, not a cross-skill file).
 
 ### `sdd-build`
 
@@ -133,7 +133,7 @@ Local decisions:
 
 - Keep red-green-refactor and repeatable verification.
 - Match consumer repository conventions from guidance and surrounding code when present; when guidance is silent, follow spec/plan and touched-code patterns only.
-- Red for intended behavior; slice idempotency; review-fix scope boundary; no premature ship claims (adapted from sdd-lite TDD discipline; no per-green commit requirement).
+- Red for intended behavior; slice idempotency; review-fix scope boundary; no premature ship claims (maintainer prior TDD discipline patterns; no per-green commit requirement).
 - Do not require worktrees, subagents, or per-slice commits.
 
 ### `sdd-review`
@@ -152,7 +152,7 @@ Local decisions:
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
 - Core and conditional review dimensions; fixed output headings including Dimension Coverage and Verdict.
-- Plan **Acceptance** mapping (`met` / `partial` / `missing` / `unclear`); large-diff triage and **Limits** disclosure (adapted from sdd-lite / agent-skills axes; no bundled templates or review subagents).
+- Plan **Acceptance** mapping (`met` / `partial` / `missing` / `unclear`); large-diff triage and **Limits** disclosure (agent-skills axes adapted; maintainer prior review patterns; no bundled templates or review subagents).
 - Full verification stays in `sdd-ship`.
 
 ### `sdd-ship`

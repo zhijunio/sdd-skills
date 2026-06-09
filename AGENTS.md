@@ -9,3 +9,16 @@
 - Preserve third-party notices.
 - Use atomic commits with Conventional Commits prefix (`feat:`, `fix:`, `docs:`, `chore:`, `refactor:`). Commit body and description in Chinese.
 
+## Git workflow (maintainers)
+
+**Do not commit directly to `main`.** This repo treats `main` as the integration branch only.
+
+1. Branch from updated `main`: `feat/<topic>`, `fix/<topic>`, or `docs/<topic>`.
+2. Commit on the branch; run `python3 tests/check.py` before opening a PR.
+3. Open a PR into `main`; merge after review (or self-review with a recorded diff when solo).
+4. Tag releases on `main` only after merge and `sdd-ship` checks (`CHANGELOG`, `check.py`).
+
+Direct pushes to `main` are for one-time baseline sync or emergencies only—not day-to-day skill or doc edits.
+
+Platform-neutral **skills** do not prescribe Git hosting; this section applies to **this repository's maintainer workflow** only.
+

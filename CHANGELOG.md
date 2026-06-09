@@ -14,13 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **`SOURCES.md` / `CHANGELOG` / `project-decisions`**: remove links to retired maintainer **`sdd-lite`** repo; attribute absorbed patterns inline
 - **`using-sdd`**: optional satellite routing for **`sdd-zoom`** (territory map) and **`sdd-architect`** (deepening); consolidated **Routing matrix**; pre-spec priority when territory and trade-offs both open (zoom first, then grill)
 - **`tests/check.py`**: auto-discover skills under `skills/*/SKILL.md`; require core seven present
 - **`using-sdd` / `sdd-review` / `sdd-architect` / README**: clarify **Review vs architect** — delivery diff review vs pre-spec architecture opportunity scan
 - **README** / **SOURCES** / **project-decisions**: seven core stages + optional `sdd-architect`; consumer loop evidence under `docs/design/consumer-loops/`
 - **Consumer loop docs** moved to `docs/design/consumer-loops/` (`runbook-<gate>.md`, `<project>-<gate>.md`)
-- **`sdd-review`**: plan Acceptance mapping, large-diff triage, standards lens, finding tags (sdd-lite / agent-skills adapted; verification still in `sdd-ship`)
-- **`sdd-build`**: read repository guidance and match existing code conventions in touched areas; TDD red discipline and review-fix scope (sdd-lite adapted); fallback to spec/plan + touched code when AGENTS/README silent
+- **`sdd-review`**: plan Acceptance mapping, large-diff triage, standards lens, finding tags (agent-skills + maintainer prior review patterns; verification still in `sdd-ship`)
+- **`sdd-build`**: read repository guidance and match existing code conventions in touched areas; TDD red discipline and review-fix scope (maintainer prior patterns); fallback to spec/plan + touched code when AGENTS/README silent
 
 ### Renamed
 
@@ -31,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `using-sdd`: optional routing announcement before recommending the next skill
-- `sdd-spec` / `sdd-plan`: inline self-review checklist before user approval (adapted from sdd-lite)
+- `sdd-spec` / `sdd-plan`: inline self-review checklist before user approval (maintainer prior lightweight SDD patterns)
 - `plan-template.md`: optional Risks / Dependencies section (comment-only; omit when not needed)
 
 ## [0.1.0] - 2026-06-09

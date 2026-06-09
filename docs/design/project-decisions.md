@@ -95,7 +95,7 @@ sdd-skills/
 | `5926403` | README Installation 多 Agent 说明 |
 | `d88c4ef` | 第二次闭环 runbook |
 | `2d81023` | todo-web 闭环记录；**`v0.1.0`** tag |
-| 2026-06-09 | **`v0.1.1`** — sdd-lite 借鉴（self-review、plan Risks）；PR #1 |
+| 2026-06-09 | **`v0.1.1`** — maintainer 轻量 SDD 实践借鉴（self-review、plan Risks；原独立仓库已退役）；PR #1 |
 | 2026-06-09 | 消费者 **todo-web** 闭环 Pass — [todo-web-0.1.0.md](./consumer-loops/todo-web-0.1.0.md) |
 
 **版本门禁（设计稿共识）：** **`v0.1.0`** 已于 todo-web 第二次闭环后发布（2026-06-09）。此后新增 skill 或 major 行为变更，需新 consumer 闭环与摩擦证据；不为对齐而上新 skill。
@@ -273,6 +273,19 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | `AGENTS.md` | 仓库维护约束 |
 | `docs/design/*.md` | 决策过程、方法论、proposed 子方案 |
 
+### 6.4 本仓 Git 工作流（maintainer）
+
+| 项 | 决策 |
+|----|------|
+| **`main`** | **集成分支** — 禁止日常直接 commit/push |
+| 开发 | `feat/*` / `fix/*` / `docs/*` 分支 → PR → merge |
+| 验证 | PR 前 `python3 tests/check.py`；发版前 `sdd-ship` |
+| Tag | 仅在 merge 后的 `main` 上打 semver tag |
+| 与 skill non-goals 关系 | **不**强推 worktree、每 slice commit — 仅约束 **本仓** 集成方式 |
+| GitHub | 启用 **`main` branch protection**（require PR）；可选 CI 跑 `check.py` |
+
+**现状（2026-06-09）：** 本会话曾在本地 `main` 直连累计 12 commits（含 sdd-zoom、review 修复）；待 **一次性 push 或 PR 收敛** 后，从此遵守分支 + PR 纪律。
+
 ---
 
 ## 7. 跨切原则
@@ -299,6 +312,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |
 | **sdd-ship ship-after checklist** | watchlist | 用户显式 push/PR 清单是否进 README |
+| **`main` branch protection** | 待做 | require PR；可选 CI `check.py` — 见 [AGENTS.md](../../AGENTS.md#git-workflow-maintainers) §6.4 |
 
 ---
 
