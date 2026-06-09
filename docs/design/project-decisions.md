@@ -283,7 +283,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | 验证 | PR 前 `python3 tests/check.py`；发版前 `sdd-ship` |
 | Tag | 仅在 merge 后的 `main` 上打 semver tag |
 | 与 skill non-goals 关系 | **不**强推 worktree、每 slice commit — 仅约束 **本仓** 集成方式 |
-| GitHub | 启用 **`main` branch protection**（require PR）；可选 CI 跑 `check.py` |
+| GitHub | **`main` branch protection**（require PR）；**GitHub Actions** `check / validate` 跑 `tests/check.py`（GitLab 等价：`.gitlab-ci.yml`） |
 
 **现状（2026-06-09）：** 本会话曾在本地 `main` 直连累计 12 commits（含 sdd-zoom、review 修复）；待 **一次性 push 或 PR 收敛** 后，从此遵守分支 + PR 纪律。
 
@@ -313,7 +313,8 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |
 | **sdd-ship ship-after checklist** | watchlist | 用户显式 push/PR 清单是否进 README |
-| **`main` branch protection** | **已启用** | require PR（0 approvals）；`enforce_admins`；禁 force push / 删分支 — [GitHub Settings → Branches](https://github.com/zhijunio/sdd-skills/settings/branches) |
+| **`main` branch protection** | **已启用** | require PR（0 approvals）；`enforce_admins`；禁 force push / 删分支 |
+| **CI `check.py`** | **已添加**（PR #TBD merge 后启用 required check） | `.github/workflows/check.yml`；GitLab 用 `.gitlab-ci.yml` 同等脚本 |
 
 ---
 

@@ -14,7 +14,7 @@
 **Do not commit directly to `main`.** This repo treats `main` as the integration branch only.
 
 1. Branch from updated `main`: `feat/<topic>`, `fix/<topic>`, or `docs/<topic>`.
-2. Commit on the branch; run `python3 tests/check.py` before opening a PR.
+2. Commit on the branch; run `python3 tests/check.py` before opening a PR (CI runs the same check on GitHub Actions for PRs to `main`).
 3. Open a PR into `main`; merge after review (or self-review with a recorded diff when solo).
 4. Tag releases on `main` only after merge and `sdd-ship` checks (`CHANGELOG`, `check.py`).
 
