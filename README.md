@@ -117,6 +117,8 @@ templates, and local links without third-party Python dependencies.
 - Review stays read-only.
 - Ship verifies; it does not silently publish.
 
+Design decision records: [docs/design/project-decisions.md](docs/design/project-decisions.md).
+
 ## Sources
 
 The skills synthesize ideas from

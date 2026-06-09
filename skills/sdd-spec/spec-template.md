@@ -10,7 +10,13 @@
   - Requirements: numbered list of observable behaviors or capabilities.
   - Acceptance Criteria: each criterion gets a stable identifier (AC-1, AC-2...).
     Format: "When <precondition>, then <observable result>." Must be pass/fail.
-  - Constraints: technical limits (compatibility, security, performance, migration).
+  - Constraints: technical limits and trade-offs for this change (compatibility,
+    security, performance, migration). Prefer this for decisions scoped to this spec.
+  - Decisions (optional): major trade-offs for this change only — chosen approach,
+    rejected alternatives, and why. Omit when Constraints is enough.
+  - Related ADRs (optional): links such as ADR-0003 for cross-feature architecture
+    decisions. Do not paste ADR bodies here; use docs/adr/ when other specs must
+    reference the same decision.
   - Open Questions: unresolved decisions that must be answered before planning.
     Remove all open questions before the spec is approved.
 -->
@@ -62,11 +68,32 @@
 ## Constraints
 
 <!--
-  Technical limits the implementation must respect.
+  Technical limits and trade-offs for this change.
   Example:
   - Must not expose whether an email is registered (no enumeration).
   - Reset tokens must be cryptographically random, at least 32 bytes.
   - Email delivery must not block the HTTP response (>2s timeout degrades gracefully).
+-->
+
+## Decisions
+
+<!--
+  Optional. Use only for major trade-offs scoped to this spec.
+  Omit this section when Constraints is enough.
+
+  Example:
+  - Chosen: rate limit at the API gateway (consistent with existing auth routes).
+  - Rejected: per-endpoint limits (duplicates policy); Redis counter (new dependency).
+-->
+
+## Related ADRs
+
+<!--
+  Optional. Link cross-feature architecture decisions only — do not paste ADR text.
+  Create docs/adr/0001-short-title.md when multiple specs must share one decision.
+
+  Example:
+  - ADR-0001: email delivery provider and failover model
 -->
 
 ## Open Questions
