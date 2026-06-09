@@ -1,6 +1,6 @@
 # 第三次 SDD 闭环 — 运行手册（sdd-architect）
 
-Status: **in progress**（2026-06-09，todo-web）
+Status: **consumer Pass，待 ship/tag**（2026-06-09，todo-web）
 
 Last updated: 2026-06-09
 
@@ -93,5 +93,5 @@ docs/design/consumer-loops/<project>-<gate>.md
 
 | 项 | 状态 |
 |----|------|
-| 消费者项目 | **todo-web** — [todo-web-0.2.0.md](./todo-web-0.2.0.md) 🔄 |
-| **`v0.2.0` tag** | 待定 |
+| 消费者项目 | **todo-web** — [todo-web-0.2.0.md](./todo-web-0.2.0.md) ✅ |
+| **`v0.2.0` tag** | 待本仓 ship + tag |

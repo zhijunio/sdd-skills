@@ -85,7 +85,7 @@ Sources:
 Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
-- Conversation deliverable only; no HTML reports, subagents, or default on-disk deepen file.
+- Conversation deliverable only; no HTML reports, subagents, or default on-disk architect report file.
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
 - Stop → recommend **`using-sdd`** only; default next stage after candidate selection is **`sdd-spec`** when acceptance criteria are needed.
 - **`v0.2.0` tag** waits for a third consumer loop with deepening friction evidence.

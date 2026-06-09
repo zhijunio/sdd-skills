@@ -233,7 +233,7 @@ Optional satellite (not in loop above): **sdd-architect** — architecture deepe
 | 产物 | 对话报告；默认**不落盘** |
 | CONTEXT/ADR | 有则读；无则仅代码 + SDD artifact；**不** inline 写 |
 | Stop | → **`using-sdd`**；候选需 AC 时默认下一环 **`sdd-spec`** |
-| 发版 | 合并 main；**`v0.2.0`** 等第三次 consumer deepening 闭环 |
+| 发版 | consumer 闭环 Pass（[todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md)）；**`v0.2.0`** 待本仓 ship + tag |
 
 ---
 
