@@ -27,12 +27,23 @@ When routing, you may state briefly that you are checking the SDD stage and name
 2. Assess uncertainty, impact, reversibility, and verification cost.
 3. Route to one skill:
    - unclear goal, costly trade-off, or stress-test a plan or design: `sdd-grill`
+   - architecture deepening, shallow modules, seam friction, or mud-ball concerns (optional satellite): `sdd-deepen`
    - no confirmed specification: `sdd-spec`
    - confirmed specification without a plan: `sdd-plan`
    - approved plan with unfinished work: `sdd-build`
    - implementation ready for independent review: `sdd-review`
    - review passed and final evidence is needed: `sdd-ship`
 4. Explain any skipped stage briefly.
+
+## Optional satellites
+
+Not part of the mandatory core loop. Recommend one only; do not invoke automatically.
+
+| Skill | Route when |
+| --- | --- |
+| `sdd-deepen` | User wants architecture deepening, shallow-module review, seam friction, or mud-ball cleanup outside a scoped delivery diff |
+
+After `sdd-deepen`, route through `using-sdd` again. When the user selects a candidate that needs acceptance criteria, the default next stage is `sdd-spec` unless trade-offs remain open.
 
 ## Routing examples
 
@@ -43,6 +54,7 @@ Use one next skill only. Do not invoke it automatically.
 | Situation | Route | Skip |
 | --- | --- | --- |
 | Goals, boundaries, trade-offs, or plan/design still need decisions | `sdd-grill` | — |
+| Architecture deepening, shallow modules, seam friction, or mud-ball concerns | `sdd-deepen` | — |
 | Boundaries clear; small reversible change | `sdd-spec` | grill |
 
 **Core loop**

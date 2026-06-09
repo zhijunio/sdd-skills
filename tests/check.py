@@ -16,6 +16,7 @@ SKILLS = (
     "sdd-build",
     "sdd-review",
     "sdd-ship",
+    "sdd-deepen",
 )
 REQUIRED_SECTIONS = (
     "Goal",
