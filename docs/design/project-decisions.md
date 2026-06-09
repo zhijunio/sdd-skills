@@ -273,7 +273,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **0.1.0 tag** | **已发布** `v0.1.0`（2026-06-09，todo-web 第二次闭环） |
 | **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
 | **0.2.0 tag** | **待定** | 第三次 consumer 闭环含 **`sdd-deepen`** 摩擦证据 |
-| **`sdd-deepen`** | **进行中** `feat/sdd-deepen` | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-deepen-spec.md) |
+| **`sdd-deepen`** | **已合并** PR #2（2026-06-09） | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-deepen-spec.md) |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |
