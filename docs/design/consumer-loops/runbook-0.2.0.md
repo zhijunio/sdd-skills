@@ -1,6 +1,6 @@
 # 第三次 SDD 闭环 — 运行手册（sdd-architect）
 
-Status: **consumer Pass，待 ship/tag**（2026-06-09，todo-web）
+Status: **shipped `v0.2.0`**（2026-06-09，todo-web consumer Pass）
 
 Last updated: 2026-06-09
 
