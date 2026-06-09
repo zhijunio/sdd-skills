@@ -60,4 +60,4 @@ Increment (one sentence): 测试夹具接缝 — 统一 Todo 测试 seed/clear�
 ## Follow-ups
 
 - [x] todo-web test-fixtures 增量（`049e598`）
-- [ ] 本仓 unreleased 批次 **`sdd-ship`** → **`v0.2.0`** tag
+- [x] 本仓 **`v0.2.0`** tag 已发布（2026-06-09）

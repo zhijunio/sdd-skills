@@ -87,10 +87,10 @@ The installer detects local agents and prompts for scope. Non-interactive exampl
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-Pin a validated release (recommended after the todo-web third loop / **`v0.2.0`**):
+Pin a validated release (recommended after **`v0.2.1`** — CI on `main`):
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills@v0.2.0 -a cursor -a codex -a claude-code -y
+npx skills@latest add zhijunio/sdd-skills@v0.2.1 -a cursor -a codex -a claude-code -y
 ```
 
 | Scope | Flag | Where skills land |
