@@ -117,6 +117,7 @@ Sources:
 Local decisions:
 
 - Keep red-green-refactor and repeatable verification.
+- Match consumer repository conventions from guidance and surrounding code; do not impose a separate style guide in the skill.
 - Do not require worktrees, subagents, or per-slice commits.
 
 ### `sdd-review`
