@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- GitHub Actions workflow **`check`** — runs `python3 tests/check.py` on pull requests and pushes to `main`
+
 ## [0.2.0] - 2026-06-09
 
 Third validated release. Consumer third loop (**`sdd-architect`**) completed in [todo-web](https://github.com/zhijunio/todo-web). **`sdd-zoom`** ships in this release without a separate consumer gate — see [runbook-0.2.0.md](docs/design/consumer-loops/runbook-0.2.0.md) footnote.
