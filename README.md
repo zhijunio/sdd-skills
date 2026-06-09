@@ -117,7 +117,7 @@ templates, and local links without third-party Python dependencies.
 - Review stays read-only.
 - Ship verifies; it does not silently publish.
 
-Design decision records: [docs/design/project-decisions.md](docs/design/project-decisions.md).
+Design docs: [docs/design/](docs/design/) — [project-decisions](docs/design/project-decisions.md) · [Methodology](docs/design/software-engineering-rationale.md) · [Upstream](docs/design/upstream-engineering-rationale.md).
 
 ## Sources
 
