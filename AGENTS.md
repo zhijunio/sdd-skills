@@ -7,20 +7,34 @@
 - Update `SOURCES.md` when upstream-derived behavior changes.
 - Run `python3 tests/check.py` after modifying skills or templates.
 - Preserve third-party notices.
-- Use atomic commits with Conventional Commits prefix (`feat:`, `fix:`, `docs:`, `chore:`, `refactor:`). Commit body and description in Chinese.
 
-## Git workflow (maintainers)
+## Git commits
 
-**Do not commit directly to `main`.** This repo treats `main` as the integration branch only.
+- **When:** commit only when the user explicitly asks.
+- **Scope:** atomic commits — one logical change per commit; several commits per PR is fine.
+- **Format:** follow this repository's commit convention (see **This repository** below, project rules, or team docs). If unspecified, ask before committing.
+- **Message (when the project allows a body):** Chinese — problem or need, approach, and optional repro path.
+- **Safety:** do not change `git config`; no force-push to `main`/`master`; no `--amend` unless the user explicitly requests it and the commit was not pushed.
+- **Do not claim a commit** was made without actually running `git commit`.
 
-1. Branch from updated `main`: `feat/<topic>`, `fix/<topic>`, or `docs/<topic>`.
-2. Commit on the branch (**atomic commits** — one logical change per commit; several commits per PR is fine).
-3. **Batch before opening a PR.** One PR = one reviewable theme (e.g. a release slice, a skill change + docs, audit follow-ups). Do not open a separate PR for every small doc fix or post-tag housekeeping — accumulate on the branch or extend an open PR until the theme is complete.
-4. Run `python3 tests/check.py` before opening the PR (CI runs the same check on GitHub Actions for PRs to `main`).
-5. Open a PR into `main`; merge after review (or self-review with a recorded diff when solo).
-6. Tag releases on `main` only after merge and `sdd-ship` checks (`CHANGELOG`, `check.py`). Include release notes, watchlist sync, and tag follow-ups in the **same release PR** when possible — not a chain of micro-PRs.
+## Git workflow
 
-Direct pushes to `main` are for one-time baseline sync or emergencies only—not day-to-day skill or doc edits.
+- **Integration branch:** treat `main` or `master` as integration only — do not commit or push day-to-day work there directly.
+- **Branch:** create a topic branch from an updated integration branch; use this project's branch naming (team docs or **This repository** below).
+- **Commit on the branch** (see **Git commits** above).
+- **Batch before opening a PR/MR:** one reviewable theme per PR — accumulate related changes on the branch or extend an open PR instead of opening many micro-PRs.
+- **Verify before PR:** run this project's required checks or tests (CI, linters, scripts — see **This repository** when present).
+- **Merge via PR/MR** into the integration branch after review (or self-review with a recorded diff when solo).
+- **Releases:** tag on the integration branch only after merge and project release checks, when the project uses tags.
 
-Platform-neutral **skills** do not prescribe Git hosting; this section applies to **this repository's maintainer workflow** only.
+Direct pushes to the integration branch are for one-time baseline sync or emergencies only.
+
+## This repository
+
+Maintainer workflow for **sdd-skills** (platform-neutral **skills** do not prescribe Git hosting elsewhere).
+
+- **Commit prefixes:** `feat:`, `fix:`, `docs:`, `chore:`, `refactor:` — matching branch prefixes `feat/`, `fix/`, `docs/`.
+- **Branches:** `feat/<topic>`, `fix/<topic>`, or `docs/<topic>` from updated `main`.
+- **Before PR:** run `python3 tests/check.py` (CI runs the same check on GitHub Actions for PRs to `main`).
+- **Releases on `main`:** after merge, use `sdd-ship` checks (`CHANGELOG`, `check.py`); include release notes, watchlist sync, and tag follow-ups in the **same release PR** when possible.
 
