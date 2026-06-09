@@ -1,6 +1,6 @@
 # 第二次 SDD 闭环 — 运行手册
 
-Status: **in progress**（0.1.0 门禁）
+Status: **complete**（2026-06-09，todo-web）
 
 Last updated: 2026-06-09
 
@@ -40,6 +40,8 @@ npx skills@latest add zhijunio/sdd-skills -s using-sdd -s sdd-grill -s sdd-spec 
 ```
 
 确认本地 agent 读到的是合并后的 **`sdd-grill`**（非旧版 `sdd-brainstorm`）。
+
+**Consumer git：** `.agents/` 与 `skills-lock.json` 为安装器产物；是否提交由业务项目决定（本闭环未纳入 `8770a82`）。
 
 ---
 
@@ -127,6 +129,6 @@ Increment (one sentence):
 
 | 项 | 状态 |
 |----|------|
-| 消费者项目 | _待选定_ |
-| `second-loop-*.md` | _未创建_ |
-| 0.1.0 tag | _阻塞于闭环_ |
+| 消费者项目 | **todo-web** — [second-loop-todo-web.md](./second-loop-todo-web.md) ✅ |
+| `second-loop-*.md` | [second-loop-todo-web.md](./second-loop-todo-web.md) |
+| 0.1.0 tag | **`v0.1.0`**（2026-06-09） |

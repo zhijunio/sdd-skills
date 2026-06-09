@@ -87,7 +87,8 @@ sdd-skills/
 | `655508b` | README 链到 project-decisions |
 | `397aa90` | spec-template Decisions/Related ADRs；README optional ADR |
 | `5926403` | README Installation 多 Agent 说明 |
-| — | 第二次闭环 | 见 [second-loop-runbook.md](./second-loop-runbook.md) |
+| `d88c4ef` | 第二次闭环 runbook |
+| 2026-06-09 | 消费者 **todo-web** 闭环 Pass — [second-loop-todo-web.md](./second-loop-todo-web.md)；**`v0.1.0`** |
 
 **版本门禁（设计稿共识）：** 第二次真实项目跑通 spec→ship 后再考虑 **0.1.0**；此前不为一齐而上新 skill。
 
@@ -252,7 +253,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 
 | 项 | 状态 | 触发条件 |
 |----|------|----------|
-| **0.1.0 tag** | **进行中** | 第二次闭环 — [second-loop-runbook.md](./second-loop-runbook.md) |
+| **0.1.0 tag** | **已发布** `v0.1.0`（2026-06-09，todo-web 第二次闭环） |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |

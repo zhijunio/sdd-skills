@@ -71,6 +71,12 @@ The installer detects local agents and prompts for scope. Non-interactive exampl
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
+Pin a validated release (recommended after the todo-web second loop):
+
+```bash
+npx skills@latest add zhijunio/sdd-skills@v0.1.0 -a cursor -a codex -a claude-code -y
+```
+
 | Scope | Flag | Where skills land |
 | --- | --- | --- |
 | **Project** (default) | — | `./.agents/skills/` — shared by Cursor and Codex in the same repo |
