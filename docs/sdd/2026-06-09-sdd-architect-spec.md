@@ -19,7 +19,7 @@ Consumers can run an optional **`sdd-architect`** satellite that surfaces archit
 - Required `CONTEXT.md` or `docs/adr/` in consumer repos.
 - Inline creation or mutation of CONTEXT, ADR, spec, plan, or product code inside `sdd-architect`.
 - Replacing or merging with `sdd-review`, `sdd-grill`, or Matt's full `improve-codebase-architecture` skill.
-- A durable on-disk deepen artifact by default (conversation deliverable only).
+- A durable on-disk architect report by default (conversation deliverable only).
 - **`v0.2.0` tag** in this increment — tag waits for a third consumer loop with deepening evidence.
 
 ## Current Context
@@ -44,7 +44,7 @@ Consumers can run an optional **`sdd-architect`** satellite that surfaces archit
 ## Acceptance Criteria
 
 - **AC-1:** When a consumer agent loads `skills/sdd-architect/SKILL.md`, the skill identifies itself as an **optional satellite** and does not claim to be a mandatory delivery stage.
-- **AC-2:** When `sdd-architect` completes, the deliverable is a **conversation report** with at least one candidate or an explicit none-found statement; no deepen file is required by default.
+- **AC-2:** When `sdd-architect` completes, the deliverable is a **conversation report** with at least one candidate or an explicit none-found statement; no architect report file is required by default.
 - **AC-3:** When optional `CONTEXT.md` or `docs/adr/` exist in a consumer repo, the skill instructions require reading them before proposing candidates; when they do not exist, the skill instructions require proceeding without them.
 - **AC-4:** When a candidate contradicts an existing ADR, the skill instructions require marking the conflict and recommending ADR or spec follow-up rather than silently overriding the ADR.
 - **AC-5:** When `sdd-architect` stops, it recommends **`using-sdd`** only and states that **`sdd-spec`** is the default next stage when the user selects a candidate that needs acceptance criteria.
@@ -62,7 +62,7 @@ Consumers can run an optional **`sdd-architect`** satellite that surfaces archit
 ## Decisions
 
 - **Chosen:** optional satellite **`sdd-architect`**, conversation-only deliverable, optional CONTEXT/ADR read, stop → `using-sdd` with default **`sdd-spec`** path.
-- **Rejected:** external-only pointer to Matt's skill (user chose in-repo skill); full HTML/Matt port; core-loop stage; durable deepen files by default; immediate **`v0.2.0`** tag.
+- **Rejected:** external-only pointer to Matt's skill (user chose in-repo skill); full HTML/Matt port; core-loop stage; durable architect report files by default; immediate **`v0.2.0`** tag.
 
 ## Open Questions
 

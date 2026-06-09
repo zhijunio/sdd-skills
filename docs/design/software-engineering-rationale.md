@@ -244,4 +244,4 @@ Build/review 中发现 AC 需改时：
 - [context-adr-workflow.md](./context-adr-workflow.md) — 可选 CONTEXT/ADR（proposed）  
 - [docs/design/README.md](./README.md) — 阅读顺序  
 - [README.md — Design](../../README.md#design)  
-- [SOURCES.md — Why seven skills](../../SOURCES.md#why-seven-skills)
+- [SOURCES.md — Why seven skills](../../SOURCES.md#why-seven-skills) — core loop；optional satellite **`sdd-architect`** 见 [README Skills](../../README.md#skills) 与 [consumer-loops/](./consumer-loops/)
