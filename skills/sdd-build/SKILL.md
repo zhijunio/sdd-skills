@@ -13,6 +13,8 @@ Implement the approved plan incrementally while preserving scope and verificatio
 
 Use for planned implementation and fixes returned from `sdd-review`.
 
+When fixing review findings, address only the listed findings; do not expand scope.
+
 Do not use when acceptance criteria or major constraints still need revision.
 
 ## Prerequisites
@@ -21,8 +23,8 @@ Require an approved spec and plan. Read repository guidance (`AGENTS.md`, README
 
 ## Process
 
-1. Select one unfinished slice.
-2. Write a failing test and observe the expected failure.
+1. Select one unfinished slice. If the slice is already satisfied and verified, mark it done in the plan and pick the next.
+2. Write a failing test for the **intended behavior** and observe the expected failure — not compile-only unless the slice requires it.
 3. Implement the minimum change that passes.
 4. Refactor while keeping relevant tests green.
 5. Run the slice verification.
@@ -39,9 +41,13 @@ Documentation, pure configuration, mechanical changes, or projects without a rea
 ## Red Flags
 
 - "The change is small" or "tests later" as an exception.
+- Production changes before the intended red failure.
+- Fixing review findings while expanding scope beyond those findings.
+- Tests that lock implementation details instead of observable behavior.
 - Editing unrelated dirty files.
 - Recording commit hashes or inventing workflow state.
 - Quietly changing slice boundaries, verification, or acceptance.
+- Claiming merge-ready or invoking `sdd-ship` before `sdd-review`.
 
 ## Verification
 
@@ -53,5 +59,5 @@ Produce code, tests, and minimal factual plan updates. Follow repository Git con
 
 ## Stop Conditions
 
-Stop when all slices are implemented or a plan/spec revision is required. Recommend `sdd-review` when implementation is ready.
+Stop when all slices are implemented or a plan/spec revision is required. Recommend `sdd-review` when implementation is ready. Do not invoke `sdd-ship` or claim merge-ready from this skill.
 
