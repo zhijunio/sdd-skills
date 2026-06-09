@@ -11,7 +11,7 @@ Increment (one sentence): 测试夹具接缝 — 统一 Todo 测试 seed/clear�
 - sdd-skills ref: `main` @ merge PR #2（闭环时 skill 名为 **`sdd-deepen`**，已更名为 **`sdd-architect`**）
 - Consumer branch: `codex/implement-todo-web`
 - Consumer delivery commit: `049e598`
-- Prior loops: [second-loop-todo-web.md](./second-loop-todo-web.md)（`v0.1.0`）
+- Prior loops: [todo-web-0.1.0.md](./todo-web-0.1.0.md)（`v0.1.0`）
 
 ## Stage log
 
@@ -42,7 +42,7 @@ Increment (one sentence): 测试夹具接缝 — 统一 Todo 测试 seed/clear�
 | ID | Stage | Severity | Description | Fix in sdd-skills? |
 |----|-------|----------|-------------|-------------------|
 | D1 | sdd-architect | nice | 无 CONTEXT/ADR 时仍顺畅；需在闭环记录中显式注明（验证 AC-3） | no |
-| D2 | sdd-architect | nice | 对话交付后需人工复制摘要进 `third-loop-*.md`（无默认落盘） | no — by design |
+| D2 | sdd-architect | nice | 对话交付后需人工复制摘要进 `consumer-loops/*.md`（无默认落盘） | no — by design |
 | D3 | install | nice | consumer 仅增量装 `sdd-architect`，core skills 仍为旧 ref | no — consumer 自行 pin |
 
 ## Friction (core loop)

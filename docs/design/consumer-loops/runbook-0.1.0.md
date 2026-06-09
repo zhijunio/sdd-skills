@@ -4,7 +4,7 @@ Status: **complete**（2026-06-09，todo-web）
 
 Last updated: 2026-06-09
 
-Parent: [project-decisions.md](./project-decisions.md) §8
+Parent: [project-decisions.md](../project-decisions.md) §8
 
 ## 目的
 
@@ -64,10 +64,10 @@ npx skills@latest add zhijunio/sdd-skills -s using-sdd -s sdd-grill -s sdd-spec 
 闭环结束后在本仓新增：
 
 ```text
-docs/design/second-loop-<project-name>.md
+docs/design/consumer-loops/<project>-<gate>.md
 ```
 
-从下方 **模板** 复制填写。摘要写回 [project-decisions.md](./project-decisions.md) 时间线与 §8。
+从下方 **模板** 复制填写。摘要写回 [project-decisions.md](../project-decisions.md) 时间线与 §8。
 
 ---
 
@@ -77,11 +77,11 @@ docs/design/second-loop-<project-name>.md
 |------|------|
 | 无 must-fix | 打 **0.1.0** tag；README 可写推荐 install 版本 |
 | 有 must-fix | 本仓小 PR 修 skill/docs → `check.py` → 再评估 tag |
-| 重复 CONTEXT/ADR 痛点 | 评估 [context-adr-workflow.md](./context-adr-workflow.md) L2 |
+| 重复 CONTEXT/ADR 痛点 | 评估 [context-adr-workflow.md](../context-adr-workflow.md) L2 |
 
 ---
 
-## 模板（复制为 `second-loop-<project>.md`）
+## 模板（复制为 `<project>-0.1.0.md`）
 
 ```markdown
 # Second loop: <project-name>
@@ -129,6 +129,6 @@ Increment (one sentence):
 
 | 项 | 状态 |
 |----|------|
-| 消费者项目 | **todo-web** — [second-loop-todo-web.md](./second-loop-todo-web.md) ✅ |
-| `second-loop-*.md` | [second-loop-todo-web.md](./second-loop-todo-web.md) |
+| 消费者项目 | **todo-web** — [todo-web-0.1.0.md](./todo-web-0.1.0.md) ✅ |
+| 记录命名 | `<project>-<gate>.md` — 例 [todo-web-0.1.0.md](./todo-web-0.1.0.md) |
 | 0.1.0 tag | **`v0.1.0`**（2026-06-09） |

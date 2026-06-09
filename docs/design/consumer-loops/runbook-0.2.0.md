@@ -4,7 +4,7 @@ Status: **in progress**（2026-06-09，todo-web）
 
 Last updated: 2026-06-09
 
-Parent: [project-decisions.md](./project-decisions.md) §8
+Parent: [project-decisions.md](../project-decisions.md) §8
 
 ## 目的
 
@@ -64,10 +64,10 @@ npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 闭环结束后在本仓新增或更新：
 
 ```text
-docs/design/third-loop-<project-name>.md
+docs/design/consumer-loops/<project>-<gate>.md
 ```
 
-摘要写回 [project-decisions.md](./project-decisions.md) 时间线与 §8。
+摘要写回 [project-decisions.md](../project-decisions.md) 时间线与 §8。
 
 **须单独记录 `sdd-architect` 阶段摩擦**（与 core 阶段分开）。
 
@@ -83,9 +83,9 @@ docs/design/third-loop-<project-name>.md
 
 ---
 
-## 模板（复制为 `third-loop-<project>.md`）
+## 模板
 
-见 [third-loop-todo-web.md](./third-loop-todo-web.md) 结构。
+见 [todo-web-0.2.0.md](./todo-web-0.2.0.md) 结构（复制为 `<project>-0.2.0.md`）。
 
 ---
 
@@ -93,5 +93,5 @@ docs/design/third-loop-<project-name>.md
 
 | 项 | 状态 |
 |----|------|
-| 消费者项目 | **todo-web** — [third-loop-todo-web.md](./third-loop-todo-web.md) 🔄 |
+| 消费者项目 | **todo-web** — [todo-web-0.2.0.md](./todo-web-0.2.0.md) 🔄 |
 | **`v0.2.0` tag** | 待定 |
