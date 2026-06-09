@@ -312,7 +312,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |
 | **sdd-ship ship-after checklist** | watchlist | 用户显式 push/PR 清单是否进 README |
-| **`main` branch protection** | 待做 | require PR；可选 CI `check.py` — 见 [AGENTS.md](../../AGENTS.md#git-workflow-maintainers) §6.4 |
+| **`main` branch protection** | **已启用** | require PR（0 approvals）；`enforce_admins`；禁 force push / 删分支 — [GitHub Settings → Branches](https://github.com/zhijunio/sdd-skills/settings/branches) |
 
 ---
 
