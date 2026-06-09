@@ -90,6 +90,7 @@ sdd-skills/
 | `5926403` | README Installation 多 Agent 说明 |
 | `d88c4ef` | 第二次闭环 runbook |
 | `2d81023` | todo-web 闭环记录；**`v0.1.0`** tag |
+| 2026-06-09 | **`v0.1.1`** — sdd-lite 借鉴（self-review、plan Risks）；PR #1 |
 | 2026-06-09 | 消费者 **todo-web** 闭环 Pass — [second-loop-todo-web.md](./second-loop-todo-web.md) |
 
 **版本门禁（设计稿共识）：** **`v0.1.0`** 已于 todo-web 第二次闭环后发布（2026-06-09）。此后新增 skill 或 major 行为变更，需新 consumer 闭环与摩擦证据；不为对齐而上新 skill。
@@ -256,6 +257,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | 项 | 状态 | 触发条件 |
 |----|------|----------|
 | **0.1.0 tag** | **已发布** `v0.1.0`（2026-06-09，todo-web 第二次闭环） |
+| **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |

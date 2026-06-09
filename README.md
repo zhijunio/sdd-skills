@@ -74,7 +74,7 @@ npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 Pin a validated release (recommended after the todo-web second loop):
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills@v0.1.0 -a cursor -a codex -a claude-code -y
+npx skills@latest add zhijunio/sdd-skills@v0.1.1 -a cursor -a codex -a claude-code -y
 ```
 
 | Scope | Flag | Where skills land |
