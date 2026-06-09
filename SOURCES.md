@@ -14,6 +14,17 @@ Snapshot date: 2026-06-08
   - Branch: `main`
   - Commit: `c076972e2626fe2acc30b00a6c7240d4c5fb786a`
 
+## Why seven skills
+
+This repository ships a **minimal SDD stage set**, not a mirror of the upstream catalogs.
+
+- **Seven skills cover the delivery loop:** route → (optional) clarify → spec → plan → build → review → ship.
+- **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no worktrees, no auto-chaining, no state files).
+- **Optional clarify stays optional:** `sdd-grill` covers explore-and-challenge before spec or plan; the required artifacts remain spec and plan only.
+- **No skill sprawl before evidence:** new stages need repeated real-project gaps, not parity with upstream skill counts.
+
+For routing, see [README.md](README.md#quick-routing) and [skills/using-sdd/SKILL.md](skills/using-sdd/SKILL.md#routing-examples).
+
 ## Local Skills
 
 ### `using-sdd`
@@ -28,7 +39,7 @@ Local decisions:
 - Route one stage without automatic invocation.
 - Infer progress from artifacts and diff; do not persist workflow state.
 
-### `sdd-brainstorm`
+### `sdd-grill`
 
 Sources:
 
@@ -38,22 +49,11 @@ Sources:
 
 Local decisions:
 
-- Ask one decision at a time and provide a recommendation.
-- Make the stage optional and avoid a durable artifact by default.
-
-### `sdd-grill`
-
-Sources:
-
-- `mattpocock/skills`: `skills/productivity/grill-me`
-- `addyosmani/agent-skills`: `skills/interview-me`
-
-Local decisions:
-
-- Optional SDD stage but works standalone; aligns with `grill-me` (no disk artifact required).
-- Body follows `grill-me`; SDD stop routing only.
+- Merged pre-spec explore and plan stress-test into one optional stage.
+- Ask one decision at a time with a recommendation; explore compares approaches, challenge grills what is on the table.
+- Optional SDD stage but works standalone; no disk artifact required by default.
 - Do not write spec, plan, or code in this skill.
-- Stop conditions recommend next steps contextually rather than forcing SDD routing.
+- Stop conditions recommend `sdd-spec` or `sdd-plan` contextually; do not invoke them automatically.
 
 ### `sdd-spec`
 

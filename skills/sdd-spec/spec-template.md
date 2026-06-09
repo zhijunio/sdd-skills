@@ -77,3 +77,14 @@
   - Should we reuse the existing mailer queue or send synchronously?
   - What is the minimum password complexity requirement?
 -->
+
+## Revision log
+
+<!--
+  Append-only after first approval. Leave empty for a new spec.
+  Each entry: date | reason | changed ACs (or "none — clarification") | plan impact (yes/no + brief note).
+
+  Example:
+  - 2026-06-08 | Clarify AC-2 wording | none — clarification | no
+  - 2026-06-09 | Raise AC-3 latency limit | AC-3 | no — return to sdd-build
+-->

@@ -10,8 +10,6 @@ state machine, project manager, or Git workflow framework.
 ```text
 using-sdd
   |
-sdd-brainstorm (optional)
-  |
 sdd-grill (optional)
   |
 sdd-spec -> user approval
@@ -34,17 +32,30 @@ not invoke it automatically.
 | Skill | Use when |
 | --- | --- |
 | `using-sdd` | The correct SDD stage is unclear |
-| `sdd-brainstorm` | Goals, boundaries, or costly trade-offs are unresolved |
-| `sdd-grill` | Stress-test a plan or design; user says "grill me" (no disk artifact required) |
+| `sdd-grill` | Goals, boundaries, trade-offs, or plan/design need decisions; user says "grill me" |
 | `sdd-spec` | A durable behavior contract and acceptance criteria are needed |
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |
 | `sdd-review` | A defined diff needs independent read-only review |
 | `sdd-ship` | A reviewed increment needs final acceptance evidence |
 
-All eight skills can be installed independently. Some require artifacts rather
+All seven skills can be installed independently. Some require artifacts rather
 than other skills: `sdd-plan` needs an approved spec, `sdd-build` needs a spec
 and plan, and `sdd-ship` needs a passed review.
+
+## Quick routing
+
+| If… | Start with |
+| --- | --- |
+| Unsure which stage fits | `using-sdd` |
+| Goal, boundaries, trade-offs, or plan/design still open | `sdd-grill` |
+| No approved spec yet | `sdd-spec` |
+| Spec approved, no plan | `sdd-plan` |
+| Plan approved, coding | `sdd-build` |
+| Ready for read-only review | `sdd-review` |
+| Review clear, need fresh verification | `sdd-ship` |
+
+Full examples and edge cases: [skills/using-sdd/SKILL.md](skills/using-sdd/SKILL.md#routing-examples).
 
 ## Installation
 
@@ -68,7 +79,7 @@ docs/sdd/YYYY-MM-DD-<topic>-spec.md
 docs/sdd/YYYY-MM-DD-<topic>-plan.md
 ```
 
-Brainstorm, grill, and review documents are optional. The workflow does not require
+Clarify, grill, and review documents are optional. The workflow does not require
 status fields or a persistent active-increment file.
 
 ## Review Scope

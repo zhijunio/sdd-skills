@@ -10,7 +10,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = (
     "using-sdd",
-    "sdd-brainstorm",
     "sdd-grill",
     "sdd-spec",
     "sdd-plan",
