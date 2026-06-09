@@ -19,7 +19,7 @@ Do not use when acceptance criteria or major constraints still need revision.
 
 ## Prerequisites
 
-Require an approved spec and plan. Read repository guidance (`AGENTS.md`, README, linters), inspect the current diff, and match existing naming, structure, and patterns in touched code. Exclude unrelated changes.
+Require an approved spec and plan. Read repository guidance (`AGENTS.md`, README, linters) when present; when style or architecture rules are absent, follow the approved spec/plan and patterns in touched code. Inspect the current diff and exclude unrelated changes.
 
 ## Process
 
