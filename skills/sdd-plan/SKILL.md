@@ -25,9 +25,15 @@ Require an approved specification. Read repository conventions and inspect the a
 2. Map every acceptance criterion to at least one vertical slice.
 3. Prefer slices that deliver observable behavior, usually completable in 15 to 60 minutes.
 4. Record dependencies, the failing test or alternative proof, implementation outline, verification command, and completion condition.
-5. Keep local reversible choices in the plan.
-6. Return public interface, persistent data, security boundary, or cross-module dependency changes to `sdd-spec`.
-7. Present the written plan for user approval.
+5. Record **Risks / Dependencies** when they affect slice order, verification, or rollback (omit when none).
+6. Keep local reversible choices in the plan.
+7. Return public interface, persistent data, security boundary, or cross-module dependency changes to `sdd-spec`.
+8. **Self-review** the draft before user approval:
+   - no placeholders in slices or verification commands
+   - every spec acceptance criterion maps to at least one slice
+   - risks and dependencies are concrete when present
+   - each slice is independently verifiable
+9. Present the written plan for user approval.
 
 ## Red Flags
 

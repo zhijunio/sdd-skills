@@ -31,7 +31,12 @@ Read repository guidance, relevant code and docs, and any clarify outcome from `
 4. Write requirements and necessary compatibility, migration, security, or interface constraints.
 5. Give each observable acceptance criterion a stable identifier such as `AC-1`.
 6. Remove irrelevant template sections.
-7. Present the written specification for user approval.
+7. **Self-review** the draft before user approval:
+   - no `TBD`, `TODO`, or vague acceptance criteria
+   - sections agree; scope matches non-goals
+   - each criterion has an unambiguous pass/fail outcome
+   - no implementation tasks hidden inside criteria
+8. Present the written specification for user approval.
 
 ### Revision
 
@@ -39,9 +44,10 @@ Revise the same `docs/sdd/YYYY-MM-DD-<topic>-spec.md` in place. Do not create a 
 
 1. Make the needed edits to Requirements, Acceptance Criteria, or Constraints.
 2. Append one **Revision log** entry with: date, reason, changed AC IDs (or `none — clarification`), and plan impact (`yes` / `no` with brief note).
-3. **Clarification only** — wording, background, or scope/non-goals that do not change any pass/fail outcome: log the entry and stop. No re-approval. Continue the stage that triggered the edit (`sdd-plan`, `sdd-build`, or `sdd-review`).
-4. **AC or constraint change** — any criterion or constraint whose pass/fail or limit changes: present the updated specification for user re-approval.
-5. After re-approval: recommend `sdd-plan` only when slice boundaries or verification steps change; otherwise return to the prior stage.
+3. **Self-review** the revised draft (same checks as new specification step 7).
+4. **Clarification only** — wording, background, or scope/non-goals that do not change any pass/fail outcome: log the entry and stop. No re-approval. Continue the stage that triggered the edit (`sdd-plan`, `sdd-build`, or `sdd-review`).
+5. **AC or constraint change** — any criterion or constraint whose pass/fail or limit changes: present the updated specification for user re-approval.
+6. After re-approval: recommend `sdd-plan` only when slice boundaries or verification steps change; otherwise return to the prior stage.
 
 Examples:
 
