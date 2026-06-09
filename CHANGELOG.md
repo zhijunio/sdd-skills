@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **`spec-template` / README**: L1+ optional `CONTEXT.md` / `CONTEXT-MAP.md` guidance; spec **Current Context** as increment facts (link shared terms from CONTEXT)
+
 ## [0.2.1] - 2026-06-09
 
 Maintainer patch: CI gate on `main` and stale consumer-loop status fixes after **`v0.2.0`** ship.

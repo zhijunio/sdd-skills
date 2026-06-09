@@ -138,6 +138,12 @@ Cross-feature architecture decisions may live in `docs/adr/0001-short-title.md`
 and be linked from spec **Related ADRs**; that layout is optional and not part
 of the default two-document workflow.
 
+Stable domain terminology may live in `CONTEXT.md` at the project root (single
+domain) or in `CONTEXT-MAP.md` pointing to per-domain `CONTEXT.md` files.
+Spec **Current Context** records increment facts for this change; reference shared
+terms from CONTEXT instead of repeating them. Optional — see
+[context-adr-workflow](docs/design/context-adr-workflow.md).
+
 ## Review Scope
 
 `sdd-review` can run with only a diff. A spec and plan improve traceability but
