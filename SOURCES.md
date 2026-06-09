@@ -40,6 +40,7 @@ Local decisions:
 
 - Route one stage without automatic invocation.
 - Infer progress from artifacts and diff; do not persist workflow state.
+- May briefly announce the routing check and recommended skill; still do not invoke it automatically.
 
 ### `sdd-grill`
 
@@ -71,6 +72,7 @@ Local decisions:
 - Require observable acceptance criteria and explicit user approval.
 - Revise approved specs in place with a Revision log; distinguish clarification-only edits from AC changes.
 - Optional template sections: Decisions (this change), Related ADRs (links only); optional consumer `docs/adr/` per README.
+- Self-review checklist before user approval (adapted from sibling [sdd-lite](https://github.com/zhijunio/sdd-lite) written-artifact gate; kept inline, no shared fragment file).
 
 ### `sdd-plan`
 
@@ -84,6 +86,8 @@ Local decisions:
 
 - Prefer 15-60 minute vertical slices over microtasks.
 - Do not maintain a separate traceability matrix or workflow status.
+- Optional **Risks / Dependencies** section in the plan template when build order or verification is affected.
+- Self-review checklist before user approval (adapted from sibling sdd-lite; inline in skill, not a cross-skill file).
 
 ### `sdd-build`
 

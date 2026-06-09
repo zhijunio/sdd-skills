@@ -6,10 +6,22 @@
   - Prefer vertical slices (thin end-to-end functionality) over horizontal layers.
   - Target 15–60 minutes per slice. If a slice is larger, split it.
   - Every acceptance criterion from the spec must be covered by at least one slice.
+  - Risks / Dependencies (optional): build-affecting risks, external deps, or rollback
+    notes that change slice order or verification — add this section only when needed;
+    do not leave an empty heading in the plan file.
   - "Done" is set to true only after the verification command passes.
 -->
 
 **Spec:** `<relative path to approved spec file>`
+
+<!--
+  Optional section — include only when build-affecting risks or dependencies exist:
+
+  ## Risks / Dependencies
+
+  - Requires Java 21 in the active shell before Maven commands run.
+  - Slice 2 depends on Slice 1 datasource configuration remaining unchanged.
+-->
 
 ## Slice 1: <Observable behavior — what the user or system can do after this slice>
 

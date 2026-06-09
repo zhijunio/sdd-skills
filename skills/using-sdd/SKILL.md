@@ -21,6 +21,8 @@ None. Read the request, repository guidance, relevant SDD documents, and current
 
 ## Process
 
+When routing, you may state briefly that you are checking the SDD stage and name the recommended skill. Do not invoke that skill automatically.
+
 1. Identify the active, independently testable increment.
 2. Assess uncertainty, impact, reversibility, and verification cost.
 3. Route to one skill:
