@@ -86,7 +86,7 @@ sdd-skills/
 | `eb1472c` | 新增 `docs/design/`（project-decisions、context-adr） |
 | `655508b` | README 链到 project-decisions |
 | `397aa90` | spec-template Decisions/Related ADRs；README optional ADR |
-| （工作区） | software-engineering-rationale、upstream-engineering-rationale；文档检修 |
+| `8f41dfd`–`9349079` | 方法论文档、上游解读、design 检修 |
 
 **版本门禁（设计稿共识）：** 第二次真实项目跑通 spec→ship 后再考虑 **0.1.0**；此前不为一齐而上新 skill。
 
