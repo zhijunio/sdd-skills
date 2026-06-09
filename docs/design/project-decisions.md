@@ -86,11 +86,13 @@ sdd-skills/
 | `eb1472c` | 新增 `docs/design/`（project-decisions、context-adr） |
 | `655508b` | README 链到 project-decisions |
 | `397aa90` | spec-template Decisions/Related ADRs；README optional ADR |
+| `8f41dfd`–`9349079` | 方法论文档、上游解读、design 检修 |
 | `5926403` | README Installation 多 Agent 说明 |
 | `d88c4ef` | 第二次闭环 runbook |
-| 2026-06-09 | 消费者 **todo-web** 闭环 Pass — [second-loop-todo-web.md](./second-loop-todo-web.md)；**`v0.1.0`** |
+| `2d81023` | todo-web 闭环记录；**`v0.1.0`** tag |
+| 2026-06-09 | 消费者 **todo-web** 闭环 Pass — [second-loop-todo-web.md](./second-loop-todo-web.md) |
 
-**版本门禁（设计稿共识）：** 第二次真实项目跑通 spec→ship 后再考虑 **0.1.0**；此前不为一齐而上新 skill。
+**版本门禁（设计稿共识）：** **`v0.1.0`** 已于 todo-web 第二次闭环后发布（2026-06-09）。此后新增 skill 或 major 行为变更，需新 consumer 闭环与摩擦证据；不为对齐而上新 skill。
 
 ---
 
