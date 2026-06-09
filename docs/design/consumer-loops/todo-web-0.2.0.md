@@ -59,5 +59,5 @@ Increment (one sentence): 测试夹具接缝 — 统一 Todo 测试 seed/clear�
 
 ## Follow-ups
 
-- 用户批准 test-fixtures spec → plan → build
-- 闭环 Pass 后 **`v0.2.0`** tag
+- [x] todo-web test-fixtures 增量（`049e598`）
+- [ ] 本仓 unreleased 批次 **`sdd-ship`** → **`v0.2.0`** tag

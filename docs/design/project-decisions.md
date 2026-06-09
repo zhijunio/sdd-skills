@@ -191,9 +191,11 @@ Optional satellite (not in loop above): **sdd-architect** — architecture deepe
 | 项 | 决策 |
 |----|------|
 | 来源 | tdd、test-driven-development、incremental-implementation |
-| 前置 | 已批准 spec + plan |
-| 方法 | red-green-refactor |
+| 前置 | 已批准 spec + plan；读 AGENTS/README/linters（有则）；无风格说明 → spec/plan + touched 代码 |
+| 方法 | red-green-refactor；slice 幂等；red 须 **intended behavior** |
+| 回流 | review findings **只修 listed 项**，不扩 scope |
 | 回退 | AC/约束变 → spec；slice/验证变 → plan；局部 → stay build |
+| Stop | → **`sdd-review`**；禁止 premature **`sdd-ship`** / merge-ready 宣称 |
 | 拒绝 | 强制 worktree、subagent、每 slice commit |
 
 ### 5.6 `sdd-review`
@@ -205,8 +207,10 @@ Optional satellite (not in loop above): **sdd-architect** — architecture deepe
 | Scope 优先级 | 用户指定 → 任务/plan 记录 → staged（显式）→ 任务相关未提交 → **merge-base…HEAD** |
 | 分支 | 不假设 `main`；用 `origin/HEAD` 或仓库约定 |
 | Pre-existing | diff 外既有问题 → **out-of-scope 观察**，不得 must-fix |
+| Plan | 有 plan 时 **Acceptance 逐条映射**（met/partial/missing/unclear） |
+| 大 diff | ~30+ 文件或 >300 行 → triage 高风险区；**Limits** 写入 Assumptions |
+| 维度 | Standards（CI 已 gate 不重复）；Architecture 与 **`sdd-architect`** 分界 |
 | Output | 固定标题：Scope、Strengths、Findings、Dimension Coverage、Assumptions & Gaps、Verdict |
-| 大 diff | >300 行提示（skill 内） |
 | 验证 | 完整复验在 **`sdd-ship`** |
 
 ### 5.7 `sdd-ship`
@@ -277,7 +281,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 |----|------|----------|
 | **0.1.0 tag** | **已发布** `v0.1.0`（2026-06-09，todo-web 第二次闭环） |
 | **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
-| **0.2.0 tag** | **进行中** | 第三次 consumer 闭环 — [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
+| **0.2.0 tag** | **闭环 Pass，待 ship/tag** | 第三次 consumer — [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
 | **`sdd-architect`** | **已合并** PR #2（2026-06-09；初名 `sdd-deepen`，已更名） | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
