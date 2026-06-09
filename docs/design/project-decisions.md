@@ -314,7 +314,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **context/adr-template** | 未做 | L3，有证据再做 |
 | **sdd-ship ship-after checklist** | watchlist | 用户显式 push/PR 清单是否进 README |
 | **`main` branch protection** | **已启用** | require PR（0 approvals）；`enforce_admins`；禁 force push / 删分支 |
-| **CI `check.py`** | **已添加**（PR #TBD merge 后启用 required check） | `.github/workflows/check.yml`；GitLab 用 `.gitlab-ci.yml` 同等脚本 |
+| **CI `check.py`** | **已添加**（PR #5 已 merge；required check `validate` 已启用） | `.github/workflows/check.yml`；GitLab 用 `.gitlab-ci.yml` 同等脚本 |
 
 ---
 
