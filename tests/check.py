@@ -136,10 +136,11 @@ def main() -> int:
     for skill in skills:
         errors.extend(check_skill(skill))
 
-    for template in (
+    templates = (
         SKILLS_DIR / "sdd-spec" / "spec-template.md",
         SKILLS_DIR / "sdd-plan" / "plan-template.md",
-    ):
+    )
+    for template in templates:
         errors.extend(check_template(template))
 
     for markdown_file in ROOT.rglob("*.md"):
@@ -156,7 +157,7 @@ def main() -> int:
 
     print(
         f"Repository checks passed: {len(skills)} skills discovered, "
-        f"{sum(1 for _ in (1, 2))} templates validated."
+        f"{len(templates)} templates validated."
     )
     return 0
 

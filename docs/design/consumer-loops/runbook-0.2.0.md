@@ -15,6 +15,8 @@ Parent: [project-decisions.md](../project-decisions.md) §8
 - **spec / plan 经用户批准**
 - 记录 **`sdd-architect` 摩擦**；must-fix 修完再 **`v0.2.0` tag**
 
+> **v0.2.0 发布范围（grill 共识）：** tag 含 **`sdd-architect`**（本 runbook gate）与 **`sdd-zoom`**（maintainer 追加，**无独立 consumer loop**）。`sdd-zoom` 摩擦待第四次闭环或 increment 记录补证 — 见 [project-decisions.md §8](../project-decisions.md#8-待定与-watchlist)。
+
 本仓 **不** 用 dogfood 代替此次闭环。
 
 ---

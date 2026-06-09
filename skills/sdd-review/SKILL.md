@@ -75,7 +75,7 @@ Fresh command output and full acceptance evidence belong in `sdd-ship`, not here
 ### Conditional (when the diff touches them)
 
 - **Standards** — repository guidance (`AGENTS.md`, README conventions, linters in CI). Skip style nits CI already gates unless the diff bypasses or disables them.
-- **Architecture** — new modules, cross-layer calls, shared APIs, duplication **introduced or worsened by this diff**. Whole-codebase deepening opportunities outside the diff belong in optional **`sdd-architect`**, not here; note those only as out-of-scope observations.
+- **Architecture** — new modules, cross-layer calls, shared APIs, duplication **introduced or worsened by this diff**. Whole-codebase deepening opportunities outside the diff belong in optional **`sdd-architect`**, not here; whole-codebase territory maps belong in optional **`sdd-zoom`**, not here; note those only as out-of-scope observations.
 - **Security** — auth, user input, secrets in repo or logs, SQL or untrusted external data.
 - **Performance** — N+1 queries, unbounded loops or fetches, hot paths, heavy synchronous work.
 - **Readability and change size** — naming, control flow, unnecessary complexity; when the diff adds layers or abstractions, check DRY and KISS/YAGNI; flag when a single increment is roughly **>300 lines** or one file grows substantially without justification.

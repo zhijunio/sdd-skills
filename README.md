@@ -27,7 +27,10 @@ flowchart TD
   Z --> U
   A --> U
   G --> S
+  G -.->|plan/design decisions| P
 ```
+
+`sdd-grill` may route to **`sdd-plan`** when plan or design still needs decisions (see [using-sdd — Routing matrix](skills/using-sdd/SKILL.md#routing-matrix)).
 
 Each skill stops after its own output. Skills recommend the next stage but do
 not invoke it automatically.
@@ -84,10 +87,10 @@ The installer detects local agents and prompts for scope. Non-interactive exampl
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-Pin a validated release (recommended after the todo-web second loop):
+Pin a validated release (recommended after the todo-web third loop / **`v0.2.0`**):
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills@v0.1.1 -a cursor -a codex -a claude-code -y
+npx skills@latest add zhijunio/sdd-skills@v0.2.0 -a cursor -a codex -a claude-code -y
 ```
 
 | Scope | Flag | Where skills land |

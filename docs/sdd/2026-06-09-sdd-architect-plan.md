@@ -6,16 +6,16 @@ Commit the approved spec and this plan before Slice 1.
 
 ## Slice 1: Publish the sdd-architect skill contract
 
-- Goal: The repository contains a valid eighth skill that defines optional deepening behavior and passes repository checks.
+- Goal: The repository contains a valid optional satellite skill that defines deepening behavior and passes repository checks.
 - Acceptance: AC-1, AC-2, AC-3, AC-4, AC-5, AC-7
 - Depends on: None
 - Test or proof:
-  - Add `sdd-architect` to `tests/check.py` `SKILLS` tuple before or with the new skill file so validation covers eight skills.
+  - Ensure `skills/sdd-architect/SKILL.md` exists and `tests/check.py` discovers it under `skills/*/SKILL.md` (auto-discovery; no manual `SKILLS` tuple).
   - Confirm `skills/sdd-architect/SKILL.md` includes satellite wording, conversation deliverable, optional CONTEXT/ADR read rules, ADR conflict handling, and stop → `using-sdd` with default `sdd-spec` when a candidate needs acceptance criteria.
 - Implementation outline:
   - Create `skills/sdd-architect/SKILL.md` using the standard eight sections and a `Use when` description covering deepening, shallow modules, seams, and mud-ball architecture concerns.
   - Embed concise depth / seam / deletion-test guidance in Process and Output without HTML or subagent requirements.
-  - Update `tests/check.py` to include `sdd-architect`.
+  - Register the skill by adding `skills/sdd-architect/`; `tests/check.py` discovers skills automatically.
 - Verification:
 
   ```bash
@@ -24,8 +24,8 @@ Commit the approved spec and this plan before Slice 1.
 
 - Done: true
 - Result:
-  - Added `skills/sdd-architect/SKILL.md` and registered the skill in `tests/check.py`.
-  - Verified `python3 tests/check.py` reports eight skills passing.
+  - Added `skills/sdd-architect/SKILL.md`; validation via `tests/check.py` skill discovery.
+  - Verified `python3 tests/check.py` passes (later increments add **`sdd-zoom`** — nine skills discovered; Slice 1 originally targeted architect only).
 
 ## Slice 2: Wire optional satellite routing and repository docs
 

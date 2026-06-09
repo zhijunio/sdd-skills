@@ -88,7 +88,7 @@ Local decisions:
 - Conversation deliverable only; no HTML reports, subagents, or default on-disk architect report file.
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
 - Stop → recommend **`using-sdd`** only; default next stage after candidate selection is **`sdd-spec`** when acceptance criteria are needed.
-- **`v0.2.0` tag** waits for a third consumer loop with deepening friction evidence.
+- **`v0.2.0` tag** follows the third consumer loop (architect friction evidence in [todo-web-0.2.0.md](docs/design/consumer-loops/todo-web-0.2.0.md)). The same release also ships **`sdd-zoom`** without a separate consumer gate — see [project-decisions.md §8](docs/design/project-decisions.md#8-待定与-watchlist).
 
 ### `sdd-zoom`
 

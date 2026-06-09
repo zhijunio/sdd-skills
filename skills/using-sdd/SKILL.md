@@ -39,6 +39,7 @@ Normative routing for this skill. Recommend **one** skill only; do not invoke au
 | User says / means | Route |
 | --- | --- |
 | "zoom out", "big picture", unfamiliar territory — **map**, not refactor | `sdd-zoom` |
+| Unfamiliar territory **and** open trade-offs | **`sdd-zoom` first** — map the territory; then **`using-sdd`** → **`sdd-grill`** if decisions remain |
 | "review" **without** a defined diff | Ask: delivery review (`sdd-review`) vs architecture scan (`sdd-architect`) |
 | Deepen, shallow modules, seams, mud-ball — **candidates**, not diff defects | `sdd-architect` |
 | Goals, boundaries, trade-offs still open | `sdd-grill` |
