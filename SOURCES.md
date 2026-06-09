@@ -25,6 +25,8 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 
 For routing, see [README.md](README.md#quick-routing) and [skills/using-sdd/SKILL.md](skills/using-sdd/SKILL.md#routing-examples).
 
+Sources and methodology: [docs/design/](docs/design/) ([index](docs/design/README.md)).
+
 ## Local Skills
 
 ### `using-sdd`
@@ -67,6 +69,8 @@ Local decisions:
 
 - Keep behavior and necessary technical constraints in one concise document.
 - Require observable acceptance criteria and explicit user approval.
+- Revise approved specs in place with a Revision log; distinguish clarification-only edits from AC changes.
+- Optional template sections: Decisions (this change), Related ADRs (links only); optional consumer `docs/adr/` per README.
 
 ### `sdd-plan`
 
