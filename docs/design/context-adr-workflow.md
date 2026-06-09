@@ -6,16 +6,16 @@ Date: 2026-06-08
 
 Parent: [project-decisions.md](./project-decisions.md)
 
-Scope: 使用 SDD 技能集的项目中，可选域文档 `CONTEXT.md` 与架构决策 `docs/adr/` 如何与默认 spec/plan  workflow 共存。不适用于本仓库 `sdd-skills` 自身维护（继续用 `AGENTS.md` + `SOURCES.md`）。
+Scope: 使用 SDD 技能集的项目中，可选域文档 `CONTEXT.md` 与架构决策 `docs/adr/` 如何与默认 spec/plan workflow 共存。不适用于本仓库 `sdd-skills` 自身维护（继续用 `AGENTS.md` + `SOURCES.md`）。
 
 ---
 
 ## 背景
 
 - 默认 SDD 产物仅 **spec + plan**（见 [README.md](../../README.md#minimal-artifacts)）。
-- `spec-template` 已有 **Current Context**、**Constraints**、**Revision log**；后续补充可选 **Decisions**、**Related ADRs**（L1，模板/README 级）。
-- 通过多轮 **sdd-grill** 拷问：是否要独立 ADR 流程、`CONTEXT.md`、由哪个 skill 读/写、多域如何组织。
-- 上游参考：`mattpocock/skills` 的 `CONTEXT-FORMAT.md`、`grill-with-docs`、`setup-matt-pocock-skills/domain.md`；`obra/superpowers` 与 `addyosmani/agent-skills` **无** `CONTEXT.md` 规范。
+- **L1 已落地**（`397aa90`）：`spec-template` 可选 **Decisions**、**Related ADRs**；README optional ADR 一句；**Constraints**、**Revision log**、**Current Context** 已在模板/skills 中。
+- **L2 未实现**：grill 写 CONTEXT/ADR、多 skill Prerequisites 读 CONTEXT/ADR（见下文 north star）。
+- 决策过程：多轮 **sdd-grill**；上游对照见 [upstream-engineering-rationale.md §6](./upstream-engineering-rationale.md#6-mattpocockskills)。
 
 ---
 
@@ -74,7 +74,7 @@ Scope: 使用 SDD 技能集的项目中，可选域文档 `CONTEXT.md` 与架构
 |------|------|
 | 仅 spec 写 | 术语定稿晚，易丢 |
 | grill 写所有 design docs | 边界糊 |
-| **折中（采纳）** | grill 可改 **`CONTEXT.md` 的 Language 段**（术语、`_Avoid_`）；不写 ADR 以外的 design docs 时见统一方案 |
+| **折中（采纳）** | grill 可改 **`CONTEXT.md` 的 Language 段**；纯架构时 grill 可写 ADR（见 north star §2） |
 
 ---
 
@@ -193,8 +193,8 @@ Revision log      ← spec 原地修订（已实现）
 | 层级 | 内容 | 状态 |
 |------|------|------|
 | **L0** | spec + plan；Current Context / Constraints / Revision | ✅ 已在 skill 中 |
-| **L1** | `spec-template`：Decisions、Related ADRs；README optional ADR 一句 | ✅ 部分已落地（见 git） |
-| **L1+** | README / template：CONTEXT、`CONTEXT-MAP` 说明；Current Context 增量注释 | ⏳ 待补（若仅文档） |
+| **L1** | `spec-template`：Decisions、Related ADRs；README optional ADR | ✅ `397aa90` |
+| **L1+** | CONTEXT / CONTEXT-MAP 注释；Current Context 增量说明 | ⏳ 待做 |
 | **L2** | `sdd-grill` 窄写 CONTEXT Language + 纯 ADR；`sdd-spec/plan/build` Prerequisites 读 CONTEXT/ADR | ❌ 未实现 |
 | **L3** | `context-template`、`adr-template`；`sdd-review` 可选术语维度 | ❌ 等有证据再做 |
 
@@ -217,6 +217,7 @@ Revision log      ← spec 原地修订（已实现）
 
 ## 参考
 
-- 本仓库 [README.md — Minimal Artifacts](../../README.md#minimal-artifacts)
-- [skills/sdd-spec/spec-template.md](../../skills/sdd-spec/spec-template.md)
-- mattpocock/skills @ `be55a797`：`skills/engineering/grill-with-docs/CONTEXT-FORMAT.md`、`setup-matt-pocock-skills/domain.md`
+- [README.md — Minimal Artifacts](../../README.md#minimal-artifacts)
+- [spec-template.md](../../skills/sdd-spec/spec-template.md)
+- [upstream-engineering-rationale.md §6](./upstream-engineering-rationale.md#6-mattpocockskills)
+- [docs/design/README.md](./README.md)

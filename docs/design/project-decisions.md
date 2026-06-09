@@ -2,9 +2,15 @@
 
 Status: **living document**（随仓库演进更新）
 
-Last updated: 2026-06-08
+Last updated: 2026-06-09
 
-本文件记录 **sdd-skills 仓库本身** 的设计目标、演化过程、各技能与关键文件的决策及被拒方案。使用 SDD 的项目如何可选地采用 CONTEXT/ADR，见 [context-adr-workflow.md](./context-adr-workflow.md)（子方案，**proposed**）。
+本文件记录 **sdd-skills 仓库本身** 的设计目标、演化过程、各技能与关键文件的决策及被拒方案。
+
+| 文档 | 内容 |
+| --- | --- |
+| [software-engineering-rationale.md](./software-engineering-rationale.md) | 本仓工程方法与思考（**why**） |
+| [upstream-engineering-rationale.md](./upstream-engineering-rationale.md) | 三上游工程观与取舍（pin 快照） |
+| [context-adr-workflow.md](./context-adr-workflow.md) | 使用方 optional CONTEXT/ADR（**proposed**） |
 
 ---
 
@@ -42,7 +48,12 @@ sdd-skills/
 ├── skills/<name>/SKILL.md # 自包含技能（统一八段结构）
 ├── skills/sdd-spec/spec-template.md
 ├── skills/sdd-plan/plan-template.md
-└── docs/design/           # 设计决策记录（非 SDD 默认产物）
+└── docs/design/           # 设计决策与方法论文档（非 SDD 默认产物）
+    ├── README.md
+    ├── software-engineering-rationale.md
+    ├── upstream-engineering-rationale.md
+    ├── project-decisions.md
+    └── context-adr-workflow.md
 ```
 
 | 文件 | 决策 |
@@ -51,26 +62,31 @@ sdd-skills/
 | **README.md** |  workflow 图 + 技能表 + Quick routing → 链到 `using-sdd` 详例；Design 段列 non-goals |
 | **SOURCES.md** | 记录三上游 **pin commit**；每 skill 映射来源 + **Local decisions**（本仓 maintainer 的「ADR 等价物」） |
 | **tests/check.py** | 校验 7 skill 目录、frontmatter、`Use when` 描述、八段标题、模板最小内容、本地链接 |
-| **docs/design/** | 长篇决策过程与 proposed 方案；**不**替代 `SKILL.md` 运行时契约 |
+| **docs/design/** | 决策过程、方法论、proposed 子方案；**不**替代 `SKILL.md` |
 
 ---
 
 ## 3. 演化时间线
 
-| 阶段 | 提交/事件 | 决策摘要 |
-|------|-----------|----------|
-| 初始化 | `1417d7d` | AGENTS、LICENSE |
-| 首版技能 | `2e1bcce` | **7 技能**初版（当时含 brainstorm + grill 分立） |
-| 文档与来源 | `6281ff3` | README、SOURCES |
-| spec/plan 契约 | `7d247e6` | **spec 只产出** `docs/sdd/...-spec.md`；**不用** domain/CONTEXT 文档替代 spec |
-| review 增强 | `c8e000f` | merge-base diff scope；pre-existing 非 must-fix；固定 Output；**恢复平台中立**（ revert 外部项目特例） |
-| 模板增强 | `9427dc9` | spec/plan 模板写作指引 |
-| brainstorm/grill 边界 | `1a407c7` | 澄清二者；build 回退规则；ship 输出模板 |
-| grill 独立化 | `21a5622`, `ffa88b8` | 对齐 grill-me；可 standalone |
-| **8 → 7 技能** | `cce9a6a` | **删除 `sdd-brainstorm`**，并入 `sdd-grill`（Explore/Challenge）；**spec Revision** 流程 |
-| 文档重构 | `441844d` | README Quick routing、`using-sdd` Routing examples、Why seven skills |
-| ADR 模板层（工作区） | 未提交 | spec-template Decisions/Related ADRs；README optional ADR 一句 |
-| CONTEXT/ADR north star | `docs/design/` | grill 多轮结论；**L2 未实现** |
+按时间顺序（旧 → 新）：
+
+| 提交 | 决策摘要 |
+|------|----------|
+| `1417d7d` | 初始化 AGENTS、LICENSE |
+| `2e1bcce` | **7 技能**初版：`using-sdd`、`sdd-brainstorm`、`sdd-spec`…`sdd-ship`（**尚无** `sdd-grill`） |
+| `6281ff3` | README、SOURCES |
+| `7d247e6` | spec **只产出** `docs/sdd/...-spec.md`；禁止 domain 文档替代 spec |
+| `c8e000f` | review merge-base scope；pre-existing 非 must-fix；恢复平台中立基线 |
+| `9427dc9` | spec/plan 模板写作指引 |
+| `96f8969` | 新增 **`sdd-grill`** → **8 技能** |
+| `1a407c7` | 澄清 brainstorm/grill 边界；build 回退；ship 输出模板 |
+| `21a5622`, `ffa88b8` | grill 对齐 grill-me；可 standalone |
+| `441844d` | README Quick routing、`using-sdd` Routing examples、Why seven/eight 文档 |
+| `cce9a6a` | **8→7**：删除 `sdd-brainstorm`，并入 `sdd-grill`；**spec Revision** |
+| `eb1472c` | 新增 `docs/design/`（project-decisions、context-adr） |
+| `655508b` | README 链到 project-decisions |
+| `397aa90` | spec-template Decisions/Related ADRs；README optional ADR |
+| （工作区） | software-engineering-rationale、upstream-engineering-rationale；文档检修 |
 
 **版本门禁（设计稿共识）：** 第二次真实项目跑通 spec→ship 后再考虑 **0.1.0**；此前不为一齐而上新 skill。
 
@@ -216,7 +232,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 |------|------|
 | `SOURCES.md` | 上游映射 + Local decisions |
 | `AGENTS.md` | 仓库维护约束 |
-| `docs/design/*.md` | 决策过程存档 |
+| `docs/design/*.md` | 决策过程、方法论、proposed 子方案 |
 
 ---
 
@@ -237,7 +253,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 |----|------|----------|
 | **0.1.0 tag** | 待定 | 第二次 spec→ship 闭环 |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
-| **L1+ CONTEXT 注释** | 部分 | README/template 可补 CONTEXT-MAP 一句 |
+| **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |
 | **sdd-ship ship-after checklist** | watchlist | 用户显式 push/PR 清单是否进 README |
 
@@ -257,4 +273,6 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 - [README.md](../../README.md)
 - [SOURCES.md](../../SOURCES.md)
 - [AGENTS.md](../../AGENTS.md)
+- [software-engineering-rationale.md](./software-engineering-rationale.md)
+- [upstream-engineering-rationale.md](./upstream-engineering-rationale.md)
 - [context-adr-workflow.md](./context-adr-workflow.md) — CONTEXT/ADR 子方案（proposed）
