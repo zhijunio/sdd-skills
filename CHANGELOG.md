@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`using-sdd` / `sdd-review` / `sdd-architect` / README**: clarify **Review vs architect** — delivery diff review vs pre-spec architecture opportunity scan
 - **README** / **SOURCES** / **project-decisions**: seven core stages + optional `sdd-architect`; consumer loop evidence under `docs/design/consumer-loops/`
 - **Consumer loop docs** moved to `docs/design/consumer-loops/` (`runbook-<gate>.md`, `<project>-<gate>.md`)
+- **`sdd-review`**: plan Acceptance mapping, large-diff triage, standards lens, finding tags (sdd-lite / agent-skills adapted; verification still in `sdd-ship`)
 
 ### Renamed
 

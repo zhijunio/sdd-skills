@@ -53,6 +53,10 @@ Ask before reviewing when:
 
 When the user names a subset, honor it and record what was excluded.
 
+### Large diffs
+
+When the diff is roughly **30+ files** or **>300 lines**, triage **high-risk areas first**: auth, secrets, migrations, public API, money or data-loss paths. Sample or defer the rest; record **Limits** (what was not fully read) in **Assumptions & Gaps**. Prose-only diffs: prioritize spec/plan traceability and clarity.
+
 ### Pre-existing code
 
 Issues in code **outside** the scoped diff may be noted as **out-of-scope observations**. Do not classify them as `must-fix` or `should-fix` for this increment unless the scoped diff reintroduces, exposes, or worsens them.
@@ -63,28 +67,31 @@ Fresh command output and full acceptance evidence belong in `sdd-ship`, not here
 
 ### Core (always)
 
-- **Spec / plan compliance** — acceptance criteria, out-of-scope boundaries; disclose when spec or plan is missing.
+- **Spec / plan compliance** — acceptance criteria, out-of-scope boundaries; disclose when spec or plan is missing. When a plan exists, map each **Acceptance** item to `met`, `partial`, `missing`, or `unclear` against the diff and tests; unmapped items are at least **should-fix**. Diff outside plan **Non-goals** → **should-fix** or **suggestion**.
 - **Correctness and regressions** — logic, edge cases, concurrency, data consistency.
-- **Tests** — gaps, behavior vs implementation focus, assertions that would catch regressions.
+- **Tests** — gaps, behavior vs implementation focus, assertions that would catch regressions; TDD signal when tests were meant to lead the slice.
 - **Docs and traceability** — spec/plan paths, CHANGELOG, commit messages vs diff.
 
 ### Conditional (when the diff touches them)
 
+- **Standards** — repository guidance (`AGENTS.md`, README conventions, linters in CI). Skip style nits CI already gates unless the diff bypasses or disables them.
 - **Architecture** — new modules, cross-layer calls, shared APIs, duplication **introduced or worsened by this diff**. Whole-codebase deepening opportunities outside the diff belong in optional **`sdd-architect`**, not here; note those only as out-of-scope observations.
 - **Security** — auth, user input, secrets in repo or logs, SQL or untrusted external data.
 - **Performance** — N+1 queries, unbounded loops or fetches, hot paths, heavy synchronous work.
-- **Readability and change size** — naming, control flow, unnecessary complexity; flag when a single increment is roughly **>300 lines** or one file grows substantially without justification.
+- **Readability and change size** — naming, control flow, unnecessary complexity; when the diff adds layers or abstractions, check DRY and KISS/YAGNI; flag when a single increment is roughly **>300 lines** or one file grows substantially without justification.
 
 Skip conditional dimensions the diff does not touch (for example, docs-only diffs skip security and performance).
 
 ## Process
 
 1. State scope using the output template below (`Scope` table).
-2. Read the **complete** scoped diff before judging correctness.
-3. Read the spec and plan when available.
+2. Read the **complete** scoped diff before judging correctness — or triage per **Large diffs** and disclose **Limits**.
+3. Read the spec and plan when available; map Acceptance when a plan exists.
 4. Review test changes first: coverage, edge cases, regression value.
 5. Walk implementation against core and applicable conditional dimensions.
 6. Report findings before summary, ordered by severity; end with verdict.
+
+Prefer `file:line — [spec|standards] — issue` in findings when the lens matters. On auth, secrets, migrations, or public API, label **inferred** claims as such; do not state inference as fact.
 
 Use a fresh agent or subagent when available; otherwise reread the baseline before reviewing.
 
@@ -132,7 +139,7 @@ Optional. One to three specific positives.
 
 ## Findings
 
-List only in-scope issues. Use `file:line` references.
+List only in-scope issues. Use `file:line` references; optional `[spec]` or `[standards]` tags.
 
 ### must-fix
 
@@ -150,11 +157,11 @@ If a severity has no items, write `None.`
 
 ## Dimension Coverage
 
-Brief pass, fail, or skip for each dimension examined: spec/plan, correctness, tests, docs, and any conditional dimensions reviewed.
+Brief pass, fail, or skip for each dimension examined: spec/plan (including Acceptance mapping when a plan exists), correctness, tests, docs, and any conditional dimensions reviewed.
 
 ## Assumptions & Gaps
 
-What was assumed, not run, or observed outside scope. Label out-of-scope notes explicitly.
+What was assumed, not run, or observed outside scope. Label out-of-scope notes and **Limits** (sampled or unread areas on large diffs) explicitly.
 
 ## Verdict
 

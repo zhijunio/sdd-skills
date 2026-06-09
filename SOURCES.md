@@ -135,6 +135,7 @@ Local decisions:
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
 - Core and conditional review dimensions; fixed output headings including Dimension Coverage and Verdict.
+- Plan **Acceptance** mapping (`met` / `partial` / `missing` / `unclear`); large-diff triage and **Limits** disclosure (adapted from sdd-lite / agent-skills axes; no bundled templates or review subagents).
 - Full verification stays in `sdd-ship`.
 
 ### `sdd-ship`
