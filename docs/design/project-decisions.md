@@ -112,7 +112,7 @@ sdd-skills/
 |------|------|
 | 扩仓目标 | 只补 SDD 流水线断档，不对齐上游数量 |
 | 8 技能环是否有洞 | 暂无重复痛点 → 不加第 8 个 **core stage** |
-| **`sdd-architect` satellite** | 2026-06-09 grill — Matt architecture deepening；**optional**，不进 core loop；`v0.2.0` 等第三次 consumer 闭环 |
+| **`sdd-architect` satellite** | 2026-06-09 grill — Matt architecture deepening；**optional**，不进 core loop；**已通过** todo-web 第三次 consumer 闭环（`v0.2.0`） |
 | brainstorm vs grill | 流程高度重叠（一问一答）→ **合并为 `sdd-grill`** |
 | 合并后命名 | **`sdd-grill`**（保留 "grill me" 触发） |
 | 合并后相位 | **Explore**（比方案、rejected）+ **Challenge**（压测 plan） |
