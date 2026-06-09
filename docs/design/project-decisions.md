@@ -312,7 +312,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **`sdd-architect`** | **已合并** PR #2（2026-06-09；初名 `sdd-deepen`，已更名） | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
 | **`sdd-zoom`** | **已添加；v0.2.0 同批发布，gate 未覆盖** | 待第四次 consumer 闭环或重复 zoom-out 摩擦；见 [runbook-0.2.0.md](./consumer-loops/runbook-0.2.0.md) 脚注 |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
-| **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
+| **L1+ CONTEXT 注释** | **已做** | `spec-template` + README：`CONTEXT.md` / `CONTEXT-MAP.md`；Current Context 增量 |
 | **context/adr-template** | 未做 | L3，有证据再做 |
 | **sdd-ship ship-after checklist** | watchlist | 用户显式 push/PR 清单是否进 README |
 | **`main` branch protection** | **已启用** | require PR（0 approvals）；`enforce_admins`；禁 force push / 删分支 |

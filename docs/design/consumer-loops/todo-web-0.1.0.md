@@ -42,5 +42,5 @@ Increment (one sentence): 删除 Todo 前需经用户确认（grill 选项 A）
 ## Follow-ups
 
 - CONTEXT/ADR L2：本次未出现重复痛点，维持 proposed
-- L1+ CONTEXT 注释：仍待做（与闭环无关）
+- L1+ CONTEXT 注释：已在 sdd-skills `spec-template` + README 落地
 - todo-web：`.agents/` 是否纳入 git 由 consumer 自行决定

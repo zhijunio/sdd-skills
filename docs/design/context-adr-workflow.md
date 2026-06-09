@@ -194,7 +194,7 @@ Revision log      ← spec 原地修订（已实现）
 |------|------|------|
 | **L0** | spec + plan；Current Context / Constraints / Revision | ✅ 已在 skill 中 |
 | **L1** | `spec-template`：Decisions、Related ADRs；README optional ADR | ✅ `397aa90` |
-| **L1+** | CONTEXT / CONTEXT-MAP 注释；Current Context 增量说明 | ⏳ 待做 |
+| **L1+** | CONTEXT / CONTEXT-MAP 注释；Current Context 增量说明 | ✅（`spec-template` + README） |
 | **L2** | `sdd-grill` 窄写 CONTEXT Language + 纯 ADR；`sdd-spec/plan/build` Prerequisites 读 CONTEXT/ADR | ❌ 未实现 |
 | **L3** | `context-template`、`adr-template`；`sdd-review` 可选术语维度 | ❌ 等有证据再做 |
 
