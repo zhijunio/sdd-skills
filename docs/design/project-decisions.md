@@ -308,7 +308,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **0.1.0 tag** | **已发布** `v0.1.0`（2026-06-09，todo-web 第二次闭环） |
 | **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
 | **0.2.0 tag** | **已发布** `v0.2.0`（2026-06-09，todo-web 第三次闭环 + `sdd-zoom` 同批） | [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
-| **0.2.1 tag** | **待发** maintainer patch（CI + runbook 状态同步） | 无 consumer gate |
+| **0.2.1 tag** | **已发布** `v0.2.1`（2026-06-09，CI + runbook 状态同步） | 无 consumer gate |
 | **`sdd-architect`** | **已合并** PR #2（2026-06-09；初名 `sdd-deepen`，已更名） | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
 | **`sdd-zoom`** | **已添加；v0.2.0 同批发布，gate 未覆盖** | 待第四次 consumer 闭环或重复 zoom-out 摩擦；见 [runbook-0.2.0.md](./consumer-loops/runbook-0.2.0.md) 脚注 |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
