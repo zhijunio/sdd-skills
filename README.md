@@ -7,21 +7,26 @@ state machine, project manager, or Git workflow framework.
 
 ## Workflow
 
-```text
-using-sdd
-  |
-sdd-grill (optional)
-  |
-sdd-spec -> user approval
-  |
-sdd-plan -> user approval
-  |
-sdd-build
-  |
-sdd-review
-  | findings: return to sdd-build
-  | pass
-sdd-ship
+```mermaid
+flowchart TD
+  U[using-sdd]
+
+  subgraph satellites["Optional satellites — route one"]
+    Z[sdd-zoom]
+    G[sdd-grill]
+    A[sdd-architect]
+  end
+
+  S[sdd-spec] -->|user approval| P[sdd-plan]
+  P -->|user approval| B[sdd-build]
+  B --> R[sdd-review]
+  R -->|must-fix / should-fix| B
+  R -->|pass| SH[sdd-ship]
+
+  U --> Z & G & A & S
+  Z --> U
+  A --> U
+  G --> S
 ```
 
 Each skill stops after its own output. Skills recommend the next stage but do
