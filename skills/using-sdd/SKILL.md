@@ -27,11 +27,11 @@ When routing, you may state briefly that you are checking the SDD stage and name
 2. Assess uncertainty, impact, reversibility, and verification cost.
 3. Route to one skill:
    - unclear goal, costly trade-off, or stress-test a plan or design: `sdd-grill`
-   - architecture deepening, shallow modules, seam friction, or mud-ball concerns (optional satellite): `sdd-deepen`
+   - pre-spec architecture opportunity scan (shallow modules, seams, mud-ball; optional satellite): `sdd-architect`
    - no confirmed specification: `sdd-spec`
    - confirmed specification without a plan: `sdd-plan`
    - approved plan with unfinished work: `sdd-build`
-   - implementation ready for independent review: `sdd-review`
+   - defined diff ready for independent delivery review (defects, not architecture opportunity scan): `sdd-review`
    - review passed and final evidence is needed: `sdd-ship`
 4. Explain any skipped stage briefly.
 
@@ -41,9 +41,20 @@ Not part of the mandatory core loop. Recommend one only; do not invoke automatic
 
 | Skill | Route when |
 | --- | --- |
-| `sdd-deepen` | User wants architecture deepening, shallow-module review, seam friction, or mud-ball cleanup outside a scoped delivery diff |
+| `sdd-architect` | Pre-spec architecture opportunity scan: shallow modules, seam friction, mud-ball — **not** delivery review of a diff |
 
-After `sdd-deepen`, route through `using-sdd` again. When the user selects a candidate that needs acceptance criteria, the default next stage is `sdd-spec` unless trade-offs remain open.
+After `sdd-architect`, route through `using-sdd` again. When the user selects a candidate that needs acceptance criteria, the default next stage is `sdd-spec` unless trade-offs remain open.
+
+## Review vs architect
+
+Both read code; they answer different questions. Route one only.
+
+| User intent | Skill | Scope | Output |
+| --- | --- | --- | --- |
+| Can **this increment's diff** ship? Defects, AC, tests | `sdd-review` | Defined diff (merge-base…HEAD) | must/should-fix → `sdd-build` or `sdd-ship` |
+| Where should the **codebase** deepen before we spec work? | `sdd-architect` | Whole repo / modules (optional satellite) | Candidates → `using-sdd` → usually `sdd-spec` |
+
+When the user says "review" without a diff: ask whether they mean **delivery review** (`sdd-review`) or **architecture opportunity scan** (`sdd-architect`).
 
 ## Routing examples
 
@@ -54,7 +65,7 @@ Use one next skill only. Do not invoke it automatically.
 | Situation | Route | Skip |
 | --- | --- | --- |
 | Goals, boundaries, trade-offs, or plan/design still need decisions | `sdd-grill` | — |
-| Architecture deepening, shallow modules, seam friction, or mud-ball concerns | `sdd-deepen` | — |
+| Architecture opportunity scan before spec (optional); not delivery review | `sdd-architect` | — |
 | Boundaries clear; small reversible change | `sdd-spec` | grill |
 
 **Core loop**

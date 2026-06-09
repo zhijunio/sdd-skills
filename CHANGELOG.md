@@ -9,12 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Optional satellite skill **`sdd-deepen`** for architecture deepening (Matt `improve-codebase-architecture` adapted; conversation deliverable)
+- Optional satellite skill **`sdd-architect`** for architecture deepening (Matt `improve-codebase-architecture` adapted; conversation deliverable)
 
 ### Changed
 
 - **`using-sdd`**: optional satellite routing for deepening / mud-ball intent
-- **README** / **SOURCES** / **project-decisions**: seven core stages + optional `sdd-deepen`
+- **`using-sdd` / `sdd-review` / `sdd-architect` / README**: clarify **Review vs architect** — delivery diff review vs pre-spec architecture opportunity scan
+- **README** / **SOURCES** / **project-decisions**: seven core stages + optional `sdd-architect`
+
+### Renamed
+
+- **`sdd-deepen`** → **`sdd-architect`** (optional satellite; disambiguate from `sdd-review` delivery review)
 
 ## [0.1.1] - 2026-06-09
 

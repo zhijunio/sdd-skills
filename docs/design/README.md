@@ -13,6 +13,7 @@ Runtime contracts: `skills/<name>/SKILL.md` and [SOURCES.md](../../SOURCES.md).
 | 3 | [project-decisions.md](./project-decisions.md) | Lookup **what was decided**, commits, per-skill rules |
 | 4 | [context-adr-workflow.md](./context-adr-workflow.md) | Optional CONTEXT/ADR for **consumer projects** (proposed) |
 | — | [second-loop-runbook.md](./second-loop-runbook.md) | **0.1.0 gate** (complete) |
+| — | [third-loop-runbook.md](./third-loop-runbook.md) | **0.2.0 gate** (`sdd-architect`, in progress) |
 
 ## Index
 
@@ -24,3 +25,5 @@ Runtime contracts: `skills/<name>/SKILL.md` and [SOURCES.md](../../SOURCES.md).
 | [context-adr-workflow.md](./context-adr-workflow.md) | Optional CONTEXT / ADR workflow (consumer projects) | proposed |
 | [second-loop-runbook.md](./second-loop-runbook.md) | 0.1.0 第二次闭环运行手册与记录模板 | complete |
 | [second-loop-todo-web.md](./second-loop-todo-web.md) | todo-web 消费者闭环记录 | complete |
+| [third-loop-runbook.md](./third-loop-runbook.md) | 0.2.0 第三次闭环（含 sdd-architect） | in progress |
+| [third-loop-todo-web.md](./third-loop-todo-web.md) | todo-web 第三次闭环记录 | in progress |

@@ -22,7 +22,7 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no worktrees, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` covers explore-and-challenge before spec or plan; the required artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** `sdd-deepen` is published separately for architecture deepening; it does not change the seven-stage delivery loop.
+- **Optional satellites stay outside the core loop:** `sdd-architect` is published separately for architecture deepening; it does not change the seven-stage delivery loop.
 
 For routing, see [README.md](README.md#quick-routing) and [skills/using-sdd/SKILL.md](skills/using-sdd/SKILL.md#routing-examples).
 
@@ -42,7 +42,7 @@ Local decisions:
 - Route one stage without automatic invocation.
 - Infer progress from artifacts and diff; do not persist workflow state.
 - May briefly announce the routing check and recommended skill; still do not invoke it automatically.
-- List **`sdd-deepen`** under optional satellites; route deepening intent there without auto-invocation.
+- List **`sdd-architect`** under optional satellites; route deepening intent there without auto-invocation.
 
 ### `sdd-grill`
 
@@ -76,7 +76,7 @@ Local decisions:
 - Optional template sections: Decisions (this change), Related ADRs (links only); optional consumer `docs/adr/` per README.
 - Self-review checklist before user approval (adapted from sibling [sdd-lite](https://github.com/zhijunio/sdd-lite) written-artifact gate; kept inline, no shared fragment file).
 
-### `sdd-deepen`
+### `sdd-architect`
 
 Sources:
 

@@ -1,21 +1,23 @@
 ---
-name: sdd-deepen
-description: Use when a consumer wants architecture deepening opportunities, shallow modules, seam friction, or mud-ball concerns outside the core delivery loop. Optional satellite — not a mandatory stage before ship.
+name: sdd-architect
+description: Use when a consumer wants a whole-codebase architecture opportunity scan—shallow modules, seam friction, or mud-ball concerns—outside the delivery loop. Optional satellite; not delivery review or pre-ship audit.
 ---
 
-# SDD Deepen
+# SDD Architect
 
 ## Goal
 
 Surface behavior-preserving architecture deepening opportunities in a conversation without replacing `sdd-review` or entering product implementation.
 
+This is an **opportunity scan**, not greenfield system design and not delivery review of a diff.
+
 ## When to Use
 
-Use when the user asks to deepen architecture, reduce mud-ball structure, find shallow modules, or explore seam friction across modules or packages.
+Use when the user asks to deepen architecture, reduce mud-ball structure, find shallow modules, or explore seam friction across modules or packages — **before** a behavior spec exists for that work.
 
-Use when `using-sdd` routes here for deepening intent.
+Use when `using-sdd` routes here for pre-spec architecture opportunity scanning.
 
-Skip when the task is a scoped delivery review — use `sdd-review`.
+Skip when the task is **delivery review** of a defined diff — use `sdd-review` (defects in this increment, not repo-wide opportunities).
 
 Skip when goals, boundaries, or trade-offs are still unclear — use `sdd-grill`.
 
@@ -70,7 +72,7 @@ Confirm each candidate names a problem and a deepening direction with a clear re
 
 Deliver a conversation report listing candidates (or an explicit none-found statement) and a top recommendation when multiple candidates exist.
 
-Default durable artifact: **none**. Do not require a deepen file on disk.
+Default durable artifact: **none**. Do not require an architect report file on disk.
 
 ## Stop Conditions
 

@@ -27,7 +27,7 @@ sdd-ship
 Each skill stops after its own output. Skills recommend the next stage but do
 not invoke it automatically.
 
-The **core delivery loop** has seven stages below. **`sdd-deepen`** is an optional satellite for architecture deepening — install when needed; it is not mandatory before ship.
+The **core delivery loop** has seven stages below. **`sdd-architect`** is an optional satellite for architecture deepening — install when needed; it is not mandatory before ship.
 
 ## Skills
 
@@ -40,14 +40,14 @@ The **core delivery loop** has seven stages below. **`sdd-deepen`** is an option
 | `sdd-spec` | A durable behavior contract and acceptance criteria are needed |
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |
-| `sdd-review` | A defined diff needs independent read-only review |
+| `sdd-review` | A **defined diff** needs independent delivery review (defects, AC, tests)—not a whole-repo architecture scan |
 | `sdd-ship` | A reviewed increment needs final acceptance evidence |
 
 ### Optional satellite
 
 | Skill | Use when |
 | --- | --- |
-| `sdd-deepen` | Architecture deepening, shallow modules, seam friction, or mud-ball concerns outside the scoped delivery diff |
+| `sdd-architect` | Pre-spec **architecture opportunity scan** (shallow modules, seams, mud-ball)—optional; not delivery review |
 
 All core skills can be installed independently. Some require artifacts rather
 than other skills: `sdd-plan` needs an approved spec, `sdd-build` needs a spec
@@ -59,12 +59,14 @@ and plan, and `sdd-ship` needs a passed review.
 | --- | --- |
 | Unsure which stage fits | `using-sdd` |
 | Goal, boundaries, trade-offs, or plan/design still open | `sdd-grill` |
-| Architecture deepening, shallow modules, or mud-ball concerns (optional) | `sdd-deepen` |
+| Architecture opportunity scan before spec (optional) | `sdd-architect` |
 | No approved spec yet | `sdd-spec` |
 | Spec approved, no plan | `sdd-plan` |
 | Plan approved, coding | `sdd-build` |
-| Ready for read-only review | `sdd-review` |
+| **Defined diff** ready for delivery review | `sdd-review` |
 | Review clear, need fresh verification | `sdd-ship` |
+
+**Review vs architect:** delivery defect review of a diff → `sdd-review`. Whole-codebase deepening before spec → `sdd-architect`. Details: [using-sdd — Review vs architect](skills/using-sdd/SKILL.md#review-vs-architect).
 
 Full examples and edge cases: [skills/using-sdd/SKILL.md](skills/using-sdd/SKILL.md#routing-examples).
 
@@ -96,8 +98,10 @@ npx skills@latest add zhijunio/sdd-skills@v0.1.1 -a cursor -a codex -a claude-co
 Select all seven core skills for the full loop, or add the optional satellite:
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s sdd-deepen -y
+npx skills@latest add zhijunio/sdd-skills -s sdd-architect -y
 ```
+
+If you previously installed **`sdd-deepen`**, remove that directory and reinstall with **`-s sdd-architect`** (same satellite, renamed pre-`v0.2.0`).
 
 Minimal core install:
 

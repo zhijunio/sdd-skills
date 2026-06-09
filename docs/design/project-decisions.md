@@ -61,7 +61,7 @@ sdd-skills/
 | **AGENTS.md** | skill 自包含；`SKILL.md` frontmatter 写触发条件；无真实用法证据不加状态字段；改 skill 跑 `check.py`；Conventional Commits + 中文 body |
 | **README.md** |  workflow 图 + 技能表 + Quick routing → 链到 `using-sdd` 详例；Design 段列 non-goals |
 | **SOURCES.md** | 记录三上游 **pin commit**；每 skill 映射来源 + **Local decisions**（本仓 maintainer 的「ADR 等价物」） |
-| **tests/check.py** | 校验 8 skill 目录（7 core + optional `sdd-deepen`）、frontmatter、`Use when` 描述、八段标题、模板最小内容、本地链接 |
+| **tests/check.py** | 校验 8 skill 目录（7 core + optional `sdd-architect`）、frontmatter、`Use when` 描述、八段标题、模板最小内容、本地链接 |
 | **docs/design/** | 决策过程、方法论、proposed 子方案；**不**替代 `SKILL.md` |
 
 ---
@@ -105,7 +105,7 @@ sdd-skills/
 |------|------|
 | 扩仓目标 | 只补 SDD 流水线断档，不对齐上游数量 |
 | 8 技能环是否有洞 | 暂无重复痛点 → 不加第 8 个 **core stage** |
-| **`sdd-deepen` satellite** | 2026-06-09 grill — Matt architecture deepening；**optional**，不进 core loop；`v0.2.0` 等第三次 consumer 闭环 |
+| **`sdd-architect` satellite** | 2026-06-09 grill — Matt architecture deepening；**optional**，不进 core loop；`v0.2.0` 等第三次 consumer 闭环 |
 | brainstorm vs grill | 流程高度重叠（一问一答）→ **合并为 `sdd-grill`** |
 | 合并后命名 | **`sdd-grill`**（保留 "grill me" 触发） |
 | 合并后相位 | **Explore**（比方案、rejected）+ **Challenge**（压测 plan） |
@@ -124,7 +124,7 @@ using-sdd
   → sdd-build
   → sdd-review → (findings) sdd-build | (pass) sdd-ship
 
-Optional satellite (not in loop above): **sdd-deepen** — architecture deepening; route via `using-sdd`.
+Optional satellite (not in loop above): **sdd-architect** — architecture deepening; route via `using-sdd`.
 ```
 
 ---
@@ -215,7 +215,7 @@ Optional satellite (not in loop above): **sdd-deepen** — architecture deepenin
 | CHANGELOG | [CHANGELOG.md](../../CHANGELOG.md)；发版时由 `sdd-ship` 或显式维护更新 |
 | 拒绝 | 静默发布 |
 
-### 5.8 `sdd-deepen`（optional satellite）
+### 5.8 `sdd-architect`（optional satellite）
 
 | 项 | 决策 |
 |----|------|
@@ -272,8 +272,8 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 |----|------|----------|
 | **0.1.0 tag** | **已发布** `v0.1.0`（2026-06-09，todo-web 第二次闭环） |
 | **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
-| **0.2.0 tag** | **待定** | 第三次 consumer 闭环含 **`sdd-deepen`** 摩擦证据 |
-| **`sdd-deepen`** | **已合并** PR #2（2026-06-09） | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-deepen-spec.md) |
+| **0.2.0 tag** | **进行中** | 第三次 consumer 闭环 — [third-loop-todo-web.md](./third-loop-todo-web.md) |
+| **`sdd-architect`** | **已合并** PR #2（2026-06-09；初名 `sdd-deepen`，已更名） | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
 | **L1+ CONTEXT 注释** | 待做 | spec-template / README 补 CONTEXT-MAP 一句 |
 | **context/adr-template** | 未做 | L3，有证据再做 |
