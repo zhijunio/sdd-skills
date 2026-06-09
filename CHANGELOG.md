@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-06-09
+
+Maintainer patch: CI gate on `main` and stale consumer-loop status fixes after **`v0.2.0`** ship.
+
 ### Added
 
 - GitHub Actions workflow **`check`** — runs `python3 tests/check.py` on pull requests and pushes to `main`
+
+### Fixed
+
+- **`runbook-0.2.0.md`** / **`todo-web-0.2.0.md`**: **`v0.2.0` tag** status synced to shipped (was stale「待 ship」)
 
 ## [0.2.0] - 2026-06-09
 
@@ -66,7 +74,8 @@ First validated release. Consumer second loop completed in [todo-web](https://gi
 
 - `project-decisions.md` timeline and version-gate wording after release review
 
-[Unreleased]: https://github.com/zhijunio/sdd-skills/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/zhijunio/sdd-skills/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/zhijunio/sdd-skills/releases/tag/v0.2.1
 [0.2.0]: https://github.com/zhijunio/sdd-skills/releases/tag/v0.2.0
 [0.1.1]: https://github.com/zhijunio/sdd-skills/releases/tag/v0.1.1
 [0.1.0]: https://github.com/zhijunio/sdd-skills/releases/tag/v0.1.0

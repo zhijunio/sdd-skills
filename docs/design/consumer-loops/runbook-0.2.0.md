@@ -96,4 +96,4 @@ docs/design/consumer-loops/<project>-<gate>.md
 | 项 | 状态 |
 |----|------|
 | 消费者项目 | **todo-web** — [todo-web-0.2.0.md](./todo-web-0.2.0.md) ✅ |
-| **`v0.2.0` tag** | 待本仓 ship + tag |
+| **`v0.2.0` tag** | **已发布** `v0.2.0`（2026-06-09） |

@@ -98,6 +98,7 @@ sdd-skills/
 | 2026-06-09 | **`v0.1.1`** — maintainer 轻量 SDD 实践借鉴（self-review、plan Risks；原独立仓库已退役）；PR #1 |
 | 2026-06-09 | 消费者 **todo-web** 闭环 Pass — [todo-web-0.1.0.md](./consumer-loops/todo-web-0.1.0.md) |
 | 2026-06-09 | **`v0.2.0`** — `sdd-architect` + `sdd-zoom`；todo-web 第三次闭环 — [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
+| 2026-06-09 | **`v0.2.1`** — CI `check` workflow + consumer-loop 状态同步（无新 consumer gate） |
 
 **版本门禁（设计稿共识）：** **`v0.1.0`** 已于 todo-web 第二次闭环后发布（2026-06-09）。此后新增 skill 或 major 行为变更，需新 consumer 闭环与摩擦证据；不为对齐而上新 skill。
 
@@ -285,7 +286,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | 与 skill non-goals 关系 | **不**强推 worktree、每 slice commit — 仅约束 **本仓** 集成方式 |
 | GitHub | **`main` branch protection**（require PR）；**GitHub Actions** `check / validate` 跑 `tests/check.py`（GitLab 等价：`.gitlab-ci.yml`） |
 
-**现状（2026-06-09）：** 本会话曾在本地 `main` 直连累计 12 commits（含 sdd-zoom、review 修复）；待 **一次性 push 或 PR 收敛** 后，从此遵守分支 + PR 纪律。
+**现状（2026-06-09）：** `main` branch protection 与 required check **`validate`** 已启用；日常开发走分支 + PR。
 
 ---
 
@@ -307,6 +308,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **0.1.0 tag** | **已发布** `v0.1.0`（2026-06-09，todo-web 第二次闭环） |
 | **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
 | **0.2.0 tag** | **已发布** `v0.2.0`（2026-06-09，todo-web 第三次闭环 + `sdd-zoom` 同批） | [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
+| **0.2.1 tag** | **待发** maintainer patch（CI + runbook 状态同步） | 无 consumer gate |
 | **`sdd-architect`** | **已合并** PR #2（2026-06-09；初名 `sdd-deepen`，已更名） | optional satellite；见 [spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
 | **`sdd-zoom`** | **已添加；v0.2.0 同批发布，gate 未覆盖** | 待第四次 consumer 闭环或重复 zoom-out 摩擦；见 [runbook-0.2.0.md](./consumer-loops/runbook-0.2.0.md) 脚注 |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
@@ -314,7 +316,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **context/adr-template** | 未做 | L3，有证据再做 |
 | **sdd-ship ship-after checklist** | watchlist | 用户显式 push/PR 清单是否进 README |
 | **`main` branch protection** | **已启用** | require PR（0 approvals）；`enforce_admins`；禁 force push / 删分支 |
-| **CI `check.py`** | **已添加**（PR #5 已 merge；required check `validate` 已启用） | `.github/workflows/check.yml`；GitLab 用 `.gitlab-ci.yml` 同等脚本 |
+| **CI `check.py`** | **已启用**（PR #5 merge；required check `validate`）；semver 记入 **`v0.2.1`** | `.github/workflows/check.yml`；GitLab 用 `.gitlab-ci.yml` 同等脚本 |
 
 ---
 
