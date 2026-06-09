@@ -59,16 +59,38 @@ Full examples and edge cases: [skills/using-sdd/SKILL.md](skills/using-sdd/SKILL
 
 ## Installation
 
-Install with the skills CLI:
+Install with the [skills CLI](https://github.com/vercel-labs/skills) (Cursor, Codex, Claude Code, and other supported agents):
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills
 ```
 
-Select the full set or individual skills in the installer.
+The installer detects local agents and prompts for scope. Non-interactive example:
 
-For agents without installer support, copy the required `skills/<name>/`
-directory into the agent's skills directory.
+```bash
+npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
+```
+
+| Scope | Flag | Where skills land |
+| --- | --- | --- |
+| **Project** (default) | — | `./.agents/skills/` — shared by Cursor and Codex in the same repo |
+| **Global** | `-g` | Cursor: `~/.cursor/skills/` · Codex: `~/.codex/skills/` · Claude Code: `~/.claude/skills/` |
+
+Select all seven skills for the full loop, or start minimal:
+
+```bash
+npx skills@latest add zhijunio/sdd-skills -s using-sdd -s sdd-spec -y
+```
+
+List skills in the repo without installing:
+
+```bash
+npx skills@latest add zhijunio/sdd-skills --list
+```
+
+**Manual install:** copy `skills/<name>/` into your agent's skills directory (including bundled templates such as `spec-template.md` under `sdd-spec/`).
+
+This repository does not ship platform hooks, slash commands, or agent manifests.
 
 ## Minimal Artifacts
 
