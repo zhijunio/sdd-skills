@@ -1,19 +1,33 @@
 ---
 name: sdd-review
-description: Use when a scoped diff needs an independent, read-only review before delivery, after implementation, or when the user asks for a review.
+description: Use when a scoped diff needs an independent, read-only review before delivery, after implementation, or when the user asks for a review. Always includes a mandatory simplify pass for DRY/KISS opportunities in the scoped diff.
 ---
 
 # SDD Review
 
 ## Goal
 
-Find actionable defects in a defined diff without modifying product, test, or plan files.
+Find actionable defects and behavior-preserving simplification opportunities in a defined diff without modifying product, test, or plan files.
 
 ## When to Use
 
 Use before delivery, after implementation, or when the user asks for a review.
 
 It can run with only a diff. Missing spec or plan reduces traceability and must be disclosed.
+
+Skip when the user wants a **whole-repo or branch health check** without a delivery increment — use **`sdd-improve`**.
+
+### Disambiguation vs `sdd-improve`
+
+| | **review** (this skill) | **improve** |
+| --- | --- | --- |
+| Question | Does **this increment** meet spec/plan? | What opportunities or problems exist? |
+| Scope | **Increment diff only** | Whole repo or branch vs merge-base |
+| Verdict | pass / must-fix / should-fix → ship | Findings table; user selects follow-ups |
+| Overlap | correctness, security, performance, tests, arch debt **in diff** | Same lenses repo-wide or on branch; plus DX, direction |
+| Unique here | Spec/plan AC mapping, mandatory simplify pass on code diffs | Not a ship gate |
+
+Whole-repo or branch exploration → **`sdd-improve`**. Ambiguous 「review」without diff → **`using-sdd`** asks which skill.
 
 ## Prerequisites
 
@@ -75,12 +89,13 @@ Fresh command output and full acceptance evidence belong in `sdd-ship`, not here
 ### Conditional (when the diff touches them)
 
 - **Standards** — repository guidance (`AGENTS.md`, README conventions, linters in CI). Skip style nits CI already gates unless the diff bypasses or disables them.
-- **Architecture** — new modules, cross-layer calls, shared APIs, duplication **introduced or worsened by this diff**. Whole-codebase deepening opportunities outside the diff belong in optional **`sdd-architect`**, not here; whole-codebase territory maps belong in optional **`sdd-zoom`**, not here; note those only as out-of-scope observations.
+- **Architecture** — new modules, cross-layer calls, shared APIs, duplication **introduced or worsened by this diff**. Whole-codebase audit or branch health check outside the diff → optional **`sdd-improve`**; territory maps without findings → optional **`sdd-zoom`**; note those only as out-of-scope observations.
 - **Security** — auth, user input, secrets in repo or logs, SQL or untrusted external data.
 - **Performance** — N+1 queries, unbounded loops or fetches, hot paths, heavy synchronous work.
 - **Readability and change size** — naming, control flow, unnecessary complexity; when the diff adds layers or abstractions, check DRY and KISS/YAGNI; flag when a single increment is roughly **>300 lines** or one file grows substantially without justification.
+- **Simplify (mandatory)** — within the scoped diff, scan for behavior-preserving reductions: duplicate logic, parallel APIs, copy-pasted UI blocks, and fields or layers that can be collapsed without changing acceptance. See **Simplify pass** below. Whole-codebase refactors outside the diff stay out-of-scope observations or optional `sdd-simplify`; do not skip this dimension because correctness or security looked fine.
 
-Skip conditional dimensions the diff does not touch (for example, docs-only diffs skip security and performance).
+Skip other conditional dimensions the diff does not touch (for example, docs-only diffs skip security and performance). **Never skip Simplify** on code diffs.
 
 ## Process
 
@@ -89,7 +104,26 @@ Skip conditional dimensions the diff does not touch (for example, docs-only diff
 3. Read the spec and plan when available; map Acceptance when a plan exists.
 4. Review test changes first: coverage, edge cases, regression value.
 5. Walk implementation against core and applicable conditional dimensions.
-6. Report findings before summary, ordered by severity; end with verdict.
+6. **Simplify pass (mandatory for code diffs)** — after correctness, run the checklist below on the full scoped diff. Record each hit as `suggestion` or `should-fix` when the duplication is large, migration is half-done, or the slice is harder to maintain than a small extract would cost. If nothing applies, write `None.` under **### simplify** and say `simplify: pass` in **Dimension Coverage**.
+7. Report findings before summary, ordered by severity; end with verdict.
+
+### Simplify pass checklist
+
+Scan the scoped diff for behavior-preserving simplifications. Prefer `file:line — [simplify] — …` in findings.
+
+| Signal | Look for |
+| ------ | -------- |
+| **Parallel APIs** | Two entry points doing the same job (e.g. `foo` vs `fooIds`, overload vs new method) where one path or a thin wrapper would suffice |
+| **Repeated blocks** | Same 5+ line pattern in multiple files (resolve/filter/build-param helpers, private methods that differ only by type) — candidate for shared util or base method |
+| **Copy-paste UI** | Identical or near-identical components, hooks, form fields, Cascader/search wiring repeated across screens |
+| **Field or param bloat** | New fields that duplicate an existing one (`areaId` + `areaIds`) without a documented compatibility reason; merge at Query/DTO boundary when safe |
+| **Layer noise** | Extra indirection, pass-through methods, or abstractions added in the same increment without reuse |
+| **Half migration** | Old path still called beside new path; staged but uncommitted pieces of the same refactor; dead code left after switch |
+| **Test duplication** | Same arrange/assert copied across tests — table-driven or shared fixture candidate |
+
+**Severity:** `should-fix` when half-migration or large duplication blocks maintainability or risks drift; otherwise `suggestion`. Do not mark `must-fix` solely for simplify unless the diff clearly violates an agreed Non-goal (e.g. “no dual API”) from the plan.
+
+**Out of scope:** pre-existing duplication untouched by the diff — note under **Assumptions & Gaps**, not `must-fix`.
 
 Prefer `file:line — [spec|standards] — issue` in findings when the lens matters. On auth, secrets, migrations, or public API, label **inferred** claims as such; do not state inference as fact.
 
@@ -107,6 +141,8 @@ Optional two-pass review when the plan is large: spec/plan compliance first, the
 - Expanding scope to pre-existing code not in the scoped diff and marking it `must-fix`.
 - Claiming specification compliance without a specification.
 - Running full verification or updating the plan during review.
+- Finishing review without the **Simplify pass** on a non-trivial code diff.
+- Treating DRY/KISS only as optional style nits — duplication introduced or left half-migrated by the diff belongs in **### simplify** or **should-fix**.
 
 ## Verification
 
@@ -153,11 +189,17 @@ List only in-scope issues. Use `file:line` references; optional `[spec]` or `[st
 
 …
 
-If a severity has no items, write `None.`
+### simplify
+
+Behavior-preserving DRY/KISS opportunities from the mandatory simplify pass. Tag lines with `[simplify]` when helpful.
+
+…
+
+If a severity subsection has no items, write `None.`
 
 ## Dimension Coverage
 
-Brief pass, fail, or skip for each dimension examined: spec/plan (including Acceptance mapping when a plan exists), correctness, tests, docs, and any conditional dimensions reviewed.
+Brief pass, fail, or skip for each dimension examined: spec/plan (including Acceptance mapping when a plan exists), correctness, tests, docs, **simplify (mandatory on code diffs)**, and any other conditional dimensions reviewed.
 
 ## Assumptions & Gaps
 

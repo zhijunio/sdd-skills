@@ -5,6 +5,8 @@ description: Use when a consumer wants a whole-codebase architecture opportunity
 
 # SDD Architect
 
+> **Deprecated:** use **`sdd-improve`** (category 5 retains architect vocabulary). This skill remains until maintainer removes it after user-confirmed trial.
+
 ## Goal
 
 Surface behavior-preserving architecture deepening opportunities in a conversation without replacing `sdd-review` or entering product implementation.

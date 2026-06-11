@@ -14,7 +14,7 @@ flowchart TD
   subgraph satellites["Optional satellites — route one"]
     Z[sdd-zoom]
     G[sdd-grill]
-    A[sdd-architect]
+    I[sdd-improve]
   end
 
   S[sdd-spec] -->|user approval| P[sdd-plan]
@@ -23,9 +23,9 @@ flowchart TD
   R -->|must-fix / should-fix| B
   R -->|pass| SH[sdd-ship]
 
-  U --> Z & G & A & S
+  U --> Z & G & I & S
   Z --> U
-  A --> U
+  I --> U
   G --> S
   G -.->|plan/design decisions| P
 ```
@@ -35,7 +35,7 @@ flowchart TD
 Each skill stops after its own output. Skills recommend the next stage but do
 not invoke it automatically.
 
-The **core delivery loop** has seven stages below. **`sdd-architect`** and **`sdd-zoom`** are optional satellites—install when needed; neither is mandatory before ship.
+The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-zoom`** are optional satellites—install when needed; neither is mandatory before ship. **`sdd-architect`** is deprecated; use **`sdd-improve`** (pending removal after trial).
 
 ## Skills
 
@@ -55,8 +55,9 @@ The **core delivery loop** has seven stages below. **`sdd-architect`** and **`sd
 
 | Skill | Use when |
 | --- | --- |
-| `sdd-zoom` | Unfamiliar code—need a **territory map** (modules, callers, domain vocabulary); not refactor advice |
-| `sdd-architect` | Pre-spec **architecture opportunity scan** (shallow modules, seams, mud-ball)—optional; not delivery review |
+| `sdd-zoom` | Unfamiliar code—need a **territory map** (modules, callers, domain vocabulary); not refactor findings |
+| `sdd-improve` | Read-only **codebase audit** or health check (correctness, security, architecture debt, tests)—optional; not delivery review |
+| `sdd-architect` | **Deprecated** — use `sdd-improve`; retained until trial confirms removal |
 
 All core skills can be installed independently. Some require artifacts rather
 than other skills: `sdd-plan` needs an approved spec, `sdd-build` needs a spec
@@ -71,7 +72,7 @@ and plan, and `sdd-ship` needs a passed review.
 
 **Normative routing** (pre-spec, core loop, review loop, escalation, disambiguation): [using-sdd — Routing matrix](skills/using-sdd/SKILL.md#routing-matrix).
 
-Satellite summary: territory map → `sdd-zoom`; architecture deepening → `sdd-architect`; delivery diff review → `sdd-review`.
+Satellite summary: territory map → `sdd-zoom`; audit / health check → `sdd-improve`; delivery diff review → `sdd-review`.
 
 ## Installation
 
@@ -101,10 +102,10 @@ npx skills@latest add zhijunio/sdd-skills@v0.2.1 -a cursor -a codex -a claude-co
 Select all seven core skills for the full loop, or add optional satellites:
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s sdd-architect -s sdd-zoom -y
+npx skills@latest add zhijunio/sdd-skills -s sdd-improve -s sdd-zoom -y
 ```
 
-If you previously installed **`sdd-deepen`**, remove that directory and reinstall with **`-s sdd-architect`** (same satellite, renamed pre-`v0.2.0`).
+If you previously installed **`sdd-deepen`** or **`sdd-architect`**, remove that directory and reinstall with **`-s sdd-improve`** (successor satellite).
 
 Minimal core install:
 
@@ -139,8 +140,7 @@ and be linked from spec **Related ADRs**; that layout is optional and not part
 of the default two-document workflow.
 
 Stable domain terminology may live in `CONTEXT.md` at the project root (single
-domain) or in `CONTEXT-MAP.md` pointing to per-domain `CONTEXT.md` files.
-Spec **Current Context** records increment facts for this change; reference shared
+domain) or in `docs/context/<domain>/CONTEXT.md` (multi-domain). Spec **Current Context** records increment facts for this change; reference shared
 terms from CONTEXT instead of repeating them. Optional — see
 [context-adr-workflow](docs/design/context-adr-workflow.md).
 

@@ -135,7 +135,8 @@ Related: [software-engineering-rationale.md](./software-engineering-rationale.md
 ### 6.2 CONTEXT + ADR（grill-with-docs）
 
 - **grill-with-docs** = grill-me + **inline 更新** `CONTEXT.md` 与 ADR。  
-- **CONTEXT-FORMAT**：术语 + `_Avoid_`；单域根 `CONTEXT.md`；多域 **`CONTEXT-MAP.md`** + 各域 `CONTEXT.md`。  
+- **CONTEXT-FORMAT**（matt 上游）：术语 + `_Avoid_`；单域根 `CONTEXT.md`；多域 **`CONTEXT-MAP.md`** + 各域 `CONTEXT.md`。  
+- **sdd-skills 消费者**：单域根 `CONTEXT.md`；多域 **`docs/context/<domain>/CONTEXT.md`**，**不**引入 `CONTEXT-MAP.md`。
 - **setup-matt-pocock-skills**：每 repo 配置 issue tracker、标签、域文档布局 — **消费者 skill 先读 CONTEXT/ADR**。  
 - **Lazy create**：无 CONTEXT 时 **静默继续**，术语落定再建。
 

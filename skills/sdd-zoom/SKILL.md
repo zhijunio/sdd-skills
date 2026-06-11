@@ -1,6 +1,6 @@
 ---
 name: sdd-zoom
-description: Use when the user says zoom out or needs the big picture—unfamiliar code needs a higher-level map of modules, callers, and domain vocabulary before spec, grill, architect, or build—not delivery review or refactor recommendations.
+description: Use when the user says zoom out or needs the big picture—unfamiliar code needs a higher-level map of modules, callers, and domain vocabulary before spec, grill, improve, or build—not delivery review or refactor findings.
 ---
 
 # SDD Zoom
@@ -17,7 +17,7 @@ Use when the user says zoom out, needs the big picture, or is unfamiliar with a 
 
 Use when `using-sdd` routes here because the active increment's territory is unclear but goals may already be known.
 
-Skip when the user wants **where to deepen** the codebase (shallow modules, seams, mud-ball) — use **`sdd-architect`**.
+Skip when the user wants **refactor findings** (shallow modules, seams, mud-ball) — use **`sdd-improve`**.
 
 Skip when goals, boundaries, or trade-offs are still unclear — use **`sdd-grill`**.
 
@@ -57,21 +57,21 @@ When the user names a focus area (path, feature, module, or ticket), scope the m
 7. End with one next-step recommendation through **`using-sdd`**. Common paths:
    - territory clear, behavior change next → **`sdd-spec`**
    - trade-offs still open → **`sdd-grill`**
-   - structural friction visible and user wants candidates → **`sdd-architect`**
+   - structural friction visible and user wants findings → **`sdd-improve`**
    - approved plan, coding in mapped area → **`sdd-build`**
 
-Do not propose refactor candidates, recommendation strength, or deepening directions — that belongs in **`sdd-architect`**.
+Do not propose refactor findings, recommendation strength, or deepening directions — that belongs in **`sdd-improve`**.
 
 Do not write product code, tests, spec, plan, CONTEXT, ADR, or durable map files unless the user explicitly asks for one.
 
 ## Red Flags
 
 - Treating this skill as mandatory before every spec or ship.
-- Duplicating **`sdd-architect`** with refactor or deepening recommendations.
+- Duplicating **`sdd-improve`** with refactor or deepening findings.
 - Duplicating **`sdd-review`** on a scoped diff.
 - Dumping a raw directory tree without roles, callers, or domain vocabulary.
-- **Map as table or prose only** when three or more units interact and a relationship diagram would clarify callers (contrast **`sdd-architect`**, which does not require diagram deliverables).
-- Auto-invoking **`sdd-spec`**, **`sdd-grill`**, **`sdd-architect`**, or **`sdd-build`**.
+- **Map as table or prose only** when three or more units interact and a relationship diagram would clarify callers (contrast **`sdd-improve`**, which does not require diagram deliverables).
+- Auto-invoking **`sdd-spec`**, **`sdd-grill`**, **`sdd-improve`**, or **`sdd-build`**.
 
 ## Verification
 

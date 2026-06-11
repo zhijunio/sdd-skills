@@ -32,16 +32,17 @@ When routing, you may state briefly that you are checking the SDD stage and name
 
 Normative routing for this skill. Recommend **one** skill only; do not invoke automatically.
 
-**Optional satellites** (`sdd-zoom`, `sdd-architect`) are not part of the mandatory core loop before `sdd-ship`. After a satellite, route through **`using-sdd`** again. When the user selects an architect candidate that needs acceptance criteria, default next stage is **`sdd-spec`** unless trade-offs remain open.
+**Optional satellites** (`sdd-zoom`, `sdd-improve`) are not part of the mandatory core loop before `sdd-ship`. After a satellite, route through **`using-sdd`** again. When the user selects a finding that needs acceptance criteria, default next stage is **`sdd-spec`** unless trade-offs remain open.
 
 ### Disambiguation
 
 | User says / means | Route |
 | --- | --- |
-| "zoom out", "big picture", unfamiliar territory — **map**, not refactor | `sdd-zoom` |
+| "zoom out", "big picture", unfamiliar territory — **map**, not findings | `sdd-zoom` |
 | Unfamiliar territory **and** open trade-offs | **`sdd-zoom` first** — map the territory; then **`using-sdd`** → **`sdd-grill`** if decisions remain |
-| "review" **without** a defined diff | Ask: delivery review (`sdd-review`) vs architecture scan (`sdd-architect`) |
-| Deepen, shallow modules, seams, mud-ball — **candidates**, not diff defects | `sdd-architect` |
+| "review" / 审查 **without** a defined diff and spec/plan context | **Ask:** delivery review (`sdd-review`) vs codebase health check (`sdd-improve`) — do not route silently |
+| Audit, health check, improve, 体检, whole-repo or branch exploration | `sdd-improve` |
+| Deepen, shallow modules, seams, mud-ball — architecture **findings**, not diff defects | `sdd-improve` (category 5) |
 | Goals, boundaries, trade-offs still open | `sdd-grill` |
 
 ### Pre-spec
@@ -50,7 +51,7 @@ Normative routing for this skill. Recommend **one** skill only; do not invoke au
 | --- | --- | --- |
 | Unfamiliar territory; need map before spec, grill, or build | `sdd-zoom` | — |
 | Goals, boundaries, trade-offs, or plan/design still need decisions | `sdd-grill` | — |
-| Architecture opportunity scan before spec; not delivery review | `sdd-architect` | — |
+| Codebase audit or architecture scan before spec; not delivery review | `sdd-improve` | — |
 | Boundaries clear; small reversible change | `sdd-spec` | grill |
 
 ### Core loop

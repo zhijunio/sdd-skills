@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Optional satellite skill **`sdd-improve`** — read-only multi-category codebase audit; conversation findings report; [shadcn/improve](https://github.com/shadcn/improve) (MIT) + Matt architect vocabulary in category 5
+
 ### Changed
 
-- **`spec-template` / README**: L1+ optional `CONTEXT.md` / `CONTEXT-MAP.md` guidance; spec **Current Context** as increment facts (link shared terms from CONTEXT)
+- **`using-sdd`**: route audit / health-check / architecture scan to **`sdd-improve`** only; ambiguous review without diff → ask improve vs review
+- **`sdd-review` / `sdd-zoom`**: Disambiguation vs **`sdd-improve`**; whole-repo health → improve
+- **`sdd-architect`**: deprecated pointer to **`sdd-improve`**; skill retained until user-confirmed removal
+- **`spec-template` / README**: drop `CONTEXT-MAP.md`; multi-domain uses `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts (link shared terms from CONTEXT)
 - **`AGENTS.md` / `project-decisions` §6.4**: maintainer PR 按主题合并，避免频繁 micro-PR
 
 ## [0.2.1] - 2026-06-09

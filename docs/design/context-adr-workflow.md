@@ -53,7 +53,7 @@ Scope: 使用 SDD 技能集的项目中，可选域文档 `CONTEXT.md` 与架构
 | B4 | 何时才建 | **A** — 多篇 spec 重复术语，或多人/agent 协作易漂移 |
 | B5 | 谁维护 | 先 **仅 sdd-spec** → 后统一方案改为 **grill 写 Language，spec 兜底** |
 | B6 | 与 ADR 划界 | **A** — CONTEXT = **是什么**；ADR = **为什么**；spec Decisions = **本变更** |
-| B7 | 多域 | 对齐 matt — **`CONTEXT-MAP.md` + 每域 `CONTEXT.md`**；单域则根目录一份即可 |
+| B7 | 多域 | 根目录单域 **`CONTEXT.md`**；多域用 **`docs/context/<domain>/CONTEXT.md`**（或 `src/<domain>/CONTEXT.md`），**不要**根索引 `CONTEXT-MAP.md` |
 | B8 | 0.1.0 落地程度 | **A** — 最小：README + `spec-template` 注释（L1） |
 
 ---
@@ -115,7 +115,7 @@ Scope: 使用 SDD 技能集的项目中，可选域文档 `CONTEXT.md` 与架构
 
 Prerequisites 建议统一句式：
 
-> 若存在 `CONTEXT.md` / `CONTEXT-MAP.md` 及相关的 `docs/adr/`，先读与本次 increment 相关的部分；缺失则继续。
+> 若存在 `CONTEXT.md`（根目录或 `docs/context/<domain>/`）及相关的 `docs/adr/`，先读与本次 increment 相关的部分；缺失则继续。
 
 ### 4. spec 内结构（不重复持久文档全文）
 
@@ -141,14 +141,14 @@ Revision log      ← spec 原地修订（已实现）
 
 ```text
 /
-├── CONTEXT-MAP.md
 ├── docs/adr/                    ← 系统级决策
-└── src/<domain>/
-    ├── CONTEXT.md
-    └── docs/adr/                ← 域内决策（可选）
+├── docs/context/<domain>/
+│   └── CONTEXT.md
+└── src/<domain>/                ← 可选：域代码与域内 ADR 同目录
+    └── docs/adr/
 ```
 
-（`docs/context/<domain>.md` 亦可，但须有根索引；优先与 matt 的 `CONTEXT-MAP.md` 对齐。）
+（`src/<domain>/CONTEXT.md` 亦可；按域就近放置，**不**要求根目录索引文件。）
 
 ### 6. ADR 格式要点
 
@@ -160,7 +160,7 @@ Revision log      ← spec 原地修订（已实现）
 
 - **Language** 段：术语定义 + **`_Avoid_`** 禁用同义词
 - 只收 **项目特有概念**，不收通用编程词
-- 多域时由 **CONTEXT-MAP** 指向各域文件
+- 多域时各域 **`docs/context/<domain>/CONTEXT.md`**（或 `src/<domain>/CONTEXT.md`）自持术语；spec 链到对应域文件
 
 ---
 
@@ -194,7 +194,7 @@ Revision log      ← spec 原地修订（已实现）
 |------|------|------|
 | **L0** | spec + plan；Current Context / Constraints / Revision | ✅ 已在 skill 中 |
 | **L1** | `spec-template`：Decisions、Related ADRs；README optional ADR | ✅ `397aa90` |
-| **L1+** | CONTEXT / CONTEXT-MAP 注释；Current Context 增量说明 | ✅（`spec-template` + README） |
+| **L1+** | CONTEXT 注释（无 CONTEXT-MAP）；Current Context 增量说明 | ✅（`spec-template` + README） |
 | **L2** | `sdd-grill` 窄写 CONTEXT Language + 纯 ADR；`sdd-spec/plan/build` Prerequisites 读 CONTEXT/ADR | ❌ 未实现 |
 | **L3** | `context-template`、`adr-template`；`sdd-review` 可选术语维度 | ❌ 等有证据再做 |
 
