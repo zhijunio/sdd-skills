@@ -17,7 +17,9 @@ Read repository guidance, relevant code/docs, and any `sdd-grill` Stop summary f
 4. Each observable criterion → stable `AC-n`.
 5. Remove irrelevant template sections.
 6. **Self-review:** no `TBD`/`TODO`/vague AC; sections agree; scope matches non-goals; pass/fail unambiguous; no hidden implementation tasks.
-7. Present for user approval.
+7. **Present** for user approval.
+
+**Present:** Write the spec in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: `AC-n`, skill ids, `file:line`, git literals.
 
 **Revision** — same `docs/sdd/YYYY-MM-DD-<topic>-spec.md` in place (no `-v2` copy):
 
@@ -32,4 +34,4 @@ Examples: reword AC-2 without changing pass/fail → log only. AC-3 limit 200ms�
 
 **Red flags:** implementation steps inside AC; verbatim grill transcript; open questions blocking planning; file existence as approval; new spec file instead of revise; skipping re-approval after AC/constraint change.
 
-**SDD:** `docs/sdd/YYYY-MM-DD-<topic>-spec.md`. User's language; layout flexible. New spec approved → invoke `sdd-plan`. Clarification-only → no stage change. AC change re-approved → invoke `sdd-plan` if plan impact yes, else prior stage.
+**SDD:** `docs/sdd/YYYY-MM-DD-<topic>-spec.md`. Layout flexible. New spec approved → invoke `sdd-plan`. Clarification-only → no stage change. AC change re-approved → invoke `sdd-plan` if plan impact yes, else prior stage.

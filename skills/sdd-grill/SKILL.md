@@ -11,6 +11,8 @@ If a question can be answered by exploring the codebase, explore the codebase in
 
 **Skip:** boundaries explicit → invoke `sdd-spec`.
 
-**Stop:** Shared understanding — present `Decisions:` / `Rejected:` / `Boundaries:` / `Open:` (one line each), then hand off. Default `sdd-spec`; `sdd-plan` only when an approved spec exists and subject is plan/slices.
+**Present:** Write `Decisions:` / `Rejected:` / `Boundaries:` / `Open:` in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: skill ids, `file:line`, git literals.
+
+**Stop:** Shared understanding — **Present**, then hand off. Default `sdd-spec`; `sdd-plan` only when an approved spec exists and subject is plan/slices.
 
 **Red flags:** writing or editing spec, plan, design docs, or product code in-session; asking what the repo can answer.

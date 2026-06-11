@@ -11,7 +11,7 @@ Read repository guidance, README, optional `CONTEXT.md` / `docs/adr/` / `docs/sd
 
 **Process:** Recon → Profile (optional) → Audit → Verify → Present → Confirm → Stop — [finding-format.md](references/finding-format.md), [profile-guide.md](references/profile-guide.md), [audit-dimensions.md](references/audit-dimensions.md), [closing-the-loop.md](references/closing-the-loop.md).
 
-**Present:** Write the findings report in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: category lens ids, skill ids, `file:line`, git literals, 🔴/🟡/🟢.
+**Present:** Write the findings report in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: category lens ids, skill ids, `file:line`, git literals, 🔴/🟡/🟢. [finding-format.md](references/finding-format.md).
 
 **Stop:** name **Next stage** per [closing-the-loop.md](references/closing-the-loop.md); **hand off** — load that skill or **direct edit**; no in-session product edits. Common: behavior/AC needed → `sdd-spec`; trade-offs → `sdd-grill`; increment diff → `sdd-review`; mechanical + boundaries clear → `sdd-plan` / `sdd-build`.
 

@@ -30,7 +30,7 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
 - **Optional satellites stay outside the core loop:** `sdd-improve` (codebase audit) and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
 
-For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in **`sdd-improve`** / **`sdd-review`** `SKILL.md`; details in `finding-format.md` **Report locale**.
+For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve/review details in `finding-format.md` **Report locale**.
 
 Sources and methodology: [docs/design/](docs/design/) ([index](docs/design/README.md)).
 

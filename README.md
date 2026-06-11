@@ -196,7 +196,7 @@ See [CHANGELOG.md](CHANGELOG.md). `sdd-ship` updates it when user-visible releas
 
 Implements the [core principles](#core-principles) above. Also:
 
-- Skill instructions English; deliverables follow the user's language; **layout is flexible** (required **content**, not a shared skeleton).
+- Skill instructions English; deliverables follow the user's language (**Present** hard rule in each `SKILL.md`); **layout is flexible** (required **content**, not a shared skeleton).
 - Spec and plan need user approval before build.
 
 Design docs: [docs/design/](docs/design/) — [engineering-rationale](docs/design/engineering-rationale.md)（本仓 + 上游对照）.

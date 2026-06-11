@@ -27,6 +27,6 @@ Require spec, plan, reviewed diff, and review outcome.
 
 Every AC needs fresh, proportionate evidence. Explain skipped checks.
 
-**Output (required content — layout flexible):** Acceptance Evidence table (Criterion | Implementation | Evidence | Pass/Fail); Regression Checks beyond scoped ACs; Unrun Checks with reasons; Remaining Risks (accepted should-fix, gaps); CHANGELOG (user-visible only, or "none needed"); Delivery Status (ready vs explicit user actions: commit, push, PR, deploy). Record CHANGELOG user-visible changes only.
+**Present:** Write the ship summary in the **user's language** (latest user turn when unclear) — do not default to English. Required content (layout flexible): Acceptance Evidence (Criterion | Implementation | Evidence | Pass/Fail); Regression Checks; Unrun Checks; Remaining Risks; CHANGELOG (user-visible only, or "none needed"); Delivery Status. Record CHANGELOG user-visible changes only.
 
-**SDD:** User's language. Stop after ship summary and any explicitly requested local commit. No push, PR, publish, or deploy unless separately requested.
+**SDD:** Stop after ship summary and any explicitly requested local commit. No push, PR, publish, or deploy unless separately requested.
