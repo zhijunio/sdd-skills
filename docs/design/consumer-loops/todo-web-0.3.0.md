@@ -9,7 +9,7 @@ Increment (one sentence): **`sdd-improve` 🟡#1** → WebMvcTest 切片迁移�
 - Agent(s): Cursor
 - skills install scope: project（`.agents/skills/`）
 - sdd-skills ref: `docs/maintainer-pr-batch` @ `3b0a7b5`（本地 copy `sdd-improve`）
-- Consumer branch: `codex/implement-todo-web`（delivery 待 commit）
+- Consumer branch: `codex/implement-todo-web` @ `60e00bb`
 - Prior loops: [todo-web-0.2.0.md](./todo-web-0.2.0.md)
 
 ## Stage log
@@ -93,6 +93,6 @@ Stage 0 对话报告漏写 **Next stage**（trial 摩擦 I6）；补录如下：
 
 ## Follow-ups
 
-- [ ] consumer 仓 commit + push `codex/implement-todo-web`
+- [x] consumer 仓 `60e00bb` push `codex/implement-todo-web`
 - [ ] PR #11 merge `main` → 正式 `npx … -s sdd-improve` install
 - [ ] maintainer **`v0.3.0` tag**（`sdd-ship` on sdd-skills after merge + trial 记录齐）
