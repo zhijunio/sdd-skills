@@ -61,8 +61,8 @@
   - 「帮我体检一下这个仓库」→ categories 1–8
   - 「看看架构有没有泥球」→ category 5
   - Category 5 findings include over-engineering/duplication with evidence
-- Verification: `python3 tests/check.py`; `rg sdd-architect skills/` empty
-- Done: false
+- Verification: `python3 tests/check.py` — **passed** (9 skills); `rg sdd-architect skills/` — **empty**
+- Done: true
 
 ## Final Review and Ship
 

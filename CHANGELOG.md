@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **`using-sdd`**: route audit / health-check / architecture scan to **`sdd-improve`** only; ambiguous review without diff → ask improve vs review
 - **`sdd-review` / `sdd-zoom`**: Disambiguation vs **`sdd-improve`**; whole-repo health → improve
-- **`sdd-architect`**: deprecated pointer to **`sdd-improve`**; skill retained until user-confirmed removal
+- **Removed** optional satellite **`sdd-architect`** — superseded by **`sdd-improve`** (breaking rename; reinstall with `-s sdd-improve`)
 - **`spec-template` / README**: drop `CONTEXT-MAP.md`; multi-domain uses `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts (link shared terms from CONTEXT)
 - **`AGENTS.md` / `project-decisions` §6.4**: maintainer PR 按主题合并，避免频繁 micro-PR
 

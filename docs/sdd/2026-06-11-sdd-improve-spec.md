@@ -228,3 +228,4 @@ None.
 - 2026-06-11: Amended — **natural-language scope inference**; keywords internal only; v1/later table; AC-16.
 - 2026-06-11: Amended — **Disambiguation** vs **`sdd-review`**; conversation findings report; AC-17/AC-18; **`using-sdd`** ask on ambiguous review.
 - 2026-06-11: Plan approved; Slice 1–3 implemented (`skills/sdd-improve/`; routing; docs). Slice 4 awaits user-confirmed architect removal.
+- 2026-06-11: Slice 4 — **`skills/sdd-architect/`** removed (AC-14); user-confirmed migration.

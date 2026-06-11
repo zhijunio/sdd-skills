@@ -19,7 +19,7 @@ Optional — omit when user already set scope.
 | --- | --- | --- | --- | --- | --- |
 | 1 | tech-debt & architecture | path:line | … | high | introduced |
 
-Order by leverage (impact ÷ effort × confidence). Category 9 **direction** goes in a separate section below (2–4 items).
+Order by leverage (impact ÷ effort × confidence). Category 9 **direction** goes in a separate section below (2–4 items). When a finding **contradicts an ADR**, note the ADR path and recommend ADR or spec follow-up.
 
 ## Considered and rejected
 

@@ -113,7 +113,7 @@ sdd-skills/
 | 扩仓目标 | 只补 SDD 流水线断档，不对齐上游数量 |
 | 8 技能环是否有洞 | 暂无重复痛点 → 不加第 8 个 **core stage** |
 | **`sdd-improve` satellite** | 2026-06-11 — 融合 shadcn/improve 审计 + architect category 5；**optional**，不进 core loop；**待** consumer trial |
-| **`sdd-architect` satellite** | 2026-06-09 — **deprecated**，由 **`sdd-improve`** 接替；保留至用户确认删除 |
+| **`sdd-architect` satellite** | 2026-06-09 发布 → 2026-06-11 由 **`sdd-improve`** 接替并**删除** |
 | brainstorm vs grill | 流程高度重叠（一问一答）→ **合并为 `sdd-grill`** |
 | 合并后命名 | **`sdd-grill`**（保留 "grill me" 触发） |
 | 合并后相位 | **Explore**（比方案、rejected）+ **Challenge**（压测 plan） |
@@ -132,7 +132,7 @@ using-sdd
   → sdd-build
   → sdd-review → (findings) sdd-build | (pass) sdd-ship
 
-Optional satellites (not in loop above): **`sdd-zoom`** — territory map; **`sdd-improve`** — codebase audit; **`sdd-architect`** — deprecated; route via `using-sdd`.
+Optional satellites (not in loop above): **`sdd-zoom`** — territory map; **`sdd-improve`** — codebase audit; route via `using-sdd`.
 ```
 
 ---
@@ -212,7 +212,7 @@ Optional satellites (not in loop above): **`sdd-zoom`** — territory map; **`sd
 | Pre-existing | diff 外既有问题 → **out-of-scope 观察**，不得 must-fix |
 | Plan | 有 plan 时 **Acceptance 逐条映射**（met/partial/missing/unclear） |
 | 大 diff | ~30+ 文件或 >300 行 → triage 高风险区；**Limits** 写入 Assumptions |
-| 维度 | Standards（CI 已 gate 不重复）；Architecture 与 **`sdd-architect`** 分界 |
+| 维度 | Standards（CI 已 gate 不重复）；Architecture 与 **`sdd-improve`** 分界（全库/branch 体检 → improve；diff 内 → review） |
 | Output | 固定标题：Scope、Strengths、Findings、Dimension Coverage、Assumptions & Gaps、Verdict |
 | 验证 | 完整复验在 **`sdd-ship`** |
 
@@ -239,13 +239,6 @@ Optional satellites (not in loop above): **`sdd-zoom`** — territory map; **`sd
 | CONTEXT/ADR | 有则读；无则继续；**不** inline 写 |
 | Stop | → **`using-sdd`**；默认 **`sdd-spec`** / **`sdd-grill`** |
 | Spec | [2026-06-11-sdd-improve-spec.md](../../docs/sdd/2026-06-11-sdd-improve-spec.md) |
-
-### 5.8b `sdd-architect`（deprecated）
-
-| 项 | 决策 |
-|----|------|
-| 状态 | **Deprecated** — 由 **`sdd-improve`** 接替；磁盘保留至用户确认删除 |
-| 发版 | **`v0.2.0`** consumer — [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
 
 ### 5.9 `sdd-zoom`（optional satellite）
 
@@ -321,7 +314,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **0.2.0 tag** | **已发布** `v0.2.0`（2026-06-09，todo-web 第三次闭环 + `sdd-zoom` 同批） | [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
 | **0.2.1 tag** | **已发布** `v0.2.1`（2026-06-09，CI + runbook 状态同步） | 无 consumer gate |
 | **`sdd-improve`** | **实现中**（2026-06-11） | 替代 architect；见 [spec](../../docs/sdd/2026-06-11-sdd-improve-spec.md)；**待** trial + tag |
-| **`sdd-architect`** | **deprecated** — 用户确认后删除 | 见 [architect spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
+| **`sdd-architect`** | **已删除**（2026-06-11）— 由 **`sdd-improve`** 接替 | 历史 [architect spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
 | **`sdd-zoom`** | **已添加；v0.2.0 同批发布，gate 未覆盖** | 待第四次 consumer 闭环或重复 zoom-out 摩擦；见 [runbook-0.2.0.md](./consumer-loops/runbook-0.2.0.md) 脚注 |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |
 | **L1+ CONTEXT 注释** | **已做** | `spec-template` + README：`CONTEXT.md` / `docs/context/<domain>/`；Current Context 增量 |

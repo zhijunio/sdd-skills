@@ -19,6 +19,8 @@ Skip when the user only needs a **territory map** without findings — use `sdd-
 
 Skip when goals or trade-offs are still open — use `sdd-grill`.
 
+Skip when the user asks for **direct implementation** — decline and route to **`sdd-spec`**, **`sdd-plan`**, or **`sdd-build`** (or recommend **shadcn/improve** for plan+execute workflows).
+
 This is an **optional satellite**. Not mandatory before `sdd-ship`.
 
 ### Disambiguation vs `sdd-review`
@@ -44,7 +46,7 @@ Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/
 
 1. **Profile** — when effort or scope is ambiguous: project type, inferred effort (`quick` / `standard` / `deep`), in-scope categories, skip reasons. See [profile-guide.md](references/profile-guide.md).
 2. **Audit** — read-only scan of in-scope categories (default **standard**: categories **1–8**). All findings use `file:line` evidence. **Never** use the name Simplify. See [audit-playbook.md](references/audit-playbook.md).
-3. **Verify** — re-read cited code; reject false positives; record in **considered and rejected**.
+3. **Verify** — re-read cited code; reject false positives; record in **considered and rejected**. When a finding contradicts an existing ADR, **mark the conflict** and recommend ADR or spec follow-up — do not override silently.
 4. **Present** — findings table by leverage; category 9 **direction** in a separate section when included.
 5. **Confirm** — ask which findings to pursue; dependency order for user selections only.
 6. **Stop** — recommend **`using-sdd`** only; default next **`sdd-spec`** (needs AC) or **`sdd-grill`** (trade-offs).
@@ -54,6 +56,7 @@ Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 ## Red Flags
 
 - Treating improve as a ship gate or delivery review substitute.
+- Implementing fixes during the audit instead of routing to **`sdd-spec`**, **`sdd-plan`**, or **`sdd-build`**.
 - Editing product code, spec, plan, or CONTEXT/ADR.
 - Default `plans/` or on-disk reports without explicit user request.
 - Inventing findings when none exist.

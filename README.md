@@ -35,7 +35,7 @@ flowchart TD
 Each skill stops after its own output. Skills recommend the next stage but do
 not invoke it automatically.
 
-The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-zoom`** are optional satellites—install when needed; neither is mandatory before ship. **`sdd-architect`** is deprecated; use **`sdd-improve`** (pending removal after trial).
+The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-zoom`** are optional satellites—install when needed; neither is mandatory before ship.
 
 ## Skills
 
@@ -57,7 +57,6 @@ The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-
 | --- | --- |
 | `sdd-zoom` | Unfamiliar code—need a **territory map** (modules, callers, domain vocabulary); not refactor findings |
 | `sdd-improve` | Read-only **codebase audit** or health check (correctness, security, architecture debt, tests)—optional; not delivery review |
-| `sdd-architect` | **Deprecated** — use `sdd-improve`; retained until trial confirms removal |
 
 All core skills can be installed independently. Some require artifacts rather
 than other skills: `sdd-plan` needs an approved spec, `sdd-build` needs a spec

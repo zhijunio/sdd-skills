@@ -22,7 +22,7 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no worktrees, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` covers explore-and-challenge before spec or plan; the required artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** `sdd-improve` (codebase audit), `sdd-zoom` (territory map), and deprecated `sdd-architect` are published separately; they do not change the seven-stage delivery loop.
+- **Optional satellites stay outside the core loop:** `sdd-improve` (codebase audit) and `sdd-zoom` (territory map) are published separately; they do not change the seven-stage delivery loop.
 
 For routing, see [README.md](README.md#quick-routing) and [skills/using-sdd/SKILL.md — Routing matrix](skills/using-sdd/SKILL.md#routing-matrix).
 
@@ -82,7 +82,7 @@ Sources:
 
 - [shadcn/improve](https://github.com/shadcn/improve) (MIT) — nine-category audit, vet/verify, effort levels; condensed in `references/audit-playbook.md`
 - `mattpocock/skills`: `skills/improve-codebase-architecture` (category 5: depth, seam, deletion-test vocabulary)
-- Legacy **`sdd-architect`** — superseded; architect remains on disk until user-confirmed removal
+- Legacy **`sdd-architect`** — removed; category 5 vocabulary retained in **`sdd-improve`**
 
 Local decisions:
 
@@ -94,17 +94,6 @@ Local decisions:
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
 - Stop → recommend **`using-sdd`** only; default next **`sdd-spec`** or **`sdd-grill`**.
 
-### `sdd-architect` (deprecated)
-
-Sources:
-
-- `mattpocock/skills`: `skills/improve-codebase-architecture`
-
-Local decisions:
-
-- **Deprecated** — use **`sdd-improve`** (category 5). Retained until user confirms removal after trial.
-- **`v0.2.0` tag** consumer evidence — [todo-web-0.2.0.md](docs/design/consumer-loops/todo-web-0.2.0.md).
-
 ### `sdd-zoom`
 
 Sources:
@@ -115,7 +104,7 @@ Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
 - **Orientation only**: module/caller map and domain vocabulary; no refactor findings (contrast **`sdd-improve`**).
-- **Map deliverable**: relationship **diagram** by default when three or more units interact — prefer **Mermaid** `flowchart` (ASCII for tiny maps); table/bullets for role, inbound, outbound under the diagram (contrast **`sdd-architect`**, which does not require diagram deliverables).
+- **Map deliverable**: relationship **diagram** by default when three or more units interact — prefer **Mermaid** `flowchart` (ASCII for tiny maps); table/bullets for role, inbound, outbound under the diagram (contrast **`sdd-improve`**, which does not require diagram deliverables).
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
 - Conversation deliverable only; no default on-disk map file.
 - Stop → recommend **`using-sdd`** only; common next stages are **`sdd-spec`**, **`sdd-grill`**, or **`sdd-improve`** depending on what the map revealed.
