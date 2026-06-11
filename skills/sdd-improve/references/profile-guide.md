@@ -2,7 +2,7 @@
 
 Optional **Profile** step before **Audit** when effort or scope is ambiguous. Skip when the user already named focus and depth.
 
-**Report rule:** Profile output merges into the single **`## Scope`** section — never a separate `## Profile` heading (avoids duplicating effort/range/categories).
+**Report rule:** **Recon** (always) and **Scope** (Profile merges here) are separate sections — never a `## Profile` heading. Recon = territory facts; Scope = effort/range/categories/skips.
 
 ## Scope section (report)
 
@@ -37,8 +37,10 @@ Users describe intent in natural language. Map to internal labels — users need
 
 | | quick | standard (default) | deep |
 | --- | --- | --- | --- |
-| Coverage | Hotspots — churn / criticality | Hotspot-weighted, key packages | Whole repo |
+| Coverage | Hotspots — churn / criticality | Hotspot-weighted, key packages | Whole repo; monorepo → per-package |
+| Subagents | 0–1 | **≤4 concurrent** | **≤8 concurrent** |
 | Categories | correctness, security, tests (~HIGH) unless narrowed | **1–8**; **9** only on direction ask | **1–9** unless skipped in Scope |
+| Findings | top ~6, HIGH-confidence only | full verified list | full list incl. LOW investigate |
 
 ## Skip rules
 

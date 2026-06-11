@@ -7,7 +7,7 @@ description: Use when the user wants a read-only codebase audit or health check�
 
 ## Goal
 
-Run a read-only multi-category audit and deliver a **conversation findings report** — prioritized verified findings with evidence — without replacing `sdd-review` or entering implementation.
+Run a read-only multi-category audit and deliver a **conversation findings report** — prioritized verified findings with evidence. **Advisor, not implementer:** judge and specify follow-ups; execution belongs in the SDD loop or external **shadcn/improve** — see [handoff.md](references/handoff.md).
 
 ## When to Use
 
@@ -19,7 +19,7 @@ Skip when the user only needs a **territory map** without findings — use `sdd-
 
 Skip when goals or trade-offs are still open — use `sdd-grill`.
 
-Skip when the user asks for **direct implementation** — decline and route to **`sdd-spec`**, **`sdd-plan`**, or **`sdd-build`** (or recommend **shadcn/improve** for plan+execute workflows).
+Skip when the user asks for **direct implementation** — decline; route per [handoff.md](references/handoff.md) (**`sdd-spec`** / **`sdd-build`** or external **shadcn/improve** for `plans/` + `execute`).
 
 This is an **optional satellite**. Not mandatory before `sdd-ship`.
 
@@ -36,37 +36,38 @@ Report structure: [finding-format.md](references/finding-format.md).
 
 ## Prerequisites
 
-Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/sdd/*` when present. Infer scope from **natural language** — users need not type `quick`, `branch`, or slash commands. Read-only commands (`tsc --noEmit`, audit in check mode) are allowed.
+Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/sdd/*` when present. Infer scope from **natural language**. **Read-only audit:** no installs, commits, formatters, or mutating builds on the user's tree — see [audit-playbook.md — Read-only rules](references/audit-playbook.md#read-only-rules).
 
 ## Process
 
-**Profile (optional) → Audit → Verify → Present → Confirm → Stop**
+**Recon → Profile (optional) → Audit → Verify → Present → Confirm → Stop**
 
-1. **Profile** (optional) — when effort or scope is ambiguous; output merges into report **`## Scope`** only (no separate Profile heading). See [profile-guide.md](references/profile-guide.md).
-2. **Audit** — read-only scan of in-scope categories (default **standard**: categories **1–8**). All findings use `file:line` evidence. **Never** use the name Simplify. See [audit-playbook.md](references/audit-playbook.md).
-3. **Verify** — re-read cited code; reject false positives; record in **considered and rejected**. When a finding contradicts an existing ADR, **mark the conflict** and recommend ADR or spec follow-up — do not override silently.
-4. **Present** — findings as a **numbered list** (`###` blocks, not a table), ordered by leverage; category 9 **direction** in **`## Direction`** when included.
-5. **Confirm** — ask which findings to pursue; dependency order for user selections only.
-6. **Stop** — recommend **`using-sdd`** only; default next **`sdd-spec`** (needs AC) or **`sdd-grill`** (trade-offs).
+1. **Recon** — always: README/AGENTS, verify command, CI, `HEAD`, working tree, churn hotspots; write **`## Recon`** (类型/验证/CI/HEAD/工作区/活跃区/未审). See [finding-format.md](references/finding-format.md).
+2. **Profile** (optional) — when effort or scope is ambiguous; merges into **`## Scope`** only (no Profile heading). See [profile-guide.md](references/profile-guide.md).
+3. **Audit** — read-only (default **standard**: categories **1–8**); optional parallel subagents **≤4** / **≤8** (`deep`). **Never** Simplify. See [audit-playbook.md](references/audit-playbook.md).
+4. **Verify** — re-read cited code; reject false positives → **considered and rejected**. ADR conflicts: mark and recommend follow-up.
+5. **Present** — **`## Recon`**, **`## Scope`**, **`###` findings** (emoji leverage + **Evidence** bullet + Impact/Effort/Confidence/Risk; architecture **Strength**), optional **`## Direction`**, **`## Dependency order`** when ≥2 follow-ups. Not a table. See [finding-format.md](references/finding-format.md).
+6. **Confirm** — ask which findings to pursue; restate **dependency order** for selections.
+7. **Stop** — one routing recommendation via **`using-sdd`** only (SDD loop vs external improve — [handoff.md](references/handoff.md)); default **`sdd-spec`** or **`sdd-grill`**.
 
 Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 
 ## Red Flags
 
 - Treating improve as a ship gate or delivery review substitute.
-- Implementing fixes during the audit instead of routing to **`sdd-spec`**, **`sdd-plan`**, or **`sdd-build`**.
-- Editing product code, spec, plan, or CONTEXT/ADR.
+- Implementing fixes or running **mutating commands** (install, commit, formatters, artifact-writing builds) during the audit.
+- Editing product code, spec, plan, or CONTEXT/ADR (except explicit user-requested `docs/sdd/*-improve.md`).
 - Default `plans/` or on-disk reports without explicit user request.
 - Inventing findings when none exist.
 - Reproducing secret values in findings.
 
 ## Verification
 
-Confirm deliverable states inferred effort and scope, lists verified findings with evidence or explicit none-found, and includes considered/rejected when applicable.
+Confirm deliverable includes **Recon**, **Scope**, findings with **Evidence** bullets, optional **Direction** and **Dependency order**, and considered/rejected when applicable.
 
 ## Output
 
-**Conversation findings report** — **`## Scope`** (Profile merges here), verified findings **list**, optional **`## Direction`**, considered and rejected. Default **no** durable file. See [finding-format.md](references/finding-format.md).
+**Conversation findings report** — **`## Recon`**, **`## Scope`**, findings **list** (with **Evidence**), optional **`## Direction`** + **`## Dependency order`**, considered and rejected. Default **no** durable file. See [finding-format.md](references/finding-format.md).
 
 Persist `docs/sdd/YYYY-MM-DD-<topic>-improve.md` or file issues only when the user explicitly asks.
 

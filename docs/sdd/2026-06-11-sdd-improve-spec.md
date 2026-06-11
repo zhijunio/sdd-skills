@@ -6,7 +6,7 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 
 ## Scope
 
-- Add `skills/sdd-improve/` with `SKILL.md` and bundled `references/` (`audit-playbook.md`, `finding-format.md`, `profile-guide.md`).
+- Add `skills/sdd-improve/` with `SKILL.md` and bundled `references/` (`audit-playbook.md`, `finding-format.md`, `profile-guide.md`, `handoff.md`).
 - **`sdd-improve`** replaces **`sdd-architect`** (breaking rename); **`skills/sdd-architect/`** removed after user-confirmed migration (AC-14, done).
 - Update **`using-sdd`**, **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`tests/check.py`**, **`CHANGELOG.md`**, and **`docs/design/project-decisions.md`**.
 - Keep the core loop unchanged: `using-sdd → (optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`.
@@ -42,7 +42,7 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 3. Secret handling: findings reference **`file:line`** and credential type only; never reproduce secret values.
 4. When the user asks for direct implementation, the skill must decline and route to **`sdd-spec`**, **`sdd-plan`**, or **`sdd-build`** (or recommend **shadcn/improve** for plan+execute workflows).
 
-5. **Default deliverable:** a **conversation findings report** — **`## Scope`** (Profile merges here, no duplicate heading), verified findings **list** (not a table), **`## Direction`** when category 9 ran, considered and rejected. Default **no** on-disk file.
+5. **Default deliverable:** a **conversation findings report** — **`## Recon`**, **`## Scope`** (Profile merges here), findings **list** with **Evidence** bullets (not a table), optional **`## Direction`** and **`## Dependency order`**, considered and rejected. Default **no** on-disk file.
 
 ### Disambiguation (normative)
 
@@ -72,7 +72,7 @@ When the user says **「review」** without **increment diff** and delivery cont
 
 ### Workflow (improve-derived, SDD-stopped)
 
-**Phase order:** **`Profile` (optional) → `Audit` → `Verify` → `Present` → `Confirm` → `Stop`**
+**Phase order:** **`Recon` → `Profile` (optional) → `Audit` → `Verify` → `Present` → `Confirm` → `Stop`**
 
 (`Verify` = re-read cited code and drop false positives before findings enter the table — shadcn/improve calls this "vet".)
 
@@ -116,7 +116,7 @@ When the user says **「review」** without **increment diff** and delivery cont
 9. **Effort levels (internal labels):** **quick**, **standard** (default), **deep** — per the depth table in Constraints.
 10. Parallel read-only subagents are **optional** when the host agent supports them; otherwise scan in-scope categories in priority order.
 11. **`Verify`:** Re-read cited code for every finding before presenting; downgrade, correct, or reject false positives. Record rejections in **considered and rejected**.
-12. **`Present`:** Verified findings as a **numbered list** (`###` blocks per finding — **not a table**), ordered by leverage (impact ÷ effort, weighted by confidence). **Direction** (category 9) in **`## Direction`** after findings (2–4 items max).
+12. **`Present`:** **`## Recon`** (类型/验证/CI/HEAD/工作区/活跃区/未审); **`## Scope`**; findings as **`###` list blocks** (**not a table**): leverage emoji in title; body **Evidence** + Impact/Effort/Confidence/Risk; **architecture** adds Matt **Strength**. **`## Direction`** when category 9; **`## Dependency order`** when ≥2 follow-ups. Ordered by leverage.
 13. **`Confirm`:** Ask which findings to pursue. State **dependency ordering** only for **user-selected** findings.
 14. **`Stop`:** Recommend **`using-sdd`** only. Default next: **`sdd-spec`** (selected finding needs AC); **`sdd-grill`** (open trade-offs).
 
@@ -124,25 +124,26 @@ When the user says **「review」** without **increment diff** and delivery cont
 
 15. `references/profile-guide.md` — optional Profile format, effort recommendations, skip rules, and **natural-language intent → scope** mapping. **No Simplify naming.**
 16. `references/audit-playbook.md` — condensed per-category checklist; category 5 includes over-engineering and duplication checks; MIT attribution for **shadcn/improve**.
-17. `references/finding-format.md` — table columns and **Verify** rules.
-18. **`SKILL.md`** — concise **Disambiguation** vs **`sdd-review`** (per normative table above); ≤90 lines total.
+17. `references/finding-format.md` — list-block grading (leverage emoji + shadcn fields + Matt strength) and **Verify** rules.
+18. `references/handoff.md` — advisor role; SDD closing-the-loop vs external **shadcn/improve** (`plans/` / `execute` / `reconcile`); link out, no port.
+19. **`SKILL.md`** — concise **Disambiguation** vs **`sdd-review`** (per normative table above); ≤90 lines total.
 
 ### Repository integration
 
-19. **`using-sdd`** routes **机会扫描** to **`sdd-improve`** only (audit / 体检 / whole-repo or branch exploration). Ambiguous **「review」** without increment diff → **ask** (see Disambiguation). **`sdd-architect`** not shipped.
-20. **`sdd-review`** (**交付审**) includes matching **Disambiguation** vs **`sdd-improve`**: increment diff only; whole-repo or branch **机会扫描** → **`sdd-improve`**. **`sdd-zoom`** → **`sdd-improve`** for refactor findings.
-21. **`tests/check.py`** validates **`sdd-improve`** (nine skills discovered; seven core + two satellites).
-22. **`README.md`** lists **`sdd-improve`**; documents **`sdd-architect`** removal and install from branch until next tag.
+20. **`using-sdd`** routes **机会扫描** to **`sdd-improve`** only (audit / 体检 / whole-repo or branch exploration). Ambiguous **「review」** without increment diff → **ask** (see Disambiguation). **`sdd-architect`** not shipped.
+21. **`sdd-review`** (**交付审**) includes matching **Disambiguation** vs **`sdd-improve`**: increment diff only; whole-repo or branch **机会扫描** → **`sdd-improve`**. **`sdd-zoom`** → **`sdd-improve`** for refactor findings.
+22. **`tests/check.py`** validates **`sdd-improve`** (nine skills discovered; seven core + two satellites).
+23. **`README.md`** lists **`sdd-improve`**; documents **`sdd-architect`** removal and install from branch until next tag.
 
 ### Optional durable artifact (explicit user request only)
 
-23. Persist only when asked: `docs/sdd/YYYY-MM-DD-<topic>-improve.md`.
-24. **`--issues`:** `gh issue create` only on explicit user request.
+24. Persist only when asked: `docs/sdd/YYYY-MM-DD-<topic>-improve.md`.
+25. **`--issues`:** `gh issue create` only on explicit user request.
 
 ## Acceptance Criteria
 
 - **AC-1:** **`sdd-improve`** identifies as an **optional satellite**; not a mandatory delivery stage.
-- **AC-2:** Deliverable is a **conversation findings report**: **`## Scope`** (Profile merges here) + verified findings **list** (not a table) + **considered and rejected** when applicable. **No Simplify** block or label.
+- **AC-2:** Deliverable is a **conversation findings report**: **`## Recon`** + **`## Scope`** + findings **list** with **Evidence** bullets (not a table) + optional **Direction** / **Dependency order** + **considered and rejected** when applicable. **No Simplify** block or label.
 - **AC-3:** No credible findings → explicit **none found** with evidence; no invented churn.
 - **AC-4:** When `CONTEXT.md` / `docs/adr/` exist, read during Profile or Audit setup; proceed without them when absent.
 - **AC-5:** ADR conflicts marked; recommend ADR or spec follow-up.
@@ -235,3 +236,5 @@ None.
 - 2026-06-11: Unified **机会扫描** / **交付审** naming; routing heuristic in **`using-sdd`** Disambiguation; outcomes **findings report** / **delivery verdict**.
 - 2026-06-11: Post–**机会扫描** trial — sync Current Context, integration requirements, and AC wording after architect removal; README install note for pre-tag **`sdd-improve`**.
 - 2026-06-11: Report — **Scope** only (Profile merges in); findings **list** not table; categories **architecture** (5), **experience** (7).
+- 2026-06-11: `references/handoff.md` — advisor role; SDD closing-the-loop vs external improve (link out, no `execute`/`reconcile` port).
+- 2026-06-11: `audit-playbook` — read-only rules (no mutating commands); parallel subagent caps ≤4/≤8 (improve effort table).

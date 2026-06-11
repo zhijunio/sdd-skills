@@ -88,13 +88,14 @@ Sources:
 Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
-- **Conversation findings report** only; no default `plans/` or on-disk report.
-- Workflow: Profile (optional) → Audit → Verify → Present → Confirm → Stop; **no Simplify** naming.
+- **Conversation findings report** only; no default `plans/` or on-disk report. Sections: **Recon** (类型/验证/CI/HEAD/工作区/活跃区/未审), **Scope**, findings **list** with **Evidence** bullet + emoji leverage + shadcn grading + Matt **Strength** on architecture; optional **Direction** and **Dependency order** — not a findings table.
+- Workflow: Recon → Profile (optional) → Audit → Verify → Present → Confirm → Stop; **no Simplify** naming. Audit: **read-only** (no install/commit/formatters on user tree); optional parallel subagents **≤4** standard / **≤8** deep (improve effort table).
 - Natural-language scope inference; **standard** default = categories 1–8.
 - **Readability** absorbed into category 5 (**architecture**), not a separate category or Simplify step.
 - Disambiguation vs **`sdd-review`**: **机会扫描** vs **交付审**; outcomes **findings report** vs **delivery verdict** — normative table in **`using-sdd`**.
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
-- Stop → recommend **`using-sdd`** only; default next **`sdd-spec`** or **`sdd-grill`**.
+- Stop → recommend **`using-sdd`** only; handoff routing in `references/handoff.md` (advisor role; SDD closing-the-loop vs external improve — link to shadcn `closing-the-loop`, no port of `execute`/`reconcile`).
+- Default next **`sdd-spec`** or **`sdd-grill`** when finding needs AC or open trade-offs.
 
 ### `sdd-zoom`
 
