@@ -18,8 +18,10 @@ Require approved spec. Read repository conventions; inspect affected code before
 5. Keep local reversible choices in the plan.
 6. Public interface, persistent data, security boundary, or cross-module dependency changes → `sdd-spec`.
 7. **Self-review:** no placeholders; every AC mapped; concrete risks when present; each slice independently verifiable.
-8. Present for user approval.
+8. **Present** for user approval.
+
+**Present:** Write the plan in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: `AC-n`, skill ids, verification commands.
 
 **Red flags:** layer-only splits; unmapped AC; commit hashes or status machines; implementation before approval.
 
-**SDD:** thrown superpowers `docs/superpowers/plans/` default path. Write `docs/sdd/YYYY-MM-DD-<topic>-plan.md`. User's language; layout flexible. User approval before build. Stop → invoke `sdd-build`.
+**SDD:** thrown superpowers `docs/superpowers/plans/` default path. Write `docs/sdd/YYYY-MM-DD-<topic>-plan.md`. Layout flexible. User approval before build. Stop → invoke `sdd-build`.

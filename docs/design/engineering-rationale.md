@@ -1,56 +1,10 @@
 # 工程观与上游对照
 
-Status: **living document**
+Status: **living** · 更新: **2026-06-11**
 
-更新: **2026-06-09**
+**谁说了算：** 日常行为以 `skills/*/SKILL.md` 为准；上游 pin 与 skill 映射见 [SOURCES.md](../../SOURCES.md)；本文说明 **本仓怎么想、上游怎么想、我们怎么取舍**。发版与试跑摘要见 [CHANGELOG.md](../../CHANGELOG.md)；维护操作见 [AGENTS.md](../../AGENTS.md)。
 
-**谁说了算：** 日常行为看 `skills/*/SKILL.md`；pin 与 skill 映射看 [SOURCES.md](../../SOURCES.md)；本文解释 **本仓怎么想、上游怎么想、我们怎么取舍**。发版与 consumer 实证见 [CHANGELOG.md](../../CHANGELOG.md)、[consumer-loops/](./consumer-loops/)。
-
----
-
-## 维护提示词
-
-> 给 Agent 或维护者：刷新、扩写或对照上游升级时使用。**先读 skill 与 SOURCES，再改本文。**
-
-```text
-任务：维护 docs/design/engineering-rationale.md（本仓工程观 + 四源上游对照）。
-
-事实来源（按优先级）：
-1. skills/<name>/SKILL.md 与 references/**
-2. SOURCES.md 三个 pin 仓库的 commit + shadcn/improve（未 pin）
-3. CHANGELOG.md、consumer-loops/* 已发生的 trial 证据
-4. 禁止编造未发生的 consumer 结果或版本 tag
-
-文体：直白中文；对比用表格；一节一事；不用「经调研」「值得注意的是」。
-
-必须保留的结构：
-§1 本仓要治的毛病、§1.0 核心原则（六条、形态/交付/治理）
-§2 本仓落地（六段环、竖切片、review vs improve、卫星、知识分层）
-§3 四源一句话 + 共同点/分歧表
-§4 分源对照（每源固定五段：他们说什么 / 假设 / 拿什么 / 扔什么 / 落在哪些 skill）
-§5 对照总表（superpowers | agent-skills | matt | shadcn/improve | sdd-skills）
-§2.5 可选 CONTEXT/ADR（锚点 `#41-可选-context-与-adr` 保留；在 §2 内）
-§6 演化原则与反模式
-§7 延伸阅读
-文首 §维护提示词（本节，固定不动）
-
-分源对照写作模板（复制到 §4 每一小节）：
-- **他们解决什么：**
-- **背后假设：**
-- **本仓拿什么 →** 对应 skill/文件
-- **本仓扔什么：**
-- **实现过程要点：** 从上游概念到本仓文件的一次迁移叙述（1 短段）
-
-对比维度（总表必含）：自动化程度 | 主产物 | 审阅/体检拆分 | 域语言文档 | 平台绑定
-
-特殊规则：
-- shadcn/improve：不 pin；清单大变时对照 GitHub 更新 §4.4 与 audit-dimensions.md
-- 可读性 / code-simplify：上游独立步；本仓并进 architecture（improve cat 5 + review Architecture）
-- improve 的 Next stage 可 spec / build / direct edit；见 closing-the-loop.md，不在本文展开流程细节
-- 与 skill 冲突时以 skill 为准；改 skill 后再同步本文
-
-验收：文内本地链接无断链；不新增第二份 rationale 文件。
-```
+**维护者：** 先改 skill 与 SOURCES，再同步本文。禁止编造未发生的 consumer 结果或版本 tag。若本文与 skill 冲突，以 skill 为准。刷新本文时：直白中文、一节一事、对比用列表；不新增第二份 rationale 文件。
 
 ---
 
@@ -58,207 +12,296 @@ Status: **living document**
 
 Agent 能写代码，但常见四类问题：
 
-1. **做着做着跑偏** — 和用户要的 behavior 不是一回事。
-2. **范围偷偷变大** — 顺手改无关文件。
-3. **没验证就说完了** — 「看起来对」就当 ship。
-4. **流程太重** — 小改动也走完整 superpowers 长跑。
+1. **做着做着跑偏** — 实现出来的行为和用户要的不是一回事；没有可判定的 AC，就只能靠「感觉对了」。
+2. **范围偷偷变大** — 顺手改无关文件，增量边界模糊；review 时说不清「这次到底改了什么」。
+3. **没验证就说完了** — 测试没跑、输出没读，就宣布可以 merge 或 ship。
+4. **流程太重** — 小改动也走完整 superpowers 长跑；用户无法在某个阶段停下来换思路。
 
-**sdd-skills 干什么：** 留下「先契约、再切片、再实现、再独立审、再复验」的纪律；去掉项目管理器、平台锁、状态机。不替代 TDD、CI、人工 review — 给 Agent **能停、能跳、能审计** 的阶段语言。
+**sdd-skills 干什么：** 留下「先契约、再切片、再实现、再独立审、再复验」的纪律；去掉项目管理器、平台锁、状态机。不替代 TDD、CI、人工 review，而是给 Agent **能停、能跳、能审计** 的阶段语言。
+
+毛病与原则的对应关系：
+
+- 做着跑偏 → **可验切片**（spec 写 AC）
+- 范围变大 → **可验切片** + **显式阶段**（Stop 就停，不自动链下一阶段）
+- 没验证就说完 → **测试与证明**（build / review / ship 分工）
+- 流程太重 → **轻量中立** + **显式阶段**（只装需要的 skill，`@` 点名）
 
 ### 1.0 核心原则
 
-六条分三层：**形态**（仓库是什么）、**交付**（消费者怎么出货）、**治理**（维护者怎么演进）。
+六条原则分三层。英文速查表见 [README — Core principles](../../README.md#core-principles)。
 
-#### 形态
+#### 形态（仓库是什么）
 
-| # | 原则 | 本仓落地 |
-| --- | --- | --- |
-| 1 | **轻量中立** | 短 `SKILL.md`；默认 spec+plan；纯 Markdown — 无 hook/slash/manifest、无强制卫星 |
-| 2 | **显式阶段** | 可只装 `@sdd-spec`；用户 `@` 点名（artifact 前置见 README Skills 表）；产出 → **停** → hand off — 不自动链式、不同会话做下一阶段 |
+- **轻量中立** — `SKILL.md` 保持简短，细节进 `references/`；消费者默认只需 spec + plan；本仓只发 Markdown skill，不加 hook、slash、manifest，也不强制卫星。目的是让消费者按项目体量「选配」，而不是背一整套平台仪式。
+- **显式阶段** — 用户每次 `@` 一个 stage skill；产出后 **Stop**，再 hand off；不自动链式、不同会话偷偷做下一阶段。目的是让「现在处于哪一步」对用户可见、可打断。
 
-#### 交付
+#### 交付（消费者怎么出货）
 
-| # | 原则 | 本仓落地 |
-| --- | --- | --- |
-| 3 | **可验切片** | Spec 写 AC；Plan 竖切片 15–60 分钟（非甘特图）；grill/zoom/improve 需要时再加 |
-| 4 | **测试与证明** | `sdd-build` 先红测试；`sdd-review` 只读有据；`sdd-ship` 重跑验证、读全输出 — 无证据不断言完成 |
+- **可验切片** — spec 写清可 pass/fail 的 AC；plan 拆 15–60 分钟竖切片；grill / zoom / improve 按需加装。目的是每个增量都有可演示、可命令验证的完成定义。
+- **测试与证明** — build 先红测试；review 只读且有证据；ship 重跑验证、读全输出。目的是「完成」一词必须有可追溯证据，而不是会话里的口头确认。
 
-#### 治理
+#### 治理（维护者怎么演进）
 
-| # | 原则 | 本仓落地 |
-| --- | --- | --- |
-| 5 | **借鉴不重造** | pin 上游 @ SOURCES；verbatim @ pin + 最小 SDD 尾；融合取用、不镜像整库 catalog |
-| 6 | **拒绝空转** | 无 consumer 证据不加核心阶段/状态字段；skill 变更靠 consumer 闭环，不用本仓 dogfood |
-
-| 毛病（§1） | 主要靠 |
-| --- | --- |
-| 做着跑偏 | **可验切片**（spec AC） |
-| 范围偷偷变大 | **可验切片** + **显式阶段**（停就停） |
-| 没验证就说完了 | **测试与证明** |
-| 流程太重 | **轻量中立** + **显式阶段** |
+- **借鉴不重造** — 上游 @ pin 处 verbatim + 最小 SDD 尾；融合取用，不镜像 catalog。目的是借成熟纪律，但不维护第二套 superpowers 克隆仓。
+- **拒绝空转** — 无 consumer 证据不加 core 阶段或状态字段；实质变更在 consumer 项目 spot-check。目的是版本与 skill 文本的演进跟真实摩擦挂钩，而不是 maintainer 自嗨 dogfood。
 
 ---
 
 ## 2. 本仓怎么落地
 
-### 2.1 核心环
+### 2.1 八技能与主路径
+
+核心交付环（六段）：
 
 ```text
-grill（可选）→ spec → plan → build → review → ship
+grill（可选澄清）→ spec → plan → build → review → ship
 ```
 
-| 段 | 角色 |
-| --- | --- |
-| grill | 决策未定，一次一问 |
-| spec | 本次必须满足什么（AC 可 pass/fail） |
-| plan | 竖切片，15–60 分钟能验一片 |
-| build | TDD；要求 approved spec+plan（review 修 fix 除外） |
-| review | 只读；仅 **increment diff**；给交付结论 |
-| ship | 再验一遍；不静默 push |
+可选卫星（二颗）：
 
-### 2.2 两种「审」
+- **`sdd-zoom`** — 领土地图：模块、调用方、域词汇；**不给** refactor findings，也不给 delivery verdict。
+- **`sdd-improve`** — 机会扫描：全库或分支只读体检；产出 findings 与 next-stage 建议，**不挡** ship。
 
-| | `sdd-review`（核心） | `sdd-improve`（卫星） |
-| --- | --- | --- |
-| 问什么 | 这次改动能发吗 | 全库/分支有啥机会 |
-| 范围 | increment diff | whole repo / branch |
-| 产出 | 交付结论 | findings 报告 |
-| 🔴🟡🟢 | **挡 ship** | **排 follow-up**，不挡 ship |
+技能指令用 **English**；交给用户的交付物跟 **用户语言** — 各 skill **Present** 硬约束（不默认英文）。字面保留：`AC-n`、skill id、category lens、`file:line`、git 字面量、🔴🟡🟢。
 
-配对：各 skill **When/Skip** 互指（improve ↔ review）；维度文件：`audit-dimensions.md` / `review-dimensions.md`。
+各段职责与典型 hand-off：
 
-**review diff 分类：** code diff → 必走 Architecture；prose/docs-only → 跳过 Architecture，查链接与 spec 对齐。
+- **grill** — 目标、边界、权衡未定时，一次一问、带推荐答案；可探索代码再提问。Stop 后默认 **`sdd-spec`**；已有 approved spec 且议题是 plan/切片时 → **`sdd-plan`**。
+- **spec** — 行为契约与 AC；用户批准前不 build。澄清性修订可只记 Revision log；AC 变更需再批准。
+- **plan** — 把 AC 映射到竖切片与验证命令；用户批准前不实现。
+- **build** — TDD 按片推进；仅实现 approved plan（或 review 点名 fix）。全片完成 → **`sdd-review`**，不跳 ship。
+- **review** — 只读审 **increment diff**；有 🔴 则 → **`sdd-build`** 修；通过 → **`sdd-ship`**。
+- **ship** — 按 AC 复验；更新 CHANGELOG（若项目惯例需要）；不默认 push/PR/发版。
 
-### 2.3 卫星
+**何时用卫星（启发式，非强制）：**
 
-| 卫星 | 干什么 |
-| --- | --- |
-| `sdd-zoom` | 领土地图，无 findings |
-| `sdd-improve` | 机会扫描；follow-up 可走 SDD 技能或 **direct edit**（见 `closing-the-loop.md`） |
+- 陌生代码、术语乱 → 先 **`sdd-zoom`**，再 spec / grill。
+- 全库健康、分支上线前摸底、架构债盘点 → **`sdd-improve`**（不是「review 这个 PR」）。
+- 权衡仍开放 → **`sdd-grill`**，不要靠 improve 替代表决。
 
-**禁止：** improve 代替 review；improve 当 ship 门禁。
+### 2.2 两种「审」：review 与 improve
 
-### 2.4 知识分层
+二者共用 🔴🟡🟢 标签，**语义不同**，不可混用。
+
+**`sdd-review`（核心环 · 交付审）**
+
+- 问的是：**这一次增量**能不能发？
+- 范围：**increment diff** — PR、commit range、`merge-base...HEAD`、或用户指定的 staged/unstaged 任务变更；**不默认** `main`。
+- 产出：**delivery verdict** — 挡不挡本次 ship。
+- 🔴 must-fix：挡本次增量的 correctness、security、spec/AC 缺口、Non-goal 违反等。
+- **Diff kind：** 含可执行逻辑或测试 → **code diff**，必走 Architecture（结构 + diff 内 DRY/KISS）；纯 Markdown/文档/注释 → **prose/docs-only**，`architecture: skip`，重点查 spec 对齐与**引用完整性**（改名后链接、install 示例是否仍对）。
+- 清单：`review-dimensions.md`；报告：`finding-format.md`。
+
+**`sdd-improve`（卫星 · 机会扫描）**
+
+- 问的是：全库或分支里**有哪些值得跟进的发现**？
+- 范围：whole repo，或 branch vs merge-base（finding 可标 `introduced` / `pre-existing`）。
+- 产出：**findings 报告** + **Next stage** 路由；经 **Confirm** 后 hand off，不是当场改产品代码。
+- 🔴🟡🟢：只排 **follow-up 优先级**（例如缺验证基线、HIGH 把握的安全项），**不挡** `sdd-ship`。
+- 标准扫描默认覆盖类别 1–8；用户问 roadmap 时才走 category 9 direction。
+- 清单：`audit-dimensions.md`；报告：`finding-format.md`；路由：`closing-the-loop.md`。
+
+**配对与歧义处理：**
+
+- 配对只写在各 skill **When/Skip** 互链；README 有一张速查表，本文不重复第三份 pairing 表。
+- 用户说「review」但没有 increment diff、也没有「这次 PR/提交」语境 → **必须问清**：delivery review 还是 opportunity scan。
+- 用户说「体检 / 健康检查 / 架构债」且无 delivery 语境 → 仅 **`sdd-improve`**。
+
+**禁止：** improve 代替 review；improve 当 ship 门禁；review 会话里改产品代码。
+
+### 2.3 知识分层（消费者项目）
 
 ```text
-CONTEXT（可选）→ 域语言
-ADR（可选）    → 跨 feature 架构为什么
-Spec / Plan    → 这次做什么、怎么验
+CONTEXT（可选）  → 稳定域语言、术语表
+ADR（可选）      → 跨 feature、跨增量的架构取舍与理由
+Spec / Plan      → 这一次改什么、怎么验（增量事实）
 ```
 
-本仓维护者用 AGENTS + SOURCES，**不在** 根目录放 CONTEXT。
+- **Spec 的 Current Context** 记本次增量事实；稳定术语应引用 CONTEXT，不要在每篇 spec 里复制一整本 glossary。
+- 默认工作流仍只需 **spec + plan**；CONTEXT/ADR 是加分项。
 
-<a id="41-可选-context-与-adr"></a>
+**成熟度阶梯（本 skill 包视角）：**
 
-### 2.5 可选 CONTEXT 与 ADR
+- **L0** — 仅 spec + plan（默认，已足够多数增量）。
+- **L1** — spec 模板含 **Related ADRs** / grill 的 **Decisions**；README 或 spec 注释里写明 CONTEXT 路径（若存在）。
+- **L2** — 多个 skill 会话稳定读取同一份 CONTEXT/ADR（需在项目里约定路径，而不是靠 Agent 猜）。
+- **L3** — 提供 context/adr 脚手架模板 — **等有 consumer 证据再做**，不预先塞进本仓。
 
-给 **消费者项目**，非本仓必填。默认仍 **spec + plan**。
+**何时考虑升到 L2（多条同时成立时再动）：**
 
-| 层级 | 状态 |
-| --- | --- |
-| L0 spec+plan | ✅ |
-| L1 模板 Decisions / Related ADRs | ✅ |
-| L1+ README/spec 注释 CONTEXT 路径 | ✅ |
-| L2 多 skill 统一读 CONTEXT/ADR | ❌ 等有证据 |
-| L3 context/adr 模板 | ❌ |
+- 连续多篇 spec 大段重复同一术语定义；
+- 同名概念在不同模块写法漂移，review 频繁标「spec 与代码用语不一致」；
+- 增量以纯架构/边界调整为主，Constraints 节越来越长却无处沉淀；
+- 第二次以上 consumer 试跑证明「只靠 spec/plan 扛不住跨增量约束」。
 
-**何时 L2：** 多篇 spec 重复术语、命名漂移、纯架构变更过多、第二次闭环证明 Constraints 扛不住 — **多条同时成立**。
+本仓是 skill 维护项目：用 [AGENTS.md](../../AGENTS.md) + SOURCES，**不在** 根目录放 CONTEXT。
 
-目录：单域 `CONTEXT.md` + `docs/adr/`；多域 `docs/context/<domain>/CONTEXT.md`（不要 CONTEXT-MAP）。
+目录约定见 [README — Minimal artifacts](../../README.md#minimal-artifacts)：单域 `CONTEXT.md`；多域 `docs/context/<domain>/CONTEXT.md`；ADR `docs/adr/0001-short-title.md`。
 
 ---
 
-## 3. 上游四源概览
+## 3. 上游四源与本仓合成
 
-Pin 快照: **2026-06-08**（[SOURCES.md](../../SOURCES.md)）。**shadcn/improve** 未 pin（MIT）。
+本仓不是四源的「合集镜像」，而是按 §1.0 **融合取用**：每个本地 skill 只借与阶段纪律相关的部分，并显式记录**扔掉了什么**。细节映射以 [SOURCES.md](../../SOURCES.md) 为准；本节讲**为什么这样拆**。
 
-| 来源 | 一句话 |
-| --- | --- |
-| [obra/superpowers](https://github.com/obra/superpowers) | SDD **全自动长跑**：spec→plan→子 agent 实现，TDD/YAGNI/DRY |
-| [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | **分阶段生产技能**，slash 表达「先 spec 再写码」 |
-| [mattpocock/skills](https://github.com/mattpocock/skills) | **小技能可拼装**；grill；CONTEXT/ADR；架构深化词汇 |
-| [shadcn/improve](https://github.com/shadcn/improve) | **只读体检** 按类清单；顾问角色；不替用户改代码 |
+**Pin 快照：**
 
-**共同点：** 先对齐再写码 · 测试作反馈 · skill 可复用 · 做/查分离 · 健康度单独看。
+- `mattpocock/skills` @ `be55a797`
+- `obra/superpowers` @ `6fd450765`
+- `addyosmani/agent-skills` @ `c076972e`
+- [shadcn/improve](https://github.com/shadcn/improve) — **未 pin**；MIT；类别大变时人工 diff 后更新 `audit-dimensions.md` 与本节
 
-**分歧（摘要）：**
-
-| | superpowers | agent-skills | matt | shadcn/improve |
-| --- | --- | --- | --- | --- |
-| 自动化 | 高 | 中 | 低 | 中 |
-| 平台 | 插件重 | 多 IDE | 较轻 | 独立产品向 |
-| 域语言 | 无 | 无 | CONTEXT+ADR | 无 |
+四源共同点：先对齐再写码、测试作反馈、skill 可复用、**做与查分离**、健康度可单独审视。
 
 ---
 
-## 4. 分源对照：上游 → 本仓
+### 3.1 各源在解决什么问题
 
-### 4.1 superpowers
+#### obra/superpowers
 
-- **他们解决什么：** Agent 别一上来改文件；spec→批准→TDD 计划→子 agent 长跑。
-- **假设：** 用户愿走完整环；接受 worktree、自动触发。
-- **拿什么：** 竖切片、TDD、review 只读、ship 再验、grill 式决策前置。
-- **扔什么：** 自动链下一 skill、强制 worktree、session hook、plan 工厂。
-- **落在：** 六核心环 + 二卫星（八技能）；无子 agent 编排。
+- **解决什么：** 让 Agent 别一上来改文件——先 spec、用户批准、再 TDD 计划、再实现；review 与 ship 强调证据。
+- **典型形态：** 长计划、`writing-plans` 路径、子 agent 按片跑、verification-before-completion 铁律。
+- **背后假设：** 用户愿走完整 SDD 环；接受 worktree、session 结束自动触发下一 skill。
+- **与本仓：** 借阶段顺序与 TDD/review/ship 纪律；不借自动编排与运行时。
 
-### 4.2 agent-skills
+#### addyosmani/agent-skills
 
-- **他们解决什么：** spec/plan/build/review/ship 各阶段一致门禁；`/review` + `/code-simplify`。
-- **拿什么：** 主环阶段；`code-review-and-quality` 五轴 → 本仓两维度文件。
-- **怎么改五轴：** 可读性 + simplify **并进 architecture**；交付门禁 **只在 sdd-review**。
-- **扔什么：** slash 体系、大 catalog、独立 `/test` 阶段。
-- **落在：** `review-dimensions.md`、`audit-dimensions.md`；验证在 build+ship。
+- **解决什么：** 用可组合 skill 覆盖生命周期，slash 降低「现在该干嘛」的摩擦。
+- **典型形态：** `code-review-and-quality` 五轴；`/review` 与 `/code-simplify`；shipping、git-workflow 等。
+- **背后假设：** IDE/CLI 入口切换阶段；catalog 可大，按项目选配。
+- **与本仓：** 借阶段划分与审阅轴；不借 slash 与整库 mirror。
 
-### 4.3 mattpocock/skills
+#### mattpocock/skills
 
-- **他们解决什么：** 小技能组合；grill-me；CONTEXT/ADR；improve-codebase-architecture；zoom-out。
-- **拿什么：** grill 一问一答；架构词汇 → **sdd-improve** cat 5；zoom → **sdd-zoom**。
-- **扔什么：** issue 状态机进 core；grill 边聊边改满仓库文档（本仓 CONTEXT/ADR **可选**）；diagnose 不进 core。
-- **落在：** `sdd-grill`、`sdd-improve`、`sdd-zoom`。
+- **解决什么：** 小技能拼装——grill 采访、zoom 地图、TDD 竖切片、to-prd / to-issues。
+- **典型形态：** `grill-me` 一次一问；`zoom-out` 模块+调用方；`improve-codebase-architecture` 谈深度与接缝；CONTEXT/ADR。
+- **背后假设：** 用户维护 issues/PRD 式产物；采访与地图是 spec 的前置输入。
+- **与本仓：** 借 grill/zoom 单源正文与架构词汇；diagnose、issue 状态机不进 core。
 
-### 4.4 shadcn/improve
+#### shadcn/improve
 
-- **他们解决什么：** 分类只读体检；发现列表；扫描期不改仓库。
-- **拿什么：** `audit-dimensions.md` 多类清单骨架；只读规则；标准 1–8 类。
-- **扔什么：** 完整产品壳；独立 **Simplify** 步；体检当 ship 门禁。
-- **落在：** `sdd-improve` + `references/`；归因在 THIRD_PARTY_NOTICES，不 pin commit。
+- **解决什么：** 按类**只读**体检，列有证据的发现；顾问扫描期不改仓。
+- **典型形态：** 多类 checklist；effort profile；follow-up 路由；上游另有 simplify 命名（本仓**不采用**该步名）。
+- **背后假设：** 体检与交付审分离；用户看完 findings 再决定 spec/build 或直接改。
+- **与本仓：** 借分类清单与只读规则；不借产品壳、execute 工厂、ship 门禁。
 
 ---
 
-## 5. 对照总表
+### 3.2 本仓从各源拿什么、扔什么、落在哪
 
-```text
-              superpowers   agent-skills    matt          shadcn/improve   sdd-skills
-自动化        高            中              低            中               低（人选阶段）
-主产物        长计划+子agent 分阶段命令      issues/PRD    发现报告         spec+plan
-域语言        无            无              CONTEXT+ADR   无               可选 §2.5
-审阅/体检     子agent       /review+simplify improve-arch 全库 audit      review+improve
-平台绑定      重            重              较轻          产品向           纯 Markdown
-```
+维护模板：**解决什么 → 假设 → 拿什么 → 扔什么 → 落在哪些 skill/文件**。
+
+#### superpowers → 六段环纪律
+
+**拿什么**
+
+- spec 批准门、plan 竖切片、TDD → `sdd-spec` / `sdd-plan` / `sdd-build`
+- requesting-code-review、verification-before-completion → `sdd-review` / `sdd-ship`
+- brainstorming「先想清楚」→ 部分进 `sdd-spec`；领土探索交给 `sdd-zoom`，不塞进 spec
+
+**扔什么**
+
+- 自动链下一 skill、session hook — 违背显式阶段
+- worktree / 子 agent — 平台绑定与编排复杂度
+- `docs/superpowers/plans/` 默认路径 — 本仓用 `docs/sdd/*-plan.md`
+- 计划即执行脚本 — plan 给人读，不是 runtime
+
+#### agent-skills → 生命周期轴与审阅清单
+
+**拿什么**
+
+- spec-driven-development、planning-and-task-breakdown → `sdd-spec` / `sdd-plan` @ pin
+- code-review-quality 五轴 → `review-dimensions.md`（diff 审）+ `audit-dimensions.md`（全库 1–6、8 类）
+- shipping-and-launch、git-workflow → `sdd-ship` 叙述（不默认 push）
+
+**改什么**
+
+- 可读性 + simplify **并进 architecture** — 避免独立「简化」步与 delivery 门禁混淆
+- merge 裁决、spec 合规 **只在** `sdd-review`
+- Nit/FYI → 🟢 suggestion
+
+**扔什么**
+
+- slash 与巨大 catalog — 用户 `@` skill 即可
+- 独立 `/test` 阶段 — 测试在 build + ship
+
+#### mattpocock/skills → 采访、地图、架构词汇
+
+**拿什么**
+
+- `grill-me` verbatim → `sdd-grill`；`zoom-out` verbatim → `sdd-zoom`
+- `to-prd`、spec 开场 → `sdd-spec`；`to-issues` → `sdd-plan` 竖切片
+- `tdd` → `sdd-build`；架构词汇 → `sdd-improve` 第 5 类
+
+**扔什么**
+
+- issue 状态机进 core — 默认只要 spec+plan
+- grill 会话内写满 CONTEXT — 消费者 CONTEXT 可选（§2.3）
+- `diagnose` 专 skill — 不扩 core
+
+#### shadcn/improve → 分类体检
+
+**拿什么**
+
+- 清单骨架 → `audit-dimensions.md`；只读规则 → Read-only + Red flags
+- scope/effort → `profile-guide.md`；报告与路由 → `finding-format.md`、`closing-the-loop.md`
+
+**扔什么**
+
+- **Simplify** 步名 — 并进 architecture
+- 体检挡 ship — improve 的 🔴 只排 follow-up
+- `plans/` 工厂、executor — 跟进走 SDD 或 direct edit
+- skill 正文引用 improve 产品 — 归因在 SOURCES / THIRD_PARTY_NOTICES
+
+---
+
+### 3.3 八技能与四源映射（速查）
+
+- **`sdd-grill`** — matt `grill-me`（主）；superpowers brainstorming thrown，不融合进正文
+- **`sdd-spec`** — agent-skills spec-driven + matt `to-prd` + superpowers brainstorming 开场
+- **`sdd-plan`** — superpowers `writing-plans` 精神 + agent-skills planning + matt `to-issues`
+- **`sdd-build`** — superpowers + matt TDD @ pin；agent-skills incremental-implementation
+- **`sdd-review`** — superpowers requesting-code-review + agent-skills code-review-quality @ pin
+- **`sdd-ship`** — superpowers verification-before-completion + agent-skills shipping
+- **`sdd-zoom`** — matt `zoom-out` @ pin（单源）
+- **`sdd-improve`** — shadcn/improve 清单 + agent-skills 五轴摘要 + matt 架构词汇
+
+---
+
+### 3.4 五维对照：本仓站在哪
+
+- **自动化程度** — superpowers 高、agent-skills 中、matt 低、improve 中；**本仓低**（用户 `@`，无子 agent）
+- **主产物** — 上游各异；**本仓**默认 spec+plan，其余多为会话报告
+- **审阅 vs 体检** — agent-skills `/review`+simplify、improve 全库 audit；**本仓**拆成 `sdd-review` + `sdd-improve`，simplify 语义并进 architecture
+- **域语言** — matt 主推 CONTEXT/ADR；**本仓**对消费者可选 L0–L3（§2.3）
+- **平台绑定** — 上游多插件/slash；**本仓**纯 Markdown，无 manifest、`status.json`、`using-sdd`
 
 **合成一句：**
 
-> superpowers **阶段纪律** + agent-skills **生命周期与审阅轴** + matt **采访与架构词汇** + shadcn/improve **分类体检清单** − **自动编排、平台锁、独立 Simplify**。
+> superpowers **阶段纪律与证据链** + agent-skills **生命周期与审阅轴** + matt **采访、地图与架构词汇** + shadcn/improve **分类体检清单**，减去 **自动编排、平台锁、独立 Simplify、体检当 ship 门禁**。
+
+上游升级时：只 diff 相关 commit 片段 → 更新 `SKILL.md` / `references/`、`SOURCES.md` → material 变更后 consumer spot-check → 再改本节。
 
 ---
 
-## 6. 演化原则与反模式
+## 4. 反模式
 
-**演化：** 先真实 spec→ship 再谈版本；core 保持 **六阶段环**；卫星不撑胖 core；**怎么做** 在 skill，**为什么** 在本文；成对命名（`audit-dimensions` / `review-dimensions`）。
+- **磁盘上有 spec/plan = 已批准** — 文件存在 ≠ 用户点头；批准在 **Present** 之后。
+- **review 里改产品代码** — 失去独立视角；fix → hand off **`sdd-build`**。
+- **improve 挡 ship** — 体检排期 ≠ 本次增量门禁。
+- **两技能 🔴 混用** — improve 的 🔴 排 follow-up；review 的 🔴 才挡 ship。
+- **中心 routing doc 或 `using-sdd`** — 用户应直接 `@` stage skill；routing 增加空转。
+- **workflow status.json** — 状态机 + 平台绑定。
+- **每个小取舍一篇 ADR** — 文档通胀；ADR 留给跨增量、跨 feature 决策。
 
-| 反模式 | 为什么不行 |
-| --- | --- |
-| 磁盘文件 = 已批准 | 假进度 |
-| review 里改产品代码 | 失去独立视角 |
-| improve 挡 ship | 混淆体检与交付审 |
-| 两技能 🔴 语义混用 | 一个排期一个挡发货 |
-| workflow status.json | 状态机 + 平台绑定 |
-| 每个取舍一篇 ADR | 文档通胀 |
+**演化原则：** core 保持六段环；卫星不撑胖 core；**怎么做** 在 skill，**为什么** 在本文；成对文件（`audit-dimensions` / `review-dimensions`，`finding-format` 语义同步）。
 
 ---
 
-## 7. 延伸阅读
+## 5. 延伸阅读
 
-- [SOURCES.md](../../SOURCES.md) · [THIRD_PARTY_NOTICES.md](../../THIRD_PARTY_NOTICES.md)
+- [SOURCES.md](../../SOURCES.md) · [THIRD_PARTY_NOTICES.md](../../THIRD_PARTY_NOTICES.md) · [AGENTS.md](../../AGENTS.md)
+- [README — Skills](../../README.md#skills) · [Maintainer verification](../../README.md#maintainer-verification)
 - [sdd-improve](../../skills/sdd-improve/SKILL.md) / [sdd-review](../../skills/sdd-review/SKILL.md) — When/Skip
-- [consumer-loops/](./consumer-loops/) · [docs/design/README.md](./README.md)
+- [docs/design/README.md](./README.md)
+

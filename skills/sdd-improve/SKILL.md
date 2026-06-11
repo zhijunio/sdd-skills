@@ -11,10 +11,12 @@ Read repository guidance, README, optional `CONTEXT.md` / `docs/adr/` / `docs/sd
 
 **Process:** Recon → Profile (optional) → Audit → Verify → Present → Confirm → Stop — [finding-format.md](references/finding-format.md), [profile-guide.md](references/profile-guide.md), [audit-dimensions.md](references/audit-dimensions.md), [closing-the-loop.md](references/closing-the-loop.md).
 
+**Present:** Write the findings report in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: category lens ids, skill ids, `file:line`, git literals, 🔴/🟡/🟢. [finding-format.md](references/finding-format.md).
+
 **Stop:** name **Next stage** per [closing-the-loop.md](references/closing-the-loop.md); **hand off** — load that skill or **direct edit**; no in-session product edits. Common: behavior/AC needed → `sdd-spec`; trade-offs → `sdd-grill`; increment diff → `sdd-review`; mechanical + boundaries clear → `sdd-plan` / `sdd-build`.
 
 Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 
 **Red flags:** ship gate or delivery-review substitute; mutating commands on user tree; in-session edits to product/spec/plan/CONTEXT/ADR; **Confirm** as build permission; invented findings or reproducing secrets.
 
-**SDD:** 🔴🟡🟢 = follow-up priority only — not `sdd-review` delivery gate. User's language; layout flexible. Default no durable file; persist only when user asks.
+**SDD:** 🔴🟡🟢 = follow-up priority only — not `sdd-review` delivery gate. Layout flexible. Default no durable file; persist only when user asks.

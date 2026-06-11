@@ -1,6 +1,6 @@
 # Upstream Sources
 
-Snapshot date: 2026-06-11（upstream pin commits 未变；**`sdd-grill`** / **`sdd-zoom`** 单源 + tail；**`sdd-improve`** SKILL 压短；**`sdd-review`** 维度见 [engineering-rationale.md](docs/design/engineering-rationale.md)）
+Snapshot date: 2026-06-11（upstream pin commits 未变；八 skill **Present** locale 硬约束；**`sdd-improve`** / **`sdd-review`** references 压短）
 
 ## Repositories
 
@@ -30,7 +30,7 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
 - **Optional satellites stay outside the core loop:** `sdd-improve` (codebase audit) and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
 
-For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; each skill's **Output** (reports: `finding-format.md` **Report locale**).
+For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve/review details in `finding-format.md` **Report locale**.
 
 Sources and methodology: [docs/design/](docs/design/) ([index](docs/design/README.md)).
 
@@ -44,9 +44,9 @@ Sources (pin `be55a797`):
 
 Local decisions:
 
-- **`SKILL.md`** — upstream body verbatim @ pin (attribution in this file only); minimal SDD tail (Skip, Stop, Red flags); no fixed section template.
+- **`SKILL.md`** — upstream body verbatim @ pin; minimal SDD tail (Skip, **Present**, Stop, Red flags).
 - **Thrown:** `obra/superpowers` `skills/brainstorming` (territory/explore → **`sdd-zoom`** or user `@`); `addyosmani/agent-skills` `skills/interview-me`, `skills/idea-refine` (intent clarify — not fused into grill); Superpowers `docs/superpowers/specs/`, auto **writing-plans**, idea-refine `docs/ideas/`, implementation in-session.
-- **Stop:** `Decisions:` / `Rejected:` / `Boundaries:` / `Open:` (one line each); default **`sdd-spec`**; **`sdd-plan`** only when approved spec exists and subject is plan/slices; hand off — invoke on continuation, no in-session next-stage work.
+- **Present:** `Decisions:` / `Rejected:` / `Boundaries:` / `Open:` — user's language. **Stop:** hand off; default **`sdd-spec`**; **`sdd-plan`** when approved spec exists and subject is plan/slices.
 
 ### `sdd-spec`
 
@@ -58,8 +58,8 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — upstream spec-driven-development opening @ pin; details in [spec-template.md](skills/sdd-spec/spec-template.md).
-- `docs/sdd/*-spec.md`; in-place revision + **Revision log**; user approval gate.
+- **`SKILL.md`** — upstream opening @ pin; **Present** + [spec-template.md](skills/sdd-spec/spec-template.md).
+- `docs/sdd/*-spec.md`; in-place revision + **Revision log**; user approval before **`sdd-plan`**.
 
 ### `sdd-improve`
 
@@ -73,8 +73,7 @@ Sources:
 Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
-- **Conversation findings report** only; required **content** in `references/finding-format.md` (layout flexible; severities = follow-up priority, not ship gate). [Report locale](skills/sdd-improve/references/finding-format.md#report-locale).
-- **`SKILL.md`** — one-line **Process** + minimal tail (When/Skip, Stop, Red flags, SDD); effort table in [profile-guide.md](skills/sdd-improve/references/profile-guide.md); audit checklists in `audit-dimensions.md`. **Read-only** on user tree.
+- **`SKILL.md`** — one-line **Process** + **Present** + minimal tail; report **content** in `finding-format.md` (follow-up priority, not ship gate); effort in [profile-guide.md](skills/sdd-improve/references/profile-guide.md); checklists in `audit-dimensions.md`. **Read-only** on user tree.
 - Natural-language scope inference; **standard** default = categories 1–8.
 - **Readability** absorbed into category 5 (**architecture**), not a separate category or Simplify step.
 - Disambiguation vs **`sdd-review`**: **opportunity scan** vs **delivery review** — **When/Skip** cross-links only; outcomes **findings report** vs **delivery verdict**.
@@ -89,8 +88,8 @@ Sources (pin `be55a797`):
 
 Local decisions:
 
-- **`SKILL.md`** — **zoom-out** body verbatim @ pin; minimal SDD tail (Skip, Diagram, Output, Red flags); no fixed section template.
-- **Output:** `Territory` / `Map` / `Glossary & Gaps` / `Suggested next`; diagram when ≥3 units; hand off — no in-session next-stage work.
+- **`SKILL.md`** — **zoom-out** body verbatim @ pin; minimal SDD tail (Skip, Diagram, **Present**, Stop, Red flags).
+- **Present:** `Territory` / `Map` / `Glossary & Gaps` / `Suggested next`; diagram when ≥3 units. **Stop:** hand off — no in-session next-stage work.
 - Orientation only — no refactor findings (**`sdd-improve`**) or delivery review (**`sdd-review`**); no default on-disk map. Optional CONTEXT/ADR when present — infer from code/README when absent.
 
 ### `sdd-plan`
@@ -103,8 +102,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — upstream planning opening @ pin; **15–60 min vertical slices** (thrown superpowers bite-sized file tasks path).
-- [plan-template.md](skills/sdd-plan/plan-template.md); user approval gate.
+- **`SKILL.md`** — upstream opening @ pin; **Present** + **15–60 min vertical slices**; [plan-template.md](skills/sdd-plan/plan-template.md); user approval before **`sdd-build`**.
 
 ### `sdd-build`
 
@@ -117,8 +115,8 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — superpowers TDD iron law + matt vertical-slice anti-pattern @ pin.
-- Escalation to `sdd-spec` / `sdd-plan`; no worktrees or per-slice commits required.
+- **`SKILL.md`** — superpowers TDD iron law + matt vertical-slice anti-pattern @ pin; **Present** for narration and plan appendices.
+- Escalation to **`sdd-spec`** / **`sdd-plan`**; **Stop** → **`sdd-review`**; no worktrees or per-slice commits required.
 
 ### `sdd-review`
 
@@ -135,7 +133,7 @@ Local decisions:
 - Default scope is merge-base diff plus task-related uncommitted work; never assume `main`.
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
-- **`SKILL.md`** — code-review-quality + requesting-code-review @ pin; scope in [scope.md](skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md`.
+- **`SKILL.md`** — code-review-quality + requesting-code-review @ pin; **Present** + scope in [scope.md](skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md` (delivery gate).
 - Delivery verdict → **`sdd-build`** or **`sdd-ship`**; full verification in **`sdd-ship`**.
 
 ### `sdd-ship`
@@ -149,12 +147,12 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — verification-before-completion iron law @ pin; finishing-branch options thrown as explicit user actions.
-- Fresh evidence; CHANGELOG per repo convention only.
+- **`SKILL.md`** — verification-before-completion iron law @ pin; **Present** ship summary; finishing-branch options as explicit user actions.
+- Fresh evidence; CHANGELOG per repo convention only; no push/deploy unless requested.
 
 ## Updating
 
 Compare each recorded commit with the current upstream branch. Review only
 behavior relevant to the mapped local skill, decide manually whether to absorb
-it, then update the skill, checks, and commit snapshot together.
+it, then update the skill, [SOURCES.md](SOURCES.md) snapshot, spot-check in a consumer repo when material, and commit together.
 

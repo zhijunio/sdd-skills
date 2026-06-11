@@ -136,7 +136,7 @@ When the user says **"review"** without **increment diff** and delivery context,
 - **AC-8:** Deliverable **`## Scope`** states inferred effort and range (e.g. quick / standard / deep; categories in scope) — whether from natural language or Profile step.
 - **AC-16:** Instructions require inferring scope from **natural language**; users are not required to use keyword or slash-command syntax.
 - **AC-9:** Audit / health-check user intent maps to **`sdd-improve`** only.
-- **AC-10:** ~~`python3 tests/check.py` passes with **`sdd-improve`** published (eight skills).~~ *(withdrawn — maintainer verify via consumer loop runbooks; see Revision log)*
+- **AC-10:** ~~`python3 tests/check.py` passes with **`sdd-improve`** published (eight skills).~~ *(withdrawn — maintainer verify via README checklist + consumer repo spot-check; see Revision log)*
 - **AC-11:** **`README.md`** and **`SOURCES.md`** document **`sdd-improve`**.
 - **AC-12:** No default `plans/` or on-disk report.
 - **AC-13:** Skipped categories and audit limits named in **`## Recon` — Not audited** with project-specific reasons — not in **`## Scope`**.
@@ -224,6 +224,6 @@ None.
 - 2026-06-11: **Output locale** — each skill **Output**; reports in `finding-format.md` **Report locale** (improve + review). No central routing doc.
 - 2026-06-11: Report **content** over shared layout — improve/review need not share markdown skeleton; example blocks optional.
 - 2026-06-11: Findings **🔴/🟡/🟢** severity; shared list-block format with **`sdd-review`**; effort table in **`SKILL.md` Process**; **`sdd-review`** drops **Strengths** section.
-- 2026-06-11: **Withdrawn AC-10** and requirement **22** — `tests/check.py` and GitHub Actions **`check`** workflow removed; maintainer acceptance via **consumer loop** runbooks; doc drift cleanup in references and CHANGELOG `[Unreleased]`.
+- 2026-06-11: **Withdrawn AC-10** and requirement **22** — `tests/check.py` and full GitHub Actions **`check`** workflow removed; maintainer acceptance via README checklist + consumer repo spot-check; doc drift cleanup in references and CHANGELOG `[Unreleased]`.
 - 2026-06-11: **`SKILL.md` compressed** — one-line Process + references links; Stop Common routes; Red flags trimmed; details unchanged in `references/`.
 - 2026-06-11: **`finding-format.md` compressed** — required content + severity tables retained; full example replaced with minimal optional skeleton (~20 lines); Follow-up routing defers to `closing-the-loop.md`; no AC change.

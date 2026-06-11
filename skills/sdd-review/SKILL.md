@@ -24,7 +24,9 @@ Read-only reviewer — not implementer. Multi-axis review on a defined **increme
 3. Read spec/plan when available; map AC when plan exists.
 4. Review test changes first.
 5. Walk core; architecture on code diffs; applicable conditionals. `architecture: pass` or `architecture: skip` in Coverage.
-6. **Present** Context → Findings → Coverage → Follow-up. Evidence bullets; lens tags (`[spec]`, `[security]`). Label inferred claims on auth/secrets/migrations/public API.
+6. **Present** Context → Findings → Coverage → Follow-up.
+
+**Present:** Write the review report in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: category lens ids, skill ids, `file:line`, git literals, 🔴/🟡/🟢. [finding-format.md](references/finding-format.md). Evidence bullets; lens tags (`[spec]`, `[security]`). Label inferred claims on auth/secrets/migrations/public API.
 
 Fresh agent/subagent when available; else reread baseline. Optional two-pass on large plans; default one pass.
 
@@ -32,4 +34,4 @@ Fresh agent/subagent when available; else reread baseline. Optional two-pass on 
 
 **Verdict:** 🔴 must-fix blocks **this increment** (delivery gate). 🟡 should-fix unless user accepts risk. 🟢 suggestion — non-blocking.
 
-**SDD:** read-only; fresh verification → `sdd-ship`. User's language; layout flexible. Default no durable file; do not update plan. Stop → invoke `sdd-build` if blocking findings; else invoke `sdd-ship`.
+**SDD:** read-only; fresh verification → `sdd-ship`. Layout flexible. Default no durable file; do not update plan. Stop → invoke `sdd-build` if blocking findings; else invoke `sdd-ship`.
