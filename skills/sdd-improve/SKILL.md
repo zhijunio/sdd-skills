@@ -42,10 +42,10 @@ Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/
 
 **Profile (optional) → Audit → Verify → Present → Confirm → Stop**
 
-1. **Profile** — when effort or scope is ambiguous: project type, inferred effort (`quick` / `standard` / `deep`), in-scope categories, skip reasons. See [profile-guide.md](references/profile-guide.md).
+1. **Profile** (optional) — when effort or scope is ambiguous; output merges into report **`## Scope`** only (no separate Profile heading). See [profile-guide.md](references/profile-guide.md).
 2. **Audit** — read-only scan of in-scope categories (default **standard**: categories **1–8**). All findings use `file:line` evidence. **Never** use the name Simplify. See [audit-playbook.md](references/audit-playbook.md).
 3. **Verify** — re-read cited code; reject false positives; record in **considered and rejected**. When a finding contradicts an existing ADR, **mark the conflict** and recommend ADR or spec follow-up — do not override silently.
-4. **Present** — findings table by leverage; category 9 **direction** in a separate section when included.
+4. **Present** — findings as a **numbered list** (`###` blocks, not a table), ordered by leverage; category 9 **direction** in **`## Direction`** when included.
 5. **Confirm** — ask which findings to pursue; dependency order for user selections only.
 6. **Stop** — recommend **`using-sdd`** only; default next **`sdd-spec`** (needs AC) or **`sdd-grill`** (trade-offs).
 
@@ -66,7 +66,7 @@ Confirm deliverable states inferred effort and scope, lists verified findings wi
 
 ## Output
 
-**Conversation findings report** — optional Profile, verified findings table, direction section when category 9 ran, considered and rejected. Default **no** durable file. See [finding-format.md](references/finding-format.md).
+**Conversation findings report** — **`## Scope`** (Profile merges here), verified findings **list**, optional **`## Direction`**, considered and rejected. Default **no** durable file. See [finding-format.md](references/finding-format.md).
 
 Persist `docs/sdd/YYYY-MM-DD-<topic>-improve.md` or file issues only when the user explicitly asks.
 

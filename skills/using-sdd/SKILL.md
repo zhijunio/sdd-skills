@@ -46,7 +46,7 @@ Normative routing for this skill. Recommend **one** skill only; do not invoke au
 | Outcome | **Findings report** — user selects follow-ups | **Delivery verdict** — pass / must-fix / should-fix → ship |
 | Timing | Exploratory — health check, pre-increment | After **`sdd-build`**, before ship |
 | Branch | Tags `introduced` and `pre-existing` | Only defects **introduced or worsened** by diff |
-| Unique | DX (7), direction (9); no Simplify step | AC mapping, **Simplify** pass (diff only) |
+| Unique | experience (7), direction (9); no Simplify step | AC mapping, **Simplify** pass (diff only) |
 
 **Routing heuristic** — when intent is unclear, apply in order:
 

@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **`using-sdd`**: **机会扫描** / **交付审** canonical pair; routing heuristic; normative Disambiguation table
-- **`sdd-improve`**: `audit-playbook.md` thickened (agent-skills five-axis summary); ADR conflict + implementation-decline rules
+- **`sdd-improve`**: `audit-playbook.md` thickened (agent-skills five-axis summary); ADR conflict + implementation-decline rules; report **Scope**-only (Profile merges in); findings **list**; categories renamed **architecture** / **experience**
 - **`sdd-review`**: `references/review-dimensions.md`; Disambiguation vs **`sdd-improve`**; Dependencies dimension on manifest diffs
 - **`sdd-review` / `sdd-zoom`**: route whole-repo health → **`sdd-improve`**
 - **Removed** optional satellite **`sdd-architect`** — superseded by **`sdd-improve`** (breaking rename; reinstall with `-s sdd-improve`)

@@ -29,7 +29,7 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 - **`sdd-architect`** removed (2026-06-11); category 5 vocabulary retained in **`sdd-improve`**. Historical spec: `docs/sdd/2026-06-09-sdd-architect-spec.md`.
 - **[shadcn/improve](https://github.com/shadcn/improve)** provides a fuller read-only audit (nine categories, recon, vet, effort levels, `plans/` + `execute`) as a separate single-skill package.
 - Grill consensus (2026-06-11): fuse more **improve** rigor into an in-repo SDD satellite while keeping **conversation-only** default output and SDD routing.
-- Amendment (2026-06-11): **no Simplify** in audit — over-engineering and duplication are **findings** under **tech-debt & architecture**; optional **Profile** sets effort and scope before **Audit**.
+- Amendment (2026-06-11): **no Simplify** in audit — over-engineering and duplication are **architecture** (category 5) findings; optional **Profile** step merges into report **`## Scope`** before **Audit**.
 - **`sdd-review`** covers delivery dimensions on a **scoped diff** only — see **Disambiguation** vs **`sdd-improve`** (opportunity scan vs ship gate).
 - Platform-neutral skills live under `skills/<name>/`; progressive disclosure via bundled `references/` is allowed within the skill directory.
 
@@ -42,7 +42,7 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 3. Secret handling: findings reference **`file:line`** and credential type only; never reproduce secret values.
 4. When the user asks for direct implementation, the skill must decline and route to **`sdd-spec`**, **`sdd-plan`**, or **`sdd-build`** (or recommend **shadcn/improve** for plan+execute workflows).
 
-5. **Default deliverable:** a **conversation findings report** — optional Profile, verified findings table, direction section when category 9 ran, considered and rejected. Default **no** on-disk file (same delivery style as **`sdd-architect`**, different content and verdict).
+5. **Default deliverable:** a **conversation findings report** — **`## Scope`** (Profile merges here, no duplicate heading), verified findings **list** (not a table), **`## Direction`** when category 9 ran, considered and rejected. Default **no** on-disk file.
 
 ### Disambiguation (normative)
 
@@ -56,7 +56,7 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 | Outcome | **Findings report** — user **selects** follow-ups | **Delivery verdict** — pass / must-fix / should-fix → **`sdd-ship`** |
 | Timing | Exploratory — health check, before/without a defined increment | After **`sdd-build`**, before ship |
 | Branch | Tags **`introduced`** and **`pre-existing`** in touched files | Only defects **introduced or worsened** by this diff |
-| Unique | DX (7), direction (9); no Simplify | AC mapping, **Simplify** pass |
+| Unique | experience (7), direction (9); no Simplify | AC mapping, **Simplify** pass |
 
 **Routing heuristic** (`using-sdd`): PR / plan / AC / ship / merge / 交付 → **交付审**; 体检 / audit / 泥球 / 机会 without delivery context → **机会扫描**; PR前 + plan/ship → **交付审**; PR前 + 体检/机会 → **机会扫描**.
 
@@ -76,11 +76,11 @@ When the user says **「review」** without **increment diff** and delivery cont
 
 (`Verify` = re-read cited code and drop false positives before findings enter the table — shadcn/improve calls this "vet".)
 
-6. **`Profile` (optional, before Audit):** When effort level is unset or scope is ambiguous, read repository guidance, README, config roots, directory layout, build/test/lint commands, optional `CONTEXT.md` / `docs/adr/`, existing `docs/sdd/*` artifacts, and useful git signal. Output a short **Profile** in the conversation (not required on every run when the user already named effort and focus):
+6. **`Profile` (optional, before Audit):** When effort level is unset or scope is ambiguous, read repository guidance, README, config roots, directory layout, build/test/lint commands, optional `CONTEXT.md` / `docs/adr/`, existing `docs/sdd/*` artifacts, and useful git signal. Write results into report **`## Scope`** only — **no separate `## Profile` heading** (not required when the user already named effort and focus):
    - project type and size (e.g. skills-only repo, app, library, monorepo)
    - effective **effort level** — infer from natural language (`quick` / `standard` / `deep` internal labels); recommend on small repos and wait for acceptance before downgrading
    - **in-scope categories** and per-category depth (deep / light / skip) with explicit reasons for skips
-   - architecture-only intent from natural language (deepen, mud-ball, shallow modules, seams) → scan **category 5** primarily
+   - architecture-only intent from natural language (deepen, mud-ball, shallow modules, seams) → scan **architecture** (category 5) primarily
 
 7. **`Audit` (read-only scan):** Scan **in-scope categories** inferred from the user's request and Profile. All findings use **`file:line`** evidence. **Do not use the name Simplify** for any step, category, or block.
 
@@ -92,9 +92,9 @@ When the user says **「review」** without **increment diff** and delivery cont
    | 2 | security | Evidence-based; no secret values |
    | 3 | performance | Algorithmic and architectural wins |
    | 4 | test coverage | Gaps, fragile tests, missing baselines |
-   | 5 | **tech-debt & architecture** | **Over-engineering, duplication,** shallow modules, pass-through layers, leaky seams, **deletion test**, depth/seam vocabulary, recommendation strength (`Strong`, `Worth exploring`, `Speculative`) — absorbs legacy **`sdd-architect`** |
+   | 5 | **architecture** | **Over-engineering, duplication,** shallow modules, pass-through layers, leaky seams, **deletion test**, depth/seam vocabulary, recommendation strength (`Strong`, `Worth exploring`, `Speculative`) — absorbs legacy **`sdd-architect`** |
    | 6 | dependencies & migrations | Lockfiles, audits, migration drift |
-   | 7 | experience & tooling | Local dev friction, scripts, CI ergonomics |
+   | 7 | **experience** | Local dev friction, scripts, CI ergonomics |
    | 8 | docs | Drift, missing docs, stale README |
    | 9 | direction | Features / where to take the project — evidence-grounded only |
 
@@ -116,7 +116,7 @@ When the user says **「review」** without **increment diff** and delivery cont
 9. **Effort levels (internal labels):** **quick**, **standard** (default), **deep** — per the depth table in Constraints.
 10. Parallel read-only subagents are **optional** when the host agent supports them; otherwise scan in-scope categories in priority order.
 11. **`Verify`:** Re-read cited code for every finding before presenting; downgrade, correct, or reject false positives. Record rejections in **considered and rejected**.
-12. **`Present`:** Verified findings table ordered by leverage (impact ÷ effort, weighted by confidence). **Direction** (category 9) appears in a **separate section** after the table (2–4 items max).
+12. **`Present`:** Verified findings as a **numbered list** (`###` blocks per finding — **not a table**), ordered by leverage (impact ÷ effort, weighted by confidence). **Direction** (category 9) in **`## Direction`** after findings (2–4 items max).
 13. **`Confirm`:** Ask which findings to pursue. State **dependency ordering** only for **user-selected** findings.
 14. **`Stop`:** Recommend **`using-sdd`** only. Default next: **`sdd-spec`** (selected finding needs AC); **`sdd-grill`** (open trade-offs).
 
@@ -142,19 +142,19 @@ When the user says **「review」** without **increment diff** and delivery cont
 ## Acceptance Criteria
 
 - **AC-1:** **`sdd-improve`** identifies as an **optional satellite**; not a mandatory delivery stage.
-- **AC-2:** Deliverable is a **conversation findings report**: optional **Profile** + verified findings table + **considered and rejected** when applicable. **No Simplify** block or label.
+- **AC-2:** Deliverable is a **conversation findings report**: **`## Scope`** (Profile merges here) + verified findings **list** (not a table) + **considered and rejected** when applicable. **No Simplify** block or label.
 - **AC-3:** No credible findings → explicit **none found** with evidence; no invented churn.
 - **AC-4:** When `CONTEXT.md` / `docs/adr/` exist, read during Profile or Audit setup; proceed without them when absent.
 - **AC-5:** ADR conflicts marked; recommend ADR or spec follow-up.
 - **AC-6:** Stop recommends **`using-sdd`** only; **`sdd-spec`** or **`sdd-grill`** as default next stages.
 - **AC-7:** When the user's message implies **branch** scope, findings tag **`introduced`** vs **`pre-existing`**.
-- **AC-8:** Deliverable states inferred effort and scope (e.g. quick / standard / deep; categories in scope) — whether from natural language or Profile.
+- **AC-8:** Deliverable **`## Scope`** states inferred effort and range (e.g. quick / standard / deep; categories in scope) — whether from natural language or Profile step.
 - **AC-16:** Instructions require inferring scope from **natural language**; users are not required to use keyword or slash-command syntax.
 - **AC-9:** **`using-sdd`** routes audit/improve/health-check to **`sdd-improve`** only.
 - **AC-10:** `python3 tests/check.py` passes with **`sdd-improve`** published and **`sdd-architect`** removed.
 - **AC-11:** **`README.md`** and **`SOURCES.md`** document **`sdd-improve`**, **shadcn/improve**, and **`sdd-architect`** removal / reinstall with **`-s sdd-improve`**.
 - **AC-12:** No default `plans/` or on-disk report.
-- **AC-13:** Skipped categories named in Profile with project-specific reasons.
+- **AC-13:** Skipped categories named in **`## Scope`** with project-specific reasons.
 - **AC-14:** After **user confirms**, **`sdd-architect`** removed; `check.py` still passes.
 - **AC-15:** Category 5 findings may cite over-engineering or duplication with **`file:line`** evidence and architect vocabulary where applicable.
 - **AC-17:** **`SKILL.md`** includes normative **Disambiguation** vs **`sdd-review`** (question, scope, criteria, verdict, timing, branch tags).
@@ -193,7 +193,7 @@ Persist / GitHub issues: only when the user **explicitly** asks to save or file 
 | Coverage | Hotspots — highest churn / criticality | Hotspot-weighted, key packages | Whole repo |
 | Subagents | 0–1 when supported | ≤4 when supported | ≤8 when supported |
 | Categories | correctness, security, tests (~6, HIGH) unless Profile narrows | **1–8** unless Profile skips; **9** only when user asks direction/roadmap | **1–9** incl. LOW investigate unless Profile skips |
-| Report | Profile (if any) + state omissions | Profile (if any) + state omissions | Profile (if any) + state omissions |
+| Report | **Scope** section + state omissions | **Scope** section + state omissions | **Scope** section + state omissions |
 
 ### SDD skill boundaries
 
@@ -234,3 +234,4 @@ None.
 - 2026-06-11: Slice 4 — **`skills/sdd-architect/`** removed (AC-14); user-confirmed migration.
 - 2026-06-11: Unified **机会扫描** / **交付审** naming; routing heuristic in **`using-sdd`** Disambiguation; outcomes **findings report** / **delivery verdict**.
 - 2026-06-11: Post–**机会扫描** trial — sync Current Context, integration requirements, and AC wording after architect removal; README install note for pre-tag **`sdd-improve`**.
+- 2026-06-11: Report — **Scope** only (Profile merges in); findings **list** not table; categories **architecture** (5), **experience** (7).

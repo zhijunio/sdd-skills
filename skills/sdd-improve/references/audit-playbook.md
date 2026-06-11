@@ -4,7 +4,7 @@ Condensed read-only checklist per category (standard = categories **1–8**).
 
 **Sources (summarized, not copied):** [shadcn/improve](https://github.com/shadcn/improve) (MIT); [addyosmani/agent-skills `code-review-and-quality`](https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality) (five-axis review checklist).
 
-**No step named Simplify** — readability, duplication, and over-engineering are **category 5** findings. **交付审** spec/AC compliance, Simplify pass, and **delivery verdict** belong in **`sdd-review`**, not here. Pairing: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
+**No step named Simplify** — readability, duplication, and over-engineering are **architecture** (category 5) findings. **交付审** spec/AC compliance, Simplify pass, and **delivery verdict** belong in **`sdd-review`**, not here. Pairing: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
 
 ## 1 correctness
 
@@ -46,7 +46,7 @@ Review tests for **behavior**, not as a substitute for reading production code.
 - Bug-fix areas without regression tests
 - Test names do not express intent; duplicated arrange/assert blocks (category 5 candidate)
 
-## 5 tech-debt & architecture
+## 5 architecture
 
 Absorbs legacy `sdd-architect` signals plus agent-skills **readability** and **architecture** axes (no separate readability category).
 
@@ -81,7 +81,7 @@ Absorbs legacy `sdd-architect` signals plus agent-skills **readability** and **a
 
 - Lockfile drift; half-finished migrations; deprecated API still in primary paths
 
-## 7 experience & tooling
+## 7 experience
 
 - Local setup unclear or multi-step without documented one-liner
 - Missing scripts for test, lint, or common maintainer tasks

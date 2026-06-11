@@ -91,7 +91,7 @@ Local decisions:
 - **Conversation findings report** only; no default `plans/` or on-disk report.
 - Workflow: Profile (optional) → Audit → Verify → Present → Confirm → Stop; **no Simplify** naming.
 - Natural-language scope inference; **standard** default = categories 1–8.
-- **Readability** absorbed into category 5 (tech-debt & architecture), not a separate category or Simplify step.
+- **Readability** absorbed into category 5 (**architecture**), not a separate category or Simplify step.
 - Disambiguation vs **`sdd-review`**: **机会扫描** vs **交付审**; outcomes **findings report** vs **delivery verdict** — normative table in **`using-sdd`**.
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
 - Stop → recommend **`using-sdd`** only; default next **`sdd-spec`** or **`sdd-grill`**.

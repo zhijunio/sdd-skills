@@ -8,7 +8,7 @@
 
 - **Breaking rename:** `sdd-architect` → `sdd-improve`; CHANGELOG + README migration note.
 - **Third-party:** condensed `audit-playbook.md` from **shadcn/improve** (MIT).
-- **Coexistence:** keep `sdd-architect` until user confirms (AC-14). Routing: **only `sdd-improve`**.
+- **Retired:** `sdd-architect` removed in Slice 4 (user-confirmed). Routing: **only `sdd-improve`**.
 - **Naming:** no **Simplify** anywhere in skill text or references.
 
 ## Slice 1: Publish the sdd-improve skill package
@@ -26,8 +26,8 @@
   - v1: standard (1–8) + architecture intent from natural language; branch/quick/deep polish later.
 - Implementation outline:
   - Create `skills/sdd-improve/` and three reference files.
-  - Leave `skills/sdd-architect/` unchanged.
-- Verification: `python3 tests/check.py` — **passed** (10 skills)
+  - Slice 1 only: leave `skills/sdd-architect/` on disk until Slice 4 retirement.
+- Verification: `python3 tests/check.py` — **passed** (10 skills — architect + improve coexistence)
 - Done: true
 
 ## Slice 2: Wire routing and cross-skill boundaries
@@ -37,7 +37,7 @@
 - Depends on: Slice 1
 - Test or proof:
   - `using-sdd` — no `sdd-architect` in routing matrix; ambiguous 「review」without diff → ask improve vs review.
-  - `sdd-architect/SKILL.md` — optional one-line deprecation pointer.
+  - `sdd-architect/SKILL.md` — optional one-line deprecation pointer (Slice 2; removed Slice 4).
   - `sdd-review` — Disambiguation vs improve (delivery gate / diff only); whole-repo or branch health → improve.
   - `sdd-zoom` — refactor findings → improve.
   - `sdd-improve/SKILL.md` — Disambiguation section per spec.
@@ -66,5 +66,5 @@
 
 ## Final Review and Ship
 
-- Maintainer **机会扫描** trial on this repo (2026-06-11): findings #1–#4 addressed in follow-up doc pass.
+- Maintainer **机会扫描** trials (2026-06-11): first pass #1–#4 doc fixes; second pass plan staleness + report format (Scope merge, list findings, `architecture` / `experience` rename).
 - `sdd-review` → `sdd-build` fixes → `sdd-ship`; no semver tag this increment until consumer friction recorded.
