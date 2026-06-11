@@ -7,7 +7,7 @@ Validation runbooks and per-project friction records for **semver gate** release
 | **0.1.0** | [runbook-0.1.0.md](./runbook-0.1.0.md) | [todo-web-0.1.0.md](./todo-web-0.1.0.md) |
 | **0.2.0** | [runbook-0.2.0.md](./runbook-0.2.0.md) | [todo-web-0.2.0.md](./todo-web-0.2.0.md) |
 | **0.2.1** | —（maintainer patch：CI + doc sync） | —（无 consumer gate） |
-| **0.3.0**（planned） | [runbook-0.3.0.md](./runbook-0.3.0.md)（draft） | `*-0.3.0.md`（待填） |
+| **0.3.0**（planned） | [runbook-0.3.0.md](./runbook-0.3.0.md)（trial Pass） | [todo-web-0.3.0.md](./todo-web-0.3.0.md) ✅ |
 
 New loops: add `runbook-<gate>.md` (process) and `<project>-<gate>.md` (evidence). Record outcomes in [CHANGELOG.md](../../../CHANGELOG.md) and this folder.
 
@@ -26,7 +26,7 @@ Maintainer **`sdd-grill`** on next semver + trial scope:
 
 | 项 | 状态 | 备注 |
 | --- | --- | --- |
-| **`sdd-improve`** | trial → **`v0.3.0` gate** | [spec](../../../docs/sdd/2026-06-11-sdd-improve-spec.md)；[runbook-0.3.0](./runbook-0.3.0.md) draft — 待 consumer |
+| **`sdd-improve`** | trial **Pass** → **`v0.3.0` tag** | [todo-web-0.3.0](./todo-web-0.3.0.md)；待 PR merge + ship |
 | **`sdd-zoom`** | shipped `v0.2.0` | gate 未单独覆盖；见 [runbook-0.2.0.md](./runbook-0.2.0.md) 脚注 |
 | **CONTEXT/ADR L2** | proposed | [software-engineering-rationale §4.1](../software-engineering-rationale.md#41-可选-context-与-adr) |
 | **context/adr-template** | watchlist | L3，有证据再做 |

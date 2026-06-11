@@ -50,9 +50,9 @@ Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/
 
 Whatever the level, name skipped categories in **Recon — Not audited**. Large monorepos: scope subagents to packages, not the whole root.
 4. **Verify** — re-read cited code; reject false positives → **Coverage — Limits**. ADR conflicts: mark and recommend follow-up.
-5. **Present** — **Context → Findings → Coverage → Follow-up** per [finding-format.md](references/finding-format.md) (**🔴/🟡/🟢** list blocks + **Evidence** + emoji grading; architecture **Strength**).
-6. **Confirm** — ask which findings to pursue; restate **dependency order** for selections.
-7. **Stop** — one routing recommendation via **`using-sdd`** only ([closing-the-loop.md](references/closing-the-loop.md)); default **`sdd-spec`** or **`sdd-grill`**.
+5. **Present** — **Context → Findings → Coverage → Follow-up** per [finding-format.md](references/finding-format.md) (**🔴/🟡/🟢** list blocks + **Evidence** + emoji grading; architecture **Strength**). **`## Follow-up` must include `### Next stage`** — one skill via **`using-sdd`** ([closing-the-loop.md](references/closing-the-loop.md)); default **`sdd-spec`** or **`sdd-grill`**. Do not jump to Confirm without it.
+6. **Confirm** — ask which findings to pursue; restate **dependency order** and **Next stage** for selections.
+7. **Stop** — repeat the **Next stage** routing via **`using-sdd`** only after Confirm; do not substitute implementation.
 
 Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 
@@ -67,7 +67,7 @@ Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 
 ## Verification
 
-Confirm deliverable matches [finding-format.md](references/finding-format.md): **Context → Findings → Coverage → Follow-up**.
+Confirm deliverable matches [finding-format.md](references/finding-format.md): **Context → Findings → Coverage → Follow-up** with required **`### Next stage`** (one skill name + rationale).
 
 **🔴/🟡/🟢** here rank **follow-up priority only** — they **do not** gate **`sdd-ship`** (delivery gate semantics live in **`sdd-review`**).
 

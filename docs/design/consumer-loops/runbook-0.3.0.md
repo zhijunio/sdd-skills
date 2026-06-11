@@ -1,6 +1,6 @@
 # 第四次 SDD 闭环 — 运行手册（sdd-improve）
 
-Status: **draft**（待 `main` 合并 **`sdd-improve`** 增量后启动 consumer trial）
+Status: **trial Pass**（todo-web Path A ✅；待 consumer commit + `v0.3.0` tag）
 
 Last updated: 2026-06-11
 
@@ -212,7 +212,7 @@ Increment (one sentence):
 
 | 项 | 状态 |
 |----|------|
-| Runbook | **draft**（本文件） |
-| 消费者项目 | 待定 — `<project>-0.3.0.md` |
-| **`v0.3.0` tag** | 待 trial Pass |
+| Runbook | **trial in progress** |
+| 消费者项目 | **todo-web** — [todo-web-0.3.0.md](./todo-web-0.3.0.md) **Pass** ✅ |
+| **`v0.3.0` tag** | 待 PR merge + maintainer `sdd-ship` |
 | 前置 PR | 待 **`sdd-improve`** 合并 `main` |

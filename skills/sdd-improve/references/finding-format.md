@@ -95,9 +95,11 @@ What was walked: categories per **Context — Scope** (narrative or brief ✅/�
 
 ## Follow-up
 
+**Required:** **`### Next stage`** on every report — even when Findings are empty (none found → **`sdd-grill`** if trade-offs open, else stop with explicit none-actionable). Do not end **Present** with Confirm only.
+
 ### Next stage
 
-One skill via **`using-sdd`** — [closing-the-loop.md](closing-the-loop.md). Default **`sdd-spec`** or **`sdd-grill`**.
+One skill via **`using-sdd`** — [closing-the-loop.md](closing-the-loop.md). Default **`sdd-spec`** or **`sdd-grill`**. Name the skill and one-line why.
 
 ### Direction
 

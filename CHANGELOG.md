@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`AGENTS.md`**: maintainer PR 按主题合并，避免频繁 micro-PR
 - **`consumer-loops`**: grill 共识 — 下一 tag **`v0.3.0`**；第四次 loop gate **`sdd-improve`** only（trial Pass 后 ship）
 - **`tests/check.py`**: **`sdd-review`** 卫星 bundle 校验（与 **`sdd-improve`** 对称）
+- **`sdd-improve`**: Present 强制 **`Follow-up` → `Next stage`**（`SKILL.md` / `finding-format.md`）
+- **consumer-loops**: 第四次 loop trial Pass — [todo-web-0.3.0](docs/design/consumer-loops/todo-web-0.3.0.md)（improve → WebMvcTest 切片）
 
 ## [0.2.1] - 2026-06-09
 
