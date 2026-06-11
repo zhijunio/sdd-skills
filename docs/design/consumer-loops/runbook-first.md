@@ -20,7 +20,7 @@ Parent: [consumer-loops/README.md](./README.md)
 
 - [x] `sdd-skills` 核心技能可安装
 - [x] todo-web 空仓库就绪
-- [ ] 无 `python3 tests/check.py` gate（后随 `v0.1.0` 补齐）
+- [x] 无 maintainer 自动 verify gate（`v0.2.1` 曾加 `tests/check.py` + CI；后移除 — 验收靠 consumer loop runbook）
 
 ---
 

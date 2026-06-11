@@ -27,7 +27,7 @@ Classify **before** walking dimensions. Record **Diff kind** in **Context — Sc
 | Migrations, generated code, lockfiles **when deps or codegen behavior change** | Frontmatter / metadata-only JSON/YAML/TOML (no runtime behavior) |
 | Config that changes runtime behavior (feature flags, env templates consumed by app code) | Typo fixes in prose with no structural doc refactor |
 
-**Skills-only repos (e.g. this collection):** `skills/**` and `docs/**` edits are usually **prose/docs-only**; `tests/check.py` (or repo verify scripts) → **code diff**.
+**Skills-only repos (e.g. this collection):** `skills/**` and `docs/**` edits are usually **prose/docs-only**; repo-declared verify scripts (if any) help classify **code diff** vs prose-only.
 
 **Ambiguous** (e.g. workflow tweak, lockfile-only, rename across code + docs): default **code diff** when unsure; note assumption in **Coverage — Limits**.
 

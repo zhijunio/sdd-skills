@@ -64,7 +64,7 @@ One option: group under **🔴 / 🟡 / 🟢** severity (titles may translate). 
 
 **1. spec · [spec]** — AC unmapped; no test proof in diff.
 
-- **Evidence:** `tests/check.py` — no assertion for stated AC
+- **Evidence:** `npm test` — no assertion for stated AC
 - **Impact:** Increment ships without verification for agreed AC
 - **Effort:** S
 - **Confidence:** ✅ HIGH

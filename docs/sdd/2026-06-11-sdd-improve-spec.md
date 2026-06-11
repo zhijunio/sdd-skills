@@ -7,7 +7,7 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 ## Scope
 
 - Add `skills/sdd-improve/` with `SKILL.md` and bundled `references/` (`audit-dimensions.md`, `finding-format.md`, `profile-guide.md`, `closing-the-loop.md`).
-- Update **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`tests/check.py`**, **`CHANGELOG.md`**, and **`docs/design/engineering-rationale.md`** (as needed).
+- Update **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`CHANGELOG.md`**, and **`docs/design/engineering-rationale.md`** (as needed).
 - Keep the core loop unchanged: `(optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`; user **`@`** stage skills — no central routing doc.
 - Record upstream playbook attribution in **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`** only — **`sdd-improve` skill text does not reference other improve packages**.
 
@@ -116,7 +116,7 @@ When the user says **"review"** without **increment diff** and delivery context,
 
 20. Audit / health-check intent → **`sdd-improve`** only. Ambiguous **"review"** without increment diff → **ask** (see Disambiguation).
 21. **`sdd-review`** (**delivery review**) includes matching **Disambiguation** vs **`sdd-improve`**: increment diff only; whole-repo or branch **opportunity scan** → **`sdd-improve`**. **`sdd-zoom`** → **`sdd-improve`** for refactor findings.
-22. **`tests/check.py`** validates **`sdd-improve`** (eight skills discovered; six core + two satellites).
+22. ~~**`tests/check.py`** validates **`sdd-improve`** (eight skills discovered; six core + two satellites).~~ *(withdrawn — see Revision log)*
 23. **`README.md`** lists **`sdd-improve`** and install examples.
 
 ### Optional durable artifact (explicit user request only)
@@ -136,7 +136,7 @@ When the user says **"review"** without **increment diff** and delivery context,
 - **AC-8:** Deliverable **`## Scope`** states inferred effort and range (e.g. quick / standard / deep; categories in scope) — whether from natural language or Profile step.
 - **AC-16:** Instructions require inferring scope from **natural language**; users are not required to use keyword or slash-command syntax.
 - **AC-9:** Audit / health-check user intent maps to **`sdd-improve`** only.
-- **AC-10:** `python3 tests/check.py` passes with **`sdd-improve`** published (eight skills).
+- **AC-10:** ~~`python3 tests/check.py` passes with **`sdd-improve`** published (eight skills).~~ *(withdrawn — maintainer verify via consumer loop runbooks; see Revision log)*
 - **AC-11:** **`README.md`** and **`SOURCES.md`** document **`sdd-improve`**.
 - **AC-12:** No default `plans/` or on-disk report.
 - **AC-13:** Skipped categories and audit limits named in **`## Recon` — Not audited** with project-specific reasons — not in **`## Scope`**.
@@ -224,3 +224,4 @@ None.
 - 2026-06-11: **Output locale** — each skill **Output**; reports in `finding-format.md` **Report locale** (improve + review). No central routing doc.
 - 2026-06-11: Report **content** over shared layout — improve/review need not share markdown skeleton; example blocks optional.
 - 2026-06-11: Findings **🔴/🟡/🟢** severity; shared list-block format with **`sdd-review`**; effort table in **`SKILL.md` Process**; **`sdd-review`** drops **Strengths** section.
+- 2026-06-11: **Withdrawn AC-10** and requirement **22** — `tests/check.py` and GitHub Actions **`check`** workflow removed; maintainer acceptance via **consumer loop** runbooks; doc drift cleanup in references and CHANGELOG `[Unreleased]`.

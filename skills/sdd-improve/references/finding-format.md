@@ -34,7 +34,7 @@ Read-only territory facts. Skips belong here — not in Scope.
 | Item | Summary |
 | --- | --- |
 | **Type** | e.g. skills-only repo, Python app, monorepo |
-| **Verification** | exact command + last result, e.g. `python3 tests/check.py` ✅ |
+| **Verification** | exact command + last result, e.g. `npm test` ✅ or `pytest -q` ✅ |
 | **CI** | workflow file + job name, or "none" |
 | **HEAD** | `git rev-parse --short HEAD` + branch name |
 | **Working tree** | clean / N modified / ahead M of origin |

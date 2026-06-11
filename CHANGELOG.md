@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **`using-sdd`** skill and central routing docs/templates
 - **`docs/sdd/2026-06-09-sdd-architect-{spec,plan}.md`** — superseded by **`sdd-improve`**
+- **`tests/check.py`** and GitHub Actions workflow **`check`** — maintainer verification relies on consumer-loop runbooks
 
 ### Changed
 
@@ -26,8 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`sdd-improve` / `sdd-review`**: **🔴/🟡/🟢** meaning differs (follow-up priority vs delivery gate)
 - **docs/design**: [engineering-rationale.md](docs/design/engineering-rationale.md)（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节）
 - **`spec-template` / README**: multi-domain `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts
-- **`tests/check.py`**: eight skills; **`sdd-review`** / **`sdd-improve`** reference bundles
 - **consumer-loops**: fourth loop Pass — [todo-web-0.3.0](docs/design/consumer-loops/todo-web-0.3.0.md)（improve → WebMvcTest 切片）
+- **`sdd-grill`** / **`sdd-zoom`**: upstream single-source bodies + minimal SDD tails; doc drift cleanup (`tests/check.py` references; improve spec **AC-10** withdrawn)
 
 ## [0.2.1] - 2026-06-09
 

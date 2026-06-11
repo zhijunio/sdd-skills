@@ -14,7 +14,7 @@ Condensed read-only checklist per category (standard = categories **1–8**).
 
 - **Never** edit product code, consumer spec/plan, or `CONTEXT.md` / `docs/adr/` during the audit.
 - **Never** run commands that **mutate the user's working tree** — no package installs, no `git commit`, no formatters, no builds that write artifacts outside standard ignored dirs.
-- **Allowed:** read, search, `python3 tests/check.py` (or repo-documented verify), `tsc --noEmit`, lint in check mode, ecosystem audit in check mode, test suites that are cheap and side-effect free.
+- **Allowed:** read, search, repo-documented verify commands, `tsc --noEmit`, lint in check mode, ecosystem audit in check mode, test suites that are cheap and side-effect free.
 - **Durable write (explicit user request only):** `docs/sdd/YYYY-MM-DD-<topic>-improve.md` — not a substitute for spec/plan. Implementation → SDD loop — [closing-the-loop.md](closing-the-loop.md).
 
 ## Parallel audit (optional)
