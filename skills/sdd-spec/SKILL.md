@@ -3,79 +3,33 @@ name: sdd-spec
 description: Use when a software change needs a durable behavior contract, scope, acceptance criteria, and necessary technical constraints before implementation planning.
 ---
 
-# SDD Spec
+Write a structured specification before writing any code. The spec is the shared source of truth — what we're building, why, and how we'll know it's done. Concise; no file-by-file implementation prescription.
 
-## Goal
+**When:** new feature, bug fix, migration, or meaningful behavior change with sufficiently clear intent; or in-place revision when AC/constraints change during plan/build/review. **Skip:** open design directions (`sdd-grill`); implementation tasks.
 
-Write a concise specification that defines what must be true without prescribing file-by-file implementation.
+Read repository guidance, relevant code/docs, and any `sdd-grill` Stop summary from the conversation. Ask only for decisions not discoverable locally.
 
-## When to Use
+**New spec** — [spec-template.md](spec-template.md):
 
-Use for a new project, feature, bug fix, migration, or meaningful behavior change whose intent is sufficiently clear.
+1. Goal, scope, non-goals.
+2. Repository facts that constrain the change only.
+3. Requirements; compatibility, migration, security, or interface constraints as needed.
+4. Each observable criterion → stable `AC-n`.
+5. Remove irrelevant template sections.
+6. **Self-review:** no `TBD`/`TODO`/vague AC; sections agree; scope matches non-goals; pass/fail unambiguous; no hidden implementation tasks.
+7. Present for user approval.
 
-Use also when an approved specification needs in-place revision because acceptance criteria or constraints changed during planning, build, or review.
+**Revision** — same `docs/sdd/YYYY-MM-DD-<topic>-spec.md` in place (no `-v2` copy):
 
-Do not use to explore unresolved design directions or to write implementation tasks.
+1. Edit Requirements, AC, or Constraints.
+2. Append **Revision log**: date, reason, changed AC IDs (or `none — clarification`), plan impact (`yes`/`no` + note).
+3. Self-review (same checks as new).
+4. **Clarification only** (wording/background; pass/fail unchanged) → log, stop — no re-approval; continue triggering stage (`sdd-plan`, `sdd-build`, `sdd-review`).
+5. **AC or constraint change** → present for re-approval.
+6. After re-approval: `sdd-plan` only when slice boundaries or verification change; else return to prior stage.
 
-## Prerequisites
+Examples: reword AC-2 without changing pass/fail → log only. AC-3 limit 200ms→500ms → re-approve; unchanged slices → return to `sdd-build`.
 
-Read repository guidance, relevant code and docs, and any clarify outcome from `sdd-grill`. Ask only for decisions that cannot be discovered locally.
+**Red flags:** implementation steps inside AC; verbatim grill transcript; open questions blocking planning; file existence as approval; new spec file instead of revise; skipping re-approval after AC/constraint change.
 
-## Process
-
-### New specification
-
-1. Start from [spec-template.md](spec-template.md).
-2. Define the goal, scope, and non-goals.
-3. Record only repository facts that constrain the change.
-4. Write requirements and necessary compatibility, migration, security, or interface constraints.
-5. Give each observable acceptance criterion a stable identifier such as `AC-1`.
-6. Remove irrelevant template sections.
-7. **Self-review** the draft before user approval:
-   - no `TBD`, `TODO`, or vague acceptance criteria
-   - sections agree; scope matches non-goals
-   - each criterion has an unambiguous pass/fail outcome
-   - no implementation tasks hidden inside criteria
-8. Present the written specification for user approval.
-
-### Revision
-
-Revise the same `docs/sdd/YYYY-MM-DD-<topic>-spec.md` in place. Do not create a second spec file or a `-v2` copy.
-
-1. Make the needed edits to Requirements, Acceptance Criteria, or Constraints.
-2. Append one **Revision log** entry with: date, reason, changed AC IDs (or `none — clarification`), and plan impact (`yes` / `no` with brief note).
-3. **Self-review** the revised draft (same checks as new specification step 7).
-4. **Clarification only** — wording, background, or scope/non-goals that do not change any pass/fail outcome: log the entry and stop. No re-approval. Continue the stage that triggered the edit (`sdd-plan`, `sdd-build`, or `sdd-review`).
-5. **AC or constraint change** — any criterion or constraint whose pass/fail or limit changes: present the updated specification for user re-approval.
-6. After re-approval: recommend `sdd-plan` only when slice boundaries or verification steps change; otherwise return to the prior stage.
-
-Examples:
-
-- Clarification: reword AC-2 for readability without changing when it passes or fails → log only, no re-approval.
-- AC change: AC-3 response-time limit changes from 200ms to 500ms → re-approve; if plan slices are unchanged, return to `sdd-build`.
-
-## Red Flags
-
-- Hiding implementation steps inside acceptance criteria.
-- Copying the grill or clarify transcript verbatim.
-- Leaving open questions that block planning.
-- Treating file existence as user approval.
-- Creating a new spec file instead of revising in place.
-- Skipping re-approval after an acceptance criterion or constraint change.
-
-## Verification
-
-Check that every criterion has a clear pass/fail result and that no requirement depends on an undefined term.
-
-## Output
-
-Write `docs/sdd/YYYY-MM-DD-<topic>-spec.md`.
-
-## Stop Conditions
-
-Stop after the user approves a new specification. Recommend `sdd-plan`.
-
-For a clarification-only revision, stop after logging. Do not recommend a stage change.
-
-For a revised specification after AC or constraint change, stop after user re-approval. Recommend `sdd-plan` when plan impact is yes; otherwise name the prior stage to resume (`sdd-build` or `sdd-review`).
-
+**SDD:** `docs/sdd/YYYY-MM-DD-<topic>-spec.md`. User's language; layout flexible. New spec approved → invoke `sdd-plan`. Clarification-only → no stage change. AC change re-approved → invoke `sdd-plan` if plan impact yes, else prior stage.

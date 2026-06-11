@@ -11,13 +11,13 @@ Increment (one sentence): 删除 Todo 前需经用户确认（grill 选项 A）
 - sdd-skills ref: `d88c4ef` → tag **`v0.1.0`**（闭环后）
 - Consumer branch: `codex/implement-todo-web`
 - Consumer delivery commit: `8770a82`
-- Prior SDD artifacts: `docs/sdd/2026-06-08-todo-web-spec.md`、`...-plan.md`（第一次闭环，非本次记录对象）
+- Prior loops: [todo-web-first.md](./todo-web-first.md)（第一次 greenfield，`960ef75`）
 
 ## Stage log
 
 | Stage | Used | Pass | Notes |
 |-------|------|------|-------|
-| using-sdd | yes | yes | 路由 → sdd-grill |
+| hand off | yes | yes | `@sdd-grill` |
 | sdd-grill | yes | yes | 1 问 1 答，增量 A |
 | sdd-spec | yes | yes | 用户批准 |
 | sdd-plan | yes | yes | 用户批准 |

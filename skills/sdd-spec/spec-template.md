@@ -8,7 +8,7 @@
   - Current Context: **increment facts** for this change only (existing APIs,
     data formats, dependency versions, deployment model). Stable domain
     terminology belongs in optional `CONTEXT.md` (single domain) or
-    `CONTEXT-MAP.md` + per-domain `CONTEXT.md` (multi-domain) — link or
+    `docs/context/<domain>/CONTEXT.md` (multi-domain) — link or
     reference shared terms here; do not paste the full glossary.
   - Requirements: numbered list of observable behaviors or capabilities.
   - Acceptance Criteria: each criterion gets a stable identifier (AC-1, AC-2...).
@@ -21,8 +21,8 @@
     decisions. Do not paste ADR bodies here; use docs/adr/ when other specs must
     reference the same decision.
   - Optional CONTEXT (consumer projects): root `CONTEXT.md` for stable domain
-    language; multi-domain projects add `CONTEXT-MAP.md` indexing each domain's
-    `CONTEXT.md`. See docs/design/context-adr-workflow.md — not required for
+    language; multi-domain projects add `docs/context/<domain>/CONTEXT.md`.
+    See docs/design/engineering-rationale.md §2.5 — not required for
     small or single-spec projects.
   - Open Questions: unresolved decisions that must be answered before planning.
     Remove all open questions before the spec is approved.
@@ -45,7 +45,7 @@
 <!-- Increment facts for this change only — not the full domain glossary.
   Example: "Existing User model has email (unique, indexed). Mailer uses SendGrid."
   When terminology is stable across specs, define it in CONTEXT.md (or the domain
-  file listed in CONTEXT-MAP.md) and reference it here instead of redefining. -->
+  file under `docs/context/<domain>/`) and reference it here instead of redefining. -->
 
 ## Requirements
 

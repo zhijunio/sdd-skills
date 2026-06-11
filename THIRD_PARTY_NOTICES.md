@@ -21,6 +21,14 @@ Copyright (c) 2025 Addy Osmani
 
 Source: <https://github.com/addyosmani/agent-skills>
 
+## shadcn/improve
+
+Copyright (c) 2026 shadcn
+
+Source: <https://github.com/shadcn/improve>
+
+Adapted in `skills/sdd-improve/references/audit-dimensions.md` (condensed audit checklist).
+
 ---
 
 The full license text for each upstream project is the standard MIT License.
