@@ -7,27 +7,27 @@ description: Use when the user wants a read-only codebase audit or health check�
 
 ## Goal
 
-Run a read-only multi-category audit and deliver a **conversation findings report** — prioritized verified findings with evidence. **Advisor, not implementer:** judge and specify follow-ups; execution belongs in the SDD loop or external **shadcn/improve** — see [handoff.md](references/handoff.md).
+You are a **senior advisor, not an implementer**. Run a read-only multi-category audit and deliver a **conversation findings report** — prioritized verified findings with evidence. Follow-ups belong in the **SDD loop** — see [closing-the-loop.md](references/closing-the-loop.md).
 
 ## When to Use
 
 Use when the user asks for a codebase audit, health check, improve pass, or architecture/debt scan across the repo or current branch.
 
-Skip when the task is **交付审** (delivery review) of an **increment diff** with spec/plan compliance — use `sdd-review`.
+Skip when the task is **delivery review** of an **increment diff** with spec/plan compliance — use `sdd-review`.
 
 Skip when the user only needs a **territory map** without findings — use `sdd-zoom`.
 
 Skip when goals or trade-offs are still open — use `sdd-grill`.
 
-Skip when the user asks for **direct implementation** — decline; route per [handoff.md](references/handoff.md) (**`sdd-spec`** / **`sdd-build`** or external **shadcn/improve** for `plans/` + `execute`).
+Skip when the user asks for **direct implementation** — decline; route per [closing-the-loop.md](references/closing-the-loop.md) (**`sdd-spec`** → **`sdd-plan`** → **`sdd-build`**).
 
 This is an **optional satellite**. Not mandatory before `sdd-ship`.
 
-### Disambiguation vs **交付审** `sdd-review`
+### Disambiguation vs **delivery review** `sdd-review`
 
-**机会扫描** (this skill) vs **交付审** — normative table in [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation).
+**Opportunity scan** (this skill) vs **delivery review** — normative table in [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation).
 
-| | **机会扫描** `sdd-improve` | **交付审** `sdd-review` |
+| | **Opportunity scan** `sdd-improve` | **Delivery review** `sdd-review` |
 | --- | --- | --- |
 | Outcome | **Findings report** | **Delivery verdict** (pass / must-fix / should-fix) |
 | Scope | Whole repo or branch vs merge-base | Increment diff only |
@@ -42,13 +42,22 @@ Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/
 
 **Recon → Profile (optional) → Audit → Verify → Present → Confirm → Stop**
 
-1. **Recon** — always: README/AGENTS, verify command, CI, `HEAD`, working tree, churn hotspots; write **`## Recon`** (类型/验证/CI/HEAD/工作区/活跃区/未审). See [finding-format.md](references/finding-format.md).
-2. **Profile** (optional) — when effort or scope is ambiguous; merges into **`## Scope`** only (no Profile heading). See [profile-guide.md](references/profile-guide.md).
-3. **Audit** — read-only (default **standard**: categories **1–8**); optional parallel subagents **≤4** / **≤8** (`deep`). **Never** Simplify. See [audit-playbook.md](references/audit-playbook.md).
+1. **Recon** — always: README/AGENTS, verify command, CI, `HEAD`, working tree, churn hotspots; write **`## Recon`** (Type/Verification/CI/HEAD/Working tree/Hotspots/Not audited). See [finding-format.md](references/finding-format.md).
+2. **Profile** (optional) — when effort or scope is ambiguous; merges into **`## Scope`** only (no Profile heading). Natural-language scope mapping and skip rules: [profile-guide.md](references/profile-guide.md).
+3. **Audit** — read-only. **Never** Simplify. See [audit-playbook.md](references/audit-playbook.md). Depth follows **effort level** (default **standard**; user may say `quick` / `deep` anywhere in the request):
+
+| | quick | standard (default) | deep |
+| --- | --- | --- | --- |
+| Coverage | Hotspots — churn / criticality | Hotspot-weighted, key packages | Whole repo; monorepo → per-package |
+| Subagents | 0–1 | **≤4 concurrent** | **≤8 concurrent** |
+| Categories | correctness, security, tests (~HIGH) unless narrowed | **1–8**; **9** only on direction ask | **1–9** unless in Recon **Not audited** |
+| Findings | top ~6, HIGH-confidence only | full verified list | full list incl. LOW investigate |
+
+Whatever the level, name skipped categories in **Recon — Not audited**. Large monorepos: scope subagents to packages, not the whole root.
 4. **Verify** — re-read cited code; reject false positives → **considered and rejected**. ADR conflicts: mark and recommend follow-up.
-5. **Present** — **`## Recon`**, **`## Scope`**, **`###` findings** (emoji leverage + **Evidence** bullet + Impact/Effort/Confidence/Risk; architecture **Strength**), optional **`## Direction`**, **`## Dependency order`** when ≥2 follow-ups. Not a table. See [finding-format.md](references/finding-format.md).
+5. **Present** — **`## Recon`**, **`## Scope`**, **`## Findings`** (**🔴 must-fix** / **🟡 should-fix** / **🟢 suggestion** list blocks + **Evidence** + Impact/Effort/Confidence/Risk emoji grading; architecture **Strength**), optional **`## Direction`**, **`## Dependency order`** when ≥2 follow-ups. Not a table. See [finding-format.md](references/finding-format.md).
 6. **Confirm** — ask which findings to pursue; restate **dependency order** for selections.
-7. **Stop** — one routing recommendation via **`using-sdd`** only (SDD loop vs external improve — [handoff.md](references/handoff.md)); default **`sdd-spec`** or **`sdd-grill`**.
+7. **Stop** — one routing recommendation via **`using-sdd`** only ([closing-the-loop.md](references/closing-the-loop.md)); default **`sdd-spec`** or **`sdd-grill`**.
 
 Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 
@@ -63,11 +72,11 @@ Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 
 ## Verification
 
-Confirm deliverable includes **Recon**, **Scope**, findings with **Evidence** bullets, optional **Direction** and **Dependency order**, and considered/rejected when applicable.
+Confirm deliverable includes **Recon**, **Scope**, findings under **🔴 must-fix** / **🟡 should-fix** / **🟢 suggestion** with **Evidence** and emoji grading, optional **Direction** and **Dependency order**, and considered/rejected when applicable.
 
 ## Output
 
-**Conversation findings report** — **`## Recon`**, **`## Scope`**, findings **list** (with **Evidence**), optional **`## Direction`** + **`## Dependency order`**, considered and rejected. Default **no** durable file. See [finding-format.md](references/finding-format.md).
+**Conversation findings report** — **`## Recon`**, **`## Scope`**, **`## Findings`** (**🔴** / **🟡** / **🟢** severity groups), optional **`## Direction`** + **`## Dependency order`**, considered and rejected. Default **no** durable file. See [finding-format.md](references/finding-format.md).
 
 Persist `docs/sdd/YYYY-MM-DD-<topic>-improve.md` or file issues only when the user explicitly asks.
 

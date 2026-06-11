@@ -2,51 +2,57 @@
 
 ## Conversation findings report
 
-**机会扫描** outcome — not a **交付审** delivery verdict. Aligns with [shadcn/improve](https://github.com/shadcn/improve) recon + vetted findings shape; uses **list blocks** (not a findings table) and SDD routing — **no `plans/`** by default.
+**Opportunity scan** outcome — not a **delivery review** verdict. **List blocks** (not a findings table); follow-ups via the **SDD loop** — see [closing-the-loop.md](closing-the-loop.md).
 
 ```markdown
 # SDD Improve
 
 ## Recon
 
-Always — map the territory before findings (improve Phase 1). Read-only facts only.
+Always — map the territory before findings. Read-only facts only.
 
-| 项 | 结论 |
+| Item | Summary |
 | --- | --- |
-| **类型** | e.g. skills-only repo, Python app, monorepo |
-| **验证** | exact command + last result, e.g. `python3 tests/check.py` ✅ |
+| **Type** | e.g. skills-only repo, Python app, monorepo |
+| **Verification** | exact command + last result, e.g. `python3 tests/check.py` ✅ |
 | **CI** | workflow file + job name, or "none" |
 | **HEAD** | `git rev-parse --short HEAD` + branch name |
-| **工作区** | clean / N modified / ahead M of origin |
-| **活跃区** | paths or areas with recent churn or this increment's focus |
-| **未审** | categories or areas skipped + project-specific reason |
+| **Working tree** | clean / N modified / ahead M of origin |
+| **Hotspots** | paths or areas with recent churn or this increment's focus |
+| **Not audited** | categories or areas skipped + project-specific reason |
 
 ## Scope
 
-Profile (optional) merges here — **no separate Profile heading**.
+Profile (optional) merges here — **no separate Profile heading**. **In-scope only** — skips and audit limits belong in **Recon — Not audited**, not here.
 
 - **Effort:** standard
 - **Range:** whole repo
-- **Categories:** correctness, security, performance, tests, architecture, dependencies, experience, docs
-- **Skipped:** performance — no runtime hot paths
+- **Categories:** correctness, security, tests, architecture, dependencies, experience, docs
 
 ## Findings
 
-Ordered by leverage (high first). **List blocks only — no findings table.** One `###` per finding.
+**List blocks only — no findings table.** Group under **`### 🔴 must-fix`**, **`### 🟡 should-fix`**, **`### 🟢 suggestion`** (same labels as **`sdd-review`**, different meaning — see below). Number findings **within each group** (1, 2, …). Order groups: must-fix → should-fix → suggestion; within a group, order by leverage (high first).
 
-**Grading legend (use in every finding):**
+**Not a delivery verdict:** these severities rank **follow-up priority** for the user to **select** — they do **not** gate **`sdd-ship`** on their own.
+
+| Severity | Use when |
+| --- | --- |
+| **🔴 must-fix** | HIGH-confidence correctness, security, or data-loss risk; missing verification baseline that blocks safe change; unblocker other findings depend on |
+| **🟡 should-fix** | Clear maintainability or test gap on important paths; MED+ confidence; worth addressing in the next increment the user is likely to take |
+| **🟢 suggestion** | Docs/DX polish, LOW-confidence investigate, speculative architecture, pre-existing debt surfaced for awareness |
+
+**Per-finding axes** (bullets under each item):
 
 | Axis | Values |
 | --- | --- |
-| **Leverage** (title) | 🔴 high · 🟡 medium · 🟢 low |
 | **Confidence** | ✅ HIGH · ⚠️ MED · ❓ LOW |
 | **Effort** (fix) | S · M · L |
 | **Risk** (fix) | 🔴 HIGH · 🟡 MED · 🟢 LOW |
-| **Strength** (architecture) | 🟢 Strong · 🟡 Worth exploring · ⚪ Speculative |
+| **Strength** (architecture, cat. 5) | 🟢 Strong · 🟡 Worth exploring · ⚪ Speculative |
 
-### 1. 🔴 architecture · introduced
+### 🔴 must-fix
 
-Pass-through layer adds indirection without reuse.
+**1. architecture · introduced** — Pass-through layer adds indirection without reuse.
 
 - **Evidence:** `skills/foo.md:12` — thin wrapper re-exports parent with no added invariant
 - **Impact:** Callers pay indirection cost; no shared reuse at the seam
@@ -55,15 +61,19 @@ Pass-through layer adds indirection without reuse.
 - **Risk:** 🟢 LOW
 - **Strength:** 🟡 Worth exploring
 
-### 2. 🟡 docs
+### 🟡 should-fix
 
-Install pin documents a tag that predates `sdd-improve`.
+**1. docs** — Install pin documents a tag that predates `sdd-improve`.
 
 - **Evidence:** `README.md:90-94` — `@v0.2.1` example; tag predates satellite
 - **Impact:** New consumers miss `sdd-improve` when installing from tag only
 - **Effort:** S
 - **Confidence:** ✅ HIGH
 - **Risk:** 🟢 LOW
+
+### 🟢 suggestion
+
+None.
 
 ## Direction
 
@@ -85,12 +95,14 @@ Brief list of candidates dropped during **Verify** (by-design, mis-attributed ev
 
 ## Suggested next stage
 
-One skill via **using-sdd** — see [handoff.md](handoff.md) (SDD loop vs **shadcn/improve** `plans/` / `execute` / `reconcile`). Default **sdd-spec** when AC needed; **sdd-grill** when trade-offs open. No in-repo `plans/` unless the user explicitly asks.
+One skill via **using-sdd** — see [closing-the-loop.md](closing-the-loop.md). Default **sdd-spec** when AC needed; **sdd-grill** when trade-offs open.
 ```
 
 ### Finding block fields
 
-**Title:** `{n}. {leverage-emoji} {category} · {tag}` — leverage emoji required; omit `· {tag}` when not branch scope (`introduced` / `pre-existing`).
+**Placement:** under the matching severity heading (`🔴 must-fix` / `🟡 should-fix` / `🟢 suggestion`). Shared block shape with **`sdd-review`** — see [finding-format.md](../../sdd-review/references/finding-format.md).
+
+**Title:** `**{n}. {category} · {tag}** — {one-line summary}` — omit `· {tag}` when not branch scope (`introduced` / `pre-existing`).
 
 **Body:** one-line **summary** (imperative or plain), then **required bullets**:
 
@@ -110,17 +122,18 @@ ADR conflicts: extra bullet or note on **Evidence**.
 
 - Re-read every cited location before presenting.
 - Downgrade, correct, or reject false positives.
-- No credible findings → explicit **none found** with what was examined (Recon **未审** still lists skips).
+- No credible findings → explicit **none found** with what was examined (Recon **Not audited** still lists skips).
 
-## Disambiguation vs **交付审** `sdd-review`
+## Disambiguation vs **delivery review** `sdd-review`
 
-Normative pair: **机会扫描** vs **交付审** — full table in [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
+Normative pair: **opportunity scan** vs **delivery review** — full table in [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
 
-| | **机会扫描** `sdd-improve` | **交付审** `sdd-review` |
+| | **Opportunity scan** `sdd-improve` | **Delivery review** `sdd-review` |
 | --- | --- | --- |
 | Question | Opportunities / problems? | Increment meets spec/plan and ship? |
 | Range | Whole repo or branch vs merge-base | Increment diff only |
 | Outcome | **Findings report** | **Delivery verdict** |
 | Overlap | correctness, security, performance, tests, architecture | Same lenses **on diff only**; plus AC gate |
-| Not in 交付审 | experience (7), direction (9), branch pre-existing tags | — |
-| Not in 机会扫描 | — | Spec/plan AC mapping, Simplify pass, ship gate |
+| Not in delivery review | experience (7), direction (9), branch pre-existing tags | — |
+| Not in opportunity scan | — | Spec/plan AC mapping, Simplify pass, ship gate |
+| Report format | [finding-format.md](finding-format.md) (this file) | [sdd-review finding-format.md](../../sdd-review/references/finding-format.md) |

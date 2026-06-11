@@ -63,7 +63,7 @@ sdd-skills/
 
 | 文件 | 决策 |
 |------|------|
-| **AGENTS.md** | skill 自包含；`SKILL.md` frontmatter 写触发条件；无真实用法证据不加状态字段；改 skill 跑 `check.py`；Conventional Commits + 中文 body |
+| **AGENTS.md** | skill 自包含；`SKILL.md` frontmatter 写触发条件；无真实用法证据不加状态字段；改 skill 跑 `check.py`；maintainer Git/PR 见 **§6.4**（不在 AGENTS 重复） |
 | **README.md** |  workflow 图 + 技能表 + Quick routing → 链到 `using-sdd` 详例；Design 段列 non-goals |
 | **SOURCES.md** | 记录三上游 **pin commit**；每 skill 映射来源 + **Local decisions**（本仓 maintainer 的「ADR 等价物」） |
 | **tests/check.py** | 自动发现 `skills/*/SKILL.md`；校验 core 七技能齐全、frontmatter、八段标题、模板、本地链接 |
@@ -112,7 +112,7 @@ sdd-skills/
 |------|------|
 | 扩仓目标 | 只补 SDD 流水线断档，不对齐上游数量 |
 | 8 技能环是否有洞 | 暂无重复痛点 → 不加第 8 个 **core stage** |
-| **`sdd-improve` satellite** | 2026-06-11 — 融合 shadcn/improve 审计 + architect category 5；**optional**，不进 core loop；**待** consumer trial |
+| **`sdd-improve` satellite** | 2026-06-11 — 独立机会扫描卫星 + architect category 5；**optional**，不进 core loop；**待** consumer trial |
 | **`sdd-architect` satellite** | 2026-06-09 发布 → 2026-06-11 由 **`sdd-improve`** 接替并**删除** |
 | brainstorm vs grill | 流程高度重叠（一问一答）→ **合并为 `sdd-grill`** |
 | 合并后命名 | **`sdd-grill`**（保留 "grill me" 触发） |
@@ -231,7 +231,7 @@ Optional satellites (not in loop above): **`sdd-zoom`** — territory map; **`sd
 
 | 项 | 决策 |
 |----|------|
-| 来源 | [shadcn/improve](https://github.com/shadcn/improve) (MIT) 摘要 + Matt `improve-codebase-architecture`（category 5） |
+| 来源 | 社区审计 checklist 摘要（`THIRD_PARTY_NOTICES.md`）+ Matt `improve-codebase-architecture`（category 5） |
 | 定位 | **Optional satellite** — 不进 core 七阶段环；**非** delivery review |
 | 产物 | **conversation findings report**；默认**不落盘**；无 `plans/` |
 | 流程 | Profile (optional) → Audit → Verify → Present → Confirm → Stop；**无 Simplify 命名** |

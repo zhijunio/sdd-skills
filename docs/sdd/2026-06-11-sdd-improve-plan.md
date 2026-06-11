@@ -21,7 +21,7 @@
   - **No** step/category/block named Simplify.
   - Category 5 covers over-engineering, duplication, deletion test, depth/seam.
   - `standard` scans categories **1–8** by default.
-  - References: `profile-guide.md`, `audit-playbook.md`, `finding-format.md`.
+  - References: `profile-guide.md`, `audit-playbook.md`, `finding-format.md`, `closing-the-loop.md`.
   - Natural-language scope inference (AC-16); internal labels only — users need not type `quick` / `branch` / `next`.
   - v1: standard (1–8) + architecture intent from natural language; branch/quick/deep polish later.
 - Implementation outline:
@@ -66,5 +66,5 @@
 
 ## Final Review and Ship
 
-- Maintainer **机会扫描** trials (2026-06-11): first pass #1–#4 doc fixes; second pass plan staleness + report format (Scope merge, list findings, `architecture` / `experience` rename).
+- Maintainer **opportunity scan** trials (2026-06-11): report format (Recon/Scope, **🔴/🟡/🟢** Findings, `closing-the-loop`); **`sdd-review`** `finding-format.md` aligned; no **Strengths** section.
 - `sdd-review` → `sdd-build` fixes → `sdd-ship`; no semver tag this increment until consumer friction recorded.

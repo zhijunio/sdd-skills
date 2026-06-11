@@ -1,6 +1,6 @@
 # Review Dimensions (diff-scoped)
 
-Detailed checklists for **交付审** **`sdd-review`** — **increment diff** only. **机会扫描** (whole-repo or branch) → **`sdd-improve`**. Pairing table: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
+Detailed checklists for **delivery review** **`sdd-review`** — **increment diff** only. **Opportunity scan** (whole-repo or branch) → **`sdd-improve`**. Pairing table: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
 
 **Sources (summarized):** [addyosmani/agent-skills `code-review-and-quality`](https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality); aligned with **`sdd-improve`** `audit-playbook.md` where lenses overlap.
 
@@ -95,15 +95,19 @@ When the diff adds or upgrades packages:
 
 Behavior-preserving reductions **in the diff** — see SKILL **Simplify pass checklist**. Never skip on non-trivial code diffs.
 
+Record hits under **`### 🟡 should-fix`** or **`### 🟢 suggestion`** — **`[simplify]`** lens + **Evidence** bullets per [finding-format.md](finding-format.md); no separate simplify heading.
+
 Pre-existing duplication untouched by the diff → **Assumptions & Gaps**, not **must-fix**.
 
 ## Severity (delivery gate)
 
+Aligned with **`sdd-improve`** list-block shape — [finding-format.md](finding-format.md).
+
 | Class | Meaning |
 | --- | --- |
-| **must-fix** | Blocks delivery of this increment |
-| **should-fix** | Fix unless user explicitly accepts risk |
-| **suggestion** | Non-blocking; includes most readability and small simplify wins |
+| **🔴 must-fix** | Blocks delivery of this increment |
+| **🟡 should-fix** | Fix unless user explicitly accepts risk |
+| **🟢 suggestion** | Non-blocking; includes most readability and small simplify wins |
 
 Do not use agent-skills Nit/FYI labels here — map to **suggestion**. Reserve **must-fix** for correctness, security, spec/AC gaps, and agreed Non-goal violations.
 

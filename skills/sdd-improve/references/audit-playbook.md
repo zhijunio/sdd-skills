@@ -2,28 +2,22 @@
 
 Condensed read-only checklist per category (standard = categories **1–8**).
 
-**Sources (summarized, not copied):** [shadcn/improve](https://github.com/shadcn/improve) (MIT); [addyosmani/agent-skills `code-review-and-quality`](https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality) (five-axis review checklist).
+**Sources (summarized, not copied):** community audit checklists and [addyosmani/agent-skills `code-review-and-quality`](https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality) (five-axis review checklist). Upstream attribution: repository **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`** — not repeated in skill text.
 
-**No step named Simplify** — readability, duplication, and over-engineering are **architecture** (category 5) findings. **交付审** spec/AC compliance, Simplify pass, and **delivery verdict** belong in **`sdd-review`**, not here. Pairing: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
+**No step named Simplify** — readability, duplication, and over-engineering are **architecture** (category 5) findings. **Delivery review** spec/AC compliance, Simplify pass, and **delivery verdict** belong in **`sdd-review`**, not here. Pairing: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
 
 ## Read-only rules
 
-**Advisor, not implementer** during the scan (aligned with [shadcn/improve](https://github.com/shadcn/improve) Hard Rules — audit phase only):
+**Advisor, not implementer** during the scan:
 
 - **Never** edit product code, consumer spec/plan, or `CONTEXT.md` / `docs/adr/` during the audit.
 - **Never** run commands that **mutate the user's working tree** — no package installs, no `git commit`, no formatters, no builds that write artifacts outside standard ignored dirs.
 - **Allowed:** read, search, `python3 tests/check.py` (or repo-documented verify), `tsc --noEmit`, lint in check mode, ecosystem audit in check mode, test suites that are cheap and side-effect free.
-- **Durable write (explicit user request only):** `docs/sdd/YYYY-MM-DD-<topic>-improve.md` — not a substitute for spec/plan. For **`plans/`** / **`execute`**, route to external improve — [handoff.md](handoff.md).
+- **Durable write (explicit user request only):** `docs/sdd/YYYY-MM-DD-<topic>-improve.md` — not a substitute for spec/plan. Implementation → SDD loop — [closing-the-loop.md](closing-the-loop.md).
 
 ## Parallel audit (optional)
 
-When the host supports read-only subagents, fan out by category (or cluster). **Caps** (improve effort table — see [profile-guide.md](profile-guide.md)):
-
-| Effort | Subagents |
-| --- | --- |
-| quick | 0–1 (sweep directly when feasible) |
-| standard | **≤4 concurrent** |
-| deep | **≤8 concurrent** (one per category when possible) |
+When the host supports read-only subagents, fan out by category (or cluster). Subagent caps and coverage: effort table in [SKILL.md — Process](../SKILL.md#process).
 
 Each subagent prompt: absolute path to this file + [finding-format.md](finding-format.md) (include **Finding block fields**); recon facts; return **findings only**. **Vet** every subagent lead yourself before **Present**. Without subagents, audit in category-priority order. Large monorepos: scope subagents to **packages**, not the whole root at once.
 

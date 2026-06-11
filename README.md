@@ -48,7 +48,7 @@ The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-
 | `sdd-spec` | A durable behavior contract and acceptance criteria are needed |
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |
-| `sdd-review` | **交付审** — increment diff needs delivery verdict (AC, tests, Simplify)—not **机会扫描** |
+| `sdd-review` | **Delivery review** — increment diff needs delivery verdict (AC, tests, Simplify)—not **opportunity scan** |
 | `sdd-ship` | A reviewed increment needs final acceptance evidence |
 
 ### Optional satellites
@@ -56,7 +56,7 @@ The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-
 | Skill | Use when |
 | --- | --- |
 | `sdd-zoom` | Unfamiliar code—need a **territory map** (modules, callers, domain vocabulary); not refactor findings |
-| `sdd-improve` | **机会扫描** — read-only audit / health check (findings report)—optional; not **交付审** |
+| `sdd-improve` | **Opportunity scan** — read-only audit / health check (findings report)—optional; not **delivery review** |
 
 All core skills can be installed independently. Some require artifacts rather
 than other skills: `sdd-plan` needs an approved spec, `sdd-build` needs a spec
@@ -71,7 +71,7 @@ and plan, and `sdd-ship` needs a passed review.
 
 **Normative routing** (pre-spec, core loop, review loop, escalation, disambiguation): [using-sdd — Routing matrix](skills/using-sdd/SKILL.md#routing-matrix).
 
-Satellite summary: territory map → `sdd-zoom`; **机会扫描** → `sdd-improve`; **交付审** → `sdd-review`. Pairing: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
+Satellite summary: territory map → `sdd-zoom`; **opportunity scan** → `sdd-improve`; **delivery review** → `sdd-review`. Pairing: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
 
 ## Installation
 

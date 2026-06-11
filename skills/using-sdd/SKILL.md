@@ -36,9 +36,9 @@ Normative routing for this skill. Recommend **one** skill only; do not invoke au
 
 ### Disambiguation
 
-**Canonical pair:** **机会扫描** (`sdd-improve`) vs **交付审** (`sdd-review`). Same lenses can overlap; **scope**, **outcome**, and **timing** differ.
+**Canonical pair:** **opportunity scan** (`sdd-improve`) vs **delivery review** (`sdd-review`). Same lenses can overlap; **scope**, **outcome**, and **timing** differ.
 
-| | **机会扫描** `sdd-improve` | **交付审** `sdd-review` |
+| | **Opportunity scan** `sdd-improve` | **Delivery review** `sdd-review` |
 | --- | --- | --- |
 | Question | What opportunities or problems exist? | Does this **increment** meet spec/plan and ship? |
 | Scope | **Whole repo** or **branch** vs merge-base | **Increment diff** only (defined range; default `merge-base…HEAD`) |
@@ -52,11 +52,11 @@ Normative routing for this skill. Recommend **one** skill only; do not invoke au
 
 | Cue | Route |
 | --- | --- |
-| PR, plan, AC, ship, merge, 交付, 能合并吗 | **交付审** `sdd-review` |
-| 体检, audit, 泥球, 路线图, 机会 — **no** delivery context | **机会扫描** `sdd-improve` |
-| PR前 + 对照 plan / ship / AC | **交付审** `sdd-review` |
-| PR前 + 体检 / 有什么风险 / 机会 | **机会扫描** `sdd-improve` |
-| "review" / 审查 **without** increment diff **and** delivery context | **Ask** — 交付审 vs 机会扫描; do not route silently |
+| PR, plan, AC, ship, merge, deliver, ready to merge | **delivery review** `sdd-review` |
+| health check, audit, architecture debt, roadmap — **no** delivery context | **opportunity scan** `sdd-improve` |
+| before PR + compare to plan / ship / AC | **delivery review** `sdd-review` |
+| before PR + risks / opportunities (no delivery gate) | **opportunity scan** `sdd-improve` |
+| "review" **without** increment diff **and** delivery context | **Ask** — delivery review vs opportunity scan; do not route silently |
 
 | User says / means | Route |
 | --- | --- |
@@ -70,7 +70,7 @@ Normative routing for this skill. Recommend **one** skill only; do not invoke au
 | --- | --- | --- |
 | Unfamiliar territory; need map before spec, grill, or build | `sdd-zoom` | — |
 | Goals, boundaries, trade-offs, or plan/design still need decisions | `sdd-grill` | — |
-| **机会扫描** before spec (audit, architecture, 体检); not **交付审** | `sdd-improve` | — |
+| **Opportunity scan** before spec (audit, architecture, health check); not **delivery review** | `sdd-improve` | — |
 | Boundaries clear; small reversible change | `sdd-spec` | grill |
 
 ### Core loop

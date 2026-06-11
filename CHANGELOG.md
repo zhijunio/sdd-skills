@@ -9,13 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Optional satellite skill **`sdd-improve`** — read-only multi-category codebase audit; conversation findings report; [shadcn/improve](https://github.com/shadcn/improve) (MIT) + Matt architect vocabulary in category 5
+- Optional satellite skill **`sdd-improve`** — read-only multi-category codebase audit; conversation findings report; Matt architect vocabulary in category 5
 
 ### Changed
 
-- **`using-sdd`**: **机会扫描** / **交付审** canonical pair; routing heuristic; normative Disambiguation table
-- **`sdd-improve`**: read-only audit rules (no mutating commands); parallel subagent caps ≤4/≤8; `handoff.md`; report **Recon** + **Evidence** + emoji grading; categories **architecture** / **experience**
-- **`sdd-review`**: `references/review-dimensions.md`; Disambiguation vs **`sdd-improve`**; Dependencies dimension on manifest diffs
+- **`using-sdd`**: **opportunity scan** / **delivery review** canonical pair; routing heuristic; normative Disambiguation table
+- **`sdd-improve`**: **🔴/🟡/🟢** Findings groups + emoji grading; shared list-block format with **`sdd-review`** (`references/finding-format.md` each)
+- **`sdd-review`**: `references/finding-format.md` — list-block Findings aligned with **`sdd-improve`**; **🔴/🟡/🟢** severity + emoji grading; no **Strengths** section; Simplify under **🟡/🟢** with **`[simplify]`**
 - **`sdd-review` / `sdd-zoom`**: route whole-repo health → **`sdd-improve`**
 - **Removed** optional satellite **`sdd-architect`** — superseded by **`sdd-improve`** (breaking rename; reinstall with `-s sdd-improve`)
 - **`README`**: install note — **`v0.2.1` tag** predates **`sdd-improve`**; use branch or `-s sdd-improve` until next tag

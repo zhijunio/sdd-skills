@@ -80,7 +80,7 @@ Local decisions:
 
 Sources:
 
-- [shadcn/improve](https://github.com/shadcn/improve) (MIT) — nine-category audit, vet/verify, effort levels; condensed in `references/audit-playbook.md`
+- Community audit playbooks (see **`THIRD_PARTY_NOTICES.md`**) — condensed in `references/audit-playbook.md`
 - `addyosmani/agent-skills`: `skills/code-review-and-quality` — five-axis checklist (correctness, readability, architecture, security, performance) summarized into categories 1–6 and 8 of `references/audit-playbook.md`; merge verdict, spec compliance, and change-sizing gates deliberately left in **`sdd-review`**
 - `mattpocock/skills`: `skills/improve-codebase-architecture` (category 5: depth, seam, deletion-test vocabulary)
 - Legacy **`sdd-architect`** — removed; category 5 vocabulary retained in **`sdd-improve`**
@@ -88,13 +88,13 @@ Sources:
 Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
-- **Conversation findings report** only; no default `plans/` or on-disk report. Sections: **Recon** (类型/验证/CI/HEAD/工作区/活跃区/未审), **Scope**, findings **list** with **Evidence** bullet + emoji leverage + shadcn grading + Matt **Strength** on architecture; optional **Direction** and **Dependency order** — not a findings table.
-- Workflow: Recon → Profile (optional) → Audit → Verify → Present → Confirm → Stop; **no Simplify** naming. Audit: **read-only** (no install/commit/formatters on user tree); optional parallel subagents **≤4** standard / **≤8** deep (improve effort table).
+- **Conversation findings report** only; no default `plans/` or on-disk report. Sections: **Recon**, **Scope**, **Findings** (**🔴** / **🟡** / **🟢** severity + **Evidence** + emoji grading per `references/finding-format.md`); optional **Direction** and **Dependency order** — not a findings table. Shared list-block shape with **`sdd-review`**; severities = follow-up priority, not ship gate. Skill text **English only**.
+- Workflow: Recon → Profile (optional) → Audit → Verify → Present → Confirm → Stop; **no Simplify** naming. Audit: **read-only** (no install/commit/formatters on user tree); effort table in **`SKILL.md` Process** (mirrors improve Phase 2); optional parallel subagents **≤4** standard / **≤8** deep.
 - Natural-language scope inference; **standard** default = categories 1–8.
 - **Readability** absorbed into category 5 (**architecture**), not a separate category or Simplify step.
-- Disambiguation vs **`sdd-review`**: **机会扫描** vs **交付审**; outcomes **findings report** vs **delivery verdict** — normative table in **`using-sdd`**.
+- Disambiguation vs **`sdd-review`**: **opportunity scan** vs **delivery review**; outcomes **findings report** vs **delivery verdict** — normative table in **`using-sdd`**.
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
-- Stop → recommend **`using-sdd`** only; handoff routing in `references/handoff.md` (advisor role; SDD closing-the-loop vs external improve — link to shadcn `closing-the-loop`, no port of `execute`/`reconcile`).
+- Stop → recommend **`using-sdd`** only; follow-through in `references/closing-the-loop.md` (mirrors improve layout; SDD loop routing — independent satellite, no cross-skill routing to other improve packages).
 - Default next **`sdd-spec`** or **`sdd-grill`** when finding needs AC or open trade-offs.
 
 ### `sdd-zoom`
@@ -158,8 +158,9 @@ Local decisions:
 - Default scope is merge-base diff plus task-related uncommitted work; never assume `main`.
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
-- **交付审** only — increment diff; diff-scoped detail in `references/review-dimensions.md`. Pairing with **机会扫描** **`sdd-improve`**: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
-- Fixed output headings including Dimension Coverage and Verdict.
+- **Delivery review** only — increment diff; `references/review-dimensions.md` + `references/finding-format.md` (list-block **Findings** with **🔴** / **🟡** / **🟢** + emoji grading; aligned with **`sdd-improve`**). Pairing: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
+- Mandatory **Simplify pass** — hits under **🟡** / **🟢** with **`[simplify]`** lens; no separate findings heading.
+- Fixed output headings including Dimension Coverage and Verdict (**`sdd-build`** 🔧 / **`sdd-ship`** ✅).
 - Plan **Acceptance** mapping (`met` / `partial` / `missing` / `unclear`); large-diff triage and **Limits** disclosure; change-sizing signals (~100 / ~300 / ~1000 lines).
 - Full verification stays in `sdd-ship`.
 

@@ -7,7 +7,7 @@ description: Use when a scoped diff needs an independent, read-only review befor
 
 ## Goal
 
-Find actionable defects and behavior-preserving simplification opportunities in a defined diff without modifying product, test, or plan files.
+You are a **read-only reviewer, not an implementer**. Find actionable defects and behavior-preserving simplification opportunities in a defined **increment diff**; deliver a **delivery review report** with evidence — without modifying product, test, or plan files.
 
 ## When to Use
 
@@ -15,18 +15,18 @@ Use before delivery, after implementation, or when the user asks for a review.
 
 It can run with only a diff. Missing spec or plan reduces traceability and must be disclosed.
 
-Skip when the user wants **机会扫描** (whole-repo or branch health check) without a delivery increment — use **`sdd-improve`**.
+Skip when the user wants **opportunity scan** (whole-repo or branch health check) without a delivery increment — use **`sdd-improve`**.
 
-### Disambiguation vs **机会扫描** `sdd-improve`
+### Disambiguation vs **opportunity scan** `sdd-improve`
 
-**交付审** (this skill) vs **机会扫描** — normative table in [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation).
+**Delivery review** (this skill) vs **opportunity scan** — normative table in [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation).
 
-| | **机会扫描** `sdd-improve` | **交付审** `sdd-review` |
+| | **Opportunity scan** `sdd-improve` | **Delivery review** `sdd-review` |
 | --- | --- | --- |
 | Outcome | **Findings report** | **Delivery verdict** (pass / must-fix / should-fix) |
 | Scope | Whole repo or branch vs merge-base | **Increment diff** only (defined range; default `merge-base…HEAD`) |
 
-Dimension checklists: [review-dimensions.md](references/review-dimensions.md). Ambiguous review/审查 without increment diff → **`using-sdd`** asks which skill.
+Report structure: [finding-format.md](references/finding-format.md). Dimension checklists: [review-dimensions.md](references/review-dimensions.md). Ambiguous "review" without increment diff → **`using-sdd`** asks which skill.
 
 ## Prerequisites
 
@@ -106,12 +106,12 @@ Skip conditional dimensions the diff does not touch (e.g. docs-only → skip sec
 3. Read the spec and plan when available; map Acceptance when a plan exists.
 4. Review test changes first: coverage, edge cases, regression value.
 5. Walk implementation against core and applicable conditional dimensions.
-6. **Simplify pass (mandatory for code diffs)** — after correctness, run the checklist below on the full scoped diff. Record each hit as `suggestion` or `should-fix` when the duplication is large, migration is half-done, or the slice is harder to maintain than a small extract would cost. If nothing applies, write `None.` under **### simplify** and say `simplify: pass` in **Dimension Coverage**.
-7. Report findings before summary, ordered by severity; end with verdict.
+6. **Simplify pass (mandatory for code diffs)** — after correctness, run the checklist below. Record each hit under **`### 🟡 should-fix`** or **`### 🟢 suggestion`** with **`[simplify]`** in the finding title and **Evidence** bullets per [finding-format.md](references/finding-format.md). If nothing applies, **`simplify: pass`** in **Dimension Coverage**.
+7. **Present** — **`## Scope`**, **`## Findings`** (**🔴 must-fix** / **🟡 should-fix** / **🟢 suggestion** list blocks + emoji grading), **Dimension Coverage**, **Assumptions & Gaps**, **Verdict**. See [finding-format.md](references/finding-format.md).
 
 ### Simplify pass checklist
 
-Scan the scoped diff for behavior-preserving simplifications. Prefer `file:line — [simplify] — …` in findings.
+Scan the scoped diff for behavior-preserving simplifications. Use finding list blocks with **`[simplify]`** lens — see [finding-format.md](references/finding-format.md).
 
 | Signal | Look for |
 | ------ | -------- |
@@ -128,7 +128,7 @@ Scan the scoped diff for behavior-preserving simplifications. Prefer `file:line 
 
 **Out of scope:** pre-existing duplication untouched by the diff — note under **Assumptions & Gaps**, not `must-fix`.
 
-Prefer `file:line — [spec|standards] — issue` in findings when the lens matters. On auth, secrets, migrations, or public API, label **inferred** claims as such; do not state inference as fact.
+Use **Evidence** bullets and lens tags (`[spec]`, `[standards]`, `[simplify]`) per [finding-format.md](references/finding-format.md). On auth, secrets, migrations, or public API, label **inferred** claims as such; do not state inference as fact.
 
 Use a fresh agent or subagent when available; otherwise reread the baseline before reviewing.
 
@@ -145,75 +145,22 @@ Optional two-pass review when the plan is large: spec/plan compliance first, the
 - Claiming specification compliance without a specification.
 - Running full verification or updating the plan during review.
 - Finishing review without the **Simplify pass** on a non-trivial code diff.
-- Treating DRY/KISS only as optional style nits — duplication introduced or left half-migrated by the diff belongs in **### simplify** or **should-fix**.
+- Treating DRY/KISS only as optional style nits — duplication introduced or left half-migrated belongs in **🟡 should-fix** or **🟢 suggestion** with **`[simplify]`**.
+- Findings as one-line `file:line` lists without **Evidence** / emoji grading when [finding-format.md](references/finding-format.md) applies.
 
 ## Verification
 
-Classify findings:
+Confirm deliverable matches [finding-format.md](references/finding-format.md): **Scope**, **Findings** under **🔴 must-fix** / **🟡 should-fix** / **🟢 suggestion** with **Evidence** + emoji grading (**Confidence** / **Risk**), **Dimension Coverage** (including **`simplify: pass`** when applicable), **Verdict** (**`sdd-build`** 🔧 or **`sdd-ship`** ✅).
 
-- `must-fix`: blocks delivery within the scoped increment.
-- `should-fix`: normally fixed; only the user accepts the risk.
-- `suggestion`: non-blocking improvement.
+- **🔴 must-fix** — blocks delivery of this increment.
+- **🟡 should-fix** — fix unless the user accepts the risk.
+- **🟢 suggestion** — non-blocking.
 
 ## Output
 
-Use this heading structure. Do not rename top-level sections.
+**Delivery review report** — list-block **Findings** with emoji severity headings; not a table. Default **no** durable file. See [finding-format.md](references/finding-format.md).
 
-```markdown
-# SDD Review
-
-## Scope
-
-| Item | Content |
-| ---- | ------- |
-| Baseline | integration branch or commit |
-| Range | `merge-base...HEAD`, PR, commits, or user-specified span |
-| Included | commits, files, staged/unstaged task changes |
-| Excluded | unrelated changes, out-of-scope areas |
-| Spec / Plan | paths used, or disclosure when missing |
-
-## Strengths
-
-Optional. One to three specific positives.
-
-## Findings
-
-List only in-scope issues. Use `file:line` references; optional `[spec]` or `[standards]` tags.
-
-### must-fix
-
-…
-
-### should-fix
-
-…
-
-### suggestion
-
-…
-
-### simplify
-
-Behavior-preserving DRY/KISS opportunities from the mandatory simplify pass. Tag lines with `[simplify]` when helpful.
-
-…
-
-If a severity subsection has no items, write `None.`
-
-## Dimension Coverage
-
-Brief pass, fail, or skip for each dimension examined: spec/plan (including Acceptance mapping when a plan exists), correctness, tests, docs, **simplify (mandatory on code diffs)**, and any conditional dimensions reviewed (standards, architecture, security, performance, readability, dependencies).
-
-## Assumptions & Gaps
-
-What was assumed, not run, or observed outside scope. Label out-of-scope notes and **Limits** (sampled or unread areas on large diffs) explicitly.
-
-## Verdict
-
-**`sdd-build`** or **`sdd-ship`** — one or two sentences of reason.
-```
-
-Do not update the plan; accepted risks are recorded later by the user or `sdd-build`.
+Do not update the plan; accepted risks are recorded later by the user or **`sdd-build`**.
 
 ## Stop Conditions
 
