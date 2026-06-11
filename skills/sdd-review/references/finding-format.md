@@ -28,6 +28,8 @@ Skill instructions **English**. Report prose in the **user's language** (latest 
 | **🟡 should-fix** | Fix unless user accepts risk — duplication, half-migration, test gaps on changed paths |
 | **🟢 suggestion** | Non-blocking — docs, small DRY/KISS, readability in the diff |
 
+Do not use Nit/FYI labels — map to **suggestion**. Reserve **must-fix** for correctness, security, spec/AC gaps, Non-goal violations — not DRY/KISS alone.
+
 ## Per-finding fields
 
 **Evidence** required. Optional: Impact (this increment), Confidence (✅ HIGH · ⚠️ MED · ❓ LOW), Effort (S/M/L), Risk (🔴/🟡/🟢). **Lens** in title: `[spec]` · `[standards]` · `[security]` — omit for **architecture** when obvious. Architecture (DRY/KISS in diff): **🟡** or **🟢** only — [review-dimensions.md](review-dimensions.md). Prioritize: severity class first; impact ÷ effort discounted by confidence.

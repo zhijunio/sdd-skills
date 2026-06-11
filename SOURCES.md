@@ -30,7 +30,7 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
 - **Optional satellites stay outside the core loop:** `sdd-improve` (codebase audit) and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
 
-For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; each skill's **Output** (reports: `finding-format.md` **Report locale**).
+For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in **`sdd-improve`** / **`sdd-review`** `SKILL.md`; details in `finding-format.md` **Report locale**.
 
 Sources and methodology: [docs/design/](docs/design/) ([index](docs/design/README.md)).
 
@@ -73,8 +73,8 @@ Sources:
 Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
-- **Conversation findings report** only; required **content** in `references/finding-format.md` (layout flexible; severities = follow-up priority, not ship gate). [Report locale](skills/sdd-improve/references/finding-format.md#report-locale).
-- **`SKILL.md`** — one-line **Process** + minimal tail (When/Skip, Stop, Red flags, SDD); effort table in [profile-guide.md](skills/sdd-improve/references/profile-guide.md); audit checklists in `audit-dimensions.md`. **Read-only** on user tree.
+- **Conversation findings report** only; required **content** in `references/finding-format.md` (layout flexible; severities = follow-up priority, not ship gate). **Present** locale hard rule in **`SKILL.md`**.
+- **`SKILL.md`** — one-line **Process** + **Present** + minimal tail; effort table in [profile-guide.md](skills/sdd-improve/references/profile-guide.md); checklists in `audit-dimensions.md`. **Read-only** on user tree.
 - Natural-language scope inference; **standard** default = categories 1–8.
 - **Readability** absorbed into category 5 (**architecture**), not a separate category or Simplify step.
 - Disambiguation vs **`sdd-review`**: **opportunity scan** vs **delivery review** — **When/Skip** cross-links only; outcomes **findings report** vs **delivery verdict**.
@@ -135,7 +135,7 @@ Local decisions:
 - Default scope is merge-base diff plus task-related uncommitted work; never assume `main`.
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
-- **`SKILL.md`** — code-review-quality + requesting-code-review @ pin; scope in [scope.md](skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md`.
+- **`SKILL.md`** — code-review-quality + requesting-code-review @ pin; **Present** locale hard rule; scope in [scope.md](skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md`.
 - Delivery verdict → **`sdd-build`** or **`sdd-ship`**; full verification in **`sdd-ship`**.
 
 ### `sdd-ship`
