@@ -9,5 +9,4 @@
 - No central routing doc — user **`@`** stage skills. At **Stop**, hand off to next stage skill; no in-session next-stage work.
 - Do not add runtime state files or status fields without evidence from real usage.
 - Update `SOURCES.md` when upstream-derived behavior changes.
-- Run `python3 tests/check.py` after modifying skills or templates.
 - Preserve third-party notices.

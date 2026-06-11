@@ -175,16 +175,6 @@ scope takes precedence.
 
 See [CHANGELOG.md](CHANGELOG.md). `sdd-ship` updates it when user-visible releases require it.
 
-## Validation
-
-```bash
-python3 tests/check.py
-```
-
-The check validates skill directories, frontmatter (`Use when …` descriptions),
-minimum body length, bundled references, templates, and local links — no
-third-party Python dependencies.
-
 ## Design
 
 Implements the [core principles](#core-principles) above. Also:

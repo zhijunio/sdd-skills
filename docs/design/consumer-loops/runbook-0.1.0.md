@@ -51,7 +51,7 @@ npx skills@latest add zhijunio/sdd-skills -s sdd-grill -s sdd-spec -s sdd-plan -
 
 | # | Stage | 产出 / 检查 |
 |---|--------|-------------|
-| 1 | `sdd-grill` | 至少 1 个决策问答题；Explore 或 Challenge |
+| 1 | `sdd-grill` | 至少 1 个决策 Q+A；Stop 含 Decisions/Rejected/Boundaries/Open |
 | 2 | `sdd-spec` | `docs/sdd/YYYY-MM-DD-<topic>-spec.md` + **用户批准** |
 | 3 | `sdd-plan` | `docs/sdd/YYYY-MM-DD-<topic>-plan.md` + **用户批准** |
 | 4 | `sdd-build` | 按 slice TDD；无 scope 外改动 |
@@ -77,7 +77,7 @@ docs/design/consumer-loops/<project>-<gate>.md
 | 结果 | 动作 |
 |------|------|
 | 无 must-fix | 打 **0.1.0** tag；README 可写推荐 install 版本 |
-| 有 must-fix | 本仓小 PR 修 skill/docs → `check.py` → 再评估 tag |
+| 有 must-fix | 本仓小 PR 修 skill/docs → 再评估 tag |
 | 重复 CONTEXT/ADR 痛点 | 评估 [engineering-rationale §2.5](../engineering-rationale.md#41-可选-context-与-adr) L2 |
 
 ---

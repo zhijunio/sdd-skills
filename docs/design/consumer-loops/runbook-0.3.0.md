@@ -96,7 +96,7 @@ docs/design/consumer-loops/<project>-0.3.0.md
 | 结果 | 动作 |
 |------|------|
 | Pass + 摩擦可接受 | **`sdd-ship`** slice：`CHANGELOG` 发版节、README pin、`tag` |
-| 有 must-fix（skill/docs） | 本仓 PR → `check.py` → 再评估 |
+| 有 must-fix（skill/docs） | 本仓 PR → 再评估 |
 | improve 无 credible 输出 | 换 consumer 增量或加深 scope |
 | 仅 nice friction | 记入 `<project>-0.3.0.md`；不阻塞 tag |
 

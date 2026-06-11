@@ -49,7 +49,7 @@ Status: **living document**
 - improve 的 Next stage 可 spec / build / direct edit；见 closing-the-loop.md，不在本文展开流程细节
 - 与 skill 冲突时以 skill 为准；改 skill 后再同步本文
 
-验收：python3 tests/check.py；文内本地链接无断链；不新增第二份 rationale 文件。
+验收：文内本地链接无断链；不新增第二份 rationale 文件。
 ```
 
 ---

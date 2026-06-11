@@ -26,7 +26,7 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 
 - **Six core skills cover the delivery loop:** (optional) clarify → spec → plan → build → review → ship. User **`@`** the stage skill directly.
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no worktrees, no auto-chaining, no state files).
-- **Optional clarify stays optional:** `sdd-grill` covers explore-and-challenge before spec or plan; the required artifacts remain spec and plan only.
+- **Optional clarify stays optional:** `sdd-grill` covers decision interviews before spec or plan; the required artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
 - **Optional satellites stay outside the core loop:** `sdd-improve` (codebase audit) and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
 
@@ -38,17 +38,15 @@ Sources and methodology: [docs/design/](docs/design/) ([index](docs/design/READM
 
 ### `sdd-grill`
 
-Sources (pin `be55a797` / `6fd45076` / `c076972e`):
+Sources (pin `be55a797`):
 
 - `mattpocock/skills`: `skills/productivity/grill-me` — one Q/turn + recommendation; decision-tree walk; explore codebase first
-- `obra/superpowers`: `skills/brainstorming` — explore context; 2–3 approaches + trade-offs
-- `addyosmani/agent-skills`: `skills/interview-me` — HYPOTHESIS/CONFIDENCE, Q/GUESS, ~95% intent bar; `skills/idea-refine` — diverge/converge, assumptions, not-doing
 
 Local decisions:
 
-- **`SKILL.md`** — upstream body verbatim @ pin (attribution in this file only); one **SDD:** tail for throws/routing; no fixed section template.
-- **Thrown:** Superpowers `docs/superpowers/specs/`, auto **writing-plans**, idea-refine `docs/ideas/`, implementation in-session.
-- Stop → name `sdd-spec` or `sdd-plan`; hand off — invoke on continuation, no in-session next-stage work.
+- **`SKILL.md`** — upstream body verbatim @ pin (attribution in this file only); minimal SDD tail (Skip, Stop, Red flags); no fixed section template.
+- **Thrown:** `obra/superpowers` `skills/brainstorming` (territory/explore → **`sdd-zoom`** or user `@`); `addyosmani/agent-skills` `skills/interview-me`, `skills/idea-refine` (intent clarify — not fused into grill); Superpowers `docs/superpowers/specs/`, auto **writing-plans**, idea-refine `docs/ideas/`, implementation in-session.
+- **Stop:** `Decisions:` / `Rejected:` / `Boundaries:` / `Open:` (one line each); default **`sdd-spec`**; **`sdd-plan`** only when approved spec exists and subject is plan/slices; hand off — invoke on continuation, no in-session next-stage work.
 
 ### `sdd-spec`
 

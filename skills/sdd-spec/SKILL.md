@@ -7,7 +7,7 @@ Write a structured specification before writing any code. The spec is the shared
 
 **When:** new feature, bug fix, migration, or meaningful behavior change with sufficiently clear intent; or in-place revision when AC/constraints change during plan/build/review. **Skip:** open design directions (`sdd-grill`); implementation tasks.
 
-Read repository guidance, relevant code/docs, and any `sdd-grill` clarify outcome. Ask only for decisions not discoverable locally.
+Read repository guidance, relevant code/docs, and any `sdd-grill` Stop summary from the conversation. Ask only for decisions not discoverable locally.
 
 **New spec** — [spec-template.md](spec-template.md):
 
