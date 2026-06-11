@@ -105,20 +105,19 @@ The installer detects local agents and prompts for scope. Non-interactive exampl
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-**Tagged vs latest**
+Pin the latest **tagged** release (`v0.3.0` — eight skills including **`sdd-improve`**):
 
-| Install | Includes |
-| --- | --- |
-| `@v0.2.1` | Six core loop + **`sdd-zoom`** (last tagged snapshot) |
-| Default branch (`[Unreleased]`) | **Eight skills** — core + **`sdd-improve`** + **`sdd-zoom`**; latest satellite tails |
+```bash
+npx skills@latest add zhijunio/sdd-skills@v0.3.0 -a cursor -a codex -a claude-code -y
+```
 
-Pin the last **tagged** release when you do not need **`sdd-improve`** or post–`v0.2.1` satellite updates:
+Older pin (`v0.2.1` — six core loop + **`sdd-zoom`** only):
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills@v0.2.1 -a cursor -a codex -a claude-code -y
 ```
 
-For all eight skills on the current default branch (recommended until the next tag):
+Or add skills by name from the default branch:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship -s sdd-improve -s sdd-zoom -a cursor -y

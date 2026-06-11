@@ -8,7 +8,7 @@ Validation runbooks and per-project friction records for **semver gate** release
 | **第二次** | **0.1.0** → `v0.1.0` | [runbook-0.1.0.md](./runbook-0.1.0.md) | [todo-web-0.1.0.md](./todo-web-0.1.0.md) |
 | **第三次** | **0.2.0** → `v0.2.0` | [runbook-0.2.0.md](./runbook-0.2.0.md) | [todo-web-0.2.0.md](./todo-web-0.2.0.md) |
 | — | **0.2.1** | —（maintainer patch） | — |
-| **第四次** | **0.3.0** | [runbook-0.3.0.md](./runbook-0.3.0.md) | [todo-web-0.3.0.md](./todo-web-0.3.0.md) ✅ |
+| **第四次** | **0.3.0** → `v0.3.0` | [runbook-0.3.0.md](./runbook-0.3.0.md) | [todo-web-0.3.0.md](./todo-web-0.3.0.md) ✅ |
 
 **Maintainer delta** (prose-only satellite tail refactor after 0.3.0 Pass): [maintainer-delta-2026-06-11.md](./maintainer-delta-2026-06-11.md).
 

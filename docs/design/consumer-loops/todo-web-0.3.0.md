@@ -76,7 +76,7 @@ Stage 0 对话报告漏写 **Next stage**（trial 摩擦 I6）；补录如下：
 | I3 | nice | improve 报告 → spec 标题/AC 顺畅 | no |
 | I4 | nice | Confirm `#1` 一句即可开 loop | no |
 | I5 | should | Stage 0 vs full Pass 分界 — 本次已闭环 Path A | no |
-| I6 | should | 首次 Present 漏 **`### Next stage`**，直接进 Confirm | yes — `SKILL.md` / `finding-format.md` 已加厚 |
+| I6 | should | 首次 Present 漏 **`### Next stage`**，直接进 Confirm | yes — 已修；`v0.3.0` 起 `finding-format` 为迷你样例（非加厚） |
 
 ## Friction (core loop)
 
