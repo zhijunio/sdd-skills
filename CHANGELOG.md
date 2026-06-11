@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-06-11
+
+Governance and Present-locale hardening after `v0.3.0`.
+
 ### Removed
 
 - **`docs/design/consumer-loops/`** — maintainer runbook/evidence archive; verification simplified to README checklist + consumer repo spot-check
@@ -16,9 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **All skills**: **Present** locale hard rule (deliverables in user's language, not English by default)
 - **`sdd-improve` / `sdd-review`**: compressed `finding-format.md` + `review-dimensions.md`; README/AGENTS CI narrative aligned
 - **`AGENTS.md`**: regenerated maintainer guidelines; **`SOURCES.md`**: per-skill **Present** / **Stop** aligned with `SKILL.md`
-- **`engineering-rationale.md`**: compressed; governance aligned to consumer spot-check (no consumer-loops archive)
+- **`engineering-rationale.md`**: governance aligned to consumer spot-check; expanded prose (CONTEXT L0–L3, stage heuristics, review/improve diff kind, §3 upstream four-source synthesis)
 - **`README.md`**: workflow diagram fix; review vs improve table; Present/AGENTS/engineering-rationale links
-- **`engineering-rationale.md`**: expand prose (lists over tables); CONTEXT L0–L3, stage heuristics, review/improve diff kind; §3 upstream four-source synthesis
 
 ## [0.3.0] - 2026-06-11
 
@@ -117,7 +120,8 @@ First validated release. Consumer second loop completed in [todo-web](https://gi
 
 - `project-decisions.md` timeline and version-gate wording after release review
 
-[Unreleased]: https://github.com/zhijunio/sdd-skills/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/zhijunio/sdd-skills/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/zhijunio/sdd-skills/releases/tag/v0.3.1
 [0.3.0]: https://github.com/zhijunio/sdd-skills/releases/tag/v0.3.0
 [0.2.1]: https://github.com/zhijunio/sdd-skills/releases/tag/v0.2.1
 [0.2.0]: https://github.com/zhijunio/sdd-skills/releases/tag/v0.2.0

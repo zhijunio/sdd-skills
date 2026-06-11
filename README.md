@@ -116,10 +116,10 @@ Non-interactive example:
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-**Recommended pin** — latest tagged release (`v0.3.0`, eight skills):
+**Recommended pin** — latest tagged release (`v0.3.1`, eight skills):
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills@v0.3.0 -a cursor -a codex -a claude-code -y
+npx skills@latest add zhijunio/sdd-skills@v0.3.1 -a cursor -a codex -a claude-code -y
 ```
 
 Older pin (`v0.2.1` — six core loop + **`sdd-zoom`** only):
