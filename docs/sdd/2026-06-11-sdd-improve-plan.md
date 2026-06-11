@@ -66,4 +66,5 @@
 
 ## Final Review and Ship
 
-- `sdd-review` → `sdd-build` fixes → `sdd-ship`; no semver tag this increment.
+- Maintainer **机会扫描** trial on this repo (2026-06-11): findings #1–#4 addressed in follow-up doc pass.
+- `sdd-review` → `sdd-build` fixes → `sdd-ship`; no semver tag this increment until consumer friction recorded.

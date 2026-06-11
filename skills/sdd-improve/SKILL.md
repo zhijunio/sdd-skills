@@ -13,7 +13,7 @@ Run a read-only multi-category audit and deliver a **conversation findings repor
 
 Use when the user asks for a codebase audit, health check, improve pass, or architecture/debt scan across the repo or current branch.
 
-Skip when the task is **delivery review** of a defined increment diff with spec/plan compliance — use `sdd-review`.
+Skip when the task is **交付审** (delivery review) of an **increment diff** with spec/plan compliance — use `sdd-review`.
 
 Skip when the user only needs a **territory map** without findings — use `sdd-zoom`.
 
@@ -23,18 +23,16 @@ Skip when the user asks for **direct implementation** — decline and route to *
 
 This is an **optional satellite**. Not mandatory before `sdd-ship`.
 
-### Disambiguation vs `sdd-review`
+### Disambiguation vs **交付审** `sdd-review`
 
-| | **improve** | **review** |
+**机会扫描** (this skill) vs **交付审** — normative table in [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation).
+
+| | **机会扫描** `sdd-improve` | **交付审** `sdd-review` |
 | --- | --- | --- |
-| Question | What opportunities or problems exist? | Does this increment meet spec/plan? |
+| Outcome | **Findings report** | **Delivery verdict** (pass / must-fix / should-fix) |
 | Scope | Whole repo or branch vs merge-base | Increment diff only |
-| Criteria | Leverage, categories 1–9 | Approved spec / plan / AC |
-| Verdict | Findings table; user selects follow-ups | pass / must-fix / should-fix → ship |
-| Timing | Exploratory — health check, onboarding | After build, before ship |
-| Branch | Tags `introduced` and `pre-existing` | Only defects introduced or worsened by diff |
 
-Full report structure: [finding-format.md](references/finding-format.md).
+Report structure: [finding-format.md](references/finding-format.md).
 
 ## Prerequisites
 

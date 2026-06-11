@@ -48,7 +48,7 @@ The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-
 | `sdd-spec` | A durable behavior contract and acceptance criteria are needed |
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |
-| `sdd-review` | A **defined diff** needs independent delivery review (defects, AC, tests)—not a whole-repo architecture scan |
+| `sdd-review` | **交付审** — increment diff needs delivery verdict (AC, tests, Simplify)—not **机会扫描** |
 | `sdd-ship` | A reviewed increment needs final acceptance evidence |
 
 ### Optional satellites
@@ -56,7 +56,7 @@ The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-
 | Skill | Use when |
 | --- | --- |
 | `sdd-zoom` | Unfamiliar code—need a **territory map** (modules, callers, domain vocabulary); not refactor findings |
-| `sdd-improve` | Read-only **codebase audit** or health check (correctness, security, architecture debt, tests)—optional; not delivery review |
+| `sdd-improve` | **机会扫描** — read-only audit / health check (findings report)—optional; not **交付审** |
 
 All core skills can be installed independently. Some require artifacts rather
 than other skills: `sdd-plan` needs an approved spec, `sdd-build` needs a spec
@@ -71,7 +71,7 @@ and plan, and `sdd-ship` needs a passed review.
 
 **Normative routing** (pre-spec, core loop, review loop, escalation, disambiguation): [using-sdd — Routing matrix](skills/using-sdd/SKILL.md#routing-matrix).
 
-Satellite summary: territory map → `sdd-zoom`; audit / health check → `sdd-improve`; delivery diff review → `sdd-review`.
+Satellite summary: territory map → `sdd-zoom`; **机会扫描** → `sdd-improve`; **交付审** → `sdd-review`. Pairing: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
 
 ## Installation
 
@@ -87,10 +87,16 @@ The installer detects local agents and prompts for scope. Non-interactive exampl
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-Pin a validated release (recommended after **`v0.2.1`** — CI on `main`):
+Pin the latest **tagged** release (core loop + **`sdd-zoom`**; **no `sdd-improve`** until the next semver tag):
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills@v0.2.1 -a cursor -a codex -a claude-code -y
+```
+
+For **`sdd-improve`** before the next tag, install from the default branch (or clone and copy `skills/sdd-improve/`), or add satellites without a version pin:
+
+```bash
+npx skills@latest add zhijunio/sdd-skills -s sdd-improve -s sdd-zoom -a cursor -y
 ```
 
 | Scope | Flag | Where skills land |

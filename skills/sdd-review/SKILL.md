@@ -15,19 +15,18 @@ Use before delivery, after implementation, or when the user asks for a review.
 
 It can run with only a diff. Missing spec or plan reduces traceability and must be disclosed.
 
-Skip when the user wants a **whole-repo or branch health check** without a delivery increment — use **`sdd-improve`**.
+Skip when the user wants **机会扫描** (whole-repo or branch health check) without a delivery increment — use **`sdd-improve`**.
 
-### Disambiguation vs `sdd-improve`
+### Disambiguation vs **机会扫描** `sdd-improve`
 
-| | **review** (this skill) | **improve** |
+**交付审** (this skill) vs **机会扫描** — normative table in [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation).
+
+| | **机会扫描** `sdd-improve` | **交付审** `sdd-review` |
 | --- | --- | --- |
-| Question | Does **this increment** meet spec/plan? | What opportunities or problems exist? |
-| Scope | **Increment diff only** | Whole repo or branch vs merge-base |
-| Verdict | pass / must-fix / should-fix → ship | Findings table; user selects follow-ups |
-| Overlap | correctness, security, performance, tests, arch debt **in diff** | Same lenses repo-wide or on branch; plus DX, direction |
-| Unique here | Spec/plan AC mapping, mandatory simplify pass on code diffs | Not a ship gate |
+| Outcome | **Findings report** | **Delivery verdict** (pass / must-fix / should-fix) |
+| Scope | Whole repo or branch vs merge-base | **Increment diff** only (defined range; default `merge-base…HEAD`) |
 
-Whole-repo or branch exploration → **`sdd-improve`**. Ambiguous 「review」without diff → **`using-sdd`** asks which skill.
+Dimension checklists: [review-dimensions.md](references/review-dimensions.md). Ambiguous review/审查 without increment diff → **`using-sdd`** asks which skill.
 
 ## Prerequisites
 
@@ -79,23 +78,26 @@ Fresh command output and full acceptance evidence belong in `sdd-ship`, not here
 
 ## Review Dimensions
 
+Walk dimensions on the **scoped diff only**. Detailed checklists: [review-dimensions.md](references/review-dimensions.md) (agent-skills five-axis summary + SDD delivery gate).
+
 ### Core (always)
 
-- **Spec / plan compliance** — acceptance criteria, out-of-scope boundaries; disclose when spec or plan is missing. When a plan exists, map each **Acceptance** item to `met`, `partial`, `missing`, or `unclear` against the diff and tests; unmapped items are at least **should-fix**. Diff outside plan **Non-goals** → **should-fix** or **suggestion**.
-- **Correctness and regressions** — logic, edge cases, concurrency, data consistency.
-- **Tests** — gaps, behavior vs implementation focus, assertions that would catch regressions; TDD signal when tests were meant to lead the slice.
-- **Docs and traceability** — spec/plan paths, CHANGELOG, commit messages vs diff.
+- **Spec / plan compliance** — AC mapping; Non-goals; disclose missing artifacts.
+- **Correctness and regressions** — logic, error paths, edge cases, concurrency, data consistency.
+- **Tests** — behavior vs implementation; regression value; review test changes before implementation.
+- **Docs and traceability** — spec/plan paths, CHANGELOG, standalone commit/PR descriptions.
 
 ### Conditional (when the diff touches them)
 
-- **Standards** — repository guidance (`AGENTS.md`, README conventions, linters in CI). Skip style nits CI already gates unless the diff bypasses or disables them.
-- **Architecture** — new modules, cross-layer calls, shared APIs, duplication **introduced or worsened by this diff**. Whole-codebase audit or branch health check outside the diff → optional **`sdd-improve`**; territory maps without findings → optional **`sdd-zoom`**; note those only as out-of-scope observations.
-- **Security** — auth, user input, secrets in repo or logs, SQL or untrusted external data.
-- **Performance** — N+1 queries, unbounded loops or fetches, hot paths, heavy synchronous work.
-- **Readability and change size** — naming, control flow, unnecessary complexity; when the diff adds layers or abstractions, check DRY and KISS/YAGNI; flag when a single increment is roughly **>300 lines** or one file grows substantially without justification.
-- **Simplify (mandatory)** — within the scoped diff, scan for behavior-preserving reductions: duplicate logic, parallel APIs, copy-pasted UI blocks, and fields or layers that can be collapsed without changing acceptance. See **Simplify pass** below. Whole-codebase refactors outside the diff stay out-of-scope observations or optional `sdd-simplify`; do not skip this dimension because correctness or security looked fine.
+- **Standards** — repository guidance and CI-gated linters.
+- **Architecture** — modules, boundaries, patterns, duplication **introduced or worsened by this diff** only.
+- **Security** — authz, input boundaries, injection/XSS, secrets, untrusted external data.
+- **Performance** — N+1, unbounded work, pagination, hot-path cost in changed code.
+- **Readability** — naming, control flow, dead code introduced in the diff.
+- **Dependencies** — new/upgraded packages: necessity, audit, license, lockfile (when manifest files change).
+- **Simplify (mandatory on code diffs)** — behavior-preserving DRY/KISS in the diff; see checklist below. Pre-existing duplication → out-of-scope only.
 
-Skip other conditional dimensions the diff does not touch (for example, docs-only diffs skip security and performance). **Never skip Simplify** on code diffs.
+Skip conditional dimensions the diff does not touch (e.g. docs-only → skip security and performance). **Never skip Simplify** on non-trivial code diffs.
 
 ## Process
 
@@ -119,6 +121,7 @@ Scan the scoped diff for behavior-preserving simplifications. Prefer `file:line 
 | **Field or param bloat** | New fields that duplicate an existing one (`areaId` + `areaIds`) without a documented compatibility reason; merge at Query/DTO boundary when safe |
 | **Layer noise** | Extra indirection, pass-through methods, or abstractions added in the same increment without reuse |
 | **Half migration** | Old path still called beside new path; staged but uncommitted pieces of the same refactor; dead code left after switch |
+| **Dead code introduced** | Unreachable branches, legacy shims, or no-op variables added or left in the diff after a switch |
 | **Test duplication** | Same arrange/assert copied across tests — table-driven or shared fixture candidate |
 
 **Severity:** `should-fix` when half-migration or large duplication blocks maintainability or risks drift; otherwise `suggestion`. Do not mark `must-fix` solely for simplify unless the diff clearly violates an agreed Non-goal (e.g. “no dual API”) from the plan.
@@ -199,7 +202,7 @@ If a severity subsection has no items, write `None.`
 
 ## Dimension Coverage
 
-Brief pass, fail, or skip for each dimension examined: spec/plan (including Acceptance mapping when a plan exists), correctness, tests, docs, **simplify (mandatory on code diffs)**, and any other conditional dimensions reviewed.
+Brief pass, fail, or skip for each dimension examined: spec/plan (including Acceptance mapping when a plan exists), correctness, tests, docs, **simplify (mandatory on code diffs)**, and any conditional dimensions reviewed (standards, architecture, security, performance, readability, dependencies).
 
 ## Assumptions & Gaps
 

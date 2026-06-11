@@ -7,7 +7,7 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 ## Scope
 
 - Add `skills/sdd-improve/` with `SKILL.md` and bundled `references/` (`audit-playbook.md`, `finding-format.md`, `profile-guide.md`).
-- Add **`sdd-improve`** alongside **`sdd-architect`** during build; **remove** `skills/sdd-architect/` only after the **user explicitly confirms** migration (breaking rename).
+- **`sdd-improve`** replaces **`sdd-architect`** (breaking rename); **`skills/sdd-architect/`** removed after user-confirmed migration (AC-14, done).
 - Update **`using-sdd`**, **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`tests/check.py`**, **`CHANGELOG.md`**, and **`docs/design/project-decisions.md`**.
 - Keep the core loop unchanged: `using-sdd → (optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`.
 - Attribute **[shadcn/improve](https://github.com/shadcn/improve)** (MIT) and Matt `improve-codebase-architecture` as upstream inspiration in **`SOURCES.md`**.
@@ -25,8 +25,8 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 
 ## Current Context
 
-- Repository ships **nine** installable skills at **`v0.2.1`**: seven core loop skills plus optional satellites **`sdd-zoom`** and **`sdd-architect`**.
-- **`sdd-architect`** (2026-06-09) is a lightweight architecture opportunity scan; conversation-only deliverable; Matt `improve-codebase-architecture` adapted.
+- Repository ships **nine** installable skills on current **`main`** / this branch: seven core loop skills plus optional satellites **`sdd-improve`** and **`sdd-zoom`**. Last semver tag **`v0.2.1`** predates **`sdd-improve`** (see README install).
+- **`sdd-architect`** removed (2026-06-11); category 5 vocabulary retained in **`sdd-improve`**. Historical spec: `docs/sdd/2026-06-09-sdd-architect-spec.md`.
 - **[shadcn/improve](https://github.com/shadcn/improve)** provides a fuller read-only audit (nine categories, recon, vet, effort levels, `plans/` + `execute`) as a separate single-skill package.
 - Grill consensus (2026-06-11): fuse more **improve** rigor into an in-repo SDD satellite while keeping **conversation-only** default output and SDD routing.
 - Amendment (2026-06-11): **no Simplify** in audit — over-engineering and duplication are **findings** under **tech-debt & architecture**; optional **Profile** sets effort and scope before **Audit**.
@@ -46,18 +46,21 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 
 ### Disambiguation (normative)
 
-**vs `sdd-review` (delivery review)**
+**Canonical names:** **机会扫描** (`sdd-improve`) vs **交付审** (`sdd-review`). Normative table lives in **`using-sdd` — Disambiguation**.
 
-| | **`sdd-improve`** | **`sdd-review`** |
+| | **机会扫描** `sdd-improve` | **交付审** `sdd-review` |
 | --- | --- | --- |
 | Question | What opportunities or problems exist? | Does **this increment** meet spec/plan and ship? |
-| Scope | **Whole repo** or **branch** vs merge-base (+ context in touched areas) | **Current increment diff only** |
-| Criteria | Leverage, categories 1–9 | Approved **spec / plan / AC** |
-| Verdict | Findings table; user **selects** follow-ups | **pass** / **must-fix** / **should-fix** → **`sdd-ship`** |
-| Timing | Exploratory — onboarding, health check, before/without a defined increment | After **`sdd-build`**, before ship |
-| Branch | Tags **`introduced`** and **`pre-existing`** in touched files | Judges only defects **introduced or worsened by this diff** |
+| Scope | **Whole repo** or **branch** vs merge-base (+ context in touched areas) | **Increment diff** only (defined range; default `merge-base…HEAD`) |
+| Criteria | Leverage, categories 1–9 | Spec / plan / **AC** |
+| Outcome | **Findings report** — user **selects** follow-ups | **Delivery verdict** — pass / must-fix / should-fix → **`sdd-ship`** |
+| Timing | Exploratory — health check, before/without a defined increment | After **`sdd-build`**, before ship |
+| Branch | Tags **`introduced`** and **`pre-existing`** in touched files | Only defects **introduced or worsened** by this diff |
+| Unique | DX (7), direction (9); no Simplify | AC mapping, **Simplify** pass |
 
-When the user says **「review」** without a **defined diff** and spec/plan context, **`using-sdd`** must ask: delivery review (**`sdd-review`**) vs codebase health check (**`sdd-improve`**). Do not route ambiguous 「review」to **`sdd-improve`** silently.
+**Routing heuristic** (`using-sdd`): PR / plan / AC / ship / merge / 交付 → **交付审**; 体检 / audit / 泥球 / 机会 without delivery context → **机会扫描**; PR前 + plan/ship → **交付审**; PR前 + 体检/机会 → **机会扫描**.
+
+When the user says **「review」** without **increment diff** and delivery context, **`using-sdd`** must ask: **交付审** vs **机会扫描**. Do not route silently.
 
 **vs `sdd-architect`**
 
@@ -126,10 +129,10 @@ When the user says **「review」** without a **defined diff** and spec/plan con
 
 ### Repository integration
 
-19. **`using-sdd`** routes **only `sdd-improve`** for audit / improve / health-check / whole-repo or branch exploration. Ambiguous **「review」** without a defined diff → **ask** (see Disambiguation). **`sdd-architect`** not in routing matrix during migration.
-20. **`sdd-review`** must include matching **Disambiguation** vs **`sdd-improve`**: delivery gate on increment diff only; whole-repo or branch health check → **`sdd-improve`**. **`sdd-zoom`** → **`sdd-improve`** for refactor findings.
-21. **`tests/check.py`** validates **`sdd-improve`**; **`sdd-architect`** may coexist until user confirms removal.
-22. **`README.md`** lists **`sdd-improve`**; **`sdd-architect`** deprecated until user-confirmed removal.
+19. **`using-sdd`** routes **机会扫描** to **`sdd-improve`** only (audit / 体检 / whole-repo or branch exploration). Ambiguous **「review」** without increment diff → **ask** (see Disambiguation). **`sdd-architect`** not shipped.
+20. **`sdd-review`** (**交付审**) includes matching **Disambiguation** vs **`sdd-improve`**: increment diff only; whole-repo or branch **机会扫描** → **`sdd-improve`**. **`sdd-zoom`** → **`sdd-improve`** for refactor findings.
+21. **`tests/check.py`** validates **`sdd-improve`** (nine skills discovered; seven core + two satellites).
+22. **`README.md`** lists **`sdd-improve`**; documents **`sdd-architect`** removal and install from branch until next tag.
 
 ### Optional durable artifact (explicit user request only)
 
@@ -148,14 +151,14 @@ When the user says **「review」** without a **defined diff** and spec/plan con
 - **AC-8:** Deliverable states inferred effort and scope (e.g. quick / standard / deep; categories in scope) — whether from natural language or Profile.
 - **AC-16:** Instructions require inferring scope from **natural language**; users are not required to use keyword or slash-command syntax.
 - **AC-9:** **`using-sdd`** routes audit/improve/health-check to **`sdd-improve`** only.
-- **AC-10:** `python3 tests/check.py` passes after **`sdd-improve`** published (`sdd-architect` may coexist).
-- **AC-11:** **`README.md`** and **`SOURCES.md`** document **`sdd-improve`**, **shadcn/improve**, and pending architect rename.
+- **AC-10:** `python3 tests/check.py` passes with **`sdd-improve`** published and **`sdd-architect`** removed.
+- **AC-11:** **`README.md`** and **`SOURCES.md`** document **`sdd-improve`**, **shadcn/improve**, and **`sdd-architect`** removal / reinstall with **`-s sdd-improve`**.
 - **AC-12:** No default `plans/` or on-disk report.
 - **AC-13:** Skipped categories named in Profile with project-specific reasons.
 - **AC-14:** After **user confirms**, **`sdd-architect`** removed; `check.py` still passes.
 - **AC-15:** Category 5 findings may cite over-engineering or duplication with **`file:line`** evidence and architect vocabulary where applicable.
 - **AC-17:** **`SKILL.md`** includes normative **Disambiguation** vs **`sdd-review`** (question, scope, criteria, verdict, timing, branch tags).
-- **AC-18:** **`using-sdd`** asks when the user says review/审查 without a defined diff — delivery **`sdd-review`** vs health-check **`sdd-improve`**.
+- **AC-18:** **`using-sdd`** asks when the user says review/审查 without increment diff — **交付审** **`sdd-review`** vs **机会扫描** **`sdd-improve`**.
 
 ## Constraints
 
@@ -229,3 +232,5 @@ None.
 - 2026-06-11: Amended — **Disambiguation** vs **`sdd-review`**; conversation findings report; AC-17/AC-18; **`using-sdd`** ask on ambiguous review.
 - 2026-06-11: Plan approved; Slice 1–3 implemented (`skills/sdd-improve/`; routing; docs). Slice 4 awaits user-confirmed architect removal.
 - 2026-06-11: Slice 4 — **`skills/sdd-architect/`** removed (AC-14); user-confirmed migration.
+- 2026-06-11: Unified **机会扫描** / **交付审** naming; routing heuristic in **`using-sdd`** Disambiguation; outcomes **findings report** / **delivery verdict**.
+- 2026-06-11: Post–**机会扫描** trial — sync Current Context, integration requirements, and AC wording after architect removal; README install note for pre-tag **`sdd-improve`**.

@@ -2,6 +2,8 @@
 
 ## Conversation findings report
 
+**机会扫描** outcome — not a **交付审** delivery verdict.
+
 ```markdown
 # SDD Improve
 
@@ -36,14 +38,15 @@ One skill via **using-sdd** — default **sdd-spec** when selected finding needs
 - Downgrade, correct, or reject false positives.
 - No credible findings → explicit **none found** with what was examined.
 
-## Disambiguation vs `sdd-review`
+## Disambiguation vs **交付审** `sdd-review`
 
-| Dimension | **improve** | **review** |
+Normative pair: **机会扫描** vs **交付审** — full table in [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
+
+| | **机会扫描** `sdd-improve` | **交付审** `sdd-review` |
 | --- | --- | --- |
-| Question | Opportunities / problems? | Increment meets spec/plan? |
-| Scope | Whole repo or branch | Increment diff only |
-| Overlap | correctness, security, performance, tests, arch debt (whole-repo or branch) | Same lenses **only on diff**; plus spec/plan AC gate |
-| Not in review | DX (7), direction (9), whole-repo pre-existing | — |
-| Not in improve | — | Spec/plan compliance, must-fix ship gate |
-
-Whole-repo or branch health check → **improve**. Defined diff delivery gate → **review**.
+| Question | Opportunities / problems? | Increment meets spec/plan and ship? |
+| Scope | Whole repo or branch vs merge-base | Increment diff only |
+| Outcome | **Findings report** | **Delivery verdict** |
+| Overlap | correctness, security, performance, tests, arch debt | Same lenses **on diff only**; plus AC gate |
+| Not in 交付审 | DX (7), direction (9), branch pre-existing tags | — |
+| Not in 机会扫描 | — | Spec/plan AC mapping, Simplify pass, ship gate |

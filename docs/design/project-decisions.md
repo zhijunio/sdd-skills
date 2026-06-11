@@ -313,7 +313,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md   # 用户批准
 | **0.1.1 tag** | **已发布** `v0.1.1`（2026-06-09，artifact 自检与 plan Risks） |
 | **0.2.0 tag** | **已发布** `v0.2.0`（2026-06-09，todo-web 第三次闭环 + `sdd-zoom` 同批） | [todo-web-0.2.0.md](./consumer-loops/todo-web-0.2.0.md) |
 | **0.2.1 tag** | **已发布** `v0.2.1`（2026-06-09，CI + runbook 状态同步） | 无 consumer gate |
-| **`sdd-improve`** | **实现中**（2026-06-11） | 替代 architect；见 [spec](../../docs/sdd/2026-06-11-sdd-improve-spec.md)；**待** trial + tag |
+| **`sdd-improve`** | **trial 进行中**（2026-06-11 maintainer 仓库机会扫描） | 替代 architect；见 [spec](../../docs/sdd/2026-06-11-sdd-improve-spec.md)；**待** consumer trial + semver tag |
 | **`sdd-architect`** | **已删除**（2026-06-11）— 由 **`sdd-improve`** 接替 | 历史 [architect spec](../../docs/sdd/2026-06-09-sdd-architect-spec.md) |
 | **`sdd-zoom`** | **已添加；v0.2.0 同批发布，gate 未覆盖** | 待第四次 consumer 闭环或重复 zoom-out 摩擦；见 [runbook-0.2.0.md](./consumer-loops/runbook-0.2.0.md) 脚注 |
 | **CONTEXT/ADR L2** | proposed | 见 [context-adr-workflow.md](./context-adr-workflow.md) |

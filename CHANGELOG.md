@@ -13,9 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **`using-sdd`**: route audit / health-check / architecture scan to **`sdd-improve`** only; ambiguous review without diff → ask improve vs review
-- **`sdd-review` / `sdd-zoom`**: Disambiguation vs **`sdd-improve`**; whole-repo health → improve
+- **`using-sdd`**: **机会扫描** / **交付审** canonical pair; routing heuristic; normative Disambiguation table
+- **`sdd-improve`**: `audit-playbook.md` thickened (agent-skills five-axis summary); ADR conflict + implementation-decline rules
+- **`sdd-review`**: `references/review-dimensions.md`; Disambiguation vs **`sdd-improve`**; Dependencies dimension on manifest diffs
+- **`sdd-review` / `sdd-zoom`**: route whole-repo health → **`sdd-improve`**
 - **Removed** optional satellite **`sdd-architect`** — superseded by **`sdd-improve`** (breaking rename; reinstall with `-s sdd-improve`)
+- **`README`**: install note — **`v0.2.1` tag** predates **`sdd-improve`**; use branch or `-s sdd-improve` until next tag
 - **`spec-template` / README**: drop `CONTEXT-MAP.md`; multi-domain uses `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts (link shared terms from CONTEXT)
 - **`AGENTS.md` / `project-decisions` §6.4**: maintainer PR 按主题合并，避免频繁 micro-PR
 

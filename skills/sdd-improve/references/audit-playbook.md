@@ -4,7 +4,7 @@ Condensed read-only checklist per category (standard = categories **1–8**).
 
 **Sources (summarized, not copied):** [shadcn/improve](https://github.com/shadcn/improve) (MIT); [addyosmani/agent-skills `code-review-and-quality`](https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality) (five-axis review checklist).
 
-**No step named Simplify** — readability, duplication, and over-engineering are **category 5** findings. Spec/plan compliance and merge verdicts belong in **`sdd-review`**, not here.
+**No step named Simplify** — readability, duplication, and over-engineering are **category 5** findings. **交付审** spec/AC compliance, Simplify pass, and **delivery verdict** belong in **`sdd-review`**, not here. Pairing: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
 
 ## 1 correctness
 

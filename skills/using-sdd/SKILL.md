@@ -36,13 +36,32 @@ Normative routing for this skill. Recommend **one** skill only; do not invoke au
 
 ### Disambiguation
 
+**Canonical pair:** **机会扫描** (`sdd-improve`) vs **交付审** (`sdd-review`). Same lenses can overlap; **scope**, **outcome**, and **timing** differ.
+
+| | **机会扫描** `sdd-improve` | **交付审** `sdd-review` |
+| --- | --- | --- |
+| Question | What opportunities or problems exist? | Does this **increment** meet spec/plan and ship? |
+| Scope | **Whole repo** or **branch** vs merge-base | **Increment diff** only (defined range; default `merge-base…HEAD`) |
+| Criteria | Leverage, categories 1–9 | Spec / plan / **AC** |
+| Outcome | **Findings report** — user selects follow-ups | **Delivery verdict** — pass / must-fix / should-fix → ship |
+| Timing | Exploratory — health check, pre-increment | After **`sdd-build`**, before ship |
+| Branch | Tags `introduced` and `pre-existing` | Only defects **introduced or worsened** by diff |
+| Unique | DX (7), direction (9); no Simplify step | AC mapping, **Simplify** pass (diff only) |
+
+**Routing heuristic** — when intent is unclear, apply in order:
+
+| Cue | Route |
+| --- | --- |
+| PR, plan, AC, ship, merge, 交付, 能合并吗 | **交付审** `sdd-review` |
+| 体检, audit, 泥球, 路线图, 机会 — **no** delivery context | **机会扫描** `sdd-improve` |
+| PR前 + 对照 plan / ship / AC | **交付审** `sdd-review` |
+| PR前 + 体检 / 有什么风险 / 机会 | **机会扫描** `sdd-improve` |
+| "review" / 审查 **without** increment diff **and** delivery context | **Ask** — 交付审 vs 机会扫描; do not route silently |
+
 | User says / means | Route |
 | --- | --- |
 | "zoom out", "big picture", unfamiliar territory — **map**, not findings | `sdd-zoom` |
-| Unfamiliar territory **and** open trade-offs | **`sdd-zoom` first** — map the territory; then **`using-sdd`** → **`sdd-grill`** if decisions remain |
-| "review" / 审查 **without** a defined diff and spec/plan context | **Ask:** delivery review (`sdd-review`) vs codebase health check (`sdd-improve`) — do not route silently |
-| Audit, health check, improve, 体检, whole-repo or branch exploration | `sdd-improve` |
-| Deepen, shallow modules, seams, mud-ball — architecture **findings**, not diff defects | `sdd-improve` (category 5) |
+| Unfamiliar territory **and** open trade-offs | **`sdd-zoom` first** — then **`using-sdd`** → **`sdd-grill`** if decisions remain |
 | Goals, boundaries, trade-offs still open | `sdd-grill` |
 
 ### Pre-spec
@@ -51,7 +70,7 @@ Normative routing for this skill. Recommend **one** skill only; do not invoke au
 | --- | --- | --- |
 | Unfamiliar territory; need map before spec, grill, or build | `sdd-zoom` | — |
 | Goals, boundaries, trade-offs, or plan/design still need decisions | `sdd-grill` | — |
-| Codebase audit or architecture scan before spec; not delivery review | `sdd-improve` | — |
+| **机会扫描** before spec (audit, architecture, 体检); not **交付审** | `sdd-improve` | — |
 | Boundaries clear; small reversible change | `sdd-spec` | grill |
 
 ### Core loop

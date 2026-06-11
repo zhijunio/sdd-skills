@@ -92,7 +92,7 @@ Local decisions:
 - Workflow: Profile (optional) → Audit → Verify → Present → Confirm → Stop; **no Simplify** naming.
 - Natural-language scope inference; **standard** default = categories 1–8.
 - **Readability** absorbed into category 5 (tech-debt & architecture), not a separate category or Simplify step.
-- Disambiguation vs **`sdd-review`** (opportunity scan vs delivery gate).
+- Disambiguation vs **`sdd-review`**: **机会扫描** vs **交付审**; outcomes **findings report** vs **delivery verdict** — normative table in **`using-sdd`**.
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
 - Stop → recommend **`using-sdd`** only; default next **`sdd-spec`** or **`sdd-grill`**.
 
@@ -157,8 +157,9 @@ Local decisions:
 - Default scope is merge-base diff plus task-related uncommitted work; never assume `main`.
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
-- Core and conditional review dimensions; fixed output headings including Dimension Coverage and Verdict.
-- Plan **Acceptance** mapping (`met` / `partial` / `missing` / `unclear`); large-diff triage and **Limits** disclosure (agent-skills axes adapted; maintainer prior review patterns; no bundled templates or review subagents).
+- **交付审** only — increment diff; diff-scoped detail in `references/review-dimensions.md`. Pairing with **机会扫描** **`sdd-improve`**: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
+- Fixed output headings including Dimension Coverage and Verdict.
+- Plan **Acceptance** mapping (`met` / `partial` / `missing` / `unclear`); large-diff triage and **Limits** disclosure; change-sizing signals (~100 / ~300 / ~1000 lines).
 - Full verification stays in `sdd-ship`.
 
 ### `sdd-ship`
