@@ -1,13 +1,30 @@
 # Repository Guidelines
 
-**Core principles (six, three layers):** shape — minimal & neutral · explicit stages; delivery — verifiable slices · test and prove; governance — borrow don't rebuild · no empty ceremony. See [README — Core principles](README.md#core-principles) and [engineering-rationale §1.0](docs/design/engineering-rationale.md#10-核心原则).
+Platform-neutral **SDD stage skills** for consumer projects. Runtime contracts: `skills/<name>/SKILL.md` and [SOURCES.md](SOURCES.md). Design rationale: [README — Core principles](README.md#core-principles), [engineering-rationale §1.0](docs/design/engineering-rationale.md#10-核心原则).
 
-- Keep the repository platform-neutral. Do not add commands, hooks, agent personas, or platform-specific manifests.
-- Keep every skill self-contained under `skills/<name>/`.
-- Keep `SKILL.md` concise. The frontmatter description must describe triggering conditions, not summarize the workflow.
-- Skills with upstream pins: keep borrowed prose verbatim @ pin (see `SOURCES.md`); minimal **SDD:** tail for routing/throws. No fixed section template — short like upstream.
-- No central routing doc — user **`@`** stage skills. At **Stop**, hand off to next stage skill; no in-session next-stage work.
-- Do not add runtime state files or status fields without evidence from real usage.
-- Update `SOURCES.md` when upstream-derived behavior changes.
-- Validate **material** skill changes by spot-checking in **consumer repos** — **no** `tests/check.py`; minimal CI **`validate`** (eight-skill count only) on `main` PRs per [README — Maintainer verification](README.md#maintainer-verification).
-- Preserve third-party notices.
+## Core principles (six)
+
+**Shape** — minimal & neutral · explicit stages. **Delivery** — verifiable slices · test and prove. **Governance** — borrow don't rebuild · no empty ceremony.
+
+## Layout
+
+- **Eight skills** under `skills/*/SKILL.md` — six core loop + optional **`sdd-improve`** and **`sdd-zoom`**.
+- Self-contained per skill; bundled `references/` only inside that skill directory.
+- Default consumer artifacts: `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` only — no central routing doc, runtime state files, hooks, slash commands, or platform manifests in this repo.
+
+## Authoring `SKILL.md`
+
+- Frontmatter **description** — triggering conditions only, not workflow summary.
+- Instructions **English**; upstream pins: borrowed prose verbatim @ pin ([SOURCES.md](SOURCES.md)) + minimal **SDD:** tail (routing, throws). No fixed section template — short like upstream.
+- **Present** hard rule in every skill: deliverables in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: `AC-n`, skill ids, category lens ids, `file:line`, git literals, 🔴/🟡/🟢.
+- One stage output → **Stop** → hand off; user **`@`** the next skill — no auto-chaining or in-session next-stage work.
+- **Opportunity scan** (`sdd-improve`) vs **delivery review** (`sdd-review`): **When/Skip** cross-links only — do not duplicate pairing tables elsewhere.
+
+## Maintainer changes
+
+- Update [SOURCES.md](SOURCES.md) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) when upstream-derived behavior changes.
+- **No** `tests/check.py`. Minimal CI job **`validate`** (`.github/workflows/check.yml`) counts eight skills on PRs to `main` — branch protection only, not skill-behavior validation.
+- **Material** skill or behavior changes: spot-check in a **consumer repo** (reinstall pinned tag, run one increment). Note user-visible friction in PR or [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
+- Before merge: eight skills present; **`sdd-improve`** / **`sdd-review`** references intact; spot-check Markdown links you edit. Details: [README — Maintainer verification](README.md#maintainer-verification).
+- Do not add core stages, state fields, or ceremony without consumer evidence.
+- `main` integrates via PR; preserve third-party notices.

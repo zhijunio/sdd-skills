@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **All skills**: **Present** locale hard rule (deliverables in user's language, not English by default)
-- **`sdd-improve` / `sdd-review`**: compressed `finding-format.md` + `review-dimensions.md`; README/AGENTS CI narrative aligned; **SOURCES** locale note
+- **`sdd-improve` / `sdd-review`**: compressed `finding-format.md` + `review-dimensions.md`; README/AGENTS CI narrative aligned
+- **`AGENTS.md`**: regenerated maintainer guidelines; **`SOURCES.md`**: per-skill **Present** / **Stop** aligned with `SKILL.md`
 
 ## [0.3.0] - 2026-06-11
 
