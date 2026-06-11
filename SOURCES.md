@@ -81,6 +81,7 @@ Local decisions:
 Sources:
 
 - [shadcn/improve](https://github.com/shadcn/improve) (MIT) — nine-category audit, vet/verify, effort levels; condensed in `references/audit-playbook.md`
+- `addyosmani/agent-skills`: `skills/code-review-and-quality` — five-axis checklist (correctness, readability, architecture, security, performance) summarized into categories 1–6 and 8 of `references/audit-playbook.md`; merge verdict, spec compliance, and change-sizing gates deliberately left in **`sdd-review`**
 - `mattpocock/skills`: `skills/improve-codebase-architecture` (category 5: depth, seam, deletion-test vocabulary)
 - Legacy **`sdd-architect`** — removed; category 5 vocabulary retained in **`sdd-improve`**
 
@@ -90,6 +91,7 @@ Local decisions:
 - **Conversation findings report** only; no default `plans/` or on-disk report.
 - Workflow: Profile (optional) → Audit → Verify → Present → Confirm → Stop; **no Simplify** naming.
 - Natural-language scope inference; **standard** default = categories 1–8.
+- **Readability** absorbed into category 5 (tech-debt & architecture), not a separate category or Simplify step.
 - Disambiguation vs **`sdd-review`** (opportunity scan vs delivery gate).
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
 - Stop → recommend **`using-sdd`** only; default next **`sdd-spec`** or **`sdd-grill`**.
