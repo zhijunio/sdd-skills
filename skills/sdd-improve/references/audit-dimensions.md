@@ -1,12 +1,6 @@
-# Audit Dimensions (repo/branch-scoped)
+# Audit Dimensions
 
-Detailed checklists for **opportunity scan** **`sdd-improve`** — **whole repo** or **branch** vs merge-base. **Delivery review** (increment diff) is **`sdd-review`** — pairing only via [`sdd-review` — When/Skip](../../sdd-review/SKILL.md); each skill keeps its own dimensions file.
-
-Condensed read-only checklist per category (standard = categories **1–8**).
-
-**Sources (summarized, not copied):** community audit checklists and [addyosmani/agent-skills `code-review-and-quality`](https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality) (five-axis review checklist). Upstream attribution: repository **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`** — not repeated in skill text.
-
-**No step named Simplify** — readability, duplication, and over-engineering are **architecture** (category 5) findings. Spec/AC compliance, diff-scoped **architecture** (mandatory on code diffs), and delivery verdict belong in **`sdd-review`**, not here.
+**Opportunity scan** checklist — whole repo or **branch** vs merge-base. Increment diff → **`sdd-review`** [`When/Skip`](../../sdd-review/SKILL.md). Standard = categories **1–8**. No **Simplify** step — readability/duplication → category **5**. Attribution: **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`**.
 
 ## Read-only rules
 
@@ -21,7 +15,7 @@ Condensed read-only checklist per category (standard = categories **1–8**).
 
 When the host supports read-only subagents, fan out by category (or cluster). Subagent caps and coverage: [profile-guide.md — Effort levels](profile-guide.md#effort-levels).
 
-Each subagent prompt: absolute path to this file + [finding-format.md](finding-format.md) (include **Finding block fields**); recon facts; return **findings only**. **Vet** every subagent lead yourself before **Present**. Without subagents, audit in category-priority order. Large monorepos: scope subagents to **packages**, not the whole root at once.
+Subagent prompt: path to this file + [finding-format.md](finding-format.md); recon facts; **findings only**. **Vet** leads before **Present**. No subagents → category-priority order. Monorepos → scope to **packages**.
 
 ## 1 correctness
 
@@ -72,9 +66,7 @@ Review tests for **behavior**, not as a substitute for reading production code.
 
 ## 5 architecture
 
-Combines agent-skills **readability** and **architecture** axes (no separate readability category). **Same lenses as delivery-review Architecture** — structure insight **and** duplication/DRY signals; scope here is **whole repo or branch**, not increment diff only.
-
-**Structure & patterns**
+Structure + duplication/DRY (whole repo or branch — not diff-only). Same lenses as **`sdd-review`** Architecture.
 
 - New pattern without justification vs existing conventions
 - Circular dependencies; dependencies flowing the wrong direction
@@ -82,8 +74,6 @@ Combines agent-skills **readability** and **architecture** axes (no separate rea
 - **Deletion test** — deleting the module scatters complexity → may earn its keep; complexity vanishes → pass-through noise
 - **Depth / seam** vocabulary where useful
 - Strength: `Strong`, `Worth exploring`, `Speculative`
-
-**Readability & duplication** (not named Simplify)
 
 | Signal | Look for |
 | --- | --- |
@@ -95,9 +85,9 @@ Combines agent-skills **readability** and **architecture** axes (no separate rea
 | **Dead code** | Unreachable paths, legacy shims, no-op variables after refactors |
 | **Naming & control flow** | `temp` / `data` vs conventions; nested ternaries or clever one-liners |
 
-Oversized modules/files without domain justification (signal only — change-sizing gates live in delivery review).
+Oversized modules/files without domain justification (signal only).
 
-**Accessibility** (when UI — tag findings `architecture`)
+**Accessibility** (UI — tag `architecture`)
 
 - Interactive controls without keyboard path or accessible name
 - Meaningful images/icons without text alternative
@@ -141,11 +131,7 @@ Oversized modules/files without domain justification (signal only — change-siz
 
 ## 9 direction
 
-Only when user asks roadmap / next steps. Evidence-grounded; 2–4 items max; open trade-offs → `sdd-grill`.
-
-## Branch scope
-
-When scope is branch vs merge-base, tag each finding `introduced` or `pre-existing` in touched files.
+User asks roadmap / next steps only. Evidence-grounded; 2–4 items; trade-offs → `sdd-grill`.
 
 ## Limits
 

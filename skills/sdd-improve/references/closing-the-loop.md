@@ -1,68 +1,34 @@
 # Closing the Loop — SDD follow-through
 
-The advisor's job doesn't end at the findings report. This file covers routing selected findings through the **SDD skill loop** and reconciling progress later — not default `plans/` factories, executor dispatch, or in-scan implementation.
+Route selected findings after **Confirm** — not default `plans/` factories, executor dispatch, or in-scan implementation. **Advisor never edits source during the scan** — [audit-dimensions — Read-only rules](audit-dimensions.md#read-only-rules). Follow-up: SDD loop or user **direct edit** outside any skill.
 
-The founding rule survives unchanged: **the advisor never edits source code during the scan.** Follow-up may use the SDD loop (**`sdd-build`** on an approved plan) **or** the user may edit directly **outside** any SDD skill — improve only routes; it does not mandate **`sdd-build`**.
+## After **Confirm**
 
----
-
-## Advisor, not implementer
-
-- **This skill:** understand, vet, prioritize, present findings.
-- **Not this skill:** edit product code, write default on-disk plans, dispatch executors, or merge/push. During the scan: **no mutating commands** on the user's tree — [audit-dimensions — Read-only rules](audit-dimensions.md#read-only-rules).
-
-**Strong / weak split (SDD):**
-
-| Role | Skills |
-| --- | --- |
-| Judge + specify | **`sdd-improve`**, **`sdd-grill`**, **`sdd-spec`**, **`sdd-plan`** |
-| Execute | **`sdd-build`** (test-first on approved plan) |
-| Review verdict | **`sdd-review`** (increment diff) |
-| Ship evidence | **`sdd-ship`** |
-
----
-
-## After **Confirm** — next route
-
-**Confirm** selects which findings scope the next increment. It is **not** a build trigger — do not edit product code in the improve session.
+**Confirm** scopes the next increment — **not** a build trigger. No product edits in the improve session.
 
 | User intent | Next |
 | --- | --- |
-| New or changed **behavior** / AC not yet written | **`sdd-spec`** → **`sdd-plan`** → **`sdd-build`** |
-| Finding already covered by an **approved spec**; only plan/build left | **`sdd-plan`** or **`sdd-build`** |
-| **Mechanical** follow-up (tests, refactor) — boundaries clear, verification obvious; user **waives** a new spec | **`sdd-build`** on approved plan if one exists; else **`sdd-plan`** (thin slice) — consumer discipline, not improve implementing in-session |
-| Trade-offs or direction still open | **`sdd-grill`** |
-| Increment already built; check diff vs spec/plan | **`sdd-review`** → **`sdd-build`** (fixes) → **`sdd-ship`** |
-| **Handoff** for another agent with zero session context | **`sdd-spec`** + **`sdd-plan`** (`docs/sdd/*`) — self-contained AC, slices, verification commands |
-| User asks to **implement during the scan** | Decline; pick a row below or **direct edit** after Stop |
-| User will **fix ad-hoc** — no spec/plan/build skills | **Stop** — **direct edit** (no SDD skill). User edits + runs repo verification; optional later **`sdd-review`** on the diff |
+| New/changed **behavior** / AC not written | **`sdd-spec`** → **`sdd-plan`** → **`sdd-build`** |
+| **Approved spec**; plan/build only | **`sdd-plan`** or **`sdd-build`** |
+| **Mechanical** follow-up — boundaries clear, verify obvious; user **waives** spec | **`sdd-build`** if plan exists; else thin **`sdd-plan`** |
+| Trade-offs / direction open | **`sdd-grill`** |
+| Increment built; check diff | **`sdd-review`** → **`sdd-build`** → **`sdd-ship`** |
+| **Handoff** — zero session context | **`sdd-spec`** + **`sdd-plan`** (`docs/sdd/*`) |
+| Implement **during scan** | Decline; route below or **direct edit** after Stop |
+| **Ad-hoc fix** — no SDD skills | **Stop** — **direct edit**; optional later **`sdd-review`** |
 
-Respect **Dependency order** from the report when multiple findings are selected.
+Respect **Dependency order** from the report. **Default when unclear:** **`sdd-spec`**.
 
-**Default when unclear:** **`sdd-spec`**. **Not mandatory:** spec, plan, **`sdd-build`**, or any SDD skill — never edit product code **inside** the improve session.
-
----
-
-## Reconcile — keep follow-ups alive
-
-Process what happened since the last scan:
+## Reconcile
 
 | User says | Route |
 | --- | --- |
-| "Did we finish finding #3 from the last scan?" | If spec/plan exists → **`sdd-review`** / **`sdd-ship`** on the increment; else re-run **`sdd-improve`** or check **`docs/sdd/*`** if the user asked to persist |
-| "Plan drifted / blocked" | Refresh **`docs/sdd/*-plan.md`** via **`sdd-plan`** or fix via **`sdd-build`** |
-| "Sync watchlist / tag" | **`sdd-ship`** + project docs as applicable |
+| "Finished finding #3?" | **`sdd-review`** / **`sdd-ship`** if increment exists; else re-run **`sdd-improve`** or check persisted `docs/sdd/*` |
+| "Plan drifted / blocked" | **`sdd-plan`** or **`sdd-build`** |
+| "Sync watchlist / tag" | **`sdd-ship`** |
 
-**SDD loop (recommended when you want a durable contract):**
-
-```text
-sdd-improve → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship
-```
-
-**Direct edit** after improve is valid consumer practice — shorthand: `sdd-improve → (user edits) → verify`. No skill invocation required.
-
----
+Loop shorthand: `sdd-improve → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`. **Direct edit** valid: `sdd-improve → (user edits) → verify`.
 
 ## Optional durable artifact
 
-Only when the user explicitly asks: `docs/sdd/YYYY-MM-DD-<topic>-improve.md` — findings summary for later reconcile, not a substitute for spec/plan.
+Only when asked: `docs/sdd/YYYY-MM-DD-<topic>-improve.md` — reconcile aid, not spec/plan substitute.

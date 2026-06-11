@@ -179,14 +179,14 @@ scope takes precedence.
 
 ## Maintainer verification
 
-This repository ships **no** `tests/check.py` and **no** GitHub Actions skill gate. Per [governance](#governance), validate skill changes in **consumer repos** — [consumer-loops](docs/design/consumer-loops/).
+This repository ships **no** `tests/check.py`. A **minimal** GitHub Actions job **`validate`** (`.github/workflows/check.yml`) counts eight skills on PRs to `main` — branch-protection only, not skill-behavior validation. Per [governance](#governance), validate **material** skill changes by spot-checking in a **consumer repo** (e.g. reinstall pinned tag and run one increment).
 
 Before merging skill or docs changes in this repo:
 
-1. All eight skills exist under `skills/*/SKILL.md` (six core + two satellites).
+1. All eight skills exist under `skills/*/SKILL.md` (six core + two satellites); CI **`validate`** passes on the PR.
 2. Bundled references present for **`sdd-improve`** and **`sdd-review`**.
 3. Spot-check local Markdown links in files you edit.
-4. Material behavior changes → record friction in [consumer-loops](docs/design/consumer-loops/) (see [maintainer-delta-2026-06-11](docs/design/consumer-loops/maintainer-delta-2026-06-11.md) for post–0.3.0 satellite tail notes).
+4. Material behavior changes → spot-check in a consumer repo; note friction in PR or CHANGELOG `[Unreleased]` when user-visible.
 
 ## Changelog
 

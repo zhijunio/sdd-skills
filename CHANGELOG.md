@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- **`docs/design/consumer-loops/`** — maintainer runbook/evidence archive; verification simplified to README checklist + consumer repo spot-check
+
+### Changed
+
+- **`sdd-improve` / `sdd-review`**: **Present** locale hard rule; compressed `finding-format.md`; README/AGENTS CI narrative aligned
+
 ## [0.3.0] - 2026-06-11
 
-Fourth validated release. Consumer fourth loop completed in [todo-web](https://github.com/zhijunio/todo-web). Evidence: [todo-web-0.3.0.md](docs/design/consumer-loops/todo-web-0.3.0.md).
+Fourth validated release. Consumer fourth loop completed in [todo-web](https://github.com/zhijunio/todo-web).
 
 ### Added
 
@@ -19,7 +27,7 @@ Fourth validated release. Consumer fourth loop completed in [todo-web](https://g
 
 - **`using-sdd`** skill and central routing docs/templates
 - **`docs/sdd/2026-06-09-sdd-architect-{spec,plan}.md`** — superseded by **`sdd-improve`**
-- **`tests/check.py`** and GitHub Actions workflow **`check`** — maintainer verification relies on consumer-loop runbooks
+- **`tests/check.py`** and full GitHub Actions **`check`** workflow — maintainer verification via README checklist + consumer repo trials
 
 ### Changed
 
@@ -31,15 +39,15 @@ Fourth validated release. Consumer fourth loop completed in [todo-web](https://g
 - **`sdd-improve` / `sdd-review`**: **🔴/🟡/🟢** meaning differs (follow-up priority vs delivery gate)
 - **docs/design**: [engineering-rationale.md](docs/design/engineering-rationale.md)（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节）
 - **`spec-template` / README**: multi-domain `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts
-- **consumer-loops**: fourth loop Pass — [todo-web-0.3.0](docs/design/consumer-loops/todo-web-0.3.0.md)（improve → WebMvcTest 切片）
+- Fourth consumer trial in **todo-web**（improve → WebMvcTest 切片）
 - **`sdd-grill`** / **`sdd-zoom`**: upstream single-source bodies + minimal SDD tails; doc drift cleanup (`tests/check.py` references; improve spec **AC-10** withdrawn)
 - **`sdd-improve`**: `SKILL.md` one-line Process + minimal tail; workflow detail in `references/`
 - **`sdd-improve`**: `finding-format.md` minimal optional report skeleton; required content unchanged
-- **Maintainer verification** — README checklist + consumer-loops; no `tests/check.py`; [maintainer-delta-2026-06-11](docs/design/consumer-loops/maintainer-delta-2026-06-11.md); README recommends **`v0.3.0`** for eight skills
+- **Maintainer verification** — README checklist; no `tests/check.py`; README recommends **`v0.3.0`** for eight skills
 
 ## [0.2.1] - 2026-06-09
 
-Maintainer patch: CI gate on `main` and stale consumer-loop status fixes after **`v0.2.0`** ship.
+Maintainer patch: CI gate on `main` and stale gate-doc status fixes after **`v0.2.0`** ship.
 
 ### Added
 
@@ -47,11 +55,11 @@ Maintainer patch: CI gate on `main` and stale consumer-loop status fixes after *
 
 ### Fixed
 
-- **`runbook-0.2.0.md`** / **`todo-web-0.2.0.md`**: **`v0.2.0` tag** status synced to shipped (was stale「待 ship」)
+- **`v0.2.0` tag** status synced to shipped in maintainer docs (was stale「待 ship」)
 
 ## [0.2.0] - 2026-06-09
 
-Third validated release. Consumer third loop completed in [todo-web](https://github.com/zhijunio/todo-web). Evidence: [todo-web-0.2.0.md](docs/design/consumer-loops/todo-web-0.2.0.md).
+Third validated release. Consumer third loop completed in [todo-web](https://github.com/zhijunio/todo-web).
 
 ### Added
 
@@ -64,8 +72,8 @@ Third validated release. Consumer third loop completed in [todo-web](https://git
 - **`using-sdd`**: optional satellite routing for **`sdd-zoom`** (territory map) and **`sdd-architect`** (deepening); consolidated **Routing matrix**; pre-spec priority when territory and trade-offs both open (zoom first, then grill)
 - **`tests/check.py`**: auto-discover skills under `skills/*/SKILL.md`; require core seven present
 - **`using-sdd` / `sdd-review` / `sdd-architect` / README**: clarify **Review vs architect** — delivery diff review vs pre-spec architecture opportunity scan
-- **README** / **SOURCES** / **project-decisions**: seven core stages + optional satellites; consumer loop evidence under `docs/design/consumer-loops/`; Workflow Mermaid diagram
-- **Consumer loop docs** moved to `docs/design/consumer-loops/` (`runbook-<gate>.md`, `<project>-<gate>.md`)
+- **README** / **SOURCES** / **project-decisions**: seven core stages + optional satellites; Workflow Mermaid diagram
+- **Consumer loop docs** under `docs/design/consumer-loops/` (`runbook-<gate>.md`, `<project>-<gate>.md`)
 - **`sdd-review`**: plan Acceptance mapping, large-diff triage, standards lens, finding tags (agent-skills + maintainer prior review patterns; verification still in `sdd-ship`)
 - **`sdd-build`**: read repository guidance and match existing code conventions in touched areas; TDD red discipline and review-fix scope (maintainer prior patterns); fallback to spec/plan + touched code when AGENTS/README silent
 - **`AGENTS.md` / `project-decisions`**: maintainer Git workflow — `main` integrates via PR only; branch protection enabled

@@ -4,7 +4,7 @@ Status: **living document**
 
 更新: **2026-06-09**
 
-**谁说了算：** 日常行为看 `skills/*/SKILL.md`；pin 与 skill 映射看 [SOURCES.md](../../SOURCES.md)；本文解释 **本仓怎么想、上游怎么想、我们怎么取舍**。发版与 consumer 实证见 [CHANGELOG.md](../../CHANGELOG.md)、[consumer-loops/](./consumer-loops/)。
+**谁说了算：** 日常行为看 `skills/*/SKILL.md`；pin 与 skill 映射看 [SOURCES.md](../../SOURCES.md)；本文解释 **本仓怎么想、上游怎么想、我们怎么取舍**。发版与 consumer 试跑记录见 [CHANGELOG.md](../../CHANGELOG.md)。
 
 ---
 
@@ -18,7 +18,7 @@ Status: **living document**
 事实来源（按优先级）：
 1. skills/<name>/SKILL.md 与 references/**
 2. SOURCES.md 三个 pin 仓库的 commit + shadcn/improve（未 pin）
-3. CHANGELOG.md、consumer-loops/* 已发生的 trial 证据
+3. CHANGELOG.md 已发版记录与 consumer 试跑摘要
 4. 禁止编造未发生的 consumer 结果或版本 tag
 
 文体：直白中文；对比用表格；一节一事；不用「经调研」「值得注意的是」。
@@ -261,4 +261,4 @@ Pin 快照: **2026-06-08**（[SOURCES.md](../../SOURCES.md)）。**shadcn/improv
 
 - [SOURCES.md](../../SOURCES.md) · [THIRD_PARTY_NOTICES.md](../../THIRD_PARTY_NOTICES.md)
 - [sdd-improve](../../skills/sdd-improve/SKILL.md) / [sdd-review](../../skills/sdd-review/SKILL.md) — When/Skip
-- [consumer-loops/](./consumer-loops/) · [docs/design/README.md](./README.md)
+- [docs/design/README.md](./README.md)
