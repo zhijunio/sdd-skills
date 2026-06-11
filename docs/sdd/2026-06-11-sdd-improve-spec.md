@@ -116,7 +116,7 @@ When the user says **"review"** without **increment diff** and delivery context,
 16. `references/audit-dimensions.md` — condensed per-category checklist (pairs with **`sdd-review`** `review-dimensions.md`); category 5 includes over-engineering and duplication checks; upstream attribution in repo **`THIRD_PARTY_NOTICES.md`** only.
 17. `references/finding-format.md` — **🔴/🟡/🟢** severity groups + emoji grading + **Verify** rules; report skeleton **Context → Findings → Coverage → Follow-up** (same subsection names as delivery review; each skill self-contained).
 18. `references/closing-the-loop.md` — advisor role; SDD follow-through (layout mirrors improve `closing-the-loop.md`); **no cross-reference** to other improve skill packages.
-19. **`SKILL.md`** — concise **Disambiguation** vs **`sdd-review`** (per normative table above); ≤90 lines total.
+19. **`SKILL.md`** — concise **Disambiguation** vs **`sdd-review`** (link [`using-sdd` — Disambiguation](../../skills/using-sdd/SKILL.md#disambiguation) only; no duplicated table); ≤90 lines total.
 
 ### Repository integration
 
@@ -148,7 +148,7 @@ When the user says **"review"** without **increment diff** and delivery context,
 - **AC-13:** Skipped categories and audit limits named in **`## Recon` — Not audited** with project-specific reasons — not in **`## Scope`**.
 - **AC-14:** After **user confirms**, **`sdd-architect`** removed; `check.py` still passes.
 - **AC-15:** Category 5 findings may cite over-engineering or duplication with **`file:line`** evidence and architect vocabulary where applicable.
-- **AC-17:** **`SKILL.md`** includes normative **Disambiguation** vs **`sdd-review`** (question, scope, criteria, verdict, timing, branch tags).
+- **AC-17:** **`SKILL.md`** links normative **Disambiguation** vs **`sdd-review`** to **`using-sdd`** only (no duplicated pairing table in skill bodies).
 - **AC-18:** **`using-sdd`** asks when the user says "review" without increment diff — **delivery review** **`sdd-review`** vs **opportunity scan** **`sdd-improve`**.
 
 ## Constraints

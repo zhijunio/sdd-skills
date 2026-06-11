@@ -1,6 +1,6 @@
 # 第四次 SDD 闭环 — 运行手册（sdd-improve）
 
-Status: **trial Pass**（todo-web Path A ✅；待 consumer commit + `v0.3.0` tag）
+Status: **trial Pass**（[todo-web-0.3.0](./todo-web-0.3.0.md) Path A ✅；待 PR 合并 `main` + **`v0.3.0` tag**）
 
 Last updated: 2026-06-11
 
@@ -24,9 +24,11 @@ Parent: [consumer-loops/README.md](./README.md)
 
 ## 0. 前置（本仓）
 
-- [ ] **`sdd-improve`** 合并 `main`（含 **`sdd-architect`** 移除、`audit-dimensions.md`、`using-sdd` Disambiguation）
+> **Trial 已完成**（[todo-web-0.3.0](./todo-web-0.3.0.md) Pass）。下列勾选在 **PR #11 合并 `main`** 时一并关闭；未合并前勿打 **`v0.3.0` tag**。
+
+- [ ] **`sdd-improve`** 合并 `main`（含 **`sdd-architect`** 移除、`audit-dimensions.md`、`using-sdd` Disambiguation）— PR #11
 - [x] `runbook-0.3.0.md` 起草
-- [ ] `python3 tests/check.py` 在 `main` 通过
+- [ ] `python3 tests/check.py` 在 `main` 通过 — 随 PR #11 merge
 
 ---
 
@@ -212,7 +214,7 @@ Increment (one sentence):
 
 | 项 | 状态 |
 |----|------|
-| Runbook | **trial in progress** |
-| 消费者项目 | **todo-web** — [todo-web-0.3.0.md](./todo-web-0.3.0.md) **Pass** ✅ |
-| **`v0.3.0` tag** | 待 PR merge + maintainer `sdd-ship` |
-| 前置 PR | 待 **`sdd-improve`** 合并 `main` |
+| Runbook | **trial Pass** ✅ |
+| 消费者项目 | **todo-web** @ `60e00bb` — [todo-web-0.3.0.md](./todo-web-0.3.0.md) |
+| **`v0.3.0` tag** | 待 PR #11 merge + maintainer `sdd-ship` |
+| 前置 | 待 **`sdd-improve`** 增量合并 `main`（PR #11） |

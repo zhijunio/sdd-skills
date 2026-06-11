@@ -29,9 +29,10 @@ Status: **living document**
 §3 四源一句话 + 共同点/分歧表
 §4 分源对照（每源固定五段：他们说什么 / 假设 / 拿什么 / 扔什么 / 落在哪些 skill）
 §5 对照总表（superpowers | agent-skills | matt | shadcn/improve | sdd-skills）
-§2.5 可选 CONTEXT/ADR（锚点 `#41-可选-context-与-adr` 保留）
-§7 演化原则与反模式
-§8 维护提示词（本节）
+§2.5 可选 CONTEXT/ADR（锚点 `#41-可选-context-与-adr` 保留；在 §2 内）
+§6 演化原则与反模式
+§7 延伸阅读
+文首 §维护提示词（本节，固定不动）
 
 分源对照写作模板（复制到 §4 每一小节）：
 - **他们解决什么：**
@@ -208,7 +209,7 @@ Pin 快照: **2026-06-08**（[SOURCES.md](../../SOURCES.md)）。**shadcn/improv
               superpowers   agent-skills    matt          shadcn/improve   sdd-skills
 自动化        高            中              低            中               低（人选阶段）
 主产物        长计划+子agent 分阶段命令      issues/PRD    发现报告         spec+plan
-域语言        无            无              CONTEXT+ADR   无               可选 §4.1
+域语言        无            无              CONTEXT+ADR   无               可选 §2.5
 审阅/体检     子agent       /review+simplify improve-arch 全库 audit      review+improve
 平台绑定      重            重              较轻          产品向           纯 Markdown
 ```

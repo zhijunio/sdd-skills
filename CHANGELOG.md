@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`sdd-review`**: Security 按信号必审；Dependencies 补 lockfile/迁移；prose/docs-only **reference integrity**；条件维 **observability / a11y / ops**
 - **`sdd-improve`**: cat 3/5/7 补 observability、a11y、ops；cat 5 与 review **Architecture** 同透镜（结构 + duplication 表）
 - **`sdd-review`**: Architecture 补 deletion test、seam/depth；与 improve cat 5 对称
-- **docs/design**: 完善 `software-engineering-rationale`、`upstream-engineering-rationale`（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节）；**删除** `project-decisions.md`、`context-adr-workflow.md`
+- **docs/design**: 合并 `software-engineering-rationale` + `upstream-engineering-rationale` → [engineering-rationale.md](docs/design/engineering-rationale.md)（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节 + 维护提示词）；**删除** `project-decisions.md`、`context-adr-workflow.md`
 - **`sdd-review` / `sdd-zoom`**: route whole-repo health → **`sdd-improve`**
 - **Removed** optional satellite **`sdd-architect`** — superseded by **`sdd-improve`** (breaking rename; reinstall with `-s sdd-improve`)
 - **`README`**: install note — **`v0.2.1` tag** predates **`sdd-improve`**; use branch or `-s sdd-improve` until next tag
@@ -29,8 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`consumer-loops`**: grill 共识 — 下一 tag **`v0.3.0`**；第四次 loop gate **`sdd-improve`** only（trial Pass 后 ship）
 - **`tests/check.py`**: **`sdd-review`** 卫星 bundle 校验（与 **`sdd-improve`** 对称）
 - **`sdd-improve`**: Present 强制 **`Follow-up` → `Next stage`**（`SKILL.md` / `finding-format.md`）
-- **consumer-loops**: 第四次 loop trial Pass — [todo-web-0.3.0](docs/design/consumer-loops/todo-web-0.3.0.md)（improve → WebMvcTest 切片）
-- **docs/design**: 合并 `software-engineering-rationale` + `upstream-engineering-rationale` → [engineering-rationale.md](docs/design/engineering-rationale.md)（含维护提示词）
+- **consumer-loops**: 第四次 loop trial Pass — [todo-web-0.3.0](docs/design/consumer-loops/todo-web-0.3.0.md)（improve → WebMvcTest 切片）；索引与 runbook 状态对齐
 
 ## [0.2.1] - 2026-06-09
 
