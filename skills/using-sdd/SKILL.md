@@ -32,7 +32,7 @@ When routing, you may state briefly that you are checking the SDD stage and name
 
 Normative routing for this skill. Recommend **one** skill only; do not invoke automatically.
 
-**Optional satellites** (`sdd-zoom`, `sdd-improve`) are not part of the mandatory core loop before `sdd-ship`. After a satellite, route through **`using-sdd`** again. When the user selects a finding that needs acceptance criteria, default next stage is **`sdd-spec`** unless trade-offs remain open.
+**Optional satellites** (`sdd-zoom`, `sdd-improve`) are not part of the mandatory core loop before `sdd-ship`. After **`sdd-improve`**, hand off per **Next stage** — SDD skill via **`using-sdd`** (default **`sdd-spec`** when AC needed) or **direct edit** (no skill); see **`sdd-improve`** [closing-the-loop.md](../sdd-improve/references/closing-the-loop.md).
 
 ### Disambiguation
 

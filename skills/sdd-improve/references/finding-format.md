@@ -99,7 +99,13 @@ What was walked: categories per **Context — Scope** (narrative or brief ✅/�
 
 ### Next stage
 
-One skill via **`using-sdd`** — [closing-the-loop.md](closing-the-loop.md). Default **`sdd-spec`** or **`sdd-grill`**. Name the skill and one-line why.
+One **route** — [closing-the-loop.md](closing-the-loop.md). Name it and one-line why:
+
+- **`sdd-spec`** / **`sdd-plan`** / **`sdd-build`** — via **`using-sdd`** when a skill adds value (default **`sdd-spec`** when AC missing)
+- **`sdd-grill`** — trade-offs still open
+- **`direct edit`** — user fixes ad-hoc **outside** SDD skills; improve **Stop**s; user verifies (e.g. `./mvnw test`); optional later **`sdd-review`**
+
+**Not in-session implementation:** improve never edits product code. **SDD skills optional** for follow-up — not every finding needs spec, plan, or **`sdd-build`**.
 
 ### Direction
 

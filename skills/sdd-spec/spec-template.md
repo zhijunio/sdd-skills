@@ -22,7 +22,7 @@
     reference the same decision.
   - Optional CONTEXT (consumer projects): root `CONTEXT.md` for stable domain
     language; multi-domain projects add `docs/context/<domain>/CONTEXT.md`.
-    See docs/design/software-engineering-rationale.md §4.1 — not required for
+    See docs/design/engineering-rationale.md §2.5 — not required for
     small or single-spec projects.
   - Open Questions: unresolved decisions that must be answered before planning.
     Remove all open questions before the spec is approved.

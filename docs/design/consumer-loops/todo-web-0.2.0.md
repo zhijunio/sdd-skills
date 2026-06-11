@@ -11,7 +11,7 @@ Increment (one sentence): 测试夹具接缝 — 统一 Todo 测试 seed/clear�
 - sdd-skills ref: `main` @ merge PR #2（闭环时 skill 名为 **`sdd-deepen`**，已更名为 **`sdd-architect`**）
 - Consumer branch: `codex/implement-todo-web`
 - Consumer delivery commit: `049e598`
-- Prior loops: [todo-web-0.1.0.md](./todo-web-0.1.0.md)（`v0.1.0`）
+- Prior loops: [todo-web-first.md](./todo-web-first.md) → [todo-web-0.1.0.md](./todo-web-0.1.0.md)
 
 ## Stage log
 

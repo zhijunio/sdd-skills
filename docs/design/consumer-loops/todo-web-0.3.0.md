@@ -10,7 +10,7 @@ Increment (one sentence): **`sdd-improve` 🟡#1** → WebMvcTest 切片迁移�
 - skills install scope: project（`.agents/skills/`）
 - sdd-skills ref: `docs/maintainer-pr-batch` @ `3b0a7b5`（本地 copy `sdd-improve`）
 - Consumer branch: `codex/implement-todo-web` @ `60e00bb`
-- Prior loops: [todo-web-0.2.0.md](./todo-web-0.2.0.md)
+- Prior loops: [todo-web-first.md](./todo-web-first.md) → [todo-web-0.1.0.md](./todo-web-0.1.0.md) → [todo-web-0.2.0.md](./todo-web-0.2.0.md)
 
 ## Stage log
 

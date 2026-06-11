@@ -49,7 +49,7 @@
 - Goal: README, SOURCES, decisions, CHANGELOG updated.
 - Acceptance: AC-11
 - Depends on: Slice 2
-- Verification: `python3 tests/check.py` — **passed**; README + SOURCES + CHANGELOG + `docs/design/software-engineering-rationale.md` updated
+- Verification: `python3 tests/check.py` — **passed**; README + SOURCES + CHANGELOG + `docs/design/engineering-rationale.md` updated
 - Done: true
 
 ## Slice 4: Retire sdd-architect (user-confirmed only)

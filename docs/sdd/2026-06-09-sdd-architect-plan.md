@@ -36,7 +36,7 @@ Commit the approved spec and this plan before Slice 1.
   - `using-sdd` lists optional satellites and routes mud-ball / deepening intent to `sdd-architect` without auto-invocation.
   - README distinguishes **seven core stages** from the optional **`sdd-architect`** satellite and updates install examples where needed.
   - `SOURCES.md` records Matt inspiration and local decisions for the satellite.
-  - `docs/design/software-engineering-rationale.md` records the satellite decision; `docs/design/consumer-loops/` records the `v0.2.0` gate.
+  - `docs/design/engineering-rationale.md` records the satellite decision; `docs/design/consumer-loops/` records the `v0.2.0` gate.
   - `CHANGELOG.md` `[Unreleased]` notes the new optional skill.
 - Implementation outline:
   - Extend `skills/using-sdd/SKILL.md` Process or a short **Optional satellites** subsection with triggers and handoff to `using-sdd` after `sdd-architect`.

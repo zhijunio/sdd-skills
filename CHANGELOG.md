@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`tests/check.py`**: **`sdd-review`** 卫星 bundle 校验（与 **`sdd-improve`** 对称）
 - **`sdd-improve`**: Present 强制 **`Follow-up` → `Next stage`**（`SKILL.md` / `finding-format.md`）
 - **consumer-loops**: 第四次 loop trial Pass — [todo-web-0.3.0](docs/design/consumer-loops/todo-web-0.3.0.md)（improve → WebMvcTest 切片）
+- **docs/design**: 合并 `software-engineering-rationale` + `upstream-engineering-rationale` → [engineering-rationale.md](docs/design/engineering-rationale.md)（含维护提示词）
 
 ## [0.2.1] - 2026-06-09
 

@@ -8,7 +8,7 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 
 - Add `skills/sdd-improve/` with `SKILL.md` and bundled `references/` (`audit-dimensions.md`, `finding-format.md`, `profile-guide.md`, `closing-the-loop.md`).
 - **`sdd-improve`** replaces **`sdd-architect`** (breaking rename); **`skills/sdd-architect/`** removed after user-confirmed migration (AC-14, done).
-- Update **`using-sdd`**, **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`tests/check.py`**, **`CHANGELOG.md`**, and **`docs/design/software-engineering-rationale.md`** (as needed).
+- Update **`using-sdd`**, **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`tests/check.py`**, **`CHANGELOG.md`**, and **`docs/design/engineering-rationale.md`** (as needed).
 - Keep the core loop unchanged: `using-sdd → (optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`.
 - Record upstream playbook attribution in **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`** only — **`sdd-improve` skill text does not reference other improve packages**.
 

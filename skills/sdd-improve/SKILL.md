@@ -7,7 +7,7 @@ description: Use when the user wants a read-only codebase audit or health check�
 
 ## Goal
 
-You are a **senior advisor, not an implementer**. Run a read-only multi-category audit and deliver a **conversation findings report** — prioritized verified findings with evidence. Follow-ups belong in the **SDD loop** — see [closing-the-loop.md](references/closing-the-loop.md).
+You are a **senior advisor, not an implementer**. Run a read-only multi-category audit and deliver a **conversation findings report** — prioritized verified findings with evidence. Follow-ups: SDD skills or **direct edit** — see [closing-the-loop.md](references/closing-the-loop.md).
 
 ## When to Use
 
@@ -19,7 +19,7 @@ Skip when the user only needs a **territory map** without findings — use `sdd-
 
 Skip when goals or trade-offs are still open — use `sdd-grill`.
 
-Skip when the user asks for **direct implementation** — decline; route per [closing-the-loop.md](references/closing-the-loop.md) (**`sdd-spec`** → **`sdd-plan`** → **`sdd-build`**).
+Skip when the user asks for **direct implementation during the scan** — decline; route per [closing-the-loop.md](references/closing-the-loop.md) after **Stop** (SDD skill or **direct edit**).
 
 This is an **optional satellite**. Not mandatory before `sdd-ship`.
 
@@ -50,9 +50,9 @@ Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/
 
 Whatever the level, name skipped categories in **Recon — Not audited**. Large monorepos: scope subagents to packages, not the whole root.
 4. **Verify** — re-read cited code; reject false positives → **Coverage — Limits**. ADR conflicts: mark and recommend follow-up.
-5. **Present** — **Context → Findings → Coverage → Follow-up** per [finding-format.md](references/finding-format.md) (**🔴/🟡/🟢** list blocks + **Evidence** + emoji grading; architecture **Strength**). **`## Follow-up` must include `### Next stage`** — one skill via **`using-sdd`** ([closing-the-loop.md](references/closing-the-loop.md)); default **`sdd-spec`** or **`sdd-grill`**. Do not jump to Confirm without it.
-6. **Confirm** — ask which findings to pursue; restate **dependency order** and **Next stage** for selections.
-7. **Stop** — repeat the **Next stage** routing via **`using-sdd`** only after Confirm; do not substitute implementation.
+5. **Present** — **Context → Findings → Coverage → Follow-up** per [finding-format.md](references/finding-format.md) (**🔴/🟡/🟢** list blocks + **Evidence** + emoji grading; architecture **Strength**). **`## Follow-up` must include `### Next stage`** — one **route** ([closing-the-loop.md](references/closing-the-loop.md)); default **`sdd-spec`** or **`sdd-grill`**; **`direct edit`** when user waives skills. Do not jump to Confirm without it.
+6. **Confirm** — ask which findings enter the **Next stage** increment (e.g. spec scope). **Not** approval to edit product code — Confirm ≠ **`sdd-build`**.
+7. **Stop** — hand off per **Next stage** ([closing-the-loop.md](references/closing-the-loop.md)): an SDD skill via **`using-sdd`**, or **`direct edit`** (user fixes outside skills). Improve session ends — no product edits in-session.
 
 Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 
@@ -61,13 +61,14 @@ Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 - Treating improve as a ship gate or delivery review substitute.
 - Implementing fixes or running **mutating commands** (install, commit, formatters, artifact-writing builds) during the audit.
 - Editing product code, spec, plan, or CONTEXT/ADR (except explicit user-requested `docs/sdd/*-improve.md`).
+- Treating **Confirm** as permission to implement in-session — hand off to **Next stage** (skill or **direct edit**), not code here.
 - Default `plans/` or on-disk reports without explicit user request.
 - Inventing findings when none exist.
 - Reproducing secret values in findings.
 
 ## Verification
 
-Confirm deliverable matches [finding-format.md](references/finding-format.md): **Context → Findings → Coverage → Follow-up** with required **`### Next stage`** (one skill name + rationale).
+Confirm deliverable matches [finding-format.md](references/finding-format.md): **Context → Findings → Coverage → Follow-up** with required **`### Next stage`** (one route + rationale).
 
 **🔴/🟡/🟢** here rank **follow-up priority only** — they **do not** gate **`sdd-ship`** (delivery gate semantics live in **`sdd-review`**).
 
@@ -79,4 +80,4 @@ Persist `docs/sdd/YYYY-MM-DD-<topic>-improve.md` or file issues only when the us
 
 ## Stop Conditions
 
-Stop after the conversation deliverable and one routing recommendation through **`using-sdd`** only.
+Stop after the conversation deliverable and one **Next stage** handoff ([closing-the-loop.md](references/closing-the-loop.md)) — SDD skill via **`using-sdd`** or **`direct edit`**.

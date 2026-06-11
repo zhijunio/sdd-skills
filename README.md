@@ -147,7 +147,7 @@ of the default two-document workflow.
 Stable domain terminology may live in `CONTEXT.md` at the project root (single
 domain) or in `docs/context/<domain>/CONTEXT.md` (multi-domain). Spec **Current Context** records increment facts for this change; reference shared
 terms from CONTEXT instead of repeating them. Optional — see
-[software-engineering-rationale §4.1](docs/design/software-engineering-rationale.md#41-可选-context-与-adr).
+[engineering-rationale §2.5](docs/design/engineering-rationale.md#41-可选-context-与-adr).
 
 ## Review Scope
 
@@ -178,7 +178,7 @@ templates, and local links without third-party Python dependencies.
 - Review stays read-only.
 - Ship verifies; it does not silently publish.
 
-Design docs: [docs/design/](docs/design/) — [Methodology](docs/design/software-engineering-rationale.md) · [Upstream](docs/design/upstream-engineering-rationale.md).
+Design docs: [docs/design/](docs/design/) — [engineering-rationale](docs/design/engineering-rationale.md)（本仓 + 上游对照）.
 
 ## Sources
 

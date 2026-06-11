@@ -2,13 +2,15 @@
 
 Status: **complete**（2026-06-09，todo-web）
 
-Last updated: 2026-06-09
+Last updated: 2026-06-11
 
 Parent: [consumer-loops/README.md](./README.md)
 
+Prior: [第一次闭环](./runbook-first.md)（todo-web greenfield，2026-06-08，回溯建档）
+
 ## 目的
 
-在 **独立业务项目** 中验证 7 技能交付环可用，为 **0.1.0** 提供证据。通过标准（grill 共识）：
+在 **独立业务项目** 中验证 7 技能交付环可用，为 **`v0.1.0`**（semver gate **0.1.0**）提供证据。通过标准（grill 共识）：
 
 - 跑满 **grill → spec → plan → build → review → ship**
 - **spec / plan 经用户批准**
@@ -77,7 +79,7 @@ docs/design/consumer-loops/<project>-<gate>.md
 |------|------|
 | 无 must-fix | 打 **0.1.0** tag；README 可写推荐 install 版本 |
 | 有 must-fix | 本仓小 PR 修 skill/docs → `check.py` → 再评估 tag |
-| 重复 CONTEXT/ADR 痛点 | 评估 [software-engineering-rationale §4.1](../software-engineering-rationale.md#41-可选-context-与-adr) L2 |
+| 重复 CONTEXT/ADR 痛点 | 评估 [engineering-rationale §2.5](../engineering-rationale.md#41-可选-context-与-adr) L2 |
 
 ---
 

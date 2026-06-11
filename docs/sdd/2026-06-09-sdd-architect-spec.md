@@ -11,7 +11,7 @@ Consumers can run an optional **`sdd-architect`** satellite that surfaces archit
 - Add `skills/sdd-architect/SKILL.md` as an **optional satellite** skill (eighth published skill).
 - Update `using-sdd` with satellite routing when the user wants deepening, shallow modules, seam friction, or mud-ball architecture review.
 - Update `README.md`, `SOURCES.md`, and `tests/check.py` so the new skill is installable and validated.
-- Record the decision in `docs/design/software-engineering-rationale.md` and `CHANGELOG.md` `[Unreleased]`.
+- Record the decision in `docs/design/engineering-rationale.md` and `CHANGELOG.md` `[Unreleased]`.
 - Keep the core loop unchanged: `using-sdd → (optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`.
 
 ## Non-goals
