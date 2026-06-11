@@ -42,8 +42,8 @@ Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/
 
 **Recon → Profile (optional) → Audit → Verify → Present → Confirm → Stop**
 
-1. **Recon** — always: README/AGENTS, verify command, CI, `HEAD`, working tree, churn hotspots; write **`## Recon`** (Type/Verification/CI/HEAD/Working tree/Hotspots/Not audited). See [finding-format.md](references/finding-format.md).
-2. **Profile** (optional) — when effort or scope is ambiguous; merges into **`## Scope`** only (no Profile heading). Natural-language scope mapping and skip rules: [profile-guide.md](references/profile-guide.md).
+1. **Recon** — always: README/AGENTS, verify command, CI, `HEAD`, working tree, churn hotspots; write **Context — Recon** table. See [finding-format.md](references/finding-format.md).
+2. **Profile** (optional) — when effort or scope is ambiguous; merges into **Context — Scope** only (no Profile heading). Natural-language scope mapping and skip rules: [profile-guide.md](references/profile-guide.md).
 3. **Audit** — read-only. **Never** Simplify. See [audit-playbook.md](references/audit-playbook.md). Depth follows **effort level** (default **standard**; user may say `quick` / `deep` anywhere in the request):
 
 | | quick | standard (default) | deep |
@@ -54,8 +54,8 @@ Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/
 | Findings | top ~6, HIGH-confidence only | full verified list | full list incl. LOW investigate |
 
 Whatever the level, name skipped categories in **Recon — Not audited**. Large monorepos: scope subagents to packages, not the whole root.
-4. **Verify** — re-read cited code; reject false positives → **considered and rejected**. ADR conflicts: mark and recommend follow-up.
-5. **Present** — **`## Recon`**, **`## Scope`**, **`## Findings`** (**🔴 must-fix** / **🟡 should-fix** / **🟢 suggestion** list blocks + **Evidence** + Impact/Effort/Confidence/Risk emoji grading; architecture **Strength**), optional **`## Direction`**, **`## Dependency order`** when ≥2 follow-ups. Not a table. See [finding-format.md](references/finding-format.md).
+4. **Verify** — re-read cited code; reject false positives → **Coverage — Limits**. ADR conflicts: mark and recommend follow-up.
+5. **Present** — **Context → Findings → Coverage → Follow-up** per [finding-format.md](references/finding-format.md) (**🔴/🟡/🟢** list blocks + **Evidence** + emoji grading; architecture **Strength**).
 6. **Confirm** — ask which findings to pursue; restate **dependency order** for selections.
 7. **Stop** — one routing recommendation via **`using-sdd`** only ([closing-the-loop.md](references/closing-the-loop.md)); default **`sdd-spec`** or **`sdd-grill`**.
 
@@ -72,11 +72,11 @@ Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 
 ## Verification
 
-Confirm deliverable includes **Recon**, **Scope**, findings under **🔴 must-fix** / **🟡 should-fix** / **🟢 suggestion** with **Evidence** and emoji grading, optional **Direction** and **Dependency order**, and considered/rejected when applicable.
+Confirm deliverable matches [finding-format.md](references/finding-format.md): **Context → Findings → Coverage → Follow-up**.
 
 ## Output
 
-**Conversation findings report** — **`## Recon`**, **`## Scope`**, **`## Findings`** (**🔴** / **🟡** / **🟢** severity groups), optional **`## Direction`** + **`## Dependency order`**, considered and rejected. Default **no** durable file. See [finding-format.md](references/finding-format.md).
+**Conversation findings report** — skeleton per [finding-format.md](references/finding-format.md). Default **no** durable file.
 
 Persist `docs/sdd/YYYY-MM-DD-<topic>-improve.md` or file issues only when the user explicitly asks.
 

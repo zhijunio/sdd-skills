@@ -2,7 +2,7 @@
 
 Optional **Profile** step before **Audit** when effort or scope is ambiguous. Skip when the user already named focus and depth.
 
-**Report rule:** **Recon** (always) and **Scope** (Profile merges here) are separate sections — never a `## Profile` heading. Recon = territory facts + **Not audited** (skips/limits); Scope = effort / range / **in-scope categories only**.
+**Report rule:** under **Context**, **Recon** (always) and **Scope** (Profile merges here) — never a `## Profile` heading. Recon = territory facts + **Not audited**; Scope = effort / range / **in-scope categories only**. Skeleton: [finding-format.md](finding-format.md).
 
 ## Scope section (report)
 

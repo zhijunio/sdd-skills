@@ -68,7 +68,7 @@ When the user names a subset, honor it and record what was excluded.
 
 ### Large diffs
 
-When the diff is roughly **30+ files** or **>300 lines**, triage **high-risk areas first**: auth, secrets, migrations, public API, money or data-loss paths. Sample or defer the rest; record **Limits** (what was not fully read) in **Assumptions & Gaps**. Prose-only diffs: prioritize spec/plan traceability and clarity.
+When the diff is roughly **30+ files** or **>300 lines**, triage **high-risk areas first**: auth, secrets, migrations, public API, money or data-loss paths. Sample or defer the rest; record **Limits** (what was not fully read) in **Coverage — Limits**. Prose-only diffs: prioritize spec/plan traceability and clarity.
 
 ### Pre-existing code
 
@@ -101,13 +101,13 @@ Skip conditional dimensions the diff does not touch (e.g. docs-only → skip sec
 
 ## Process
 
-1. State scope using the output template below (`Scope` table).
+1. State **Context — Scope** per [finding-format.md](references/finding-format.md).
 2. Read the **complete** scoped diff before judging correctness — or triage per **Large diffs** and disclose **Limits**.
 3. Read the spec and plan when available; map Acceptance when a plan exists.
 4. Review test changes first: coverage, edge cases, regression value.
 5. Walk implementation against core and applicable conditional dimensions.
-6. **Simplify pass (mandatory for code diffs)** — after correctness, run the checklist below. Record each hit under **`### 🟡 should-fix`** or **`### 🟢 suggestion`** with **`[simplify]`** in the finding title and **Evidence** bullets per [finding-format.md](references/finding-format.md). If nothing applies, **`simplify: pass`** in **Dimension Coverage**.
-7. **Present** — **`## Scope`**, **`## Findings`** (**🔴 must-fix** / **🟡 should-fix** / **🟢 suggestion** list blocks + emoji grading), **Dimension Coverage**, **Assumptions & Gaps**, **Verdict**. See [finding-format.md](references/finding-format.md).
+6. **Simplify pass (mandatory for code diffs)** — after correctness, run the checklist below. Record hits under **🟡/🟢** with **`[simplify]`** per [finding-format.md](references/finding-format.md). If nothing applies, **`simplify: pass`** in **Coverage — Examined**.
+7. **Present** — **Context → Findings → Coverage → Follow-up** per [finding-format.md](references/finding-format.md).
 
 ### Simplify pass checklist
 
@@ -126,7 +126,7 @@ Scan the scoped diff for behavior-preserving simplifications. Use finding list b
 
 **Severity:** `should-fix` when half-migration or large duplication blocks maintainability or risks drift; otherwise `suggestion`. Do not mark `must-fix` solely for simplify unless the diff clearly violates an agreed Non-goal (e.g. “no dual API”) from the plan.
 
-**Out of scope:** pre-existing duplication untouched by the diff — note under **Assumptions & Gaps**, not `must-fix`.
+**Out of scope:** pre-existing duplication untouched by the diff — note under **Coverage — Limits**, not **🔴 must-fix**.
 
 Use **Evidence** bullets and lens tags (`[spec]`, `[standards]`, `[simplify]`) per [finding-format.md](references/finding-format.md). On auth, secrets, migrations, or public API, label **inferred** claims as such; do not state inference as fact.
 
@@ -150,7 +150,7 @@ Optional two-pass review when the plan is large: spec/plan compliance first, the
 
 ## Verification
 
-Confirm deliverable matches [finding-format.md](references/finding-format.md): **Scope**, **Findings** under **🔴 must-fix** / **🟡 should-fix** / **🟢 suggestion** with **Evidence** + emoji grading (**Confidence** / **Risk**), **Dimension Coverage** (including **`simplify: pass`** when applicable), **Verdict** (**`sdd-build`** 🔧 or **`sdd-ship`** ✅).
+Confirm deliverable matches [finding-format.md](references/finding-format.md): **Context → Findings → Coverage → Follow-up**.
 
 - **🔴 must-fix** — blocks delivery of this increment.
 - **🟡 should-fix** — fix unless the user accepts the risk.
@@ -158,7 +158,7 @@ Confirm deliverable matches [finding-format.md](references/finding-format.md): *
 
 ## Output
 
-**Delivery review report** — list-block **Findings** with emoji severity headings; not a table. Default **no** durable file. See [finding-format.md](references/finding-format.md).
+**Delivery review report** — skeleton per [finding-format.md](references/finding-format.md). Default **no** durable file.
 
 Do not update the plan; accepted risks are recorded later by the user or **`sdd-build`**.
 

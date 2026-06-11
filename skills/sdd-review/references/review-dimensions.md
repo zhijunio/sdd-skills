@@ -95,9 +95,9 @@ When the diff adds or upgrades packages:
 
 Behavior-preserving reductions **in the diff** — see SKILL **Simplify pass checklist**. Never skip on non-trivial code diffs.
 
-Record hits under **`### 🟡 should-fix`** or **`### 🟢 suggestion`** — **`[simplify]`** lens + **Evidence** bullets per [finding-format.md](finding-format.md); no separate simplify heading.
+Record hits under **🟡/🟢** with **`[simplify]`** per [finding-format.md](finding-format.md).
 
-Pre-existing duplication untouched by the diff → **Assumptions & Gaps**, not **must-fix**.
+Pre-existing duplication untouched by the diff → **Coverage — Limits**, not **must-fix**.
 
 ## Severity (delivery gate)
 

@@ -1,15 +1,19 @@
 # Finding Format
 
-## Conversation findings report
+## Opportunity scan report
 
-**Opportunity scan** outcome — not a **delivery review** verdict. **List blocks** (not a findings table); follow-ups via the **SDD loop** — see [closing-the-loop.md](closing-the-loop.md).
+**Outcome:** conversation **findings report** — not a **delivery verdict**. Follow-ups: [closing-the-loop.md](closing-the-loop.md).
+
+**Report skeleton:** **Context → Findings → Coverage → Follow-up** (same section order as **`sdd-review`**; content differs below).
 
 ```markdown
 # SDD Improve
 
-## Recon
+## Context
 
-Always — map the territory before findings. Read-only facts only.
+### Recon
+
+Read-only territory facts. Skips belong here — not in Scope.
 
 | Item | Summary |
 | --- | --- |
@@ -18,12 +22,12 @@ Always — map the territory before findings. Read-only facts only.
 | **CI** | workflow file + job name, or "none" |
 | **HEAD** | `git rev-parse --short HEAD` + branch name |
 | **Working tree** | clean / N modified / ahead M of origin |
-| **Hotspots** | paths or areas with recent churn or this increment's focus |
+| **Hotspots** | paths or areas with recent churn or focus |
 | **Not audited** | categories or areas skipped + project-specific reason |
 
-## Scope
+### Scope
 
-Profile (optional) merges here — **no separate Profile heading**. **In-scope only** — skips and audit limits belong in **Recon — Not audited**, not here.
+Profile (optional) merges here — **no `## Profile` heading**. **In-scope only.**
 
 - **Effort:** standard
 - **Range:** whole repo
@@ -31,24 +35,24 @@ Profile (optional) merges here — **no separate Profile heading**. **In-scope o
 
 ## Findings
 
-**List blocks only — no findings table.** Group under **`### 🔴 must-fix`**, **`### 🟡 should-fix`**, **`### 🟢 suggestion`** (same labels as **`sdd-review`**, different meaning — see below). Number findings **within each group** (1, 2, …). Order groups: must-fix → should-fix → suggestion; within a group, order by leverage (high first).
+**List blocks only — no findings table.** Group under **`### 🔴 must-fix`**, **`### 🟡 should-fix`**, **`### 🟢 suggestion`**. Number within each group (1, 2, …). Order groups must-fix → should-fix → suggestion; within a group, by leverage. Empty group → `None.`
 
-**Not a delivery verdict:** these severities rank **follow-up priority** for the user to **select** — they do **not** gate **`sdd-ship`** on their own.
+**Follow-up priority only** — does **not** gate **`sdd-ship`**. (Delivery review uses the same labels with a different meaning — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).)
 
 | Severity | Use when |
 | --- | --- |
-| **🔴 must-fix** | HIGH-confidence correctness, security, or data-loss risk; missing verification baseline that blocks safe change; unblocker other findings depend on |
-| **🟡 should-fix** | Clear maintainability or test gap on important paths; MED+ confidence; worth addressing in the next increment the user is likely to take |
-| **🟢 suggestion** | Docs/DX polish, LOW-confidence investigate, speculative architecture, pre-existing debt surfaced for awareness |
+| **🔴 must-fix** | HIGH-confidence correctness, security, or data-loss risk; missing verification baseline; unblocker |
+| **🟡 should-fix** | Maintainability or test gap on important paths; MED+ confidence |
+| **🟢 suggestion** | Docs/DX polish, LOW investigate, speculative architecture, awareness |
 
-**Per-finding axes** (bullets under each item):
+**Per-finding axes:**
 
 | Axis | Values |
 | --- | --- |
 | **Confidence** | ✅ HIGH · ⚠️ MED · ❓ LOW |
 | **Effort** (fix) | S · M · L |
 | **Risk** (fix) | 🔴 HIGH · 🟡 MED · 🟢 LOW |
-| **Strength** (architecture, cat. 5) | 🟢 Strong · 🟡 Worth exploring · ⚪ Speculative |
+| **Strength** (category 5) | 🟢 Strong · 🟡 Worth exploring · ⚪ Speculative |
 
 ### 🔴 must-fix
 
@@ -75,65 +79,45 @@ Profile (optional) merges here — **no separate Profile heading**. **In-scope o
 
 None.
 
-## Direction
+## Coverage
 
-Only when category 9 ran — **after Findings**, not ranked against bugs. Bullet list, 2–4 items. Each item: short title + **Evidence** + grading bullets; **Impact** = product/user value; **Confidence** = how grounded the evidence is.
+Process meta — **not** findings. Same two subsections as **`sdd-review`**; content differs.
 
-## Dependency order
+### Examined
 
-When **two or more** findings are plausible follow-ups (or user may multi-select), list recommended fix order — unblockers first, then leverage. One line per step; cite finding numbers.
+What was walked: categories per **Context — Scope**. Skips stay in **Context — Recon — Not audited** only — do not repeat here.
 
-```text
-#1 → #5 → #6
-```
+### Limits
 
-Omit this section when zero or one actionable finding.
+**Verify** output: considered and rejected (by-design, mis-attributed evidence, duplicate). No credible findings → state what was examined. Large-repo sampling limits here if applicable.
 
-## Considered and rejected
+## Follow-up
 
-Brief list of candidates dropped during **Verify** (by-design, mis-attributed evidence, duplicate).
+### Next stage
 
-## Suggested next stage
+One skill via **`using-sdd`** — [closing-the-loop.md](closing-the-loop.md). Default **`sdd-spec`** or **`sdd-grill`**.
 
-One skill via **using-sdd** — see [closing-the-loop.md](closing-the-loop.md). Default **sdd-spec** when AC needed; **sdd-grill** when trade-offs open.
+### Direction
+
+Optional — category 9 only; before **Next stage** when present; 2–4 bullets with **Evidence**.
+
+### Dependency order
+
+Optional — when ≥2 follow-ups; one line: `#1 → #5`. Omit when ≤1 actionable finding.
 ```
 
 ### Finding block fields
 
-**Placement:** under the matching severity heading (`🔴 must-fix` / `🟡 should-fix` / `🟢 suggestion`). Shared block shape with **`sdd-review`** — see [finding-format.md](../../sdd-review/references/finding-format.md).
+**Title:** `**{n}. {category} · {tag}** — {summary}` — omit `· {tag}` unless branch scope (`introduced` / `pre-existing`).
 
-**Title:** `**{n}. {category} · {tag}** — {one-line summary}` — omit `· {tag}` when not branch scope (`introduced` / `pre-existing`).
+**Body:** **Evidence** (required), **Impact**, **Effort**, **Confidence**, **Risk**; category 5 adds **Strength**. ADR conflicts: note on **Evidence**.
 
-**Body:** one-line **summary** (imperative or plain), then **required bullets**:
+**Prioritization:** impact ÷ effort, discounted by confidence and fix-risk.
 
-- **Evidence** — `` `file:line` — what is there `` (repeat for 2–5 strongest sites; note "~N similar" if widespread). **Required** — do not fold evidence only into the summary line.
-- **Impact** — concrete consequence
-- **Effort** — S / M / L for the fix including tests
-- **Confidence** — ✅ HIGH / ⚠️ MED / ❓ LOW
-- **Risk** — 🔴 HIGH / 🟡 MED / 🟢 LOW + one line why
+### Verify rules
 
-**Architecture (category 5):** add **Strength** — 🟢 Strong / 🟡 Worth exploring / ⚪ Speculative.
+Re-read every cited location before **Present**; rejections → **Coverage — Limits**.
 
-ADR conflicts: extra bullet or note on **Evidence**.
+## Disambiguation vs **delivery review**
 
-**Prioritization:** leverage = impact ÷ effort, discounted by confidence and fix-risk. Tiebreakers: unblockers first; HIGH-confidence security above equal leverage; prefer fixes with a clean verification story.
-
-## Verify rules
-
-- Re-read every cited location before presenting.
-- Downgrade, correct, or reject false positives.
-- No credible findings → explicit **none found** with what was examined (Recon **Not audited** still lists skips).
-
-## Disambiguation vs **delivery review** `sdd-review`
-
-Normative pair: **opportunity scan** vs **delivery review** — full table in [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
-
-| | **Opportunity scan** `sdd-improve` | **Delivery review** `sdd-review` |
-| --- | --- | --- |
-| Question | Opportunities / problems? | Increment meets spec/plan and ship? |
-| Range | Whole repo or branch vs merge-base | Increment diff only |
-| Outcome | **Findings report** | **Delivery verdict** |
-| Overlap | correctness, security, performance, tests, architecture | Same lenses **on diff only**; plus AC gate |
-| Not in delivery review | experience (7), direction (9), branch pre-existing tags | — |
-| Not in opportunity scan | — | Spec/plan AC mapping, Simplify pass, ship gate |
-| Report format | [finding-format.md](finding-format.md) (this file) | [sdd-review finding-format.md](../../sdd-review/references/finding-format.md) |
+Normative pairing — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Same report skeleton and **🔴/🟡/🟢** labels; **`sdd-review`** severities gate delivery.

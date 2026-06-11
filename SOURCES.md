@@ -88,7 +88,7 @@ Sources:
 Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
-- **Conversation findings report** only; no default `plans/` or on-disk report. Sections: **Recon**, **Scope**, **Findings** (**🔴** / **🟡** / **🟢** severity + **Evidence** + emoji grading per `references/finding-format.md`); optional **Direction** and **Dependency order** — not a findings table. Shared list-block shape with **`sdd-review`**; severities = follow-up priority, not ship gate. Skill text **English only**.
+- **Conversation findings report** only; skeleton **Context → Findings → Coverage → Follow-up** (aligned with **`sdd-review`**); full template in `references/finding-format.md` (self-contained). Severities = follow-up priority, not ship gate. Skill text **English only**.
 - Workflow: Recon → Profile (optional) → Audit → Verify → Present → Confirm → Stop; **no Simplify** naming. Audit: **read-only** (no install/commit/formatters on user tree); effort table in **`SKILL.md` Process** (mirrors improve Phase 2); optional parallel subagents **≤4** standard / **≤8** deep.
 - Natural-language scope inference; **standard** default = categories 1–8.
 - **Readability** absorbed into category 5 (**architecture**), not a separate category or Simplify step.
@@ -158,9 +158,9 @@ Local decisions:
 - Default scope is merge-base diff plus task-related uncommitted work; never assume `main`.
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
-- **Delivery review** only — increment diff; `references/review-dimensions.md` + `references/finding-format.md` (list-block **Findings** with **🔴** / **🟡** / **🟢** + emoji grading; aligned with **`sdd-improve`**). Pairing: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
+- **Delivery review** only — increment diff; skeleton aligned with **`sdd-improve`**; full template in `references/finding-format.md` + `review-dimensions.md` (self-contained). Pairing: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
 - Mandatory **Simplify pass** — hits under **🟡** / **🟢** with **`[simplify]`** lens; no separate findings heading.
-- Fixed output headings including Dimension Coverage and Verdict (**`sdd-build`** 🔧 / **`sdd-ship`** ✅).
+- Report skeleton **Context → Findings → Coverage → Follow-up**; **Coverage — Examined** / **Limits**; **Follow-up — Next stage** (**`sdd-build`** 🔧 / **`sdd-ship`** ✅).
 - Plan **Acceptance** mapping (`met` / `partial` / `missing` / `unclear`); large-diff triage and **Limits** disclosure; change-sizing signals (~100 / ~300 / ~1000 lines).
 - Full verification stays in `sdd-ship`.
 

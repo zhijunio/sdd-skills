@@ -2,12 +2,16 @@
 
 ## Delivery review report
 
-**Delivery review** outcome — **delivery verdict** on an **increment diff** only. **List blocks** (not a findings table). Pairing: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Dimension checklists: [review-dimensions.md](review-dimensions.md).
+**Outcome:** **delivery verdict** on an **increment diff** only. Checklists: [review-dimensions.md](review-dimensions.md).
+
+**Report skeleton:** **Context → Findings → Coverage → Follow-up** (same section order as **`sdd-improve`**; content differs below).
 
 ```markdown
 # SDD Review
 
-## Scope
+## Context
+
+### Scope
 
 | Item | Content |
 | --- | --- |
@@ -19,17 +23,17 @@
 
 ## Findings
 
-**List blocks only — no findings table.** Group under **`### 🔴 must-fix`**, **`### 🟡 should-fix`**, **`### 🟢 suggestion`**. Number findings **within each group** (1, 2, …). Order groups: must-fix → should-fix → suggestion.
+**List blocks only — no findings table.** Group under **`### 🔴 must-fix`**, **`### 🟡 should-fix`**, **`### 🟢 suggestion`**. Number within each group (1, 2, …). Order groups must-fix → should-fix → suggestion; within a group, by leverage. Empty group → `None.`
 
-**Delivery gate:** these severities decide **`sdd-build`** vs **`sdd-ship`** — unlike **`sdd-improve`** follow-up priority.
+**Delivery gate** — decides **`sdd-build`** 🔧 vs **`sdd-ship`** ✅. (Opportunity scan uses the same labels for follow-up priority — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).)
 
 | Severity | Use when |
 | --- | --- |
-| **🔴 must-fix** | Blocks delivery of **this increment** — correctness, security, spec/AC gap, agreed Non-goal violation |
-| **🟡 should-fix** | Fix unless user explicitly accepts risk — large **[simplify]** hits, half-migration, test gaps on changed paths |
+| **🔴 must-fix** | Blocks delivery of **this increment** — correctness, security, spec/AC gap, Non-goal violation |
+| **🟡 should-fix** | Fix unless user accepts risk — large **[simplify]**, half-migration, test gaps on changed paths |
 | **🟢 suggestion** | Non-blocking — docs, small DRY/KISS, readability |
 
-**Per-finding axes** (bullets under each item):
+**Per-finding axes:**
 
 | Axis | Values |
 | --- | --- |
@@ -37,63 +41,61 @@
 | **Effort** (fix) | S · M · L |
 | **Risk** (fix) | 🔴 HIGH · 🟡 MED · 🟢 LOW |
 
-**Lens** (in title after dimension): `[spec]` · `[standards]` · `[simplify]` · `[security]` — optional; use **`[simplify]`** for all Simplify-pass hits.
+**Lens** (in title): `[spec]` · `[standards]` · `[simplify]` · `[security]` — **required `[simplify]`** for Simplify-pass hits.
 
 ### 🔴 must-fix
 
-**1. spec · [spec]** — AC-10 unmapped; no test proof in diff.
+**1. spec · [spec]** — AC unmapped; no test proof in diff.
 
-- **Evidence:** `tests/check.py` — no assertion for new skill contract
-- **Impact:** Increment ships without verification gate for stated AC
+- **Evidence:** `tests/check.py` — no assertion for stated AC
+- **Impact:** Increment ships without verification for agreed AC
 - **Effort:** S
 - **Confidence:** ✅ HIGH
 - **Risk:** 🟢 LOW
 
 ### 🟡 should-fix
 
-**1. architecture · [simplify]** — Half migration: new file untracked while old file deleted.
+**1. architecture · [simplify]** — Half migration in the same increment.
 
-- **Evidence:** `skills/foo/references/handoff.md` — deleted; `closing-the-loop.md` untracked
-- **Impact:** Partial rename breaks install on commit
+- **Evidence:** `skills/foo/handoff.md` — deleted; replacement untracked in diff
+- **Impact:** Partial rename breaks consumers on commit
 - **Effort:** S
 - **Confidence:** ✅ HIGH
-- **Risk:** 🟡 MED — easy to ship broken tree
+- **Risk:** 🟡 MED
 
 ### 🟢 suggestion
 
 None.
 
-## Dimension Coverage
+## Coverage
 
-Brief ✅ pass / ❌ fail / ⏭️ skip per dimension: spec/plan (AC mapping when plan exists), correctness, tests, docs, **simplify (mandatory on code diffs)**, and any conditional dimensions reviewed. Write **`simplify: pass`** when the Simplify pass found nothing.
+Process meta — **not** findings. Same two subsections as **`sdd-improve`**; content differs.
 
-## Assumptions & Gaps
+### Examined
 
-What was assumed, not run, or observed outside scope. Label **Limits** (sampled unread areas on large diffs) explicitly.
+Brief ✅ pass / ❌ fail / ⏭️ skip per dimension: spec/plan (AC mapping when plan exists), correctness, tests, docs, **simplify** (mandatory on code diffs), and conditionals reviewed. **`simplify: pass`** when Simplify pass found nothing.
 
-## Verdict
+### Limits
 
-**`sdd-build`** 🔧 or **`sdd-ship`** ✅ — one or two sentences of reason. Optional: one concrete positive in the same paragraph — **no separate Strengths section** (aligned with **`sdd-improve`**).
+Assumed, not run, or out-of-scope observations. Large-diff **Limits** (sampled/unread areas). Pre-existing duplication untouched by diff — here, not in **Findings**.
+
+## Follow-up
+
+### Next stage
+
+**`sdd-build`** 🔧 or **`sdd-ship`** ✅ — one or two sentences. Optional one positive in the same paragraph — no separate Strengths section.
 ```
 
 ### Finding block fields
 
-**Placement:** under the matching severity heading (`🔴 must-fix` / `🟡 should-fix` / `🟢 suggestion`).
+**Title:** `**{n}. {dimension} · [{lens}]** — {summary}` — omit `· [{lens}]` when obvious.
 
-**Title:** `**{n}. {dimension} · [{lens}]** — {one-line summary}` — omit `· [{lens}]` when obvious from dimension alone.
+**Body:** **Evidence** (required), **Impact** (for **this increment**), **Effort**, **Confidence**, **Risk**.
 
-**Body:** required bullets (same shape as **`sdd-improve`** [finding-format.md](../../sdd-improve/references/finding-format.md)):
+**Simplify pass:** under **🟡** or **🟢** only; **`[simplify]`** in title — checklist in **`sdd-review` SKILL.md**.
 
-- **Evidence** — `` `file:line` — what is there `` (**required**)
-- **Impact** — concrete consequence for **this increment**
-- **Effort** — S / M / L
-- **Confidence** — ✅ HIGH / ⚠️ MED / ❓ LOW
-- **Risk** — 🔴 HIGH / 🟡 MED / 🟢 LOW + one line why
+**Prioritization:** severity class first; within class, impact ÷ effort discounted by confidence.
 
-**Simplify pass:** record under **🟡 should-fix** or **🟢 suggestion** only; always include **`[simplify]`** in the title. No separate simplify heading.
+## Disambiguation vs **opportunity scan**
 
-**Prioritization:** severity class first; within a class, order by impact ÷ effort discounted by confidence.
-
-## Disambiguation vs **opportunity scan** `sdd-improve`
-
-Normative pair — full table in [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Report shape shared with **`sdd-improve`**; meaning of **must-fix** / **should-fix** / **suggestion** differs (delivery gate vs follow-up priority). See **`sdd-improve`** [finding-format.md](../../sdd-improve/references/finding-format.md).
+Normative pairing — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Same report skeleton and **🔴/🟡/🟢** labels; **`sdd-improve`** severities rank follow-up priority only.
