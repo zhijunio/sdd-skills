@@ -74,13 +74,12 @@ Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
 - **Conversation findings report** only; required **content** in `references/finding-format.md` (layout flexible; severities = follow-up priority, not ship gate). [Report locale](skills/sdd-improve/references/finding-format.md#report-locale).
-- Workflow in **`SKILL.md`** (compressed); effort table in [profile-guide.md](skills/sdd-improve/references/profile-guide.md); audit checklists in `audit-dimensions.md`. **Read-only** on user tree.
+- **`SKILL.md`** — one-line **Process** + minimal tail (When/Skip, Stop, Red flags, SDD); effort table in [profile-guide.md](skills/sdd-improve/references/profile-guide.md); audit checklists in `audit-dimensions.md`. **Read-only** on user tree.
 - Natural-language scope inference; **standard** default = categories 1–8.
 - **Readability** absorbed into category 5 (**architecture**), not a separate category or Simplify step.
 - Disambiguation vs **`sdd-review`**: **opportunity scan** vs **delivery review** — **When/Skip** cross-links only; outcomes **findings report** vs **delivery verdict**.
 - Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
-- Stop → name next per [closing-the-loop.md](skills/sdd-improve/references/closing-the-loop.md); hand off — **direct edit** or load named stage skill.
-- Default next **`sdd-spec`** or **`sdd-grill`** when finding needs AC or open trade-offs.
+- **Stop:** name next per [closing-the-loop.md](skills/sdd-improve/references/closing-the-loop.md); Common routes in **`SKILL.md`**; hand off — **direct edit** or load named stage skill.
 
 ### `sdd-zoom`
 

@@ -225,3 +225,4 @@ None.
 - 2026-06-11: Report **content** over shared layout — improve/review need not share markdown skeleton; example blocks optional.
 - 2026-06-11: Findings **🔴/🟡/🟢** severity; shared list-block format with **`sdd-review`**; effort table in **`SKILL.md` Process**; **`sdd-review`** drops **Strengths** section.
 - 2026-06-11: **Withdrawn AC-10** and requirement **22** — `tests/check.py` and GitHub Actions **`check`** workflow removed; maintainer acceptance via **consumer loop** runbooks; doc drift cleanup in references and CHANGELOG `[Unreleased]`.
+- 2026-06-11: **`SKILL.md` compressed** — one-line Process + references links; Stop Common routes; Red flags trimmed; details unchanged in `references/`.
