@@ -90,9 +90,9 @@ Sources (pin `be55a797`):
 
 Local decisions:
 
-- **`SKILL.md`** — **zoom-out** body verbatim @ pin; **SDD:** tail for diagram, routing, throws.
-- **Added:** diagram when ≥3 units; optional CONTEXT/ADR; hand off at stop with named next skill.
-- Orientation only — no refactor findings (**`sdd-improve`**) or delivery review; no default on-disk map.
+- **`SKILL.md`** — **zoom-out** body verbatim @ pin; minimal SDD tail (Skip, Diagram, Output, Red flags); no fixed section template.
+- **Output:** `Territory` / `Map` / `Glossary & Gaps` / `Suggested next`; diagram when ≥3 units; hand off — no in-session next-stage work.
+- Orientation only — no refactor findings (**`sdd-improve`**) or delivery review (**`sdd-review`**); no default on-disk map. Optional CONTEXT/ADR when present — infer from code/README when absent.
 
 ### `sdd-plan`
 
