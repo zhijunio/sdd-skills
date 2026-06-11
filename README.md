@@ -89,7 +89,7 @@ The **core delivery loop** has six stages below. **`sdd-improve`** and **`sdd-zo
 | `sdd-build` | Approved spec + plan |
 | `sdd-ship` | Spec + plan + passed review |
 
-Install and `@` one skill at a time. Only plan, build, and ship need prior artifacts.
+Only plan, build, and ship need prior artifacts.
 
 ## Installation
 
@@ -105,13 +105,13 @@ The installer detects local agents and prompts for scope. Non-interactive exampl
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-Pin a release:
+Pin the latest **tagged** release (`v0.2.1` — core loop + **`sdd-zoom`**):
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills@v0.3.0 -a cursor -a codex -a claude-code -y
+npx skills@latest add zhijunio/sdd-skills@v0.2.1 -a cursor -a codex -a claude-code -y
 ```
 
-Add optional satellites:
+**`sdd-improve`** is in `[Unreleased]` until the next tag — install from the default branch or add by name:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills -s sdd-improve -s sdd-zoom -a cursor -y

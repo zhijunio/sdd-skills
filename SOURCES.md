@@ -20,7 +20,7 @@ Snapshot date: 2026-06-08（pin commit 未变；2026-06-11 本地解读与 **`sd
 
 ## Why six core skills
 
-Principles: [README — Core principles](README.md#core-principles) — shape / delivery / governance; six total (see README tables).
+Principles (six): [README — Core principles](README.md#core-principles) — shape / delivery / governance.
 
 This repository ships a **minimal SDD stage set**, not a mirror of the upstream catalogs.
 

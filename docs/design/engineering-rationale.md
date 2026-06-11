@@ -2,7 +2,7 @@
 
 Status: **living document**
 
-更新: **2026-06-11**
+更新: **2026-06-09**
 
 **谁说了算：** 日常行为看 `skills/*/SKILL.md`；pin 与 skill 映射看 [SOURCES.md](../../SOURCES.md)；本文解释 **本仓怎么想、上游怎么想、我们怎么取舍**。发版与 consumer 实证见 [CHANGELOG.md](../../CHANGELOG.md)、[consumer-loops/](./consumer-loops/)。
 
@@ -89,6 +89,13 @@ Agent 能写代码，但常见四类问题：
 | --- | --- | --- |
 | 5 | **借鉴不重造** | pin 上游 @ SOURCES；verbatim @ pin + 最小 SDD 尾；融合取用、不镜像整库 catalog |
 | 6 | **拒绝空转** | 无 consumer 证据不加核心阶段/状态字段；skill 变更靠 consumer 闭环，不用本仓 dogfood |
+
+| 毛病（§1） | 主要靠 |
+| --- | --- |
+| 做着跑偏 | **可验切片**（spec AC） |
+| 范围偷偷变大 | **可验切片** + **显式阶段**（停就停） |
+| 没验证就说完了 | **测试与证明** |
+| 流程太重 | **轻量中立** + **显式阶段** |
 
 ---
 
@@ -237,7 +244,7 @@ Pin 快照: **2026-06-08**（[SOURCES.md](../../SOURCES.md)）。**shadcn/improv
 
 ## 6. 演化原则与反模式
 
-**演化：** 先真实 spec→ship 再谈版本；core 保持七阶段；卫星不撑胖 core；**怎么做** 在 skill，**为什么** 在本文；成对命名（`audit-dimensions` / `review-dimensions`）。
+**演化：** 先真实 spec→ship 再谈版本；core 保持 **六阶段环**；卫星不撑胖 core；**怎么做** 在 skill，**为什么** 在本文；成对命名（`audit-dimensions` / `review-dimensions`）。
 
 | 反模式 | 为什么不行 |
 | --- | --- |
