@@ -105,16 +105,23 @@ The installer detects local agents and prompts for scope. Non-interactive exampl
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-Pin the latest **tagged** release (`v0.2.1` — core loop + **`sdd-zoom`**):
+**Tagged vs latest**
+
+| Install | Includes |
+| --- | --- |
+| `@v0.2.1` | Six core loop + **`sdd-zoom`** (last tagged snapshot) |
+| Default branch (`[Unreleased]`) | **Eight skills** — core + **`sdd-improve`** + **`sdd-zoom`**; latest satellite tails |
+
+Pin the last **tagged** release when you do not need **`sdd-improve`** or post–`v0.2.1` satellite updates:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills@v0.2.1 -a cursor -a codex -a claude-code -y
 ```
 
-**`sdd-improve`** is in `[Unreleased]` until the next tag — install from the default branch or add by name:
+For all eight skills on the current default branch (recommended until the next tag):
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s sdd-improve -s sdd-zoom -a cursor -y
+npx skills@latest add zhijunio/sdd-skills -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship -s sdd-improve -s sdd-zoom -a cursor -y
 ```
 
 | Scope | Flag | Where skills land |
@@ -170,6 +177,17 @@ terms from CONTEXT instead of repeating them. Optional — see
 `sdd-review` can run with only a diff. A spec and plan improve traceability but
 are optional. It never assumes `main`; the user-specified range or actual task
 scope takes precedence.
+
+## Maintainer verification
+
+This repository ships **no** `tests/check.py` and **no** GitHub Actions skill gate. Per [governance](#governance), validate skill changes in **consumer repos** — [consumer-loops](docs/design/consumer-loops/).
+
+Before merging skill or docs changes in this repo:
+
+1. All eight skills exist under `skills/*/SKILL.md` (six core + two satellites).
+2. Bundled references present for **`sdd-improve`** and **`sdd-review`**.
+3. Spot-check local Markdown links in files you edit.
+4. Material behavior changes → record friction in [consumer-loops](docs/design/consumer-loops/) (see [maintainer-delta-2026-06-11](docs/design/consumer-loops/maintainer-delta-2026-06-11.md) for post–0.3.0 satellite tail notes).
 
 ## Changelog
 

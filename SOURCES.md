@@ -1,6 +1,6 @@
 # Upstream Sources
 
-Snapshot date: 2026-06-08（pin commit 未变；2026-06-11 本地解读与 **`sdd-improve`** / **`sdd-review`** 维度已修订，见 [docs/design/engineering-rationale.md](docs/design/engineering-rationale.md)）
+Snapshot date: 2026-06-11（upstream pin commits 未变；**`sdd-grill`** / **`sdd-zoom`** 单源 + tail；**`sdd-improve`** SKILL 压短；**`sdd-review`** 维度见 [engineering-rationale.md](docs/design/engineering-rationale.md)）
 
 ## Repositories
 
