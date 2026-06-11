@@ -17,7 +17,7 @@ Increment (one sentence): 删除 Todo 前需经用户确认（grill 选项 A）
 
 | Stage | Used | Pass | Notes |
 |-------|------|------|-------|
-| using-sdd | yes | yes | 路由 → sdd-grill |
+| hand off | yes | yes | `@sdd-grill` |
 | sdd-grill | yes | yes | 1 问 1 答，增量 A |
 | sdd-spec | yes | yes | 用户批准 |
 | sdd-plan | yes | yes | 用户批准 |

@@ -32,7 +32,14 @@ Users describe intent in natural language (any locale). Map to internal labels �
 | roadmap, next steps, direction | category **9** direction; trade-offs → `sdd-grill` |
 | unclear | **standard** 1–8; run Profile → fill **Scope** |
 
-Effort levels (quick / standard / deep): normative table in [SKILL.md — Process](../SKILL.md#process).
+## Effort levels
+
+| | quick | standard (default) | deep |
+| --- | --- | --- | --- |
+| Coverage | Hotspots | Hotspot-weighted, key packages | Whole repo; monorepo → per-package |
+| Subagents | 0–1 | **≤4** | **≤8** |
+| Categories | correctness, security, tests (~HIGH) unless narrowed | **1–8**; **9** on direction ask | **1–9** unless in Recon **Not audited** |
+| Findings | top ~6, HIGH only | full verified list | full incl. LOW investigate |
 
 ## Skip rules
 

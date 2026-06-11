@@ -13,23 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **`using-sdd`**: **opportunity scan** / **delivery review** canonical pair; routing heuristic; normative Disambiguation table
-- **`sdd-improve`**: **🔴/🟡/🟢** Findings groups + emoji grading; `audit-dimensions.md` (renamed from `audit-playbook.md`, pairs with **`sdd-review`** `review-dimensions.md`)
-- **`sdd-review`**: **Architecture** absorbs Simplify + readability; **Diff kind** (`code` / `prose/docs-only`) with classification signals + Scope field; list-block Findings + **🔴/🟡/🟢** (delivery gate semantics); no **Strengths** section
-- **`sdd-improve` / `sdd-review`**: clarify **🔴/🟡/🟢** meaning differs (follow-up priority vs delivery gate); improve cat 5 **half migration** signal
-- **`sdd-review`**: Security 按信号必审；Dependencies 补 lockfile/迁移；prose/docs-only **reference integrity**；条件维 **observability / a11y / ops**
-- **`sdd-improve`**: cat 3/5/7 补 observability、a11y、ops；cat 5 与 review **Architecture** 同透镜（结构 + duplication 表）
-- **`sdd-review`**: Architecture 补 deletion test、seam/depth；与 improve cat 5 对称
-- **docs/design**: 合并 `software-engineering-rationale` + `upstream-engineering-rationale` → [engineering-rationale.md](docs/design/engineering-rationale.md)（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节 + 维护提示词）；**删除** `project-decisions.md`、`context-adr-workflow.md`
-- **`sdd-review` / `sdd-zoom`**: route whole-repo health → **`sdd-improve`**
-- **Removed** optional satellite **`sdd-architect`** — superseded by **`sdd-improve`** (breaking rename; reinstall with `-s sdd-improve`)
-- **`README`**: install note — **`v0.2.1` tag** predates **`sdd-improve`**; use branch or `-s sdd-improve` until next tag
-- **`spec-template` / README**: drop `CONTEXT-MAP.md`; multi-domain uses `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts (link shared terms from CONTEXT)
-- **`AGENTS.md`**: maintainer PR 按主题合并，避免频繁 micro-PR
-- **`consumer-loops`**: grill 共识 — 下一 tag **`v0.3.0`**；第四次 loop gate **`sdd-improve`** only（trial Pass 后 ship）
-- **`tests/check.py`**: **`sdd-review`** 卫星 bundle 校验（与 **`sdd-improve`** 对称）
-- **`sdd-improve`**: Present 强制 **`Follow-up` → `Next stage`**（`SKILL.md` / `finding-format.md`）
-- **consumer-loops**: 第四次 loop trial Pass — [todo-web-0.3.0](docs/design/consumer-loops/todo-web-0.3.0.md)（improve → WebMvcTest 切片）；索引与 runbook 状态对齐
+- **Eight skills** — six core loop + optional **`sdd-improve`** and **`sdd-zoom`**; user **`@`** stage skills directly; no routing skill or central routing doc
+- **Core principles** (six, three layers: shape / delivery / governance) — dedupe nine → six: minimal & neutral, explicit stages, verifiable slices, test and prove, borrow don't rebuild, no empty ceremony; README, [engineering-rationale §1.0](docs/design/engineering-rationale.md#10-核心原则), AGENTS, SOURCES
+- **`SKILL.md`** — concise bodies with semantic preservation; hand off at Stop; improve/review **When/Skip** cross-links
+- **`sdd-improve`**: **🔴/🟡/🟢** Findings groups; `audit-dimensions.md` (pairs with **`sdd-review`** `review-dimensions.md`); **`Follow-up` → `Next stage`**
+- **`sdd-review`**: **Architecture** absorbs Simplify + readability; **Diff kind** (`code` / `prose/docs-only`); list-block Findings + **🔴/🟡/🟢** (delivery gate); `references/scope.md`
+- **`sdd-improve` / `sdd-review`**: **🔴/🟡/🟢** meaning differs (follow-up priority vs delivery gate)
+- **docs/design**: [engineering-rationale.md](docs/design/engineering-rationale.md)（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节）
+- **`spec-template` / README**: multi-domain `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts
+- **`tests/check.py`**: eight skills; **`sdd-review`** / **`sdd-improve`** reference bundles
+- **consumer-loops**: fourth loop Pass — [todo-web-0.3.0](docs/design/consumer-loops/todo-web-0.3.0.md)（improve → WebMvcTest 切片）
 
 ## [0.2.1] - 2026-06-09
 
@@ -45,7 +38,7 @@ Maintainer patch: CI gate on `main` and stale consumer-loop status fixes after *
 
 ## [0.2.0] - 2026-06-09
 
-Third validated release. Consumer third loop (**`sdd-architect`**) completed in [todo-web](https://github.com/zhijunio/todo-web). **`sdd-zoom`** ships in this release without a separate consumer gate — see [runbook-0.2.0.md](docs/design/consumer-loops/runbook-0.2.0.md) footnote.
+Third validated release. Consumer third loop completed in [todo-web](https://github.com/zhijunio/todo-web). Evidence: [todo-web-0.2.0.md](docs/design/consumer-loops/todo-web-0.2.0.md).
 
 ### Added
 

@@ -10,7 +10,7 @@ Increment (one sentence): Greenfield — 从零交付可持久化的 Todo Web（
 
 - Agent(s): Cursor
 - skills install scope: project（`.agents/skills/`，后纳入 git 由 consumer 决定）
-- sdd-skills ref: 试验期安装（predates pin **`v0.1.0`**）
+- sdd-skills ref: project install（后 pin **`v0.1.0`**）
 - Consumer delivery range: `e1fcce9`（spec/plan）… `960ef75`（UI + README）
 - SDD artifacts: `docs/sdd/2026-06-08-todo-web-spec.md`、`docs/sdd/2026-06-08-todo-web-plan.md`
 
@@ -18,7 +18,7 @@ Increment (one sentence): Greenfield — 从零交付可持久化的 Todo Web（
 
 | Stage | Used | Pass | Notes |
 |-------|------|------|-------|
-| using-sdd | partial | yes | 绿field 以 spec/plan 驱动为主 |
+| hand off | skip | yes | greenfield 以 spec/plan 驱动为主 |
 | sdd-grill | skip | — | 首交付边界在 spec 已写明 |
 | sdd-spec | yes | yes | `2026-06-08-todo-web-spec.md` |
 | sdd-plan | yes | yes | 4 slices（create → edit → toggle/delete → responsive） |

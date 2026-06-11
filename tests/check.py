@@ -11,7 +11,6 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
 REQUIRED_CORE_SKILLS = frozenset(
     {
-        "using-sdd",
         "sdd-grill",
         "sdd-spec",
         "sdd-plan",
@@ -20,20 +19,11 @@ REQUIRED_CORE_SKILLS = frozenset(
         "sdd-ship",
     }
 )
-REQUIRED_SECTIONS = (
-    "Goal",
-    "When to Use",
-    "Prerequisites",
-    "Process",
-    "Red Flags",
-    "Verification",
-    "Output",
-    "Stop Conditions",
-)
+SKILL_BODY_MIN_CHARS = 40
 LOCAL_LINK = re.compile(r"\[[^\]]+\]\((?!https?://|mailto:|#)([^)]+)")
 
 # Optional satellite skills: bundled references and SKILL.md size caps.
-SATELLITE_BUNDLES: dict[str, tuple[str, ...]] = {
+SKILL_REFERENCE_BUNDLES: dict[str, tuple[str, ...]] = {
     "sdd-improve": (
         "references/audit-dimensions.md",
         "references/finding-format.md",
@@ -43,6 +33,7 @@ SATELLITE_BUNDLES: dict[str, tuple[str, ...]] = {
     "sdd-review": (
         "references/review-dimensions.md",
         "references/finding-format.md",
+        "references/scope.md",
     ),
 }
 SATELLITE_SKILL_MAX_LINES: dict[str, int] = {
@@ -116,23 +107,30 @@ def check_skill(name: str) -> list[str]:
             f"skills/{name}/SKILL.md: description must start with 'Use when '"
         )
 
-    for section in REQUIRED_SECTIONS:
-        if f"## {section}" not in text:
-            errors.append(f"skills/{name}/SKILL.md: missing section '{section}'")
+    body = text
+    if text.startswith("---\n"):
+        end = text.find("\n---\n", 4)
+        if end != -1:
+            body = text[end + 5 :]
+    if len(body.strip()) < SKILL_BODY_MIN_CHARS:
+        errors.append(
+            f"skills/{name}/SKILL.md: body too short after frontmatter "
+            f"(need at least {SKILL_BODY_MIN_CHARS} characters)"
+        )
 
     errors.extend(check_local_links(skill_file, text))
     return errors
 
 
-def check_satellite_bundle(name: str) -> list[str]:
-    if name not in SATELLITE_BUNDLES:
+def check_skill_reference_bundle(name: str) -> list[str]:
+    if name not in SKILL_REFERENCE_BUNDLES:
         return []
 
     errors: list[str] = []
     skill_dir = SKILLS_DIR / name
     skill_file = skill_dir / "SKILL.md"
 
-    for rel in SATELLITE_BUNDLES[name]:
+    for rel in SKILL_REFERENCE_BUNDLES[name]:
         if not (skill_dir / rel).is_file():
             errors.append(f"skills/{name}: missing bundled reference {rel}")
 
@@ -189,7 +187,7 @@ def main() -> int:
 
     for skill in skills:
         errors.extend(check_skill(skill))
-        errors.extend(check_satellite_bundle(skill))
+        errors.extend(check_skill_reference_bundle(skill))
 
     templates = (
         SKILLS_DIR / "sdd-spec" / "spec-template.md",

@@ -24,7 +24,7 @@ Status: **living document**
 文体：直白中文；对比用表格；一节一事；不用「经调研」「值得注意的是」。
 
 必须保留的结构：
-§1 本仓要治的毛病与硬主张
+§1 本仓要治的毛病、§1.0 核心原则（六条、形态/交付/治理）
 §2 本仓落地（六段环、竖切片、review vs improve、卫星、知识分层）
 §3 四源一句话 + 共同点/分歧表
 §4 分源对照（每源固定五段：他们说什么 / 假设 / 拿什么 / 扔什么 / 落在哪些 skill）
@@ -65,15 +65,30 @@ Agent 能写代码，但常见四类问题：
 
 **sdd-skills 干什么：** 留下「先契约、再切片、再实现、再独立审、再复验」的纪律；去掉项目管理器、平台锁、状态机。不替代 TDD、CI、人工 review — 给 Agent **能停、能跳、能审计** 的阶段语言。
 
-### 1.1 几条硬主张
+### 1.0 核心原则
 
-| 主张 | 要点 |
-| --- | --- |
-| 能验的契约 | Spec 写 AC；Plan 是竖切片，不是甘特图 |
-| 一 skill 一事 | 产出 → **停** → 人选下一阶段；**不** 自动链式调用 |
-| 默认轻 | spec+plan 够用；痛了再加 grill、CONTEXT、ADR |
-| 说了要证明 | review 只读；ship 再验；skill 变更最好有 consumer 闭环 |
-| 不绑平台 | 纯 Markdown skill，无 IDE hook 硬依赖 |
+六条分三层：**形态**（仓库是什么）、**交付**（消费者怎么出货）、**治理**（维护者怎么演进）。
+
+#### 形态
+
+| # | 原则 | 本仓落地 |
+| --- | --- | --- |
+| 1 | **轻量中立** | 短 `SKILL.md`；默认 spec+plan；纯 Markdown — 无 hook/slash/manifest、无强制卫星 |
+| 2 | **显式阶段** | 可只装 `@sdd-spec`；用户 `@` 点名（artifact 前置见 README Skills 表）；产出 → **停** → hand off — 不自动链式、不同会话做下一阶段 |
+
+#### 交付
+
+| # | 原则 | 本仓落地 |
+| --- | --- | --- |
+| 3 | **可验切片** | Spec 写 AC；Plan 竖切片 15–60 分钟（非甘特图）；grill/zoom/improve 需要时再加 |
+| 4 | **测试与证明** | `sdd-build` 先红测试；`sdd-review` 只读有据；`sdd-ship` 重跑验证、读全输出 — 无证据不断言完成 |
+
+#### 治理
+
+| # | 原则 | 本仓落地 |
+| --- | --- | --- |
+| 5 | **借鉴不重造** | pin 上游 @ SOURCES；verbatim @ pin + 最小 SDD 尾；融合取用、不镜像整库 catalog |
+| 6 | **拒绝空转** | 无 consumer 证据不加核心阶段/状态字段；skill 变更靠 consumer 闭环，不用本仓 dogfood |
 
 ---
 
@@ -103,7 +118,7 @@ grill（可选）→ spec → plan → build → review → ship
 | 产出 | 交付结论 | findings 报告 |
 | 🔴🟡🟢 | **挡 ship** | **排 follow-up**，不挡 ship |
 
-配对表：`using-sdd` Disambiguation。维度文件：`audit-dimensions.md` / `review-dimensions.md`。
+配对：各 skill **When/Skip** 互指（improve ↔ review）；维度文件：`audit-dimensions.md` / `review-dimensions.md`。
 
 **review diff 分类：** code diff → 必走 Architecture；prose/docs-only → 跳过 Architecture，查链接与 spec 对齐。
 
@@ -114,7 +129,7 @@ grill（可选）→ spec → plan → build → review → ship
 | `sdd-zoom` | 领土地图，无 findings |
 | `sdd-improve` | 机会扫描；follow-up 可走 SDD 技能或 **direct edit**（见 `closing-the-loop.md`） |
 
-**禁止：** improve 代替 review；improve 当 ship 门禁。`sdd-architect` 已并进 improve cat 5 后删除。
+**禁止：** improve 代替 review；improve 当 ship 门禁。
 
 ### 2.4 知识分层
 
@@ -177,7 +192,7 @@ Pin 快照: **2026-06-08**（[SOURCES.md](../../SOURCES.md)）。**shadcn/improv
 - **假设：** 用户愿走完整环；接受 worktree、自动触发。
 - **拿什么：** 竖切片、TDD、review 只读、ship 再验、grill 式决策前置。
 - **扔什么：** 自动链下一 skill、强制 worktree、session hook、plan 工厂。
-- **落在：** core 七技能；无子 agent 编排。
+- **落在：** 六核心环 + 二卫星（八技能）；无子 agent 编排。
 
 ### 4.2 agent-skills
 
@@ -238,5 +253,5 @@ Pin 快照: **2026-06-08**（[SOURCES.md](../../SOURCES.md)）。**shadcn/improv
 ## 7. 延伸阅读
 
 - [SOURCES.md](../../SOURCES.md) · [THIRD_PARTY_NOTICES.md](../../THIRD_PARTY_NOTICES.md)
-- [using-sdd Disambiguation](../../skills/using-sdd/SKILL.md#disambiguation)
+- [sdd-improve](../../skills/sdd-improve/SKILL.md) / [sdd-review](../../skills/sdd-review/SKILL.md) — When/Skip
 - [consumer-loops/](./consumer-loops/) · [docs/design/README.md](./README.md)

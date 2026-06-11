@@ -1,12 +1,26 @@
 # Finding Format
 
-**Maintainers:** List-block skeleton is shared with **`sdd-review`** `finding-format.md`. When changing shared rules (severity groups, axes, Coverage subsections), update **both** files in the same PR.
+**Maintainers:** Sync **severity semantics**, **Report locale**, and **Verify** rules with **`sdd-review`** `finding-format.md` when those change. **Layout need not match** delivery review.
+
+## Report locale
+
+Skill instructions **English**. Report prose in the **user's language** (latest user turn when unclear).
+
+- **Format:** any clear structure — tables, prose, or lists; **no** mandatory shared markdown skeleton across skills.
+- **Keep literal:** category lens ids (e.g. `architecture`); skill ids; `file:line`; git literals; **🔴/🟡/🟢** (group titles may translate).
 
 ## Opportunity scan report
 
 **Outcome:** conversation **findings report** — not a **delivery verdict**. Follow-ups: [closing-the-loop.md](closing-the-loop.md).
 
-**Report skeleton:** **Context → Findings → Coverage → Follow-up** (same section order as **`sdd-review`**; content differs below).
+**Required content** (substance, not heading names):
+
+1. **Scope** — effort, range, categories examined; recon facts (verify command, HEAD, tree, hotspots); **not audited** with reasons.
+2. **Findings** — verified items with **Evidence**; **🔴/🟡/🟢** follow-up priority (not ship gate).
+3. **Coverage** — what was walked; verify rejections / sampling limits.
+4. **Next stage** — one route + rationale ([closing-the-loop.md](closing-the-loop.md)); required even when findings empty.
+
+**Example layout (optional):**
 
 ```markdown
 # SDD Improve
@@ -37,9 +51,9 @@ Profile (optional) merges here — **no `## Profile` heading**. **In-scope only.
 
 ## Findings
 
-**List blocks only — no findings table.** Group under **`### 🔴 must-fix`**, **`### 🟡 should-fix`**, **`### 🟢 suggestion`**. Number within each group (1, 2, …). Order groups must-fix → should-fix → suggestion; within a group, by leverage. Empty group → `None.`
+One option: group under **🔴 / 🟡 / 🟢** severity (titles may translate). Each finding needs **Evidence**. Empty severity group → state none.
 
-**Follow-up priority only** — does **not** gate **`sdd-ship`**. (Delivery review uses the same labels with a different meaning — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).)
+**Follow-up priority only** — does **not** gate **`sdd-ship`**. (Delivery review uses the same labels with a different meaning — [`sdd-review` — When/Skip](../../sdd-review/SKILL.md).)
 
 | Severity | Use when |
 | --- | --- |
@@ -69,10 +83,10 @@ Profile (optional) merges here — **no `## Profile` heading**. **In-scope only.
 
 ### 🟡 should-fix
 
-**1. docs** — Install pin documents a tag that predates `sdd-improve`.
+**1. docs** — Install example omits optional satellites.
 
-- **Evidence:** `README.md:90-94` — `@v0.2.1` example; tag predates satellite
-- **Impact:** New consumers miss `sdd-improve` when installing from tag only
+- **Evidence:** `README.md` — default install lists core loop only
+- **Impact:** Consumers may miss `sdd-improve` / `sdd-zoom` without `-s` flags
 - **Effort:** S
 - **Confidence:** ✅ HIGH
 - **Risk:** 🟢 LOW
@@ -95,13 +109,13 @@ What was walked: categories per **Context — Scope** (narrative or brief ✅/�
 
 ## Follow-up
 
-**Required:** **`### Next stage`** on every report — even when Findings are empty (none found → **`sdd-grill`** if trade-offs open, else stop with explicit none-actionable). Do not end **Present** with Confirm only.
+**Required:** state **Next stage** before Confirm — even when findings empty (none found → **`sdd-grill`** if trade-offs open, else explicit none-actionable). Do not end **Present** with Confirm only.
 
 ### Next stage
 
 One **route** — [closing-the-loop.md](closing-the-loop.md). Name it and one-line why:
 
-- **`sdd-spec`** / **`sdd-plan`** / **`sdd-build`** — via **`using-sdd`** when a skill adds value (default **`sdd-spec`** when AC missing)
+- **`sdd-spec`** / **`sdd-plan`** / **`sdd-build`** — per [closing-the-loop.md](closing-the-loop.md) when a skill adds value (default **`sdd-spec`** when AC missing)
 - **`sdd-grill`** — trade-offs still open
 - **`direct edit`** — user fixes ad-hoc **outside** SDD skills; improve **Stop**s; user verifies (e.g. `./mvnw test`); optional later **`sdd-review`**
 
@@ -116,11 +130,9 @@ Optional — category 9 only; before **Next stage** when present; 2–4 bullets 
 Optional — when ≥2 follow-ups; one line: `#1 → #5`. Omit when ≤1 actionable finding.
 ```
 
-### Finding block fields
+### Finding fields (when numbered)
 
-**Title:** `**{n}. {category} · {tag}** — {summary}` — omit `· {tag}` unless branch scope (`introduced` / `pre-existing`).
-
-**Body:** **Evidence** (required), **Impact**, **Effort**, **Confidence**, **Risk**; category 5 adds **Strength**. ADR conflicts: note on **Evidence**.
+Per item: category, summary, **Evidence** (required); optional Impact, Effort, Confidence, Risk; category 5 may add Strength; branch scope → `introduced` / `pre-existing` tag.
 
 **Prioritization:** impact ÷ effort, discounted by confidence and fix-risk.
 
@@ -130,4 +142,4 @@ Re-read every cited location before **Present**; rejections → **Coverage — L
 
 ## Disambiguation vs **delivery review**
 
-Normative pairing — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Same report skeleton and **🔴/🟡/🟢** labels; **meaning differs** — opportunity-scan severities rank follow-up priority only and **do not** gate **`sdd-ship`**.
+Normative pairing — [`sdd-review` — When/Skip](../../sdd-review/SKILL.md). Shared **🔴/🟡/🟢** labels only; **meaning differs** — opportunity-scan severities rank follow-up priority only and **do not** gate **`sdd-ship`**.

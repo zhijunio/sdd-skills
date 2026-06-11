@@ -1,6 +1,6 @@
 # Audit Dimensions (repo/branch-scoped)
 
-Detailed checklists for **opportunity scan** **`sdd-improve`** — **whole repo** or **branch** vs merge-base. **Delivery review** (increment diff) is **`sdd-review`** — pairing only via [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation); each skill keeps its own dimensions file.
+Detailed checklists for **opportunity scan** **`sdd-improve`** — **whole repo** or **branch** vs merge-base. **Delivery review** (increment diff) is **`sdd-review`** — pairing only via [`sdd-review` — When/Skip](../../sdd-review/SKILL.md); each skill keeps its own dimensions file.
 
 Condensed read-only checklist per category (standard = categories **1–8**).
 
@@ -19,7 +19,7 @@ Condensed read-only checklist per category (standard = categories **1–8**).
 
 ## Parallel audit (optional)
 
-When the host supports read-only subagents, fan out by category (or cluster). Subagent caps and coverage: effort table in [SKILL.md — Process](../SKILL.md#process).
+When the host supports read-only subagents, fan out by category (or cluster). Subagent caps and coverage: [profile-guide.md — Effort levels](profile-guide.md#effort-levels).
 
 Each subagent prompt: absolute path to this file + [finding-format.md](finding-format.md) (include **Finding block fields**); recon facts; return **findings only**. **Vet** every subagent lead yourself before **Present**. Without subagents, audit in category-priority order. Large monorepos: scope subagents to **packages**, not the whole root at once.
 
@@ -72,7 +72,7 @@ Review tests for **behavior**, not as a substitute for reading production code.
 
 ## 5 architecture
 
-Absorbs legacy `sdd-architect` signals plus agent-skills **readability** and **architecture** axes (no separate readability category). **Same lenses as delivery-review Architecture** — structure insight **and** duplication/DRY signals; scope here is **whole repo or branch**, not increment diff only.
+Combines agent-skills **readability** and **architecture** axes (no separate readability category). **Same lenses as delivery-review Architecture** — structure insight **and** duplication/DRY signals; scope here is **whole repo or branch**, not increment diff only.
 
 **Structure & patterns**
 

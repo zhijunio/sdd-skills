@@ -1,12 +1,26 @@
 # Finding Format
 
-**Maintainers:** List-block skeleton is shared with **`sdd-improve`** `finding-format.md`. When changing shared rules (severity groups, axes, Coverage subsections), update **both** files in the same PR.
+**Maintainers:** Sync **severity semantics**, **Report locale**, and **Verify** rules with **`sdd-improve`** `finding-format.md` when those change. **Layout need not match** opportunity scan.
+
+## Report locale
+
+Skill instructions **English**. Report prose in the **user's language** (latest user turn when unclear).
+
+- **Format:** any clear structure — tables, prose, or lists; **no** mandatory shared markdown skeleton across skills.
+- **Keep literal:** category lens ids (e.g. `architecture`); skill ids; `file:line`; git literals; **🔴/🟡/🟢** (group titles may translate).
 
 ## Delivery review report
 
 **Outcome:** **delivery verdict** on an **increment diff** only. Checklists: [review-dimensions.md](review-dimensions.md).
 
-**Report skeleton:** **Context → Findings → Coverage → Follow-up** (same section order as **`sdd-improve`**; content differs below).
+**Required content** (substance, not heading names):
+
+1. **Scope** — diff range, **Diff kind** (`code` / `prose/docs-only`).
+2. **Findings** — **Evidence**; **🔴/🟡/🟢** **delivery gate** (blocks **`sdd-build`** / **`sdd-ship`** for this increment).
+3. **Coverage** — dimensions walked; `architecture: pass` or `skip`; limits / pre-existing.
+4. **Verdict** — pass, or must-fix / should-fix → route.
+
+**Example layout (optional):**
 
 ```markdown
 # SDD Review
@@ -26,9 +40,9 @@
 
 ## Findings
 
-**List blocks only — no findings table.** Group under **`### 🔴 must-fix`**, **`### 🟡 should-fix`**, **`### 🟢 suggestion`**. Number within each group (1, 2, …). Order groups must-fix → should-fix → suggestion; within a group, by leverage. Empty group → `None.`
+One option: group under **🔴 / 🟡 / 🟢** severity (titles may translate). Each finding needs **Evidence**. Empty severity group → state none.
 
-**Delivery gate** — decides **`sdd-build`** 🔧 vs **`sdd-ship`** ✅. (Opportunity scan uses the same labels for follow-up priority — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).)
+**Delivery gate** — decides **`sdd-build`** 🔧 vs **`sdd-ship`** ✅. (Opportunity scan uses the same labels for follow-up priority — [`sdd-improve` — When/Skip](../../sdd-improve/SKILL.md).)
 
 | Severity | Use when |
 | --- | --- |
@@ -89,11 +103,9 @@ Assumed, not run, or out-of-scope observations. Large-diff **Limits** (sampled/u
 **`sdd-build`** 🔧 or **`sdd-ship`** ✅ — one or two sentences. Optional one positive in the same paragraph — no separate Strengths section.
 ```
 
-### Finding block fields
+### Finding fields (when numbered)
 
-**Title:** `**{n}. {dimension} · [{lens}]** — {summary}` — omit `· [{lens}]` when obvious.
-
-**Body:** **Evidence** (required), **Impact** (for **this increment**), **Effort**, **Confidence**, **Risk**.
+Per item: dimension/lens, summary, **Evidence** (required); optional Impact (this increment), Effort, Confidence, Risk.
 
 **Architecture (DRY/KISS in diff):** under **🟡** or **🟢** only — checklist in [review-dimensions.md](review-dimensions.md).
 
@@ -101,4 +113,4 @@ Assumed, not run, or out-of-scope observations. Large-diff **Limits** (sampled/u
 
 ## Disambiguation vs **opportunity scan**
 
-Normative pairing — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Same report skeleton and **🔴/🟡/🟢** labels; **meaning differs** — delivery severities **gate** **`sdd-build`** / **`sdd-ship`** for **this increment**.
+Normative pairing — [`sdd-improve` — When/Skip](../../sdd-improve/SKILL.md). Shared **🔴/🟡/🟢** labels only; **meaning differs** — delivery severities **gate** **`sdd-build`** / **`sdd-ship`** for **this increment**.

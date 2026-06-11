@@ -10,7 +10,7 @@ Prior: [第一次闭环](./runbook-first.md)（todo-web greenfield，2026-06-08�
 
 ## 目的
 
-在 **独立业务项目** 中验证 7 技能交付环可用，为 **`v0.1.0`**（semver gate **0.1.0**）提供证据。通过标准（grill 共识）：
+在 **独立业务项目** 中验证六核心交付环可用，为 **`v0.1.0`**（semver gate **0.1.0**）提供证据。通过标准：
 
 - 跑满 **grill → spec → plan → build → review → ship**
 - **spec / plan 经用户批准**
@@ -38,7 +38,7 @@ npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 或最小集：
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s using-sdd -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship -y
+npx skills@latest add zhijunio/sdd-skills -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship -y
 ```
 
 确认本地 agent 读到的是合并后的 **`sdd-grill`**（非旧版 `sdd-brainstorm`）。
@@ -51,13 +51,12 @@ npx skills@latest add zhijunio/sdd-skills -s using-sdd -s sdd-grill -s sdd-spec 
 
 | # | Stage | 产出 / 检查 |
 |---|--------|-------------|
-| 1 | `using-sdd` | 路由合理，只推荐一个 next skill |
-| 2 | `sdd-grill` | 至少 1 个决策问答题；Explore 或 Challenge |
-| 3 | `sdd-spec` | `docs/sdd/YYYY-MM-DD-<topic>-spec.md` + **用户批准** |
-| 4 | `sdd-plan` | `docs/sdd/YYYY-MM-DD-<topic>-plan.md` + **用户批准** |
-| 5 | `sdd-build` | 按 slice TDD；无 scope 外改动 |
-| 6 | `sdd-review` | 固定 Output；pre-existing 非 must-fix |
-| 7 | `sdd-ship` | Fresh verification；不自动 push |
+| 1 | `sdd-grill` | 至少 1 个决策问答题；Explore 或 Challenge |
+| 2 | `sdd-spec` | `docs/sdd/YYYY-MM-DD-<topic>-spec.md` + **用户批准** |
+| 3 | `sdd-plan` | `docs/sdd/YYYY-MM-DD-<topic>-plan.md` + **用户批准** |
+| 4 | `sdd-build` | 按 slice TDD；无 scope 外改动 |
+| 5 | `sdd-review` | 固定 Output；pre-existing 非 must-fix |
+| 6 | `sdd-ship` | Fresh verification；不自动 push |
 
 ---
 
@@ -102,7 +101,6 @@ Increment (one sentence):
 
 | Stage | Used | Pass | Notes |
 |-------|------|------|-------|
-| using-sdd | | | |
 | sdd-grill | | | |
 | sdd-spec | | | |
 | sdd-plan | | | |

@@ -8,7 +8,8 @@ Runtime contracts: `skills/<name>/SKILL.md` and [SOURCES.md](../../SOURCES.md).
 
 | Order | Document | When to read |
 | --- | --- | --- |
-| 1 | [engineering-rationale.md](./engineering-rationale.md) | 本仓工程观 + 四源上游对照（含维护提示词） |
+| 1 | [README — Core principles](../../README.md#core-principles) | 六条原则：形态 / 交付 / 治理（英文速查） |
+| 2 | [engineering-rationale.md](./engineering-rationale.md) | 本仓工程观 + 四源上游对照（含 [§1.0 核心原则](./engineering-rationale.md#10-核心原则)） |
 | — | [consumer-loops/](./consumer-loops/) | Semver gate validation runbooks and per-project evidence |
 
 ## Index

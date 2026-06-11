@@ -8,7 +8,7 @@ Parent: [consumer-loops/README.md](./README.md)
 
 ## 目的
 
-在 **独立业务项目**（greenfield）中首次用 **7 技能 SDD 环**交付可用软件，验证 skills 在真实 Spring Boot 项目上的可行性。
+在 **独立业务项目**（greenfield）中首次用 **六核心 SDD 环**交付可用软件，验证 skills 在真实 Spring Boot 项目上的可行性。
 
 > **与 semver gate 的关系：** 第一次闭环 **早于** `v0.1.0` tag 与 `runbook-0.1.0` 制度化；证据见 [todo-web-first.md](./todo-web-first.md)。**第二次**闭环才对应 gate **`0.1.0`** → [runbook-0.1.0.md](./runbook-0.1.0.md)。
 
@@ -18,7 +18,7 @@ Parent: [consumer-loops/README.md](./README.md)
 
 ## 0. 前置（回顾）
 
-- [x] `sdd-skills` 七核心技能可安装（`sdd-brainstorm` 尚未合并为 `sdd-grill` 前的试验期）
+- [x] `sdd-skills` 核心技能可安装
 - [x] todo-web 空仓库就绪
 - [ ] 无 `python3 tests/check.py` gate（后随 `v0.1.0` 补齐）
 
@@ -46,7 +46,7 @@ npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 | 4 | `sdd-review` | 增量 review（无正式 consumer 摩擦表） |
 | 5 | `sdd-ship` | 测试 + 手测响应式（plan 声明 manual） |
 
-**注：** greenfield 首交付常 **spec/plan 先行**；`using-sdd` / `sdd-grill` 在需要时出现（第一次以 spec 驱动为主）。
+**注：** greenfield 首交付常 **spec/plan 先行**；`sdd-grill` 在需要时出现。
 
 ---
 

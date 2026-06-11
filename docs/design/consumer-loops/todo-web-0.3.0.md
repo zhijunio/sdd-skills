@@ -8,7 +8,7 @@ Increment (one sentence): **`sdd-improve` 🟡#1** → WebMvcTest 切片迁移�
 
 - Agent(s): Cursor
 - skills install scope: project（`.agents/skills/`）
-- sdd-skills ref: `docs/maintainer-pr-batch` @ `3b0a7b5`（本地 copy `sdd-improve`）
+- sdd-skills ref: `main` @ merge commit（含 `sdd-improve`）
 - Consumer branch: `codex/implement-todo-web` @ `60e00bb`
 - Prior loops: [todo-web-first.md](./todo-web-first.md) → [todo-web-0.1.0.md](./todo-web-0.1.0.md) → [todo-web-0.2.0.md](./todo-web-0.2.0.md)
 
@@ -18,7 +18,7 @@ Increment (one sentence): **`sdd-improve` 🟡#1** → WebMvcTest 切片迁移�
 |-------|------|------|-------|
 | **sdd-improve** | yes | yes | standard；whole repo |
 | Confirm (user) | yes | yes | 选定 🟡 **#1** WebMvcTest |
-| using-sdd | yes | yes | → `sdd-spec` |
+| hand off | yes | yes | `@sdd-spec` |
 | sdd-grill | skip | yes | scope 已在 improve 收敛 |
 | sdd-spec | yes | yes | `docs/sdd/2026-06-11-webmvc-slice-spec.md` |
 | sdd-plan | yes | yes | 单 slice plan |
@@ -94,5 +94,3 @@ Stage 0 对话报告漏写 **Next stage**（trial 摩擦 I6）；补录如下：
 ## Follow-ups
 
 - [x] consumer 仓 `60e00bb` push `codex/implement-todo-web`
-- [ ] PR #11 merge `main` → 正式 `npx … -s sdd-improve` install
-- [ ] maintainer **`v0.3.0` tag**（`sdd-ship` on sdd-skills after merge + trial 记录齐）

@@ -5,13 +5,36 @@ Lightweight, platform-neutral skills for spec-driven development.
 The repository keeps the useful discipline of SDD without turning it into a
 state machine, project manager, or Git workflow framework.
 
+## Core principles
+
+Six principles in three layers — **shape** (what the repo is), **delivery** (how consumers ship increments), **governance** (how maintainers evolve skills).
+
+### Shape
+
+| Principle | In practice |
+| --- | --- |
+| **Minimal & neutral** | Concise `SKILL.md`; default artifacts spec + plan only; Markdown only — no hooks, slash commands, manifests, mandatory satellites, or runtime state files |
+| **Explicit stages** | Install and `@` one skill at a time (see [Skills](#skills) for artifact deps); one stage output → **Stop** → hand off — no auto-chaining or in-session next-stage work |
+
+### Delivery
+
+| Principle | In practice |
+| --- | --- |
+| **Verifiable slices** | Spec AC; plan as vertical slices (15–60 min), not a Gantt chart; optional grill / zoom / improve only when needed |
+| **Test and prove** | `sdd-build`: failing test first; `sdd-review`: read-only, evidence-backed findings; `sdd-ship`: rerun verification, read full output — no completion claims without proof |
+
+### Governance
+
+| Principle | In practice |
+| --- | --- |
+| **Borrow, don't rebuild** | Pin upstream @ [SOURCES.md](SOURCES.md); verbatim @ pin + minimal SDD tail; fuse ideas — don't mirror upstream catalogs |
+| **No empty ceremony** | No new core stages or state fields without consumer evidence; validate skill changes in consumer repos, not maintainer dogfood |
+
 ## Workflow
 
 ```mermaid
 flowchart TD
-  U[using-sdd]
-
-  subgraph satellites["Optional satellites — route one"]
+  subgraph satellites["Optional satellites"]
     Z[sdd-zoom]
     G[sdd-grill]
     I[sdd-improve]
@@ -23,19 +46,18 @@ flowchart TD
   R -->|must-fix / should-fix| B
   R -->|pass| SH[sdd-ship]
 
-  U --> Z & G & I & S
-  Z --> U
-  I --> U
+  Z --> S
+  Z --> G
+  I --> S
   G --> S
   G -.->|plan/design decisions| P
 ```
 
-`sdd-grill` may route to **`sdd-plan`** when plan or design still needs decisions (see [using-sdd — Routing matrix](skills/using-sdd/SKILL.md#routing-matrix)).
+`sdd-grill` may hand off to **`sdd-plan`** when plan or design still needs decisions.
 
-Each skill stops after its own output. Skills recommend the next stage but do
-not invoke it automatically.
+**Explicit stages:** one stage output → **Stop** → hand off; user **`@`** the next skill.
 
-The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-zoom`** are optional satellites—install when needed; neither is mandatory before ship.
+The **core delivery loop** has six stages below. **`sdd-improve`** and **`sdd-zoom`** are optional satellites—install when needed; neither is mandatory before ship.
 
 ## Skills
 
@@ -43,7 +65,6 @@ The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-
 
 | Skill | Use when |
 | --- | --- |
-| `using-sdd` | The correct SDD stage is unclear |
 | `sdd-grill` | Goals, boundaries, trade-offs, or plan/design need decisions; user says "grill me" |
 | `sdd-spec` | A durable behavior contract and acceptance criteria are needed |
 | `sdd-plan` | An approved spec needs testable vertical slices |
@@ -58,20 +79,17 @@ The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-
 | `sdd-zoom` | Unfamiliar code—need a **territory map** (modules, callers, domain vocabulary); not refactor findings |
 | `sdd-improve` | **Opportunity scan** — read-only audit / health check (findings report)—optional; not **delivery review** |
 
-All core skills can be installed independently. Some require artifacts rather
-than other skills: `sdd-plan` needs an approved spec, `sdd-build` needs a spec
-and plan, and `sdd-ship` needs a passed review.
+### Artifact dependencies
 
-## Quick routing
-
-| If… | Start with |
+| Skill | Requires |
 | --- | --- |
-| Unsure which stage fits | `using-sdd` |
-| User already named a stage skill | Honor it — see [using-sdd — User named a stage](skills/using-sdd/SKILL.md#user-named-a-stage) |
+| `sdd-grill`, `sdd-spec`, `sdd-zoom`, `sdd-improve` | — |
+| `sdd-review` | Increment diff (spec/plan improve traceability) |
+| `sdd-plan` | Approved spec |
+| `sdd-build` | Approved spec + plan |
+| `sdd-ship` | Spec + plan + passed review |
 
-**Normative routing** (pre-spec, core loop, review loop, escalation, disambiguation): [using-sdd — Routing matrix](skills/using-sdd/SKILL.md#routing-matrix).
-
-Satellite summary: territory map → `sdd-zoom`; **opportunity scan** → `sdd-improve`; **delivery review** → `sdd-review`. Pairing: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
+Install and `@` one skill at a time. Only plan, build, and ship need prior artifacts.
 
 ## Installation
 
@@ -87,13 +105,13 @@ The installer detects local agents and prompts for scope. Non-interactive exampl
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-Pin the latest **tagged** release (core loop + **`sdd-zoom`**; **no `sdd-improve`** until the next semver tag):
+Pin a release:
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills@v0.2.1 -a cursor -a codex -a claude-code -y
+npx skills@latest add zhijunio/sdd-skills@v0.3.0 -a cursor -a codex -a claude-code -y
 ```
 
-For **`sdd-improve`** before the next tag, install from the default branch (or clone and copy `skills/sdd-improve/`), or add satellites without a version pin:
+Add optional satellites:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills -s sdd-improve -s sdd-zoom -a cursor -y
@@ -104,18 +122,16 @@ npx skills@latest add zhijunio/sdd-skills -s sdd-improve -s sdd-zoom -a cursor -
 | **Project** (default) | — | `./.agents/skills/` — shared by Cursor and Codex in the same repo |
 | **Global** | `-g` | Cursor: `~/.cursor/skills/` · Codex: `~/.codex/skills/` · Claude Code: `~/.claude/skills/` |
 
-Select all seven core skills for the full loop, or add optional satellites:
+Select all six core skills for the full loop, or add optional satellites:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills -s sdd-improve -s sdd-zoom -y
 ```
 
-If you previously installed **`sdd-deepen`** or **`sdd-architect`**, remove that directory and reinstall with **`-s sdd-improve`** (successor satellite).
-
 Minimal core install:
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s using-sdd -s sdd-spec -y
+npx skills@latest add zhijunio/sdd-skills -s sdd-spec -s sdd-plan -y
 ```
 
 List skills in the repo without installing:
@@ -165,18 +181,16 @@ See [CHANGELOG.md](CHANGELOG.md). `sdd-ship` updates it when user-visible releas
 python3 tests/check.py
 ```
 
-The check validates the skill directories, frontmatter, required sections,
-templates, and local links without third-party Python dependencies.
+The check validates skill directories, frontmatter (`Use when …` descriptions),
+minimum body length, bundled references, templates, and local links — no
+third-party Python dependencies.
 
 ## Design
 
-- No commands, hooks, personas, or platform-specific manifests.
-- No runtime status machine.
-- No automatic stage chaining.
-- No required worktrees or per-slice commits.
-- Spec and plan require explicit user approval.
-- Review stays read-only.
-- Ship verifies; it does not silently publish.
+Implements the [core principles](#core-principles) above. Also:
+
+- Skill instructions English; deliverables follow the user's language; **layout is flexible** (required **content**, not a shared skeleton).
+- Spec and plan need user approval before build.
 
 Design docs: [docs/design/](docs/design/) — [engineering-rationale](docs/design/engineering-rationale.md)（本仓 + 上游对照）.
 
@@ -192,4 +206,3 @@ See [SOURCES.md](SOURCES.md) and
 ## License
 
 MIT
-

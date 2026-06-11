@@ -1,6 +1,6 @@
 # Review Dimensions (diff-scoped)
 
-Detailed checklists for **delivery review** **`sdd-review`** — **increment diff** only. **Opportunity scan** (whole-repo or branch) → **`sdd-improve`**. Pairing table: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
+Detailed checklists for **delivery review** **`sdd-review`** — **increment diff** only. **Opportunity scan** (whole-repo or branch) → **`sdd-improve`**. Pairing table: [`sdd-improve` — When/Skip](../../sdd-improve/SKILL.md).
 
 **Sources (summarized):** [addyosmani/agent-skills `code-review-and-quality`](https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality). Lenses overlap opportunity-scan **architecture** (category 5) where scope allows — **diff only** here.
 
@@ -195,7 +195,7 @@ If none apply → `operations: skip` in **Coverage — Examined**.
 
 ## Severity (delivery gate)
 
-Same **🔴/🟡/🟢** list-block shape as opportunity scan — [finding-format.md](finding-format.md). **Meaning differs** — pairing: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
+Same **🔴/🟡/🟢** labels as opportunity scan — [finding-format.md](finding-format.md) (layout need not match). **Meaning differs** — pairing: [`sdd-improve` — When/Skip](../../sdd-improve/SKILL.md).
 
 | Class | Meaning |
 | --- | --- |
