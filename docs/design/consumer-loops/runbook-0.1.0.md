@@ -4,7 +4,7 @@ Status: **complete**（2026-06-09，todo-web）
 
 Last updated: 2026-06-09
 
-Parent: [project-decisions.md](../project-decisions.md) §8
+Parent: [consumer-loops/README.md](./README.md)
 
 ## 目的
 
@@ -67,7 +67,7 @@ npx skills@latest add zhijunio/sdd-skills -s using-sdd -s sdd-grill -s sdd-spec 
 docs/design/consumer-loops/<project>-<gate>.md
 ```
 
-从下方 **模板** 复制填写。摘要写回 [project-decisions.md](../project-decisions.md) 时间线与 §8。
+从下方 **模板** 复制填写。摘要写回 [CHANGELOG.md](../../../CHANGELOG.md) 与本目录记录。
 
 ---
 
@@ -77,7 +77,7 @@ docs/design/consumer-loops/<project>-<gate>.md
 |------|------|
 | 无 must-fix | 打 **0.1.0** tag；README 可写推荐 install 版本 |
 | 有 must-fix | 本仓小 PR 修 skill/docs → `check.py` → 再评估 tag |
-| 重复 CONTEXT/ADR 痛点 | 评估 [context-adr-workflow.md](../context-adr-workflow.md) L2 |
+| 重复 CONTEXT/ADR 痛点 | 评估 [software-engineering-rationale §4.1](../software-engineering-rationale.md#41-可选-context-与-adr) L2 |
 
 ---
 

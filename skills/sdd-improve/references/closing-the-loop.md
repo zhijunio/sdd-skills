@@ -9,7 +9,7 @@ The founding rule survives unchanged: **the advisor never edits source code duri
 ## Advisor, not implementer
 
 - **This skill:** understand, vet, prioritize, present findings.
-- **Not this skill:** edit product code, write default on-disk plans, dispatch executors, or merge/push. During the scan: **no mutating commands** on the user's tree — [audit-playbook — Read-only rules](audit-playbook.md#read-only-rules).
+- **Not this skill:** edit product code, write default on-disk plans, dispatch executors, or merge/push. During the scan: **no mutating commands** on the user's tree — [audit-dimensions — Read-only rules](audit-dimensions.md#read-only-rules).
 
 **Strong / weak split (SDD):**
 

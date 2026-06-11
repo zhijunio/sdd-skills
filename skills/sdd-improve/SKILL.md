@@ -25,18 +25,13 @@ This is an **optional satellite**. Not mandatory before `sdd-ship`.
 
 ### Disambiguation vs **delivery review** `sdd-review`
 
-**Opportunity scan** (this skill) vs **delivery review** — normative table in [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation).
-
-| | **Opportunity scan** `sdd-improve` | **Delivery review** `sdd-review` |
-| --- | --- | --- |
-| Outcome | **Findings report** | **Delivery verdict** (pass / must-fix / should-fix) |
-| Scope | Whole repo or branch vs merge-base | Increment diff only |
+**This skill:** **findings report** · whole repo or branch. **Not** delivery verdict — pairing table: [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation).
 
 Report structure: [finding-format.md](references/finding-format.md).
 
 ## Prerequisites
 
-Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/sdd/*` when present. Infer scope from **natural language**. **Read-only audit:** no installs, commits, formatters, or mutating builds on the user's tree — see [audit-playbook.md — Read-only rules](references/audit-playbook.md#read-only-rules).
+Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/sdd/*` when present. Infer scope from **natural language**. **Read-only audit:** no installs, commits, formatters, or mutating builds on the user's tree — see [audit-dimensions.md — Read-only rules](references/audit-dimensions.md#read-only-rules).
 
 ## Process
 
@@ -44,7 +39,7 @@ Read repository guidance, README, and optional `CONTEXT.md`, `docs/adr/`, `docs/
 
 1. **Recon** — always: README/AGENTS, verify command, CI, `HEAD`, working tree, churn hotspots; write **Context — Recon** table. See [finding-format.md](references/finding-format.md).
 2. **Profile** (optional) — when effort or scope is ambiguous; merges into **Context — Scope** only (no Profile heading). Natural-language scope mapping and skip rules: [profile-guide.md](references/profile-guide.md).
-3. **Audit** — read-only. **Never** Simplify. See [audit-playbook.md](references/audit-playbook.md). Depth follows **effort level** (default **standard**; user may say `quick` / `deep` anywhere in the request):
+3. **Audit** — read-only. **Never** Simplify. See [audit-dimensions.md](references/audit-dimensions.md). Depth follows **effort level** (default **standard**; user may say `quick` / `deep` anywhere in the request):
 
 | | quick | standard (default) | deep |
 | --- | --- | --- | --- |
@@ -73,6 +68,8 @@ Branch scope: tag findings `introduced` or `pre-existing` in touched files.
 ## Verification
 
 Confirm deliverable matches [finding-format.md](references/finding-format.md): **Context → Findings → Coverage → Follow-up**.
+
+**🔴/🟡/🟢** here rank **follow-up priority only** — they **do not** gate **`sdd-ship`** (delivery gate semantics live in **`sdd-review`**).
 
 ## Output
 

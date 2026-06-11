@@ -1,247 +1,266 @@
-# 软件工程方法与思考
+# 本仓怎么想软件工程
 
 Status: **living document**
 
-Last updated: 2026-06-09
+更新: **2026-06-11**
 
-Related: [project-decisions.md](./project-decisions.md)（**做了什么**）· [upstream-engineering-rationale.md](./upstream-engineering-rationale.md)（**上游从哪来**）· [context-adr-workflow.md](./context-adr-workflow.md)（可选 CONTEXT/ADR，proposed）
+相关: [upstream-engineering-rationale.md](./upstream-engineering-rationale.md)（思想从哪来）· [SOURCES.md](../../SOURCES.md)（进了哪个 skill）
 
-本文件说明 **sdd-skills 背后的工程观**：为何这样组织 SDD、人与 Agent 如何分工、何种质量门禁值得保留。它不是 skill 运行时契约；契约仍以 `skills/*/SKILL.md` 为准。
-
----
-
-## 1. 我们在解决什么问题
-
-Agent 能写代码，但常出现：
-
-- **意图漂移** — 做着做着偏离用户真正要的 behavior  
-- **范围蔓延** — 顺手改无关文件、混入 pre-existing 问题  
-- **验证不足** — 「看起来对」就宣称完成  
-- **流程过重** — 完整 superpowers 环对一个小 fix 像开工厂  
-
-**sdd-skills 的定位：** 保留 **Spec-Driven Development 的纪律**，去掉 **项目管理器 / 平台锁 / 状态机** 的重量。  
-不是替代 TDD、Code Review、CI — 而是给 Agent 一套 **可停止、可审计、可跳过** 的阶段语言。
+**谁说了算：** 日常行为看 `skills/*/SKILL.md` 和 `references/**`；上游映射看 SOURCES；本文解释 **为什么这样设计**。发版与 consumer 实证见 [CHANGELOG.md](../../CHANGELOG.md)、[consumer-loops/](./consumer-loops/)。
 
 ---
 
-## 2. 核心主张
+## 1. 要治什么毛病
 
-### 2.1 契约驱动，而非文档驱动
+Agent 能写代码，但常见四类问题：
 
-- **Spec** 不是长篇 PRD，而是 **可 pass/fail 的行为契约**（`AC-1`、`AC-2`…）。  
-- **Plan** 不是甘特图，而是 **可独立验证的垂直切片**。  
-- 文档的价值在于 **能否在 review/ship 时被检验**，而不是页数。
+1. **做着做着跑偏** — 和用户要的 behavior 不是一回事。  
+2. **范围偷偷变大** — 顺手改无关文件，把老债也算进本次交付。  
+3. **没验证就说完了** — 「看起来对」就当 ship。  
+4. **流程太重** — 小改动也走完整 superpowers 长跑，像开工厂。
 
-> 思考方式：**先问「怎样算错」，再写实现。**
+**sdd-skills 干什么：** 留下「先契约、再切片、再实现、再独立审、再复验」的纪律；去掉项目管理器、平台锁、状态机。不替代 TDD、CI、人工 code review — 给 Agent 一套 **能停、能跳、能审计** 的阶段语言。
 
-### 2.2 阶段即边界，而非流水线按钮
+---
 
-每个 skill 是一个 **有 Stop 条件的专业角色**：
+## 2. 几条硬主张
 
-- 做完 **一件事** → 输出 → **停** → 用户决定是否进入下一阶段  
-- **不** auto-invoke 下一 skill — 避免 Agent 独自跑完「假 SDD」  
+### 2.1 要的是能验的契约，不是厚文档
 
-这反映一种工程判断：**自动化擅长执行，不擅长替用户承担 scope 与发布责任。**
+- **Spec** 写清「怎样算对、怎样算错」（AC-1、AC-2…），能 pass/fail。  
+- **Plan** 是能在几十分钟内跑通验证的 **竖切片**，不是甘特图。  
+- 文档厚不厚不重要，重要的是 **review 和 ship 时能不能对照检查**。
 
-### 2.3 默认轻量，按需加重
+### 2.2 一个 skill 干一件事，干完就停
 
-| 默认 | 按需 |
+每个 skill 是一个角色：产出一份结果 → **停** → 等人决定要不要下一阶段。
+
+**不** 自动调用下一个 skill。人要在场选 scope、选风险、选要不要发版。自动化适合执行，不适合替人签收。
+
+### 2.3 默认轻，痛了再加
+
+| 多数项目够用 | 痛了再加 |
+|--------------|----------|
+| spec + plan | grill 多轮对齐 |
+| spec 里写本变更事实 | 根目录 CONTEXT（域语言） |
+| spec Constraints（本变更取舍） | docs/adr（跨多次交付的架构决定） |
+
+流程也讲 YAGNI：没有重复痛点，不加阶段，不加磁盘上的流程状态文件。
+
+### 2.4 说了就要能证明
+
+- **Review** 只读，不顺手改产品代码。  
+- **Ship** 再跑一遍验证 — review 通过 ≠ 可以交付。  
+- 改 skill、加产物，最好有 **第二次真实项目闭环** 再写进基线（见 AGENTS.md）。
+
+### 2.5 不绑平台
+
+Skill 就是 Markdown。不依赖某个 IDE 的 hook、某个 CLI 的 slash 命令。拷到别的 Agent 环境也能读。
+
+---
+
+## 3. 方法怎么落地
+
+### 3.1 六段分开干
+
+```text
+grill   → 决策还没定？先对齐（可选）
+spec    → 这次交付必须满足什么
+plan    → 分几步、每步怎么验
+build   → 按 TDD 做
+review  → 别人视角审这次 diff
+ship    → 再验一遍，人点头才发
+```
+
+**为什么不能糊在一起：**
+
+- 想清楚和写 AC 一屏写完 → AC 里会偷偷夹实现步骤。  
+- 实现的人自己审 → 容易确认偏误。  
+- 审完就当能发 → 「看过 diff」不等于「测试跑过」。
+
+### 3.2 竖切片，别层间空转
+
+一片大概 15–60 分钟，端到端能验；至少挂一个 AC；红绿重构后再下一片。Agent 特别爱在「各层先 stub」里假进度，切片是为了早点撞集成问题。
+
+### 3.3 Grill：一次一问
+
+继承 grill-me / brainstorming：**一次只问一个关键问题**，可以带推荐立场。决策是树，不是一次吐十条结论的伪共识。
+
+### 3.4 Review：只对本次增量负责
+
+- 默认看 `merge-base…HEAD` 这类 **本次增量 diff**。  
+- diff 外老问题只能当 **观察**，不能当本次 must-fix。  
+- 可维护性重要，但 **scope 膨胀是 Agent PR 的头号风险**。
+
+**两种「审」，别混：**
+
+| | `sdd-review`（核心环） | `sdd-improve`（卫星） |
+|---|------------------------|------------------------|
+| 问什么 | 这次改动能发吗 | 全库/分支有啥机会和风险 |
+| 看什么 | 仅 increment diff | 全库或 branch |
+| 产出 | 交付结论（挡不挡 ship） | 发现列表（先修啥） |
+| 🔴🟡🟢 | **挡发货** | **排优先级**，不挡 ship |
+
+配对表见 `using-sdd` Disambiguation。
+
+**diff 分两类（review）：**
+
+- **code diff** — 有源码、测试、CI 脚本等 → **必走架构检查**（结构 + 重复代码/能否写更简单）。  
+- **prose/docs-only** — 只有文档、注释 → **跳过架构**，重点查 spec/文档、**链接有没有断**（重命名后 grep 旧路径）。
+
+**架构这一透镜，improve 和 review 都有：** 差别只是范围（全库 vs 本次 diff 引入的问题）。上游单独的「可读性」「code-simplify」步骤，本仓都并进 **architecture**。
+
+**可观测性、无障碍、运维：** 不每次全扫。improve 嵌在性能/架构/体验类里；review 在 diff 碰到日志、UI、部署配置时才走 — skills-only 仓不会空跑一堆用不上的清单。
+
+### 3.5 卫星：zoom 与 improve
+
+| 卫星 | 干什么 | 什么时候 |
+|------|--------|----------|
+| **sdd-zoom** | 画模块关系地图 | 领域不熟，先要地图再 spec |
+| **sdd-improve** | 全库体检报告 | 健康检查、技术债、路线探索 |
+
+做完仍通过 **`using-sdd`** 回核心环。**禁止** 用 improve 代替 review，或当 ship 前置门禁。老 **`sdd-architect`** 已并进 improve 第 5 类后删除。
+
+### 3.6 Spec 可以改，但要留痕
+
+build/review 发现 AC 不对：在 spec **原地改** + Revision log；分清「改措辞」和「改验收标准」；后者要重新批准。
+
+---
+
+## 4. 知识放哪一层
+
+```text
+CONTEXT（可选）  → 项目怎么说、域边界
+ADR（可选）      → 跨多次交付的架构为什么这样选
+Spec / Plan      → 这次做什么、怎么验
+```
+
+| 层 | 管多久 | 例子 |
+|----|--------|------|
+| CONTEXT | 很多个 spec | 「Order」还是「Purchase」 |
+| ADR | 很多个 feature | 「为什么用事件溯源」 |
+| Spec Constraints | 本变更 | 「本 PR 为什么限流放网关」 |
+| AC | 本变更、可测 | 「当 X 则 Y」 |
+
+**别把所有东西塞进 spec。** 重复越多，越该下沉到 CONTEXT/ADR；小项目 **不必** 下沉。本仓库维护者用 AGENTS + SOURCES，**不在** 根目录放 CONTEXT。
+
+### 4.1 可选 CONTEXT 与 ADR
+
+给 **用 SDD 的消费者项目**，不是本仓 maintainer 必填物。L2 技能改动 **还没做**。
+
+**默认仍只要 spec + plan。**
+
+| 产物 | 回答 |
 |------|------|
-| spec + plan | grill、clarify 文件 |
-| Current Context 写本变更事实 | CONTEXT.md（域语言） |
-| Constraints 写本变更 trade-off | docs/adr/（跨 feature 决策） |
+| spec / plan | 这次做什么、怎么验 |
+| CONTEXT | 稳定术语、域边界 |
+| ADR | 跨 feature 的架构取舍 |
 
-**YAGNI 应用于流程本身：** 没有重复痛点，就不加 stage、不加持久状态文件。
+**分工（目标态）：**
 
-### 2.4 证据优于断言
+- CONTEXT 管 **是什么**，ADR 管 **为什么**，spec Constraints 管 **本变更的取舍**。  
+- 纯架构、没有 feature 边界 → grill 可写 ADR 后停；绑 AC 的仍走 spec，用 Related ADRs 链接。  
+- grill 可改 CONTEXT 的 Language 段；spec 兜底；其它 core skill 不写 ADR。  
+- 有 CONTEXT/ADR 就读相关段；没有就继续，别卡住。
 
-- **Review** 只读 — 发现 defect，不「顺手修」  
-- **Ship** 复验 — review pass ≠ 可以交付  
-- **改 skill / 加 artifact** — 要 **第二次闭环** 等真实用法证据（见 [AGENTS.md](../../AGENTS.md)）  
-
-> 思考方式：**Claim 必须对应 observable evidence。**
-
-### 2.5 平台中立
-
-Skill 是 **纯 Markdown 指令**，不绑定 Cursor hook、Claude 命令或特定 CLI。  
-工程方法应 **可移植** — 同一份 skill 拷贝到任意 Agent 环境都能读。
-
----
-
-## 3. 方法支柱
-
-### 3.1 分离「想清楚 / 写契约 / 拆任务 / 做 / 查 / 交」
+**目录习惯：**
 
 ```text
-grill     → 决策与共识（可选）
-spec      → 做什么、验收标准
-plan      → 怎么分步验证
-build     → TDD 实现
-review    → 独立审 diff
-ship      → Fresh verification + 交付边界
+# 单域
+CONTEXT.md
+docs/adr/
+
+# 多域（不要 CONTEXT-MAP 索引）
+docs/context/<domain>/CONTEXT.md
+docs/adr/
 ```
 
-**为何分开：**
+**做到哪了：**
 
-| 混合在一起的后果 |
-|------------------|
-| 想清楚 + 写 AC 同屏 | AC 里藏 implementation steps |
-| 实现 + review 同人 | 确认偏误，漏测 |
-| review + ship 合并 | 「看过 diff」被当成「跑过测试」 |
+| 层级 | 内容 | 状态 |
+|------|------|------|
+| L0 | spec + plan | ✅ |
+| L1 | 模板里 Decisions、Related ADRs | ✅ |
+| L1+ | README/spec 注释 CONTEXT 路径 | ✅ |
+| L2 | 多 skill 统一读 CONTEXT/ADR | ❌ 等有证据 |
+| L3 | context/adr 模板文件 | ❌ |
 
-这与经典 **Inspection ≠ Testing**、**Design ≠ Construction** 一致，只是粒度适配 Agent 会话。
+**何时做 L2：** 多篇 spec 重复术语、多人/agent 命名漂移、纯架构变更太多、第二次闭环证明 Constraints 扛不住跨 feature 决策 — **要多条同时成立**。
 
-### 3.2 垂直切片（Vertical Slice）
-
-Plan 强调 **15–60 分钟、端到端可验证** 的 slice，而非层间大 bang：
-
-- 每个 slice 映射至少一个 AC  
-- 先 **red-green-refactor**，再下一个 slice  
-
-**思考：** 集成风险越早暴露越好；Agent 尤其容易在「层间 stubs」里假进度。
-
-### 3.3 采访式决策（Grill）
-
-Grill 继承 **grill-me / brainstorming** 的纪律：
-
-- **一次一问** — 避免信息洪水与伪共识  
-- **每问带推荐** — Agent 不是空白问卷，而是有立场的 sparring partner  
-- **Explore + Challenge** — 既收敛多方案，也压测已有 plan  
-
-**思考：** 架构与产品决策是 **序贯依赖树**；并行抛 10 个结论通常意味着没有真正 decision。
-
-### 3.4 Scope 诚实（Review）
-
-Review 的 merge-base diff + **pre-existing 不得 must-fix** 体现：
-
-- 只对 **本次 increment** 负责  
-- 不把「顺手修全库」包装成 deliverable  
-
-**思考：** 可维护性重要，但 **scope creep 是 Agent PR 的第一类风险**；必须语言上区分 delivery blocker vs observation。
-
-### 3.5 契约可修订（Spec Revision）
-
-Build/review 中发现 AC 需改时：
-
-- **原地修订** + Revision log — 一条 spec 一条线  
-- 区分 **措辞澄清** vs **AC 变更** — 避免无效 re-approval 或跳过批准  
-
-**思考：** 计划会变，但变更必须 **可追溯、可批准** — 不是 silent mutation。
+**故意不做：** 新增 sdd-adr / sdd-context skill；CONTEXT/ADR 变必填；每个小取舍一篇 ADR。
 
 ---
 
-## 4. 知识如何分层
-
-```text
-         ┌─────────────────────────────────────┐
-         │  CONTEXT（可选）— 怎么说、域边界      │
-         └─────────────────────────────────────┘
-                           │
-         ┌─────────────────────────────────────┐
-         │  ADR（可选）— 跨 feature 为什么这样选 │
-         └─────────────────────────────────────┘
-                           │
-         ┌─────────────────────────────────────┐
-         │  Spec — 这次交付必须真的什么          │
-         │  Plan — 这次怎么分步证明              │
-         └─────────────────────────────────────┘
-```
-
-| 层 | 时间尺度 | 典型问题 |
-|----|----------|----------|
-| CONTEXT | 跨 many specs | 「Order 还是 Purchase？」 |
-| ADR | 跨 many features | 「为何 event-sourced？」 |
-| Spec Decisions / Constraints | 本变更 | 「本 PR 为何选 gateway rate limit？」 |
-| AC | 本变更、可测 | 「When X then Y」 |
-
-**原则：** 不要把所有知识塞进 spec — **重复越多，越该下沉到 CONTEXT/ADR**；默认项目 **不必** 下沉。
-
-详见 [context-adr-workflow.md](./context-adr-workflow.md)。
-
----
-
-## 5. 人与 Agent 的分工假设
+## 5. 人和 Agent 怎么分工
 
 | 人 | Agent |
 |----|-------|
-| 批准 spec / plan | 起草 spec / plan |
-| 选择下一 stage | 推荐下一 stage（不自动执行） |
-| Explicit push / PR / release | 运行验证、呈现 evidence |
-| 接受 should-fix 风险 | 区分 must-fix / should-fix |
-| 在 grill 中做 value judgment | Explore 方案、Challenge 假设 |
+| 批 spec / plan | 起草 |
+| 选下一阶段 | 只推荐一个，不自动执行 |
+| 决定 push / PR / 发版 | 跑测试、摆证据 |
+| 接受 should-fix 风险 | 标清 must-fix / should-fix |
+| grill 里做价值判断 | 出方案、挑刺 |
 
-**隐含前提：** 用户 **在场**；SDD skills 不是无人值守 CI pipeline。  
-若未来要无人值守，需要 **另外** 的状态与门禁 — 那已超出本仓库 non-goals。
-
----
-
-## 6. 与常见做法的关系
-
-| 做法 | sdd-skills 的态度 |
-|------|-------------------|
-| **完整 superpowers 环**（worktree、subagent、自动链） | 吸收 TDD/review/plan 思想；**丢弃** 重基础设施 |
-| **仅 README + 口头约定** | 不够 — Agent 需要 **触发条件清晰的 skill** |
-| **Jira 驱动** | 不内置 — plan slice 可对 issue，但不强制 |
-| **Big Design Up Front** | 反对 — grill/spec 要 **小、可批准、可修订** |
-| **No spec 直接写** | 小 reversible fix 可跳过 grill；**meaningful change 仍要 spec** |
-| **matt CONTEXT + grill-with-docs** | 可选借鉴；见 [context-adr-workflow.md](./context-adr-workflow.md) |
-
-**融合而非镜像：** 上游工程观见 [upstream-engineering-rationale.md](./upstream-engineering-rationale.md)；映射与 Local decisions 见 [SOURCES.md](../../SOURCES.md)。
+默认 **人在场**。这套 skill 不是无人值守流水线。
 
 ---
 
-## 7. 演化哲学
+## 6. 和别的方法比
 
-1. **先跑通闭环，再定版本** — 0.1.0 前需要第二次真实 spec→ship。  
-2. **先减 skill 数量，再加能力深度** — 8→7（brainstorm∪grill）是 **减熵**。  
-3. **单项目经验不反向污染基线** — 不为某一 repo 的特例改 platform-neutral skill。  
-4. **设计文档与 skill 分离** — `docs/design/` 存 **为什么**；`SKILL.md` 存 **怎么做**（简洁）。  
-5. **Atomic commits + 中文 body** — 维护者决策同样要 **可读、可追溯**。
+| 做法 | 本仓态度 |
+|------|----------|
+| superpowers 全套（worktree、子 agent 自动链） | 学纪律，扔基础设施 |
+| 只有 README 约定 | 不够，要可触发的 skill |
+| Jira 驱动一切 | 不内置 |
+| 一上来巨型设计 | 反对；spec 要小、可批 |
+| 不改 spec 直接写 | 极小 reversible 改动可以；有意义的变更仍要 spec |
+| matt 式 grill 边聊边改满仓库文档 | 可选 CONTEXT/ADR，见 §4.1 |
 
----
-
-## 8. 反模式（本方法明确反对）
-
-| 反模式 | 为何有害 |
-|--------|----------|
-| 文件存在 = 用户批准 | 假进度 |
-| 每个 trade-off 一篇 ADR | 文档通胀 |
-| Review 中改产品代码 | 失去独立视角 |
-| Ship 静默 push | 用户失去交付控制 |
-| 持久 workflow status.json | 状态机 + 平台绑定 |
-| 为「看起来专业」加第 N 个 skill | sprawl，无 evidence |
-| spec 里写 file-by-file 实现 | 混淆 spec 与 plan |
-| Agent 一次输出整棵决策树 | 伪共识（grill 反模式） |
+思想来源: [upstream-engineering-rationale.md](./upstream-engineering-rationale.md)（含 [shadcn/improve](https://github.com/shadcn/improve)）。
 
 ---
 
-## 9. 如何用这套思考
+## 7. 演化原则
 
-**如果你是维护者：**
-
-- 新想法先问：**补的是 SDD 环哪一段断档？有重复痛点吗？**  
-- 能通过扩展现有 skill / 模板解决吗？  
-- 上游变了 — 更新 SOURCES pin + Local decisions，而非 silent drift  
-
-**如果你是用 SDD 的项目：**
-
-- 小改动：**spec → plan → build** 可能够，grill 可跳过  
-- 术语乱：**再考虑 CONTEXT**  
-- 架构决策跨 feature：**再考虑 ADR**  
-- 永远：**AC 必须可 pass/fail**  
-
-**如果你是 Agent：**
-
-- 读 skill 的 **When to Use** 与 **Stop Conditions**，不要 invent 阶段  
-- 推荐下一 skill 时 **只推荐一个**，不链式 invoke  
+1. 先跑通真实 spec→ship，再谈版本号。  
+2. core 保持七个阶段；体检/地图用 **卫星**，不把 core 撑胖。  
+3. 不为某一个下游项目的特例改平台中立 skill。  
+4. **怎么做** 在 skill；**为什么** 在本文；历史在 git / CHANGELOG，不维护第二份 skill 镜像文档。  
+5. 成对文件对称命名（`audit-dimensions` / `review-dimensions`），各 skill 自包含。
 
 ---
 
-## 10. 进一步阅读
+## 8. 明确反对的做法
 
-- [project-decisions.md](./project-decisions.md) — 决策与时间线  
-- [upstream-engineering-rationale.md](./upstream-engineering-rationale.md) — 三上游工程观  
-- [context-adr-workflow.md](./context-adr-workflow.md) — 可选 CONTEXT/ADR（proposed）  
-- [docs/design/README.md](./README.md) — 阅读顺序  
-- [README.md — Design](../../README.md#design)  
-- [SOURCES.md — Why seven skills](../../SOURCES.md#why-seven-skills) — core loop；optional satellites **`sdd-improve`** / **`sdd-zoom`** 见 [README Skills](../../README.md#skills) 与 [consumer-loops/](./consumer-loops/)
+| 反模式 | 为什么不行 |
+|--------|------------|
+| 文件在磁盘上 = 用户已批准 | 假进度 |
+| 每个取舍一篇 ADR | 文档通胀 |
+| review 里改产品代码 | 失去独立视角 |
+| ship 静默 push | 人失去交付控制 |
+| workflow status.json | 状态机 + 平台绑定 |
+| 为显得专业多加 core skill | 没证据就膨胀 |
+| 用 improve 挡发版 | 混淆体检和交付审 |
+| 以为 improve 和 review 的 🔴 是一回事 | 一个排期，一个挡发货 |
+| spec 里写逐文件实现步骤 | 那是 plan 的事 |
+| grill 一次扔整棵决策树 | 伪共识 |
+
+---
+
+## 9. 怎么用这套想法
+
+**维护者：** 新想法先问「补的是环上哪一段？有人重复痛过吗？」能扩展现有 skill 就别加新的。上游变了就更新 SOURCES 和 rationale，别 silent drift。
+
+**用 SDD 的项目：** 小活可 spec→plan→build；术语乱了再加 CONTEXT；决策跨 feature 再加 ADR；AC 永远要能 pass/fail。
+
+**Agent：** 读 When to Use 和 Stop Conditions；推荐下一阶段 **只推荐一个**；别发明仓库里没有的阶段。
+
+---
+
+## 10. 延伸阅读
+
+- [upstream-engineering-rationale.md](./upstream-engineering-rationale.md) — superpowers、agent-skills、matt、[shadcn/improve](https://github.com/shadcn/improve)  
+- [SOURCES.md](../../SOURCES.md)  
+- [using-sdd Disambiguation](../../skills/using-sdd/SKILL.md#disambiguation)  
+- [docs/design/README.md](./README.md)  
+- [consumer-loops/](./consumer-loops/)

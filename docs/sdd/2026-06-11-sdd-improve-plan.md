@@ -7,7 +7,7 @@
 ## Risks / Dependencies
 
 - **Breaking rename:** `sdd-architect` → `sdd-improve`; CHANGELOG + README migration note.
-- **Third-party:** condensed `audit-playbook.md` from **shadcn/improve** (MIT).
+- **Third-party:** condensed `audit-dimensions.md` (from shadcn/improve audit-playbook, MIT).
 - **Retired:** `sdd-architect` removed in Slice 4 (user-confirmed). Routing: **only `sdd-improve`**.
 - **Naming:** no **Simplify** anywhere in skill text or references.
 
@@ -21,7 +21,7 @@
   - **No** step/category/block named Simplify.
   - Category 5 covers over-engineering, duplication, deletion test, depth/seam.
   - `standard` scans categories **1–8** by default.
-  - References: `profile-guide.md`, `audit-playbook.md`, `finding-format.md`, `closing-the-loop.md`.
+  - References: `profile-guide.md`, `audit-dimensions.md`, `finding-format.md`, `closing-the-loop.md`.
   - Natural-language scope inference (AC-16); internal labels only — users need not type `quick` / `branch` / `next`.
   - v1: standard (1–8) + architecture intent from natural language; branch/quick/deep polish later.
 - Implementation outline:
@@ -49,7 +49,7 @@
 - Goal: README, SOURCES, decisions, CHANGELOG updated.
 - Acceptance: AC-11
 - Depends on: Slice 2
-- Verification: `python3 tests/check.py` — **passed**; README + SOURCES + CHANGELOG + project-decisions updated
+- Verification: `python3 tests/check.py` — **passed**; README + SOURCES + CHANGELOG + `docs/design/software-engineering-rationale.md` updated
 - Done: true
 
 ## Slice 4: Retire sdd-architect (user-confirmed only)

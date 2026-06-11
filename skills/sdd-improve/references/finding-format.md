@@ -1,5 +1,7 @@
 # Finding Format
 
+**Maintainers:** List-block skeleton is shared with **`sdd-review`** `finding-format.md`. When changing shared rules (severity groups, axes, Coverage subsections), update **both** files in the same PR.
+
 ## Opportunity scan report
 
 **Outcome:** conversation **findings report** — not a **delivery verdict**. Follow-ups: [closing-the-loop.md](closing-the-loop.md).
@@ -85,7 +87,7 @@ Process meta — **not** findings. Same two subsections as **`sdd-review`**; con
 
 ### Examined
 
-What was walked: categories per **Context — Scope**. Skips stay in **Context — Recon — Not audited** only — do not repeat here.
+What was walked: categories per **Context — Scope** (narrative or brief ✅/⏭️ list — format may differ from delivery review). Skips stay in **Context — Recon — Not audited** only — do not repeat here.
 
 ### Limits
 
@@ -120,4 +122,4 @@ Re-read every cited location before **Present**; rejections → **Coverage — L
 
 ## Disambiguation vs **delivery review**
 
-Normative pairing — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Same report skeleton and **🔴/🟡/🟢** labels; **`sdd-review`** severities gate delivery.
+Normative pairing — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Same report skeleton and **🔴/🟡/🟢** labels; **meaning differs** — opportunity-scan severities rank follow-up priority only and **do not** gate **`sdd-ship`**.

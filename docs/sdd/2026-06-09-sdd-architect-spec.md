@@ -1,5 +1,7 @@
 # sdd-architect Optional Satellite Skill
 
+Status: **superseded** (2026-06-11) — skill removed; successor **`sdd-improve`**. See `docs/sdd/2026-06-11-sdd-improve-spec.md`.
+
 ## Goal
 
 Consumers can run an optional **`sdd-architect`** satellite that surfaces architecture deepening opportunities in a codebase conversation without entering the core seven-stage delivery loop or replacing `sdd-review`.
@@ -9,7 +11,7 @@ Consumers can run an optional **`sdd-architect`** satellite that surfaces archit
 - Add `skills/sdd-architect/SKILL.md` as an **optional satellite** skill (eighth published skill).
 - Update `using-sdd` with satellite routing when the user wants deepening, shallow modules, seam friction, or mud-ball architecture review.
 - Update `README.md`, `SOURCES.md`, and `tests/check.py` so the new skill is installable and validated.
-- Record the decision in `docs/design/project-decisions.md` and `CHANGELOG.md` `[Unreleased]`.
+- Record the decision in `docs/design/software-engineering-rationale.md` and `CHANGELOG.md` `[Unreleased]`.
 - Keep the core loop unchanged: `using-sdd → (optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`.
 
 ## Non-goals
@@ -55,7 +57,7 @@ Consumers can run an optional **`sdd-architect`** satellite that surfaces archit
 ## Constraints
 
 - Keep every skill self-contained under `skills/sdd-architect/`; do not add shared cross-skill fragment files.
-- Keep `SKILL.md` concise; put grill-derived rationale in `docs/design/project-decisions.md`, not in the skill body.
+- Keep `SKILL.md` concise; put grill-derived rationale in `docs/design/`, not in the skill body.
 - Do not bump the public semver tag in this increment.
 - Preserve platform neutrality: no `.cursor-plugin`, hooks, or agent manifests.
 

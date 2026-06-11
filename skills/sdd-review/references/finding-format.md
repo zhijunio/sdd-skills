@@ -1,5 +1,7 @@
 # Finding Format
 
+**Maintainers:** List-block skeleton is shared with **`sdd-improve`** `finding-format.md`. When changing shared rules (severity groups, axes, Coverage subsections), update **both** files in the same PR.
+
 ## Delivery review report
 
 **Outcome:** **delivery verdict** on an **increment diff** only. Checklists: [review-dimensions.md](review-dimensions.md).
@@ -17,6 +19,7 @@
 | --- | --- |
 | **Baseline** | integration branch or commit |
 | **Range** | `merge-base...HEAD`, PR, commits, or user-specified span |
+| **Diff kind** | `code` or `prose/docs-only` — per [review-dimensions — Diff kind](review-dimensions.md#diff-kind); drives architecture walk |
 | **Included** | commits, files, staged/unstaged task changes |
 | **Excluded** | unrelated changes, out-of-scope areas |
 | **Spec / Plan** | paths used, or disclosure when missing |
@@ -30,8 +33,8 @@
 | Severity | Use when |
 | --- | --- |
 | **🔴 must-fix** | Blocks delivery of **this increment** — correctness, security, spec/AC gap, Non-goal violation |
-| **🟡 should-fix** | Fix unless user accepts risk — large **[simplify]**, half-migration, test gaps on changed paths |
-| **🟢 suggestion** | Non-blocking — docs, small DRY/KISS, readability |
+| **🟡 should-fix** | Fix unless user accepts risk — large duplication, half-migration, test gaps on changed paths |
+| **🟢 suggestion** | Non-blocking — docs, small DRY/KISS, readability in the diff |
 
 **Per-finding axes:**
 
@@ -41,7 +44,7 @@
 | **Effort** (fix) | S · M · L |
 | **Risk** (fix) | 🔴 HIGH · 🟡 MED · 🟢 LOW |
 
-**Lens** (in title): `[spec]` · `[standards]` · `[simplify]` · `[security]` — **required `[simplify]`** for Simplify-pass hits.
+**Lens** (in title): `[spec]` · `[standards]` · `[security]` — omit for **architecture** when dimension is obvious.
 
 ### 🔴 must-fix
 
@@ -55,7 +58,7 @@
 
 ### 🟡 should-fix
 
-**1. architecture · [simplify]** — Half migration in the same increment.
+**1. architecture** — Half migration in the same increment.
 
 - **Evidence:** `skills/foo/handoff.md` — deleted; replacement untracked in diff
 - **Impact:** Partial rename breaks consumers on commit
@@ -69,11 +72,11 @@ None.
 
 ## Coverage
 
-Process meta — **not** findings. Same two subsections as **`sdd-improve`**; content differs.
+Process meta — **not** findings. Same two subsections as **`sdd-improve`**; **Examined** uses ✅/❌/⏭️ per dimension here (opportunity scan may use narrative category list).
 
 ### Examined
 
-Brief ✅ pass / ❌ fail / ⏭️ skip per dimension: spec/plan (AC mapping when plan exists), correctness, tests, docs, **simplify** (mandatory on code diffs), and conditionals reviewed. **`simplify: pass`** when Simplify pass found nothing.
+Brief ✅ pass / ❌ fail / ⏭️ skip per dimension: spec/plan, correctness, tests, docs (**reference integrity**), **architecture** (**code** diffs mandatory; prose → `architecture: skip`), and conditionals when signals apply — **security**, **performance**, **dependencies**, **observability**, **accessibility**, **operations** (else `*: skip`). **`architecture: pass`** when the walk found nothing.
 
 ### Limits
 
@@ -92,10 +95,10 @@ Assumed, not run, or out-of-scope observations. Large-diff **Limits** (sampled/u
 
 **Body:** **Evidence** (required), **Impact** (for **this increment**), **Effort**, **Confidence**, **Risk**.
 
-**Simplify pass:** under **🟡** or **🟢** only; **`[simplify]`** in title — checklist in **`sdd-review` SKILL.md**.
+**Architecture (DRY/KISS in diff):** under **🟡** or **🟢** only — checklist in [review-dimensions.md](review-dimensions.md).
 
 **Prioritization:** severity class first; within class, impact ÷ effort discounted by confidence.
 
 ## Disambiguation vs **opportunity scan**
 
-Normative pairing — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Same report skeleton and **🔴/🟡/🟢** labels; **`sdd-improve`** severities rank follow-up priority only.
+Normative pairing — [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation). Same report skeleton and **🔴/🟡/🟢** labels; **meaning differs** — delivery severities **gate** **`sdd-build`** / **`sdd-ship`** for **this increment**.

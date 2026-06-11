@@ -1,6 +1,6 @@
 ---
 name: sdd-review
-description: Use when a scoped diff needs an independent, read-only review before delivery, after implementation, or when the user asks for a review. Always includes a mandatory simplify pass for DRY/KISS opportunities in the scoped diff.
+description: Use when a scoped diff needs an independent, read-only review before delivery, after implementation, or when the user asks for a review. Classifies code diff vs prose/docs-only; mandatory architecture walk on code diffs only.
 ---
 
 # SDD Review
@@ -19,14 +19,9 @@ Skip when the user wants **opportunity scan** (whole-repo or branch health check
 
 ### Disambiguation vs **opportunity scan** `sdd-improve`
 
-**Delivery review** (this skill) vs **opportunity scan** — normative table in [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation).
+**This skill:** **delivery verdict** · increment diff only. **Not** whole-repo audit — pairing table: [using-sdd — Disambiguation](../using-sdd/SKILL.md#disambiguation). Ambiguous "review" without increment diff → **`using-sdd`** asks which skill.
 
-| | **Opportunity scan** `sdd-improve` | **Delivery review** `sdd-review` |
-| --- | --- | --- |
-| Outcome | **Findings report** | **Delivery verdict** (pass / must-fix / should-fix) |
-| Scope | Whole repo or branch vs merge-base | **Increment diff** only (defined range; default `merge-base…HEAD`) |
-
-Report structure: [finding-format.md](references/finding-format.md). Dimension checklists: [review-dimensions.md](references/review-dimensions.md). Ambiguous "review" without increment diff → **`using-sdd`** asks which skill.
+Report structure: [finding-format.md](references/finding-format.md). Dimension checklists: [review-dimensions.md](references/review-dimensions.md).
 
 ## Prerequisites
 
@@ -76,6 +71,17 @@ Issues in code **outside** the scoped diff may be noted as **out-of-scope observ
 
 Fresh command output and full acceptance evidence belong in `sdd-ship`, not here.
 
+### Diff kind
+
+Classify from changed paths **before** dimension walk; record in **Context — Scope**.
+
+| Kind | Rule of thumb | Architecture |
+| --- | --- | --- |
+| **Code diff** | Any executable source, test code, CI/build script, or behavior-changing config | **Mandatory** → `architecture: pass` or findings |
+| **Prose/docs-only** | Only markdown, docs, comments-only, or metadata with no runtime behavior | **Skip** → `architecture: skip` |
+
+Any code path in the diff → **code diff** (even one `tests/check.py` beside ten `.md` files). Full signals and edge cases: [review-dimensions.md — Diff kind](references/review-dimensions.md#diff-kind).
+
 ## Review Dimensions
 
 Walk dimensions on the **scoped diff only**. Detailed checklists: [review-dimensions.md](references/review-dimensions.md) (agent-skills five-axis summary + SDD delivery gate).
@@ -85,50 +91,34 @@ Walk dimensions on the **scoped diff only**. Detailed checklists: [review-dimens
 - **Spec / plan compliance** — AC mapping; Non-goals; disclose missing artifacts.
 - **Correctness and regressions** — logic, error paths, edge cases, concurrency, data consistency.
 - **Tests** — behavior vs implementation; regression value; review test changes before implementation.
-- **Docs and traceability** — spec/plan paths, CHANGELOG, standalone commit/PR descriptions.
+- **Docs and traceability** — spec/plan paths, CHANGELOG, commit/PR descriptions; **reference integrity** on renames (especially **prose/docs-only**).
 
-### Conditional (when the diff touches them)
+### Mandatory on code diffs
+
+- **Architecture** — structure insight **and** duplication/DRY/KISS in the diff (same lenses as **`sdd-improve`** category 5; scope differs). **Skip** on **prose/docs-only**. Checklist: [review-dimensions.md — Architecture](references/review-dimensions.md#architecture).
+
+### Conditional (when signals apply)
 
 - **Standards** — repository guidance and CI-gated linters.
-- **Architecture** — modules, boundaries, patterns, duplication **introduced or worsened by this diff** only.
-- **Security** — authz, input boundaries, injection/XSS, secrets, untrusted external data.
-- **Performance** — N+1, unbounded work, pagination, hot-path cost in changed code.
-- **Readability** — naming, control flow, dead code introduced in the diff.
-- **Dependencies** — new/upgraded packages: necessity, audit, license, lockfile (when manifest files change).
-- **Simplify (mandatory on code diffs)** — behavior-preserving DRY/KISS in the diff; see checklist below. Pre-existing duplication → out-of-scope only.
+- **Security** — external I/O, auth/session, data access, security-sensitive deps. [Security](references/review-dimensions.md#security).
+- **Performance** — N+1, unbounded work, pagination, hot-path cost.
+- **Dependencies** — manifest/lockfile/migration changes. [Dependencies](references/review-dimensions.md#dependencies).
+- **Observability** — logging, metrics, tracing, alerting changes. [Observability](references/review-dimensions.md#observability).
+- **Accessibility** — UI/components/forms/markup changes. [Accessibility](references/review-dimensions.md#accessibility).
+- **Operations** — CI/CD, deploy, runbooks, rollout config. [Operations](references/review-dimensions.md#operations).
 
-Skip conditional dimensions the diff does not touch (e.g. docs-only → skip security and performance). **Never skip Simplify** on non-trivial code diffs.
+Skip conditionals with no matching signal (`*: skip` in **Coverage — Examined**). **Prose/docs-only** → skip **Architecture**; still walk **docs — reference integrity**. **Never skip Architecture** on **code** diffs.
 
 ## Process
 
-1. State **Context — Scope** per [finding-format.md](references/finding-format.md).
+1. State **Context — Scope** per [finding-format.md](references/finding-format.md) — include **Diff kind** (`code` / `prose/docs-only`).
 2. Read the **complete** scoped diff before judging correctness — or triage per **Large diffs** and disclose **Limits**.
 3. Read the spec and plan when available; map Acceptance when a plan exists.
 4. Review test changes first: coverage, edge cases, regression value.
-5. Walk implementation against core and applicable conditional dimensions.
-6. **Simplify pass (mandatory for code diffs)** — after correctness, run the checklist below. Record hits under **🟡/🟢** with **`[simplify]`** per [finding-format.md](references/finding-format.md). If nothing applies, **`simplify: pass`** in **Coverage — Examined**.
-7. **Present** — **Context → Findings → Coverage → Follow-up** per [finding-format.md](references/finding-format.md).
+5. Walk core dimensions; on **code** diffs walk **architecture** (skip on prose/docs-only); walk applicable conditionals. Record architecture hits under **🟡/🟢** per [finding-format.md](references/finding-format.md). **`architecture: pass`** or **`architecture: skip`** in **Coverage — Examined**.
+6. **Present** — **Context → Findings → Coverage → Follow-up** per [finding-format.md](references/finding-format.md).
 
-### Simplify pass checklist
-
-Scan the scoped diff for behavior-preserving simplifications. Use finding list blocks with **`[simplify]`** lens — see [finding-format.md](references/finding-format.md).
-
-| Signal | Look for |
-| ------ | -------- |
-| **Parallel APIs** | Two entry points doing the same job (e.g. `foo` vs `fooIds`, overload vs new method) where one path or a thin wrapper would suffice |
-| **Repeated blocks** | Same 5+ line pattern in multiple files (resolve/filter/build-param helpers, private methods that differ only by type) — candidate for shared util or base method |
-| **Copy-paste UI** | Identical or near-identical components, hooks, form fields, Cascader/search wiring repeated across screens |
-| **Field or param bloat** | New fields that duplicate an existing one (`areaId` + `areaIds`) without a documented compatibility reason; merge at Query/DTO boundary when safe |
-| **Layer noise** | Extra indirection, pass-through methods, or abstractions added in the same increment without reuse |
-| **Half migration** | Old path still called beside new path; staged but uncommitted pieces of the same refactor; dead code left after switch |
-| **Dead code introduced** | Unreachable branches, legacy shims, or no-op variables added or left in the diff after a switch |
-| **Test duplication** | Same arrange/assert copied across tests — table-driven or shared fixture candidate |
-
-**Severity:** `should-fix` when half-migration or large duplication blocks maintainability or risks drift; otherwise `suggestion`. Do not mark `must-fix` solely for simplify unless the diff clearly violates an agreed Non-goal (e.g. “no dual API”) from the plan.
-
-**Out of scope:** pre-existing duplication untouched by the diff — note under **Coverage — Limits**, not **🔴 must-fix**.
-
-Use **Evidence** bullets and lens tags (`[spec]`, `[standards]`, `[simplify]`) per [finding-format.md](references/finding-format.md). On auth, secrets, migrations, or public API, label **inferred** claims as such; do not state inference as fact.
+Use **Evidence** bullets and lens tags (`[spec]`, `[standards]`, `[security]`) per [finding-format.md](references/finding-format.md). On auth, secrets, migrations, or public API, label **inferred** claims as such; do not state inference as fact.
 
 Use a fresh agent or subagent when available; otherwise reread the baseline before reviewing.
 
@@ -144,15 +134,16 @@ Optional two-pass review when the plan is large: spec/plan compliance first, the
 - Expanding scope to pre-existing code not in the scoped diff and marking it `must-fix`.
 - Claiming specification compliance without a specification.
 - Running full verification or updating the plan during review.
-- Finishing review without the **Simplify pass** on a non-trivial code diff.
-- Treating DRY/KISS only as optional style nits — duplication introduced or left half-migrated belongs in **🟡 should-fix** or **🟢 suggestion** with **`[simplify]`**.
+- Finishing a **code** diff review without walking **Architecture**.
+- Walking **Architecture** on a **prose/docs-only** diff.
+- Treating DRY/KISS only as optional style nits — duplication introduced or left half-migrated belongs in **🟡 should-fix** or **🟢 suggestion**.
 - Findings as one-line `file:line` lists without **Evidence** / emoji grading when [finding-format.md](references/finding-format.md) applies.
 
 ## Verification
 
 Confirm deliverable matches [finding-format.md](references/finding-format.md): **Context → Findings → Coverage → Follow-up**.
 
-- **🔴 must-fix** — blocks delivery of this increment.
+- **🔴 must-fix** — blocks delivery of **this increment** (delivery gate — not the same meaning as opportunity-scan 🔴).
 - **🟡 should-fix** — fix unless the user accepts the risk.
 - **🟢 suggestion** — non-blocking.
 

@@ -27,7 +27,7 @@ Copyright (c) 2026 shadcn
 
 Source: <https://github.com/shadcn/improve>
 
-Adapted in `skills/sdd-improve/references/audit-playbook.md` (condensed audit checklist).
+Adapted in `skills/sdd-improve/references/audit-dimensions.md` (condensed audit checklist).
 
 ---
 

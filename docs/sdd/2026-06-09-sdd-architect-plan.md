@@ -36,12 +36,12 @@ Commit the approved spec and this plan before Slice 1.
   - `using-sdd` lists optional satellites and routes mud-ball / deepening intent to `sdd-architect` without auto-invocation.
   - README distinguishes **seven core stages** from the optional **`sdd-architect`** satellite and updates install examples where needed.
   - `SOURCES.md` records Matt inspiration and local decisions for the satellite.
-  - `docs/design/project-decisions.md` records the 8th-skill satellite decision and `v0.2.0` gate.
+  - `docs/design/software-engineering-rationale.md` records the satellite decision; `docs/design/consumer-loops/` records the `v0.2.0` gate.
   - `CHANGELOG.md` `[Unreleased]` notes the new optional skill.
 - Implementation outline:
   - Extend `skills/using-sdd/SKILL.md` Process or a short **Optional satellites** subsection with triggers and handoff to `using-sdd` after `sdd-architect`.
   - Update README skills table, workflow note, and install copy (`seven core` + optional satellite).
-  - Update SOURCES (`sdd-architect` section + Why seven skills footnote), project-decisions timeline/watchlist, and CHANGELOG.
+  - Update SOURCES (`sdd-architect` section + Why seven skills footnote), `docs/design/consumer-loops/`, and CHANGELOG.
   - Scan other docs for stale “exactly seven skills only” wording; update only where the new satellite must be disclosed.
 - Verification:
 
@@ -53,7 +53,7 @@ Commit the approved spec and this plan before Slice 1.
 
 - Done: true
 - Result:
-  - Updated `using-sdd`, README, SOURCES, project-decisions, and CHANGELOG.
+  - Updated `using-sdd`, README, SOURCES, design docs, and CHANGELOG.
   - Verified `python3 tests/check.py` passes.
 
 ## Final Review and Ship

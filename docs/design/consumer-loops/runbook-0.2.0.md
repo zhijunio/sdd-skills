@@ -1,10 +1,12 @@
 # 第三次 SDD 闭环 — 运行手册（sdd-architect）
 
+> **历史说明：** gate 时技能名为 **`sdd-architect`**；2026-06-11 已由 **`sdd-improve`** 接替。新 trial 见 [watchlist](./README.md#watchlistliving)。
+
 Status: **shipped `v0.2.0`**（2026-06-09，todo-web consumer Pass）
 
 Last updated: 2026-06-09
 
-Parent: [project-decisions.md](../project-decisions.md) §8
+Parent: [consumer-loops/README.md](./README.md)
 
 ## 目的
 
@@ -15,7 +17,7 @@ Parent: [project-decisions.md](../project-decisions.md) §8
 - **spec / plan 经用户批准**
 - 记录 **`sdd-architect` 摩擦**；must-fix 修完再 **`v0.2.0` tag**
 
-> **v0.2.0 发布范围（grill 共识）：** tag 含 **`sdd-architect`**（本 runbook gate）与 **`sdd-zoom`**（maintainer 追加，**无独立 consumer loop**）。`sdd-zoom` 摩擦待第四次闭环或 increment 记录补证 — 见 [project-decisions.md §8](../project-decisions.md#8-待定与-watchlist)。
+> **v0.2.0 发布范围（grill 共识）：** tag 含 **`sdd-architect`**（本 runbook gate）与 **`sdd-zoom`**（maintainer 追加，**无独立 consumer loop**）。`sdd-zoom` 摩擦待第四次闭环或 increment 记录补证 — 见 [consumer-loops watchlist](./README.md#watchlistliving)。
 
 本仓 **不** 用 dogfood 代替此次闭环。
 
@@ -69,7 +71,7 @@ npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 docs/design/consumer-loops/<project>-<gate>.md
 ```
 
-摘要写回 [project-decisions.md](../project-decisions.md) 时间线与 §8。
+摘要写回 [CHANGELOG.md](../../../CHANGELOG.md) 与本目录记录。
 
 **须单独记录 `sdd-architect` 阶段摩擦**（与 core 阶段分开）。
 

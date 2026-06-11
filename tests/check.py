@@ -32,6 +32,26 @@ REQUIRED_SECTIONS = (
 )
 LOCAL_LINK = re.compile(r"\[[^\]]+\]\((?!https?://|mailto:|#)([^)]+)")
 
+# Optional satellite skills: bundled references and SKILL.md size caps.
+SATELLITE_BUNDLES: dict[str, tuple[str, ...]] = {
+    "sdd-improve": (
+        "references/audit-dimensions.md",
+        "references/finding-format.md",
+        "references/closing-the-loop.md",
+        "references/profile-guide.md",
+    ),
+    "sdd-review": (
+        "references/review-dimensions.md",
+        "references/finding-format.md",
+    ),
+}
+SATELLITE_SKILL_MAX_LINES: dict[str, int] = {
+    "sdd-improve": 90,
+}
+DEPRECATED_SATELLITE_FILES: dict[str, tuple[str, ...]] = {
+    "sdd-improve": ("references/audit-playbook.md",),
+}
+
 # Template content requirements: each template must contain these headings/anchors.
 TEMPLATE_REQUIREMENTS = {
     "spec-template.md": ["Goal", "Scope", "Non-goals", "Requirements", "Acceptance Criteria"],
@@ -104,6 +124,40 @@ def check_skill(name: str) -> list[str]:
     return errors
 
 
+def check_satellite_bundle(name: str) -> list[str]:
+    if name not in SATELLITE_BUNDLES:
+        return []
+
+    errors: list[str] = []
+    skill_dir = SKILLS_DIR / name
+    skill_file = skill_dir / "SKILL.md"
+
+    for rel in SATELLITE_BUNDLES[name]:
+        if not (skill_dir / rel).is_file():
+            errors.append(f"skills/{name}: missing bundled reference {rel}")
+
+    for rel in DEPRECATED_SATELLITE_FILES.get(name, ()):
+        if (skill_dir / rel).is_file():
+            errors.append(f"skills/{name}: deprecated file must not exist: {rel}")
+
+    max_lines = SATELLITE_SKILL_MAX_LINES.get(name)
+    if max_lines is not None and skill_file.is_file():
+        line_count = len(skill_file.read_text(encoding="utf-8").splitlines())
+        if line_count > max_lines:
+            errors.append(
+                f"skills/{name}/SKILL.md: {line_count} lines exceeds satellite cap {max_lines}"
+            )
+
+    if skill_file.is_file():
+        text = skill_file.read_text(encoding="utf-8")
+        if "audit-playbook" in text:
+            errors.append(
+                f"skills/{name}/SKILL.md: must link audit-dimensions.md, not audit-playbook"
+            )
+
+    return errors
+
+
 def check_template(template: Path) -> list[str]:
     errors: list[str] = []
     if not template.is_file():
@@ -135,6 +189,7 @@ def main() -> int:
 
     for skill in skills:
         errors.extend(check_skill(skill))
+        errors.extend(check_satellite_bundle(skill))
 
     templates = (
         SKILLS_DIR / "sdd-spec" / "spec-template.md",

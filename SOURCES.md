@@ -1,6 +1,6 @@
 # Upstream Sources
 
-Snapshot date: 2026-06-08
+Snapshot date: 2026-06-08（pin commit 未变；2026-06-11 本地解读与 **`sdd-improve`** / **`sdd-review`** 维度已修订，见 [docs/design/upstream-engineering-rationale.md](docs/design/upstream-engineering-rationale.md)）
 
 ## Repositories
 
@@ -13,6 +13,10 @@ Snapshot date: 2026-06-08
 - `addyosmani/agent-skills`
   - Branch: `main`
   - Commit: `c076972e2626fe2acc30b00a6c7240d4c5fb786a`
+- [shadcn/improve](https://github.com/shadcn/improve) — **third-party, not pinned**
+  - License: MIT ([THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md))
+  - Adapted: condensed audit checklist in `skills/sdd-improve/references/audit-dimensions.md`
+  - Refresh: diff upstream when audit categories change materially; no automatic pin
 
 ## Why seven skills
 
@@ -80,8 +84,9 @@ Local decisions:
 
 Sources:
 
-- Community audit playbooks (see **`THIRD_PARTY_NOTICES.md`**) — condensed in `references/audit-playbook.md`
-- `addyosmani/agent-skills`: `skills/code-review-and-quality` — five-axis checklist (correctness, readability, architecture, security, performance) summarized into categories 1–6 and 8 of `references/audit-playbook.md`; merge verdict, spec compliance, and change-sizing gates deliberately left in **`sdd-review`**
+- [shadcn/improve](https://github.com/shadcn/improve) — audit playbook condensed in `references/audit-dimensions.md` (see **`THIRD_PARTY_NOTICES.md`**)
+- Community audit playbooks — same file; pairs with **`sdd-review`** `review-dimensions.md`
+- `addyosmani/agent-skills`: `skills/code-review-and-quality` — five-axis checklist summarized into categories 1–6 and 8 of `references/audit-dimensions.md`; merge verdict, spec compliance, and change-sizing gates deliberately left in **`sdd-review`**
 - `mattpocock/skills`: `skills/improve-codebase-architecture` (category 5: depth, seam, deletion-test vocabulary)
 - Legacy **`sdd-architect`** — removed; category 5 vocabulary retained in **`sdd-improve`**
 
@@ -159,7 +164,7 @@ Local decisions:
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
 - **Delivery review** only — increment diff; skeleton aligned with **`sdd-improve`**; full template in `references/finding-format.md` + `review-dimensions.md` (self-contained). Pairing: [using-sdd — Disambiguation](skills/using-sdd/SKILL.md#disambiguation).
-- Mandatory **Simplify pass** — hits under **🟡** / **🟢** with **`[simplify]`** lens; no separate findings heading.
+- **Diff kind** — `code` vs `prose/docs-only`; **architecture** on **code** diffs (structure + DRY/KISS — same lenses as **`sdd-improve`** cat 5); conditionals include **observability**, **accessibility**, **operations** when signals apply.
 - Report skeleton **Context → Findings → Coverage → Follow-up**; **Coverage — Examined** / **Limits**; **Follow-up — Next stage** (**`sdd-build`** 🔧 / **`sdd-ship`** ✅).
 - Plan **Acceptance** mapping (`met` / `partial` / `missing` / `unclear`); large-diff triage and **Limits** disclosure; change-sizing signals (~100 / ~300 / ~1000 lines).
 - Full verification stays in `sdd-ship`.

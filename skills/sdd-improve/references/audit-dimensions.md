@@ -1,10 +1,12 @@
-# Audit Playbook
+# Audit Dimensions (repo/branch-scoped)
+
+Detailed checklists for **opportunity scan** **`sdd-improve`** — **whole repo** or **branch** vs merge-base. **Delivery review** (increment diff) is **`sdd-review`** — pairing only via [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation); each skill keeps its own dimensions file.
 
 Condensed read-only checklist per category (standard = categories **1–8**).
 
 **Sources (summarized, not copied):** community audit checklists and [addyosmani/agent-skills `code-review-and-quality`](https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality) (five-axis review checklist). Upstream attribution: repository **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`** — not repeated in skill text.
 
-**No step named Simplify** — readability, duplication, and over-engineering are **architecture** (category 5) findings. **Delivery review** spec/AC compliance, Simplify pass, and **delivery verdict** belong in **`sdd-review`**, not here. Pairing: [using-sdd — Disambiguation](../../using-sdd/SKILL.md#disambiguation).
+**No step named Simplify** — readability, duplication, and over-engineering are **architecture** (category 5) findings. Spec/AC compliance, diff-scoped **architecture** (mandatory on code diffs), and delivery verdict belong in **`sdd-review`**, not here.
 
 ## Read-only rules
 
@@ -51,6 +53,13 @@ Evidence-based only — cite `file:line` and credential **type**; never reproduc
 - Unnecessary re-renders or recomputation in UI hot paths
 - Large object allocation in hot paths; missing indexes or caches on frequent queries
 
+**Observability** (when backend/service — tag findings `architecture` or `performance` as fits)
+
+- Errors swallowed or returned without structured logs on critical paths
+- Money, auth, or data-loss paths without metrics, tracing, or alert hooks
+- New failure modes invisible in production (no dashboard, no SLO signal)
+- Logs leak PII/secrets or lack correlation IDs across requests
+
 ## 4 test coverage
 
 Review tests for **behavior**, not as a substitute for reading production code.
@@ -63,7 +72,7 @@ Review tests for **behavior**, not as a substitute for reading production code.
 
 ## 5 architecture
 
-Absorbs legacy `sdd-architect` signals plus agent-skills **readability** and **architecture** axes (no separate readability category).
+Absorbs legacy `sdd-architect` signals plus agent-skills **readability** and **architecture** axes (no separate readability category). **Same lenses as delivery-review Architecture** — structure insight **and** duplication/DRY signals; scope here is **whole repo or branch**, not increment diff only.
 
 **Structure & patterns**
 
@@ -76,11 +85,24 @@ Absorbs legacy `sdd-architect` signals plus agent-skills **readability** and **a
 
 **Readability & duplication** (not named Simplify)
 
-- Unclear names (`temp`, `data`) vs project conventions; nested or clever control flow
-- Abstractions not yet justified (generalize on third use case, not first)
-- **Over-engineering** — layers without reuse; **duplication** — parallel APIs, 5+ line repeated blocks, copy-paste UI
-- Dead code: unreachable paths, legacy shims, no-op variables left after refactors
-- Oversized modules/files without domain justification (signal only — change-sizing gates live in **`sdd-review`**)
+| Signal | Look for |
+| --- | --- |
+| **Parallel APIs** | Two entry points for the same job where one path would suffice |
+| **Repeated blocks** | Same 5+ line pattern — shared util or base method candidate |
+| **Copy-paste UI** | Identical components, hooks, or form fields across screens |
+| **Over-engineering** | Layers without reuse; abstractions before third use case |
+| **Half migration** | Old path still called beside new; staged pieces of same refactor |
+| **Dead code** | Unreachable paths, legacy shims, no-op variables after refactors |
+| **Naming & control flow** | `temp` / `data` vs conventions; nested ternaries or clever one-liners |
+
+Oversized modules/files without domain justification (signal only — change-sizing gates live in delivery review).
+
+**Accessibility** (when UI — tag findings `architecture`)
+
+- Interactive controls without keyboard path or accessible name
+- Meaningful images/icons without text alternative
+- Modals/focus traps without escape; state conveyed by color alone
+- Forms without labels/errors associated for assistive tech
 
 ## 6 dependencies & migrations
 
@@ -102,6 +124,13 @@ Absorbs legacy `sdd-architect` signals plus agent-skills **readability** and **a
 - Missing scripts for test, lint, or common maintainer tasks
 - Slow CI without proportionate value; flaky jobs
 - Cannot run the standard verification story locally (test/lint/typecheck as documented in repo guidance)
+
+**Operations** (tag findings `experience`)
+
+- Deploy, rollback, or incident runbook missing/stale for changed surfaces
+- New services without health/readiness probes or documented on-call path
+- Risky launches without feature flags, kill switches, or staged rollout notes
+- CI/CD gaps: migration order, blue/green, or backout not documented when needed
 
 ## 8 docs
 

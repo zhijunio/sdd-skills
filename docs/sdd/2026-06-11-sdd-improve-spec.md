@@ -6,9 +6,9 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 
 ## Scope
 
-- Add `skills/sdd-improve/` with `SKILL.md` and bundled `references/` (`audit-playbook.md`, `finding-format.md`, `profile-guide.md`, `closing-the-loop.md`).
+- Add `skills/sdd-improve/` with `SKILL.md` and bundled `references/` (`audit-dimensions.md`, `finding-format.md`, `profile-guide.md`, `closing-the-loop.md`).
 - **`sdd-improve`** replaces **`sdd-architect`** (breaking rename); **`skills/sdd-architect/`** removed after user-confirmed migration (AC-14, done).
-- Update **`using-sdd`**, **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`tests/check.py`**, **`CHANGELOG.md`**, and **`docs/design/project-decisions.md`**.
+- Update **`using-sdd`**, **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`tests/check.py`**, **`CHANGELOG.md`**, and **`docs/design/software-engineering-rationale.md`** (as needed).
 - Keep the core loop unchanged: `using-sdd → (optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`.
 - Record upstream playbook attribution in **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`** only — **`sdd-improve` skill text does not reference other improve packages**.
 
@@ -46,17 +46,7 @@ Consumers can run an optional **`sdd-improve`** satellite that performs a read-o
 
 ### Disambiguation (normative)
 
-**Canonical names:** **opportunity scan** (`sdd-improve`) vs **delivery review** (`sdd-review`). Normative table lives in **`using-sdd` — Disambiguation**. Skill text **English only**.
-
-| | **Opportunity scan** `sdd-improve` | **Delivery review** `sdd-review` |
-| --- | --- | --- |
-| Question | What opportunities or problems exist? | Does **this increment** meet spec/plan and ship? |
-| Scope | **Whole repo** or **branch** vs merge-base (+ context in touched areas) | **Increment diff** only (defined range; default `merge-base…HEAD`) |
-| Criteria | Leverage, categories 1–9 | Spec / plan / **AC** |
-| Outcome | **Findings report** — user **selects** follow-ups | **Delivery verdict** — pass / must-fix / should-fix → **`sdd-ship`** |
-| Timing | Exploratory — health check, before/without a defined increment | After **`sdd-build`**, before ship |
-| Branch | Tags **`introduced`** and **`pre-existing`** in touched files | Only defects **introduced or worsened** by this diff |
-| Unique | experience (7), direction (9); no Simplify | AC mapping, **Simplify** pass |
+**Canonical names:** **opportunity scan** (`sdd-improve`) vs **delivery review** (`sdd-review`). **Normative pairing table:** [`using-sdd` — Disambiguation](../../skills/using-sdd/SKILL.md#disambiguation) — do not duplicate in skill bodies; **`sdd-improve`** / **`sdd-review`** `SKILL.md` link there only. Skill text **English only**.
 
 **Routing heuristic** (`using-sdd`): PR / plan / AC / ship / merge / deliver → **delivery review**; health check / audit / architecture debt without delivery context → **opportunity scan**; before PR + plan/ship → **delivery review**; before PR + risks/opportunities → **opportunity scan**.
 
@@ -123,8 +113,8 @@ When the user says **"review"** without **increment diff** and delivery context,
 ### Bundled references
 
 15. `references/profile-guide.md` — optional Profile format, skip rules, and **natural-language intent → scope** mapping. Effort table in **`SKILL.md` Process** (mirrors improve Phase 2). **No Simplify naming.**
-16. `references/audit-playbook.md` — condensed per-category checklist; category 5 includes over-engineering and duplication checks; upstream attribution in repo **`THIRD_PARTY_NOTICES.md`** only.
-17. `references/finding-format.md` — **🔴/🟡/🟢** severity groups + emoji grading + **Verify** rules. **`sdd-review`** mirror: `skills/sdd-review/references/finding-format.md` (no Strengths section).
+16. `references/audit-dimensions.md` — condensed per-category checklist (pairs with **`sdd-review`** `review-dimensions.md`); category 5 includes over-engineering and duplication checks; upstream attribution in repo **`THIRD_PARTY_NOTICES.md`** only.
+17. `references/finding-format.md` — **🔴/🟡/🟢** severity groups + emoji grading + **Verify** rules; report skeleton **Context → Findings → Coverage → Follow-up** (same subsection names as delivery review; each skill self-contained).
 18. `references/closing-the-loop.md` — advisor role; SDD follow-through (layout mirrors improve `closing-the-loop.md`); **no cross-reference** to other improve skill packages.
 19. **`SKILL.md`** — concise **Disambiguation** vs **`sdd-review`** (per normative table above); ≤90 lines total.
 
@@ -236,7 +226,7 @@ None.
 - 2026-06-11: Post–**机会扫描** trial — sync Current Context, integration requirements, and AC wording after architect removal; README install note for pre-tag **`sdd-improve`**.
 - 2026-06-11: Report — **Scope** only (Profile merges in); findings **list** not table; categories **architecture** (5), **experience** (7).
 - 2026-06-11: `references/closing-the-loop.md` — advisor role; SDD follow-through (mirrors improve file layout; no `execute`/`plans/` port).
-- 2026-06-11: `audit-playbook` — read-only rules (no mutating commands); parallel subagent caps ≤4/≤8 (improve effort table).
+- 2026-06-11: `audit-dimensions` — read-only rules (no mutating commands); parallel subagent caps ≤4/≤8 (improve effort table).
 - 2026-06-11: **Scope** — in-scope categories only; skips in **Recon — Not audited** (remove Scope **Skipped**).
 - 2026-06-11: **Standalone satellite** — `closing-the-loop.md` routes **SDD loop** only.
 - 2026-06-11: Skill text **English only**; **opportunity scan** / **delivery review**; Recon **Not audited** (no Scope Skipped).

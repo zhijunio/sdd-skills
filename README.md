@@ -48,7 +48,7 @@ The **core delivery loop** has seven stages below. **`sdd-improve`** and **`sdd-
 | `sdd-spec` | A durable behavior contract and acceptance criteria are needed |
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |
-| `sdd-review` | **Delivery review** — increment diff needs delivery verdict (AC, tests, Simplify)—not **opportunity scan** |
+| `sdd-review` | **Delivery review** — increment diff needs delivery verdict (AC, tests, architecture)—not **opportunity scan** |
 | `sdd-ship` | A reviewed increment needs final acceptance evidence |
 
 ### Optional satellites
@@ -147,7 +147,7 @@ of the default two-document workflow.
 Stable domain terminology may live in `CONTEXT.md` at the project root (single
 domain) or in `docs/context/<domain>/CONTEXT.md` (multi-domain). Spec **Current Context** records increment facts for this change; reference shared
 terms from CONTEXT instead of repeating them. Optional — see
-[context-adr-workflow](docs/design/context-adr-workflow.md).
+[software-engineering-rationale §4.1](docs/design/software-engineering-rationale.md#41-可选-context-与-adr).
 
 ## Review Scope
 
@@ -178,7 +178,7 @@ templates, and local links without third-party Python dependencies.
 - Review stays read-only.
 - Ship verifies; it does not silently publish.
 
-Design docs: [docs/design/](docs/design/) — [project-decisions](docs/design/project-decisions.md) · [Methodology](docs/design/software-engineering-rationale.md) · [Upstream](docs/design/upstream-engineering-rationale.md).
+Design docs: [docs/design/](docs/design/) — [Methodology](docs/design/software-engineering-rationale.md) · [Upstream](docs/design/upstream-engineering-rationale.md).
 
 ## Sources
 
