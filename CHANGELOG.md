@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`AGENTS.md`**: regenerated maintainer guidelines; **`SOURCES.md`**: per-skill **Present** / **Stop** aligned with `SKILL.md`
 - **`engineering-rationale.md`**: compressed; governance aligned to consumer spot-check (no consumer-loops archive)
 - **`README.md`**: workflow diagram fix; review vs improve table; Present/AGENTS/engineering-rationale links
+- **`engineering-rationale.md`**: expand prose (lists over tables) for readability after compression
 
 ## [0.3.0] - 2026-06-11
 
