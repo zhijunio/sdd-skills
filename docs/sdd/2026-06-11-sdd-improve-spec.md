@@ -226,3 +226,4 @@ None.
 - 2026-06-11: Findings **🔴/🟡/🟢** severity; shared list-block format with **`sdd-review`**; effort table in **`SKILL.md` Process**; **`sdd-review`** drops **Strengths** section.
 - 2026-06-11: **Withdrawn AC-10** and requirement **22** — `tests/check.py` and GitHub Actions **`check`** workflow removed; maintainer acceptance via **consumer loop** runbooks; doc drift cleanup in references and CHANGELOG `[Unreleased]`.
 - 2026-06-11: **`SKILL.md` compressed** — one-line Process + references links; Stop Common routes; Red flags trimmed; details unchanged in `references/`.
+- 2026-06-11: **`finding-format.md` compressed** — required content + severity tables retained; full example replaced with minimal optional skeleton (~20 lines); Follow-up routing defers to `closing-the-loop.md`; no AC change.
