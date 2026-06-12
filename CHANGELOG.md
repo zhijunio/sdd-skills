@@ -10,13 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Optional pre-loop satellite **`sdd-worktree`** — explicit `@` git isolation (worktree or topic branch); experimental until consumer spot-check recorded below
+- Optional post-loop satellite **`sdd-publish`** — explicit `@` remote integration (push / PR / merge / tag / release) after ship; experimental until consumer spot-check recorded below
 
 ### Changed
 
-- **Nine skills** — README/AGENTS/SOURCES/engineering-rationale §3.3; CI `validate` counts nine `SKILL.md` files
+- **Ten skills** — README/AGENTS/SOURCES/engineering-rationale §3.3; CI `validate` counts ten `SKILL.md` files; README Mermaid post-loop edge `sdd-ship` → `sdd-publish`
 - **`sdd-spec` / `sdd-grill`**: **When/Skip** cross-link to **`sdd-worktree`**
+- **`sdd-ship`**: **Stop** / **SDD** hand off to **`sdd-publish`** when user separately requests integration
 
-**Spot-check (2026-06-12):** maintainer self-trial in this repo as consumer git workspace — evaluation order, Present/confirm gate, conflict/weak-isolation rules, and `sdd-spec` hand-off path reviewed against spec; no blocking friction. **`sdd-worktree` remains experimental** until a separate consumer-repo increment is recorded before recommended pin bump.
+**Spot-check (2026-06-12, `sdd-worktree`):** maintainer self-trial in this repo as consumer git workspace — evaluation order, Present/confirm gate, conflict/weak-isolation rules, and `sdd-spec` hand-off path reviewed against spec; no blocking friction. **`sdd-worktree` remains experimental** until a separate consumer-repo increment is recorded before recommended pin bump.
+
+**Spot-check (2026-06-12, `sdd-publish`):** maintainer self-trial against `skills/sdd-publish/SKILL.md` — gates, step menu, push-only subset, no-`gh` PR Present, CI/merge gate, sync-default-before-tag, CHANGELOG version resolution, and `sdd-ship` hand-off reviewed against spec; no blocking friction. **`sdd-publish` remains experimental** until a separate consumer-repo integration run is recorded before recommended pin bump.
 
 ## [0.3.1] - 2026-06-11
 
