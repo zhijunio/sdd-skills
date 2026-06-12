@@ -125,7 +125,9 @@ Non-interactive example:
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-**Recommended pin** — latest tagged release (`v0.3.1`, eight skills):
+**Default branch** — ten skills (includes experimental **`sdd-worktree`** and **`sdd-publish`**); see [Unreleased](CHANGELOG.md#unreleased).
+
+**Recommended pin** — latest tagged release (`v0.3.1`, eight skills — bump pin when tagging a release that includes new satellites):
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills@v0.3.1 -a cursor -a codex -a claude-code -y
@@ -159,7 +161,8 @@ npx skills@latest add zhijunio/sdd-skills -s sdd-spec -s sdd-plan -y
 Add satellites only:
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s sdd-improve -s sdd-zoom -y
+npx skills@latest add zhijunio/sdd-skills \
+  -s sdd-worktree -s sdd-publish -s sdd-improve -s sdd-zoom -y
 ```
 
 List without installing: `npx skills@latest add zhijunio/sdd-skills --list`

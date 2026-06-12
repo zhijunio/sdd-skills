@@ -9,7 +9,7 @@ NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 
 Before claiming done: identify proving command → run fresh → read full output → verify claim.
 
-**When:** after `sdd-review` — no unresolved must-fix; should-fix fixed or explicitly accepted. **Not for:** fixing review findings (→ `sdd-build`).
+**When:** after `sdd-review` — no unresolved must-fix; should-fix fixed or explicitly accepted. **Not for:** fixing review findings (→ `sdd-build`); remote integration after ship (→ [`sdd-publish`](../sdd-publish/SKILL.md)).
 
 Require spec, plan, reviewed diff, and review outcome.
 

@@ -49,4 +49,4 @@ Optional pre-loop satellite — isolate git context before the six-stage loop. *
 
 **Red flags:** mutating git before confirm; skipping evaluation order; auto-chaining next skill; path conflict → silent branch fallback; treating worktree as ship gate; spec/plan/code in-session; cleaning dirty tree or deleting worktrees for the user.
 
-**SDD:** maintainer-authored; explicit `@` only — not superpowers auto-worktree. Contract: `docs/sdd/2026-06-12-sdd-worktree-spec.md`.
+**SDD:** maintainer-authored; explicit `@` only — not superpowers auto-worktree. Contract: `docs/sdd/2026-06-12-sdd-worktree-spec.md`. Experimental optional satellite until consumer spot-check in [CHANGELOG](../../CHANGELOG.md).
