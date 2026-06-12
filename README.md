@@ -1,6 +1,6 @@
 # SDD Skills
 
-Lightweight, platform-neutral skills for spec-driven development — **eight skills**, six-stage delivery loop, two optional satellites.
+Lightweight, platform-neutral skills for spec-driven development — **nine skills**, six-stage delivery loop, three optional satellites (one pre-loop).
 
 The repository keeps useful SDD discipline without a state machine, project manager, or Git workflow framework.
 
@@ -33,6 +33,7 @@ Six principles in three layers — **shape** (what the repo is), **delivery** (h
 
 ```mermaid
 flowchart TD
+  W[sdd-worktree]
   G[sdd-grill]
   subgraph satellites["Optional satellites"]
     Z[sdd-zoom]
@@ -45,6 +46,8 @@ flowchart TD
   R -->|must-fix / should-fix| B
   R -->|pass| SH[sdd-ship]
 
+  W --> S
+  W --> G
   G --> S
   G -.->|plan/design decisions| P
   Z --> S
@@ -54,12 +57,13 @@ flowchart TD
 
 **Explicit stages:** one stage output → **Stop** → hand off; user **`@`** the next skill.
 
+- **`sdd-worktree`** — optional **pre-loop** git isolation (worktree or topic branch) before spec; experimental until [CHANGELOG](CHANGELOG.md) spot-check passes.
 - **`sdd-grill`** — optional clarify before spec or plan (one question at a time); may hand off to **`sdd-plan`** when plan/design still needs decisions.
 - **`sdd-zoom`** / **`sdd-improve`** — optional satellites; neither is mandatory before ship.
 
 ## Skills
 
-Eight skills under `skills/<name>/`. Instructions **English**; deliverables follow the user's language (**Present** hard rule in each `SKILL.md`).
+Nine skills under `skills/<name>/`. Instructions **English**; deliverables follow the user's language (**Present** hard rule in each `SKILL.md`).
 
 ### Core loop
 
@@ -76,6 +80,7 @@ Eight skills under `skills/<name>/`. Instructions **English**; deliverables foll
 
 | Skill | Use when |
 | --- | --- |
+| `sdd-worktree` | **Pre-loop** — isolate git context (worktree or topic branch) before spec; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
 | `sdd-zoom` | Unfamiliar code — **territory map** (modules, callers, domain vocabulary); not refactor findings |
 | `sdd-improve` | **Opportunity scan** — read-only audit / health check (findings report); not **delivery review** |
 
@@ -94,7 +99,7 @@ Pairing is **When/Skip** cross-links in each skill — do not substitute one for
 
 | Skill | Requires |
 | --- | --- |
-| `sdd-grill`, `sdd-spec`, `sdd-zoom`, `sdd-improve` | — |
+| `sdd-worktree`, `sdd-grill`, `sdd-spec`, `sdd-zoom`, `sdd-improve` | — |
 | `sdd-review` | Increment diff (spec/plan improve traceability) |
 | `sdd-plan` | Approved spec |
 | `sdd-build` | Approved spec + plan |

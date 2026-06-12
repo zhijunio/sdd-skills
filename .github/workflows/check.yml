@@ -14,5 +14,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Eight skills present
-        run: test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 8
+      - name: Nine skills present
+        run: test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 9

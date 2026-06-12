@@ -5,7 +5,7 @@ description: Use when a software change needs a durable behavior contract, scope
 
 Write a structured specification before writing any code. The spec is the shared source of truth — what we're building, why, and how we'll know it's done. Concise; no file-by-file implementation prescription.
 
-**When:** new feature, bug fix, migration, or meaningful behavior change with sufficiently clear intent; or in-place revision when AC/constraints change during plan/build/review. **Skip:** open design directions (`sdd-grill`); implementation tasks.
+**When:** new feature, bug fix, migration, or meaningful behavior change with sufficiently clear intent; or in-place revision when AC/constraints change during plan/build/review. **Skip:** open design directions (`sdd-grill`); implementation tasks; need isolated git context first → [`sdd-worktree`](../sdd-worktree/SKILL.md).
 
 Read repository guidance, relevant code/docs, and any `sdd-grill` Stop summary from the conversation. Ask only for decisions not discoverable locally.
 

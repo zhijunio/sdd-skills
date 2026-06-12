@@ -8,7 +8,7 @@ Platform-neutral **SDD stage skills** for consumer projects. Runtime contracts: 
 
 ## Layout
 
-- **Eight skills** under `skills/*/SKILL.md` — six core loop + optional **`sdd-improve`** and **`sdd-zoom`**.
+- **Nine skills** under `skills/*/SKILL.md` — six core loop + optional **`sdd-worktree`** (pre-loop), **`sdd-improve`**, and **`sdd-zoom`**.
 - Self-contained per skill; bundled `references/` only inside that skill directory.
 - Default consumer artifacts: `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` only — no central routing doc, runtime state files, hooks, slash commands, or platform manifests in this repo.
 
@@ -23,8 +23,8 @@ Platform-neutral **SDD stage skills** for consumer projects. Runtime contracts: 
 ## Maintainer changes
 
 - Update [SOURCES.md](SOURCES.md) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) when upstream-derived behavior changes.
-- **No** `tests/check.py`. Minimal CI job **`validate`** (`.github/workflows/check.yml`) counts eight skills on PRs to `main` — branch protection only, not skill-behavior validation.
+- **No** `tests/check.py`. Minimal CI job **`validate`** (`.github/workflows/check.yml`) counts nine skills on PRs to `main` — branch protection only, not skill-behavior validation.
 - **Material** skill or behavior changes: spot-check in a **consumer repo** (reinstall pinned tag, run one increment). Note user-visible friction in PR or [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
-- Before merge: eight skills present; **`sdd-improve`** / **`sdd-review`** references intact; spot-check Markdown links you edit. Details: [README — Maintainer verification](README.md#maintainer-verification).
+- Before merge: nine skills present; **`sdd-improve`** / **`sdd-review`** references intact; spot-check Markdown links you edit. Details: [README — Maintainer verification](README.md#maintainer-verification).
 - Do not add core stages, state fields, or ceremony without consumer evidence.
 - `main` integrates via PR; preserve third-party notices.

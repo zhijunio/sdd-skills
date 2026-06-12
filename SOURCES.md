@@ -1,6 +1,6 @@
 # Upstream Sources
 
-Snapshot date: 2026-06-11（upstream pin commits 未变；八 skill **Present** locale 硬约束；**`sdd-improve`** / **`sdd-review`** references 压短）
+Snapshot date: 2026-06-12（upstream pin commits 未变；九 skill 含 **`sdd-worktree`** maintainer-authored）
 
 ## Repositories
 
@@ -25,10 +25,10 @@ Principles (six): [README — Core principles](README.md#core-principles) — sh
 This repository ships a **minimal SDD stage set**, not a mirror of the upstream catalogs.
 
 - **Six core skills cover the delivery loop:** (optional) clarify → spec → plan → build → review → ship. User **`@`** the stage skill directly.
-- **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no worktrees, no auto-chaining, no state files).
+- **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no auto worktree orchestration, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` covers decision interviews before spec or plan; the required artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** `sdd-improve` (codebase audit) and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
+- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), `sdd-improve` (codebase audit), and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
 
 For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve/review details in `finding-format.md` **Report locale**.
 
@@ -135,6 +135,19 @@ Local decisions:
 - Require explicit diff range; a repository path alone is insufficient.
 - **`SKILL.md`** — code-review-quality + requesting-code-review @ pin; **Present** + scope in [scope.md](skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md` (delivery gate).
 - Delivery verdict → **`sdd-build`** or **`sdd-ship`**; full verification in **`sdd-ship`**.
+
+### `sdd-worktree`
+
+Sources:
+
+- **Maintainer-authored** — no upstream pin; fused idea from explicit user `@` git isolation, distinct from superpowers auto-worktree orchestration (thrown per engineering-rationale §3.2).
+
+Local decisions:
+
+- **`SKILL.md`** — evaluation order, Present → confirm → mutating git, weak-isolation branch fallback, conflict stop rules; contract `docs/sdd/2026-06-12-sdd-worktree-spec.md`.
+- **Thrown:** superpowers session worktree chains, Git hooks, worktree lifecycle cleanup, delivery-gate usage.
+- **Present:** user's language. **Stop:** default **`sdd-spec`**; **`sdd-grill`** when intent still vague after slug-default topic only.
+- **When/Skip** cross-links with **`sdd-spec`** and **`sdd-grill`** only.
 
 ### `sdd-ship`
 
