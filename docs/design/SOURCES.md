@@ -179,5 +179,5 @@ Local decisions:
 
 Compare each recorded commit with the current upstream branch. Review only
 behavior relevant to the mapped local skill, decide manually whether to absorb
-it, then update the skill, [SOURCES.md](SOURCES.md) snapshot, spot-check in a consumer repo when material, and commit together.
+it, then update the skill, [SOURCES.md](SOURCES.md) snapshot, try in conversation or maintainer self-trial when material, and commit together.
 

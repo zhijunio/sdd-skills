@@ -30,8 +30,7 @@
 
 - 现有 **八 skill** 叙事：六段核心环 + `sdd-zoom` + `sdd-audit`；Markdown skills，无 Git hook / 运行时状态文件。
 - [engineering-rationale §3.2](../../docs/design/engineering-rationale.md) 记录：**扔掉**的是 superpowers 的**自动** worktree 编排，而非「用户显式 `@` 的轻量开工隔离」。
-- 新增第 9 个目录会触发 CI `validate` 计数、README/AGENTS/SOURCES/engineering-rationale 同步——列入本 spec 的交付范围。
-- **Consumer evidence（治理）：** 发版 pin 前须在消费者仓库完成一次 spot-check（README [Maintainer verification](../../README.md#maintainer-verification)）；当前为**待验证假设**，见 Open Questions。
+- 新增第 9 个目录须同步 README/AGENTS/SOURCES/engineering-rationale——列入本 spec 的交付范围。
 
 **技能运行时（用户的目标 git 仓库）**
 
@@ -79,7 +78,7 @@
 - AC-8: 当用户未先走 `sdd-grill` 时，技能仍可独立完成探测、Present、确认后执行。
 - AC-9: 当 `<prefix>/<topic>` 已存在或 worktree 目标路径已占用时，技能不覆盖、不自动回退 branch，并按 Req §10 按场景 Present 选项（路径-only 冲突时不出现「复用分支」）。
 - AC-10: 当隔离上下文创建成功后，技能 **Stop**；若用户**未提供**可识别需求描述（无主题句、无 fix/docs 关键词）**且** `topic` 为 slug 兜底值、Present 时用户仅回复「确认」而未改 topic，则 hand off `sdd-grill`；否则 hand off `sdd-spec`。
-- AC-11: 当本变更合并入 `sdd-skills` 时，README（九 skill 叙事 + pre-loop 卫星图）、AGENTS、SOURCES、engineering-rationale（§3.3 增 `sdd-worktree` 映射）、CHANGELOG `[Unreleased]` 与 CI `validate` skill 计数均已更新。
+- AC-11: 当本变更合并入 `sdd-skills` 时，README（九 skill 叙事 + pre-loop 卫星图）、AGENTS、SOURCES、engineering-rationale（§3.3 增 `sdd-worktree` 映射）、CHANGELOG `[Unreleased]` 均已更新。
 - AC-12: `skills/sdd-worktree/SKILL.md` 指令为 English，含 **Present** 硬约束，且含 **When/Skip** 与 `sdd-spec` / `sdd-grill` 互链。
 - AC-13: 当用户未明确确认时，技能不执行任何 mutating git 命令，仅完成 Req §1 的只读探测与 Req §13 的 Present（含可改 prefix/topic/路径与非标准基线说明）。
 - AC-14: 技能行为遵循 Constraints「评估顺序」；任一步 hard stop 后不得跳过前置检查执行后续步骤。
@@ -100,7 +99,6 @@
   7. Stop → AC-10 hand off。
 - worktree 默认命令形态：`git worktree add -b <prefix>/<topic> <path> <baseline>`（`<baseline>` 为 Req §5–§6 识别的分支；`<path>` 中 `<repo-basename>` 为原始 basename）。
 - 用户确认：明确肯定（确认、好的、yes、go 或等价短句）后方可执行 mutating 命令。
-- 发版前须完成消费者 spot-check；未验证前 changelog 标为 experimental 可选卫星（见 Open Questions）。
 
 ## Decisions
 
@@ -116,10 +114,11 @@
 
 ## Open Questions
 
-- **OQ-1（consumer evidence）：** 是否在消费者仓库完成 spot-check 后再标为 recommended satellite？计划阶段定验证记录落点（PR 链接或 CHANGELOG 一句）。不阻塞 plan；阻塞 recommended pin 发版。
+- ~~**OQ-1（consumer evidence）：**~~ **Closed (2026-06-25):** 不要求独立消费者仓库 spot-check；maintainer 在本仓 self-trial + CHANGELOG 记录即可。
 
 ## Revision log
 
 - 2026-06-12 | 三轮评审：§3/§10 路径冲突拆清；评估顺序；basename 原始 vs topic slug；AC 重编号 | plan 可启动
 - 2026-06-12 | 四轮 should-fix：路径相对 toplevel；Present 可改字段；前缀覆盖；AC-11 交付清单；AC-13/14；When/Skip；AC-10 示例 | AC 增至 14 条
 - 2026-06-12 | 五轮 should-fix：§10 冲突选项按场景裁剪；§6 基线与 §15 同轮确认；AC-5/9/13 对齐 | 无 AC 编号变更
+- 2026-06-25 | OQ-1 闭合：不要求独立消费者仓库 spot-check | experimental 门禁移除

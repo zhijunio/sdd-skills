@@ -43,7 +43,7 @@ Agent 能写代码，但常见四类问题：
 #### 治理（维护者怎么演进）
 
 - **借鉴不重造** — 上游 @ pin 处 verbatim + 最小 SDD 尾；融合取用，不镜像 catalog。目的是借成熟纪律，但不维护第二套 superpowers 克隆仓。
-- **拒绝空转** — 无 consumer 证据不加 core 阶段或状态字段；实质变更在 consumer 项目 spot-check。目的是版本与 skill 文本的演进跟真实摩擦挂钩，而不是 maintainer 自嗨 dogfood。
+- **拒绝空转** — 无证据不加 core 阶段或状态字段；实质变更须可验证（会话试用或 maintainer 自检），不要求独立消费者仓库 spot-check。
 
 ---
 
@@ -289,7 +289,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 > superpowers **阶段纪律与证据链** + agent-skills **生命周期与审阅轴** + matt **采访、地图与架构词汇** + zhijunio **codebase-audit MECE 体检**，减去 **自动编排、平台锁、独立 Simplify、体检当 verify 门禁**。
 
-上游升级时：只 diff 相关 commit 片段 → 更新 `SKILL.md` / `references/`、`docs/design/SOURCES.md` → material 变更后 consumer spot-check → 再改本节。
+上游升级时：只 diff 相关 commit 片段 → 更新 `SKILL.md` / `references/`、`docs/design/SOURCES.md` → material 变更后 maintainer 自检或会话试用 → 再改本节。
 
 ---
 
@@ -310,7 +310,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 ## 5. 延伸阅读
 
 - [SOURCES.md](./SOURCES.md) · [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) · [AGENTS.md](../../AGENTS.md)
-- [README — Skills](../../README.md#skills) · [Maintainer verification](../../README.md#maintainer-verification)
+- [README — Skills](../../README.md#skills) · [AGENTS.md](../../AGENTS.md)（维护者清单）
 - [sdd-audit](../../skills/sdd-audit/SKILL.md) / [sdd-review](../../skills/sdd-review/SKILL.md) — When/Skip
 - [docs/design/README.md](./README.md)
 

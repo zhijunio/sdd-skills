@@ -88,4 +88,4 @@ When `[Unreleased]` is empty and user-visible impact is likely → **Present** g
 
 **Red flags:** mutating git/gh before per-step confirm; skipping gates; auto-chaining merge → tag → release; CI babysit loops; force push; pushing new work from `main`; claiming PR/release created when `gh` unavailable; editing CHANGELOG or README pin without confirm; treating publish as verify or review gate; hard-blocking push/PR because verify summary absent; tag/release with empty `[Unreleased]` when user-visible impact exists without Present gap.
 
-**SDD:** maintainer-authored; explicit `@` only — not superpowers auto-release. Contract: `docs/sdd/2026-06-12-sdd-publish-spec.md`. Experimental optional satellite until consumer spot-check in [CHANGELOG](../../CHANGELOG.md).
+**SDD:** maintainer-authored; explicit `@` only — not superpowers auto-release. Contract: `docs/sdd/2026-06-12-sdd-publish-spec.md`.

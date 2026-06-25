@@ -6,9 +6,8 @@
 
 ## Risks / Dependencies
 
-- 本仓无 `tests/check.py`；行为验收靠 **SKILL.md 自检清单 + 手动 git/gh 场景**（在 `sdd-skills` 或消费者仓库）。
-- Slice 9 改 `.github/workflows/check.yml` skill 计数 9→10；须与 Slice 1 同 PR 合并，否则 CI 红。
-- OQ-1：recommended pin 发版前须 Slice 10 consumer spot-check；未做前 CHANGELOG 标 **experimental optional satellite**。
+- 本仓无 `tests/check.py`；行为验收靠 **SKILL.md 自检清单 + 手动 git/gh 场景**（可在本仓或任意 git 仓库）。
+- OQ-1 **已闭合**：不要求独立消费者仓库 spot-check；maintainer self-trial + CHANGELOG 记录即可。
 - `sdd-verify` **Stop** hand off 在 Slice 8 改，避免 ship 仍只写「no push」而无 publish 指针。
 - 含 `gh` 的步骤（PR/CI/merge/release）在 CI 环境可能无 token — 验收以 Present 降级路径 + 本地有 `gh` 场景为主。
 
@@ -154,17 +153,16 @@
 - Verification: `test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10`；`rg -q 'sdd-publish' README.md AGENTS.md docs/design/SOURCES.md docs/design/engineering-rationale.md`
 - Done: true
 
-## Slice 10: Consumer spot-check（闭合 OQ-1）
+## Slice 10: Maintainer self-trial（闭合 OQ-1）
 
-- Goal: 在消费者 git 仓库跑通 publish 子集（至少 push + PR Present），记录摩擦；决定是否标 non-experimental。
-- Acceptance: OQ-1（spec Open Questions）
+- Goal: 在本仓对照 `SKILL.md` 跑通 publish 子集（至少 push + PR Present），记录摩擦。
+- Acceptance: OQ-1 closed — no separate consumer-repo gate
 - Depends on: Slice 2–9 合并后
-- Test or proof: 消费者仓库内 `@sdd-publish`（ship 已过的模拟上下文）→ 门禁 → Present push/PR → 无阻断摩擦。
+- Test or proof: 门禁 → Present push/PR → 无阻断摩擦。
 - Implementation outline:
-  - 选任意本地消费者 git 仓库（**不**写死项目名）。
   - 记录：步骤菜单、Present 清晰度、`gh` 降级是否合理。
-  - 更新 `CHANGELOG.md` `[Unreleased]` 一句 spot-check 结论；未通过则保持 experimental，不 bump README recommended pin。
-- Verification: CHANGELOG 含 spot-check 记录；[README — Maintainer verification](../../README.md#maintainer-verification) 清单可勾选
+  - 更新 `CHANGELOG.md` `[Unreleased]` spot-check 一句。
+- Verification: CHANGELOG 含 spot-check 记录
 - Done: true
 
 ---
@@ -172,7 +170,7 @@
 ## Ship
 
 - 全片 `Done: true` 后 → `@sdd-review`（本 increment diff）→ `@sdd-verify`。
-- 发版 pin：**待 OQ-1 通过**；否则仅合并 main，tag 延后或保持 experimental（与 CHANGELOG 一致）。
+- 发版 pin：按 CHANGELOG / 用户确认；无独立消费者仓库门禁。
 
 ## Verified slices (build 时追加)
 

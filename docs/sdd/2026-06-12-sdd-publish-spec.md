@@ -6,7 +6,7 @@
 
 ## Scope
 
-- 在 `skills/sdd-publish/` 新增 **post-loop 可选卫星**（与 `sdd-worktree` pre-loop 对称）；初版标 **experimental optional satellite**（OQ-1 spot-check 通过前）；**不**并入六段核心环，**不**自动链下一 skill。
+- 在 `skills/sdd-publish/` 新增 **post-loop 可选卫星**（与 `sdd-worktree` pre-loop 对称）；**不**并入六段核心环，**不**自动链下一 skill。
 - 技能仅在用户 **`@` 触发**且声明集成意图（push、PR、merge、发版等）后运行。
 - **流水线步骤**（用户可点名子集；默认不连做 merge/tag/release）：
   1. **门禁** — 只读探测前置条件（Req §2）；
@@ -20,7 +20,7 @@
   9. **可选 README pin** — 仅当仓库存在「Recommended pin」类段落且用户确认时更新。
 - **执行模式：** 每步 **Present** 命令、目标与风险 → **单步确认** → 再执行该步 mutating 命令；未确认前仅只读探测。
 - 成功后 **Stop**；无默认下一 skill（集成完成）。
-- 合并本技能后同步 `sdd-verify` **Stop** hand off、README（含 Mermaid post-loop 节点）、AGENTS、SOURCES、engineering-rationale、CI `validate` 计数（见 AC-13）。
+- 合并本技能后同步 `sdd-verify` **Stop** hand off、README（含 Mermaid post-loop 节点）、AGENTS、SOURCES、engineering-rationale（见 AC-13）。
 
 ## Non-goals
 
@@ -34,10 +34,9 @@
 
 **技能载体（本仓库 sdd-skills）**
 
-- 现有 **九 skill**（含 experimental `sdd-worktree`）：六段核心环 + **四颗**可选卫星（`sdd-worktree` pre-loop、`sdd-publish` 待增 post-loop、`sdd-zoom`、`sdd-audit`）；`sdd-verify` 明确 **No push, PR, publish, or deploy unless separately requested**。
+- 现有 **九 skill**（含 `sdd-worktree`）：六段核心环 + **四颗**可选卫星（`sdd-worktree` pre-loop、`sdd-publish` 待增 post-loop、`sdd-zoom`、`sdd-audit`）；`sdd-verify` 明确 **No push, PR, publish, or deploy unless separately requested**。
 - Grill 共识（2026-06-12）：集成阶段独立 `sdd-publish`，非扩写 `sdd-verify`；常见在 verify 之后，但**非硬前置**。
-- 新增第 10 个目录将触发 CI `validate` 计数、治理文档同步——列入本 spec 交付（AC-13）。
-- **Consumer evidence：** 发版 recommended pin 前须 spot-check；见 Open Questions。
+- 新增第 10 个目录须同步治理文档——列入本 spec 交付（AC-13）。
 
 **技能运行时（目标 git 仓库）**
 
@@ -89,7 +88,7 @@
 - AC-10: 当用户未对某步逐步确认时，技能不执行该步 mutating git/gh 命令。
 - AC-11: 当用户确认 CHANGELOG 升格时，技能将 `[Unreleased]` 改为 `[vX.Y.Z] - <date>` 且仅在该步确认后写入文件。
 - AC-12: 当仓库含 recommended pin 段落且用户确认时，技能更新 pin 为新版 `vX.Y.Z`；未确认或不存在该段落则 skip。
-- AC-13: 当本变更合并入 `sdd-skills` 时，`sdd-verify` **Stop** 已 hand off `sdd-publish`；README（十 skill + Mermaid post-loop）、AGENTS、SOURCES、engineering-rationale §3.3、CI 计数（十 skill）、CHANGELOG `[Unreleased]` 已更新。
+- AC-13: 当本变更合并入 `sdd-skills` 时，`sdd-verify` **Stop** 已 hand off `sdd-publish`；README（十 skill + Mermaid post-loop）、AGENTS、SOURCES、engineering-rationale §3.3、CHANGELOG `[Unreleased]` 已更新。
 - AC-14: `skills/sdd-publish/SKILL.md` 为 English，含 **Present**、**When/Skip** 与 `sdd-verify` 互链，且含分步流水线、无 `gh` 降级与 merge 后同步默认分支说明。
 - AC-15: 技能行为遵循 Constraints「评估顺序」；门禁未过不得执行后续步骤；多步时顺序不颠倒（push 在 PR 前，merge 在 tag 前，同步默认分支在 tag 前）。
 - AC-16: 当无 verify 摘要时，技能**不得**因缺少 verify 而挡 push/PR；open PR / tag / release 前按 Req §3 **Present** 集成就绪探针与 CHANGELOG 缺口四路径；有用户可见影响且 `[Unreleased]` 空时 tag/release 不得静默继续。
@@ -105,7 +104,6 @@
   5. 全部完成 → **Stop**（集成结束）。
 - 禁止：force push、`git push --force`、推 `main` 上新 work、未确认 mutating、`git config` 修改。
 - 与 `sdd-verify` 分工：verify 产出验收摘要与 `[Unreleased]` 草案（可选）；publish 可消费后者用于 PR notes / tag / release，**不依赖** verify 会话。
-- 发版前 experimental 标注与 spot-check 见 Open Questions；未验证前 README recommended pin **不**自动 bump。
 
 ## Decisions
 
@@ -118,7 +116,7 @@
 
 ## Open Questions
 
-- **OQ-1（consumer evidence）：** 是否在非 maintainer 消费者仓库完成一次 publish 子集 spot-check（至少 push+PR Present）后再标 non-experimental？计划阶段定记录落点。不阻塞 plan；阻塞 recommended pin 发版。
+- ~~**OQ-1（consumer evidence）：**~~ **Closed (2026-06-25):** 不要求独立消费者仓库 spot-check；maintainer self-trial + CHANGELOG 记录即可。
 
 ## Revision log
 
@@ -128,3 +126,4 @@
 - 2026-06-25 | Verify readiness checklist：review/verify 门禁拆分、无 verify 摘要时 Present CHANGELOG 探针与四路径 | AC-16
 - 2026-06-25 | **Breaking rename:** `sdd-ship` → `sdd-verify`；`sdd-publish` 不变 | AC-13 交叉引用已更新
 - 2026-06-25 | 卫星独立：移除 verify/review 硬门禁；**Integration readiness** 仅 CHANGELOG 探针；无 verify 摘要不挡 push/PR | AC-16 修订
+- 2026-06-25 | OQ-1 闭合：不要求独立消费者仓库 spot-check | experimental 门禁移除

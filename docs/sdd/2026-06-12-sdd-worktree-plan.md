@@ -6,9 +6,8 @@
 
 ## Risks / Dependencies
 
-- 本仓无 `tests/check.py`；行为验收靠 **SKILL.md 自检清单 + 手动 git 场景**（在 `sdd-skills` 或消费者仓库）。
-- Slice 8 改 `.github/workflows/check.yml` skill 计数 8→9；须与 Slice 1 同 PR 合并，否则 CI 红。
-- OQ-1：recommended pin 发版前须 Slice 9 consumer spot-check；未做前 CHANGELOG 标 **experimental optional satellite**。
+- 本仓无 `tests/check.py`；行为验收靠 **SKILL.md 自检清单 + 手动 git 场景**（可在本仓或任意 git 仓库）。
+- OQ-1 **已闭合**：不要求独立消费者仓库 spot-check；maintainer self-trial + CHANGELOG 记录即可。
 - `sdd-spec` / `sdd-grill` 的 **When/Skip** 互链在 Slice 7 一并改，避免单边引用。
 
 ## AC 映射总览
@@ -137,17 +136,16 @@
 - Verification: `test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 9`；`rg -q 'sdd-worktree' README.md AGENTS.md docs/design/SOURCES.md docs/design/engineering-rationale.md`
 - Done: true
 
-## Slice 9: Consumer spot-check（闭合 OQ-1）
+## Slice 9: Maintainer self-trial（闭合 OQ-1）
 
-- Goal: 在消费者 git 仓库跑通一次完整 increment，记录摩擦；决定是否标 recommended satellite。
-- Acceptance: OQ-1（spec Open Questions）
+- Goal: 在本仓作为 git 工作区跑通 `@sdd-worktree` 路径，记录摩擦。
+- Acceptance: OQ-1 closed — no separate consumer-repo gate
 - Depends on: Slice 2–8 合并后
-- Test or proof: 消费者仓库内 `@sdd-worktree` → 确认 → 隔离上下文 → hand off `sdd-spec`；无阻断摩擦。
+- Test or proof: 本仓内 `@sdd-worktree` → 确认 → 隔离上下文 → hand off `sdd-spec`；无阻断摩擦。
 - Implementation outline:
-  - 选任意本地消费者 git 仓库（**不**写死项目名）。
   - 记录：Present 是否清晰、命令是否正确、hand off 是否合理。
-  - 更新 `CHANGELOG.md` `[Unreleased]` 一句 spot-check 结论；若未通过则保持 experimental，不更新 README recommended pin。
-- Verification: CHANGELOG 含 spot-check 记录；维护者清单勾选 [README — Maintainer verification](../../README.md#maintainer-verification)
+  - 更新 `CHANGELOG.md` `[Unreleased]` spot-check 一句。
+- Verification: CHANGELOG 含 spot-check 记录
 - Done: true
 
 ---
@@ -155,7 +153,7 @@
 ## Ship
 
 - 全片 `Done: true` 后 → `@sdd-review`（本 increment diff）→ `@sdd-verify`。
-- 发版 pin：**待 OQ-1 通过**；否则仅合并 main，tag 延后或标 pre-release/experimental（与 CHANGELOG 一致）。
+- 发版 pin：按 CHANGELOG / 用户确认；无独立消费者仓库门禁。
 
 ## Verified slices (build 时追加)
 

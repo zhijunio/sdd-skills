@@ -27,7 +27,7 @@ Six principles in three layers — **shape** (what the repo is), **delivery** (h
 | Principle | In practice |
 | --- | --- |
 | **Borrow, don't rebuild** | Pin upstream @ [SOURCES.md](docs/design/SOURCES.md); verbatim @ pin + minimal SDD tail; fuse ideas — don't mirror upstream catalogs |
-| **No empty ceremony** | No new core stages or state fields without consumer evidence; validate **material** skill changes by spot-checking in consumer repos |
+| **No empty ceremony** | No new core stages or state fields without evidence; note **material** skill friction in PR or CHANGELOG |
 
 ## Workflow
 
@@ -58,10 +58,10 @@ flowchart TD
 
 **Explicit stages:** one stage output → **Stop** → hand off; user **`@`** the next skill.
 
-- **`sdd-worktree`** — optional **pre-loop** git isolation (worktree or topic branch) before spec; experimental until [CHANGELOG](CHANGELOG.md) spot-check passes.
+- **`sdd-worktree`** — optional **pre-loop** git isolation (worktree or topic branch) before spec.
 - **`sdd-grill`** — optional clarify before spec or plan (one question at a time); may hand off to **`sdd-plan`** when plan/design still needs decisions.
 - **`sdd-zoom`** / **`sdd-audit`** — optional satellites; neither is mandatory before verify.
-- **`sdd-publish`** — optional **post-loop** remote integration (push / PR / merge / tag / release); standalone `@` OK, does not require `@sdd-verify`; experimental until spot-check in [CHANGELOG](CHANGELOG.md).
+- **`sdd-publish`** — optional **post-loop** remote integration (push / PR / merge / tag / release); standalone `@` OK, does not require `@sdd-verify`.
 
 ## Skills
 
@@ -82,8 +82,8 @@ Ten skills under `skills/<name>/`. Instructions **English**; deliverables follow
 
 | Skill | Use when |
 | --- | --- |
-| `sdd-worktree` | **Pre-loop** — isolate git context (worktree or topic branch) before spec; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
-| `sdd-publish` | **Post-loop** — remote integration; per-step Present + confirm; no `@sdd-verify` prerequisite; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
+| `sdd-worktree` | **Pre-loop** — isolate git context (worktree or topic branch) before spec |
+| `sdd-publish` | **Post-loop** — remote integration; per-step Present + confirm; no `@sdd-verify` prerequisite |
 | `sdd-zoom` | Unfamiliar code — **territory map** (modules, callers, domain vocabulary); not refactor findings |
 | `sdd-audit` | **Codebase audit** — same MECE model as `codebase-audit`; P0/P1/P2 roadmap; SDD handoff in **Suggested next steps**; not **delivery review** |
 

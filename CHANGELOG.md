@@ -9,21 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Optional pre-loop satellite **`sdd-worktree`** — explicit `@` git isolation (worktree or topic branch); experimental until consumer spot-check recorded below
-- Optional post-loop satellite **`sdd-publish`** — explicit `@` remote integration (push / PR / merge / tag / release); standalone entry OK, does not require `@sdd-verify`; experimental until consumer spot-check recorded below
+- Optional pre-loop satellite **`sdd-worktree`** — explicit `@` git isolation (worktree or topic branch)
+- Optional post-loop satellite **`sdd-publish`** — explicit `@` remote integration (push / PR / merge / tag / release); standalone entry OK, does not require `@sdd-verify`
 
 ### Changed
 
 - **Breaking:** **`sdd-ship`** renamed to **`sdd-verify`** — reinstall or update `@` references; **`sdd-publish`** unchanged
 - **`sdd-audit`**: **`sdd-improve`** renamed; body synced from `codebase-audit` (`map` / `playbook` / `report` / `deep-parallel`); SDD handoff in **`SKILL.md` Stop** + **Suggested next steps** only; removed **`closing-the-loop.md`**
 - **`sdd-review`**: `lens-map.md`; MECE lens ids + optional impact emoji; architecture walk links to improve anti-patterns / vet
-- **Ten skills** — README/AGENTS/SOURCES/engineering-rationale §3.3; CI `validate` counts ten `SKILL.md` files; README Mermaid post-loop edge `sdd-verify` → `sdd-publish`
+- **Ten skills** — README/AGENTS/SOURCES/engineering-rationale §3.3; README Mermaid post-loop edge `sdd-verify` → `sdd-publish`
 - **`sdd-spec` / `sdd-grill`**: **When/Skip** cross-link to **`sdd-worktree`**
 - **`sdd-verify`**: **Stop** / **SDD** hand off to **`sdd-publish`** when user separately requests integration
 
-**Spot-check (2026-06-12, `sdd-worktree`):** maintainer self-trial in this repo as consumer git workspace — evaluation order, Present/confirm gate, conflict/weak-isolation rules, and `sdd-spec` hand-off path reviewed against spec; no blocking friction. **`sdd-worktree` remains experimental** until a separate consumer-repo increment is recorded before recommended pin bump.
+**Spot-check (2026-06-12, `sdd-worktree`):** maintainer self-trial in this repo as consumer git workspace — evaluation order, Present/confirm gate, conflict/weak-isolation rules, and `sdd-spec` hand-off path reviewed against spec; no blocking friction.
 
-**Spot-check (2026-06-12, `sdd-publish`):** maintainer self-trial against `skills/sdd-publish/SKILL.md` — gates, step menu, push-only subset, no-`gh` PR Present, CI/merge gate, sync-default-before-tag, CHANGELOG version resolution, and `sdd-verify` hand-off reviewed against spec; no blocking friction. **`sdd-publish` remains experimental** until a separate consumer-repo integration run is recorded before recommended pin bump.
+**Spot-check (2026-06-12, `sdd-publish`):** maintainer self-trial against `skills/sdd-publish/SKILL.md` — gates, step menu, push-only subset, no-`gh` PR Present, CI/merge gate, sync-default-before-tag, CHANGELOG version resolution, and `sdd-verify` hand-off reviewed against spec; no blocking friction.
+
+- **Governance:** no separate consumer-repo spot-check gate for satellites; maintainer self-trial + CHANGELOG note suffices
 
 - **`sdd-publish`**: satellite independence — no hard `@sdd-verify` or review gate; **Integration readiness** probes CHANGELOG/`[Unreleased]` only; missing verify summary does not block push/PR; tag/release still Present gap when user-visible impact and empty `[Unreleased]`
 - **Docs:** restore `docs/design/README.md`; move `SOURCES.md` / `THIRD_PARTY_NOTICES.md` to `docs/design/`; README 保持精简安装段
