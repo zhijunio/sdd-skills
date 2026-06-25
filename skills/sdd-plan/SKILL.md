@@ -9,7 +9,7 @@ Decompose work into small, verifiable tasks with explicit acceptance criteria. E
 
 Require approved spec. Read repository conventions; inspect affected code before proposing tasks.
 
-**Process** — [plan-template.md](plan-template.md):
+**Process** — [plan-template.md](./references/plan-template.md):
 
 1. Map every spec AC to at least one vertical slice.
 2. Prefer **15–60 minute** slices with observable behavior — not file/layer splits.
