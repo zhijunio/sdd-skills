@@ -24,9 +24,9 @@ Read-only reviewer — not implementer. Multi-axis review on a defined **increme
 3. Read spec/plan when available; map AC when plan exists.
 4. Review test changes first.
 5. Walk core; architecture on code diffs; applicable conditionals. `architecture: pass` or `architecture: skip` in Coverage.
-6. **Present** Context → Findings → Coverage → Follow-up.
+6. **Present** per [finding-format.md](references/finding-format.md) — **Suggested next steps** last.
 
-**Present:** Write the review in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: lens ids, skill ids, `file:line`, git literals, delivery **🔴/🟡/🟢** groups. Optional impact emoji per `sdd-audit/references/report.md`. Layout: [finding-format.md](references/finding-format.md).
+**Present:** Write the review in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: lens ids, skill ids, `file:line`, git literals, delivery **🔴/🟡/🟢** groups. Optional impact emoji per `sdd-audit/references/report.md`. Section order: [finding-format.md](references/finding-format.md) **Report template**.
 
 Fresh agent/subagent when available; else reread baseline. Optional two-pass on large plans; default one pass.
 
@@ -34,4 +34,4 @@ Fresh agent/subagent when available; else reread baseline. Optional two-pass on 
 
 **Verdict:** 🔴 must-fix blocks **this increment** (delivery gate). 🟡 should-fix unless user accepts risk. 🟢 suggestion — non-blocking.
 
-**SDD:** read-only; fresh verification → `sdd-verify`. Layout flexible. Default no durable file; do not update plan. Stop → invoke `sdd-build` if blocking findings; else invoke `sdd-verify`.
+**SDD:** read-only; fresh verification → `sdd-verify`. Default no durable file; do not update plan. **Stop:** **Suggested next steps** (last per `finding-format.md`) names one skill — **`sdd-build`** if 🔴 must-fix unresolved; else **`sdd-verify`**.

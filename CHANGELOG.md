@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`sdd-review`**: `lens-map.md`; MECE lens ids + optional impact emoji; architecture walk links to `sdd-audit` anti-patterns / vet
 - **Ten skills** — README/AGENTS/SOURCES/engineering-rationale §2.1/§3.3 aligned; README Mermaid post-loop edge `sdd-verify` → `sdd-publish`
 - **Audit remediation:** fixed `sdd-review/references/` cross-skill links; SOURCES `plan-template` path; `improve`→`sdd-audit` terminology in governance docs
+- **`sdd-audit` `report.md`:** optional **Strengths** section; **Coverage** before **Findings**; **Not audited** merged into **Coverage**
+- **`sdd-review` `finding-format.md`:** report sections aligned with `sdd-audit`; **Coverage** before **Findings**; **Verdict** before **Rejected / deferred**; delivery gate unchanged
 - **`sdd-spec` / `sdd-grill`**: **When/Skip** cross-link to **`sdd-worktree`**
 - **`sdd-verify`**: **Stop** / **SDD** hand off to **`sdd-publish`** when user separately requests integration
 

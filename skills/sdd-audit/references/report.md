@@ -55,7 +55,9 @@ Cell format: `P0` · `P1` · `P2` only — **no emoji**. Severity and scheduling
 
 **snapshot / 快照** → Scope + summary + ≤5 findings. **standard / deep / 标准 / 深度** → full below.
 
-**Section order:** `Scope` → `Executive summary` → `Boundary map` (if in scope) → `Findings` → `Roadmap` → `Direction notes` (optional) → `Rejected findings` → `Not audited` → **`Suggested next steps` last**.
+**Section order:** `Scope` → `Executive summary` → `Boundary map` (if in scope) → `Coverage` → `Findings` → `Strengths` (optional) → `Roadmap` → `Direction notes` (optional) → `Rejected findings` (optional) → **`Suggested next steps` last**.
+
+**Parallel to [`sdd-review` Coverage](../../sdd-review/references/finding-format.md):** examination boundary **before** findings; rejected items **after** roadmap, not before the handoff.
 
 ```markdown
 # Codebase Audit — {Project}
@@ -68,8 +70,8 @@ Cell format: `P0` · `P1` · `P2` only — **no emoji**. Severity and scheduling
 |-------|-------|
 | HEAD | `{sha}` |
 | Shape / Stack | … |
-| Pillars | A, C, S, V, D, O — list skipped |
-| Verification | commands — ok / partial / none |
+| Effort | snapshot / standard / deep |
+| Range | whole-repo · branch:`<name>` vs merge-base |
 
 ## Executive summary
 
@@ -77,13 +79,35 @@ Cell format: `P0` · `P1` · `P2` only — **no emoji**. Severity and scheduling
 
 ## Boundary map (architecture)
 
-```text
-[layer] → modules → notes
-```
+When in scope — Mermaid or ASCII (example):
+
+    [layer] → modules → notes
+
+Skip when user narrowed to a single pillar without shape walk.
+
+## Coverage
+
+**Examined:** pillars / lenses walked (e.g. A1–A6 architecture-only · full A/C/S/V/D/O)
+
+**Skipped:** pillars or lenses out of scope — state explicitly
+
+**Verification:** commands — ok / partial / none
+
+**Limits:** branch scope, triage omissions, cheap checks not run — not **Findings**
+
+Localized heading: **Coverage** · **审查覆盖**
 
 ## Findings
 
 Finding table above. Branch audits: use **attribution** column or split sections.
+
+## Strengths
+
+Evidence-backed **systemic** positives — not the inverse of findings, not a delivery pass. Omit the section when nothing durable applies (do not invent praise).
+
+2–5 bullets: pattern or shape that is healthy; cite `path`, layer, or contract. **snapshot / 快照:** ≤3 bullets.
+
+Localized heading examples: **Strengths** (English) · **健康面** / **做得好的地方** (Chinese).
 
 ## Roadmap
 
@@ -98,13 +122,11 @@ Simplicity audits: roadmap rows should favor **delete / merge / collapse** over 
 
 2–4 options with trade-offs — not ranked vs findings.
 
-## Rejected findings
+## Rejected findings (optional)
 
 | title | reason |
 
-## Not audited
-
-…
+Vetted out of **Findings** — not **Coverage — Limits** alone.
 
 ## Suggested next steps
 
