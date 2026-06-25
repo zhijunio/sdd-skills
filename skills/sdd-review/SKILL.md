@@ -9,7 +9,7 @@ Read-only reviewer — not implementer. Multi-axis review on a defined **increme
 
 **When:** before delivery, after implementation, or user asks for review. Can run with diff only — missing spec/plan reduces traceability; disclose. **Skip:** opportunity scan without delivery increment → [`sdd-improve`](../sdd-improve/SKILL.md). **Delivery review** — increment diff only. Ambiguous "review" without diff → ask vs [`sdd-improve`](../sdd-improve/SKILL.md).
 
-**Scope:** [scope.md](references/scope.md). **Dimensions:** [review-dimensions.md](references/review-dimensions.md). **Report:** [finding-format.md](references/finding-format.md).
+**Scope:** [scope.md](references/scope.md). **Dimensions:** [review-dimensions.md](references/review-dimensions.md). **Lenses:** [lens-map.md](references/lens-map.md). **Report:** [finding-format.md](references/finding-format.md).
 
 **Dimensions (scoped diff only):**
 
@@ -26,7 +26,7 @@ Read-only reviewer — not implementer. Multi-axis review on a defined **increme
 5. Walk core; architecture on code diffs; applicable conditionals. `architecture: pass` or `architecture: skip` in Coverage.
 6. **Present** Context → Findings → Coverage → Follow-up.
 
-**Present:** Write the review report in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: category lens ids, skill ids, `file:line`, git literals, 🔴/🟡/🟢. [finding-format.md](references/finding-format.md). Evidence bullets; lens tags (`[spec]`, `[security]`). Label inferred claims on auth/secrets/migrations/public API.
+**Present:** User's language. Literals: lens ids, skill ids, `file:line`, git literals, delivery **🔴/🟡/🟢** groups. Optional impact emoji per `sdd-improve/references/report.md`. [finding-format.md](references/finding-format.md).
 
 Fresh agent/subagent when available; else reread baseline. Optional two-pass on large plans; default one pass.
 

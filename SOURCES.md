@@ -65,20 +65,17 @@ Local decisions:
 
 Sources:
 
-- [shadcn/improve](https://github.com/shadcn/improve) — audit playbook condensed in `references/audit-dimensions.md` (see **`THIRD_PARTY_NOTICES.md`**)
-- Community audit playbooks — same file; pairs with **`sdd-review`** `review-dimensions.md`
-- `addyosmani/agent-skills`: `skills/code-review-and-quality` — five-axis checklist summarized into categories 1–6 and 8 of `references/audit-dimensions.md`; merge verdict, spec compliance, and change-sizing gates deliberately left in **`sdd-review`**
-- `mattpocock/skills`: `skills/improve-codebase-architecture` (category 5: depth, seam, deletion-test vocabulary)
+- [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — MECE pillars, `map.md`, `playbook.md`, `report.md`, `deep-parallel.md` (bundled under `references/`; sync on intentional upstream changes)
+- Prior pins: [shadcn/improve](https://github.com/shadcn/improve), `addyosmani/agent-skills`, `mattpocock/skills` — superseded for checklist body by `codebase-audit` import (see **`THIRD_PARTY_NOTICES.md`**)
 
 Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
-- **`SKILL.md`** — one-line **Process** + **Present** + minimal tail; report **content** in `finding-format.md` (follow-up priority, not ship gate); effort in [profile-guide.md](skills/sdd-improve/references/profile-guide.md); checklists in `audit-dimensions.md`. **Read-only** on user tree.
-- Natural-language scope inference; **standard** default = categories 1–8.
-- **Readability** absorbed into category 5 (**architecture**), not a separate category or Simplify step.
-- Disambiguation vs **`sdd-review`**: **opportunity scan** vs **delivery review** — **When/Skip** cross-links only; outcomes **findings report** vs **delivery verdict**.
-- Read optional consumer `CONTEXT.md` and `docs/adr/` when present; do not require or inline-write them.
-- **Stop:** name next per [closing-the-loop.md](skills/sdd-improve/references/closing-the-loop.md); Common routes in **`SKILL.md`**; hand off — **direct edit** or load named stage skill.
+- **`SKILL.md`** — SDD **When/Skip**, workflow, **Stop**; audit body in bundled `references/` (same MECE model as upstream `codebase-audit`).
+- **Present:** findings + P0/P1/P2 roadmap + **Next stage** per [closing-the-loop.md](skills/sdd-improve/references/closing-the-loop.md). Severity emoji 🚨🔴🟡🟢 = impact rubric — **not** `sdd-review` ship gate.
+- Disambiguation vs **`sdd-review`**: **opportunity scan** vs **delivery review** — **When/Skip** cross-links only.
+- Read optional consumer `CONTEXT.md`, `docs/sdd/*`, `docs/adr/` when present (playbook § Recon).
+- **Stop:** name next per closing-the-loop; user **`@`** next skill — no auto-chain.
 
 ### `sdd-zoom`
 

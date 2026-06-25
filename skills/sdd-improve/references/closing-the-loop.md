@@ -1,23 +1,23 @@
 # Closing the Loop — SDD follow-through
 
-Route selected findings after **Confirm** — not default `plans/` factories, executor dispatch, or in-scan implementation. **Advisor never edits source during the scan** — [audit-dimensions — Read-only rules](audit-dimensions.md#read-only-rules). Follow-up: SDD loop or user **direct edit** outside any skill.
+Route selected findings after present — not in-scan implementation. **Advisor never edits source during the scan.** Follow-up: SDD loop or user **direct edit**. Finding format: [report.md](report.md); lenses: [map.md](map.md).
 
-## After **Confirm**
+## After present
 
-**Confirm** scopes the next increment — **not** a build trigger. No product edits in the improve session.
+**Present** scopes follow-up — **not** a build trigger. No product edits in the improve session.
 
 | User intent | Next |
 | --- | --- |
 | New/changed **behavior** / AC not written | **`sdd-spec`** → **`sdd-plan`** → **`sdd-build`** |
 | **Approved spec**; plan/build only | **`sdd-plan`** or **`sdd-build`** |
-| **Mechanical** follow-up — boundaries clear, verify obvious; user **waives** spec | **`sdd-build`** if plan exists; else thin **`sdd-plan`** |
+| **Mechanical** follow-up — boundaries clear; user **waives** spec | **`sdd-build`** if plan exists; else thin **`sdd-plan`** |
 | Trade-offs / direction open | **`sdd-grill`** |
 | Increment built; check diff | **`sdd-review`** → **`sdd-build`** → **`sdd-ship`** |
 | **Handoff** — zero session context | **`sdd-spec`** + **`sdd-plan`** (`docs/sdd/*`) |
 | Implement **during scan** | Decline; route below or **direct edit** after Stop |
 | **Ad-hoc fix** — no SDD skills | **Stop** — **direct edit**; optional later **`sdd-review`** |
 
-Respect **Dependency order** from the report. **Default when unclear:** **`sdd-spec`**.
+Respect **P0/P1/P2** order from the report. **Default when unclear:** **`sdd-spec`**.
 
 ## Reconcile
 

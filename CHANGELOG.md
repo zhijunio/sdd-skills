@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **`sdd-improve`**: replaced bundled audit with [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — `map.md`, `playbook.md`, `report.md`, `deep-parallel.md`; SDD **Next stage** in `closing-the-loop.md`; removed `audit-dimensions.md`, `finding-format.md`, `profile-guide.md`
+- **`sdd-review`**: `lens-map.md`; MECE lens ids + optional impact emoji; architecture walk links to improve anti-patterns / vet
 - **Ten skills** — README/AGENTS/SOURCES/engineering-rationale §3.3; CI `validate` counts ten `SKILL.md` files; README Mermaid post-loop edge `sdd-ship` → `sdd-publish`
 - **`sdd-spec` / `sdd-grill`**: **When/Skip** cross-link to **`sdd-worktree`**
 - **`sdd-ship`**: **Stop** / **SDD** hand off to **`sdd-publish`** when user separately requests integration
