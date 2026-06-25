@@ -1,8 +1,8 @@
-# Report — opportunity scan
+# Report
 
-**Delivery: chat only** — post the full report in the conversation. Do **not** write audit files unless the user explicitly asks.
+**Delivery: chat only** — post the full report in the conversation.
 
-**SDD:** Severity emojis (🚨🔴🟡🟢) rate **finding impact** — **not** `sdd-review` delivery gate. Roadmap **P0/P1/P2** = text only.
+**No disk by default** — do **not** create or update audit files in the target repo (including `.codebase-audit/`, `findings-*.json`, or report Markdown) unless the user **explicitly** asks to persist a baseline or export.
 
 **Report body:** user's language. **Section headings** follow the user's language too (use English headings below when the user writes in English). Literals: paths, lens ids, git refs, **severity emojis** (below).
 
@@ -55,8 +55,10 @@ Cell format: `P0` · `P1` · `P2` only — **no emoji**. Severity and scheduling
 
 **snapshot / 快照** → Scope + summary + ≤5 findings. **standard / deep / 标准 / 深度** → full below.
 
+**Section order:** `Scope` → `Executive summary` → `Boundary map` (if in scope) → `Findings` → `Roadmap` → `Direction notes` (optional) → `Rejected findings` → `Not audited` → **`Suggested next steps` last**.
+
 ```markdown
-# Opportunity Scan — {Project}
+# Codebase Audit — {Project}
 
 > Date · Target · Effort · Range
 
@@ -96,14 +98,6 @@ Simplicity audits: roadmap rows should favor **delete / merge / collapse** over 
 
 2–4 options with trade-offs — not ranked vs findings.
 
-## Suggested next steps
-
-Direct edits · **`sdd-spec`** / **`sdd-plan`** / **`sdd-build`** per below · increment diff → **`sdd-review`**.
-
-## Next stage (SDD)
-
-After findings + roadmap, name **one** route per [closing-the-loop.md](closing-the-loop.md). User **`@`** that skill — no auto-chain.
-
 ## Rejected findings
 
 | title | reason |
@@ -111,4 +105,8 @@ After findings + roadmap, name **one** route per [closing-the-loop.md](closing-t
 ## Not audited
 
 …
+
+## Suggested next steps
+
+**Always last section.** Direct edits · **`sdd-spec`** / **`sdd-plan`** / **`sdd-build`** · scoped diff → **`sdd-review`** · trade-offs → **`sdd-grill`** — pick **one** route per [closing-the-loop.md](closing-the-loop.md). Also: follow-up deep pillar when a single lens needs another pass.
 ```

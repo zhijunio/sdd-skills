@@ -6,7 +6,7 @@
 
 ## Scope
 
-- 在 `skills/sdd-worktree/` 新增**第 3 颗可选卫星**技能（与 `sdd-zoom`、`sdd-improve` 并列）；**不**并入六段核心环，**不**自动链下一 skill。
+- 在 `skills/sdd-worktree/` 新增**第 3 颗可选卫星**技能（与 `sdd-zoom`、`sdd-audit` 并列）；**不**并入六段核心环，**不**自动链下一 skill。
 - 技能在**用户 `@` 触发**后探测目标 git 仓库状态，选择 `git worktree` 或 `git branch` 路径。
 - 默认优先 `git worktree`；非 git 仓库 hard stop；在 git 仓库内仅在 Requirements §3 列明的条件下回退 `git branch`。
 - 分支命名：`feature/<topic>`、`fix/<topic>`、`docs/<topic>`；前缀规则见 Requirements。
@@ -28,7 +28,7 @@
 
 **技能载体（本仓库 sdd-skills）**
 
-- 现有 **八 skill** 叙事：六段核心环 + `sdd-zoom` + `sdd-improve`；Markdown skills，无 Git hook / 运行时状态文件。
+- 现有 **八 skill** 叙事：六段核心环 + `sdd-zoom` + `sdd-audit`；Markdown skills，无 Git hook / 运行时状态文件。
 - [engineering-rationale §3.2](../../docs/design/engineering-rationale.md) 记录：**扔掉**的是 superpowers 的**自动** worktree 编排，而非「用户显式 `@` 的轻量开工隔离」。
 - 新增第 9 个目录会触发 CI `validate` 计数、README/AGENTS/SOURCES/engineering-rationale 同步——列入本 spec 的交付范围。
 - **Consumer evidence（治理）：** 发版 pin 前须在消费者仓库完成一次 spot-check（README [Maintainer verification](../../README.md#maintainer-verification)）；当前为**待验证假设**，见 Open Questions。

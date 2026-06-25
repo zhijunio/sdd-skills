@@ -34,7 +34,7 @@
 
 **技能载体（本仓库 sdd-skills）**
 
-- 现有 **九 skill**（含 experimental `sdd-worktree`）：六段核心环 + **四颗**可选卫星（`sdd-worktree` pre-loop、`sdd-publish` 待增 post-loop、`sdd-zoom`、`sdd-improve`）；`sdd-ship` 明确 **No push, PR, publish, or deploy unless separately requested**。
+- 现有 **九 skill**（含 experimental `sdd-worktree`）：六段核心环 + **四颗**可选卫星（`sdd-worktree` pre-loop、`sdd-publish` 待增 post-loop、`sdd-zoom`、`sdd-audit`）；`sdd-ship` 明确 **No push, PR, publish, or deploy unless separately requested**。
 - Grill 共识（2026-06-12）：集成阶段 = ship 后、用户明确要求；独立 `sdd-publish`，非扩写 `sdd-ship`。
 - 新增第 10 个目录将触发 CI `validate` 计数、治理文档同步——列入本 spec 交付（AC-13）。
 - **Consumer evidence：** 发版 recommended pin 前须 spot-check；见 Open Questions。

@@ -13,10 +13,11 @@ Snapshot date: 2026-06-12（upstream pin commits 未变；十 skill 含 maintain
 - `addyosmani/agent-skills`
   - Branch: `main`
   - Commit: `c076972e2626fe2acc30b00a6c7240d4c5fb786a`
-- [shadcn/improve](https://github.com/shadcn/improve) — **third-party, not pinned**
+- [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — **third-party, not pinned**
   - License: MIT ([THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md))
-  - Adapted: condensed audit checklist in `skills/sdd-improve/references/audit-dimensions.md`
-  - Refresh: diff upstream when audit categories change materially; no automatic pin
+  - Adapted: MECE playbooks in `skills/sdd-audit/references/` (`map.md`, `playbook.md`, `report.md`, `deep-parallel.md`)
+  - Refresh: diff upstream when pillar checklists change materially; no automatic pin
+- [shadcn/improve](https://github.com/shadcn/improve) — **superseded** for `sdd-audit` body by `codebase-audit` import (see **`THIRD_PARTY_NOTICES.md`**)
 
 ## Why six core skills
 
@@ -28,9 +29,9 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no auto worktree orchestration, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` covers decision interviews before spec or plan; the required artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), `sdd-publish` (post-loop remote integration), `sdd-improve` (codebase audit), and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
+- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), `sdd-publish` (post-loop remote integration), `sdd-audit` (codebase audit), and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
 
-For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve/review details in `finding-format.md` **Report locale**.
+For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
 
 Sources and methodology: [docs/design/](docs/design/) ([index](docs/design/README.md)).
 
@@ -61,7 +62,7 @@ Local decisions:
 - **`SKILL.md`** — upstream opening @ pin; **Present** + [spec-template.md](skills/sdd-spec/spec-template.md).
 - `docs/sdd/*-spec.md`; in-place revision + **Revision log**; user approval before **`sdd-plan`**.
 
-### `sdd-improve`
+### `sdd-audit`
 
 Sources:
 
@@ -71,11 +72,11 @@ Sources:
 Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-ship`.
-- **`SKILL.md`** — SDD **When/Skip**, workflow, **Stop**; audit body in bundled `references/` (same MECE model as upstream `codebase-audit`).
-- **Present:** findings + P0/P1/P2 roadmap + **Next stage** per [closing-the-loop.md](skills/sdd-improve/references/closing-the-loop.md). Severity emoji 🚨🔴🟡🟢 = impact rubric — **not** `sdd-review` ship gate.
-- Disambiguation vs **`sdd-review`**: **opportunity scan** vs **delivery review** — **When/Skip** cross-links only.
-- Read optional consumer `CONTEXT.md`, `docs/sdd/*`, `docs/adr/` when present (playbook § Recon).
-- **Stop:** name next per closing-the-loop; user **`@`** next skill — no auto-chain.
+- **`SKILL.md`** — `codebase-audit` body @ sync + minimal **SDD** tail (When/Skip vs `sdd-review`, **Stop**, handoff).
+- **`references/`** — `map.md`, `playbook.md`, `report.md`, `deep-parallel.md` synced from upstream; **`closing-the-loop.md`** SDD-only (handoff routes).
+- **Present:** report per `report.md` (same section order as upstream). **Suggested next steps** (last) names one route per `closing-the-loop.md`. Severity 🚨🔴🟡🟢 = follow-up priority — **not** `sdd-review` ship gate.
+- Disambiguation vs **`sdd-review`**: **codebase audit** vs **delivery review** — **When/Skip** cross-links only.
+- **Stop:** user **`@`** next skill — no auto-chain.
 
 ### `sdd-zoom`
 
@@ -87,7 +88,7 @@ Local decisions:
 
 - **`SKILL.md`** — **zoom-out** body verbatim @ pin; minimal SDD tail (Skip, Diagram, **Present**, Stop, Red flags).
 - **Present:** `Territory` / `Map` / `Glossary & Gaps` / `Suggested next`; diagram when ≥3 units. **Stop:** hand off — no in-session next-stage work.
-- Orientation only — no refactor findings (**`sdd-improve`**) or delivery review (**`sdd-review`**); no default on-disk map. Optional CONTEXT/ADR when present — infer from code/README when absent.
+- Orientation only — no refactor findings (**`sdd-audit`**) or delivery review (**`sdd-review`**); no default on-disk map. Optional CONTEXT/ADR when present — infer from code/README when absent.
 
 ### `sdd-plan`
 

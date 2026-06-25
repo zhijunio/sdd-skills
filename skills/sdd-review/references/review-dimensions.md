@@ -1,6 +1,6 @@
 # Review Dimensions
 
-**Delivery review** checklist — **increment diff** only. Whole repo / branch → **`sdd-improve`** [`When/Skip`](../../sdd-improve/SKILL.md). Attribution: **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`**.
+**Delivery review** checklist — **increment diff** only. Whole repo / branch → **`sdd-audit`** [`When/Skip`](../../sdd-audit/SKILL.md). Attribution: **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`**.
 
 ## Diff kind
 
@@ -64,7 +64,7 @@ Pre-existing outside diff → **Coverage — Limits**, not **Findings**.
 
 ### Architecture
 
-**Diff-introduced or worsened only.** MECE lenses **A1–A6**, **C1** — [lens-map.md](lens-map.md). Full anti-pattern table → [`sdd-improve` playbook § Anti-patterns](../sdd-improve/references/playbook.md#anti-patterns) (apply to changed paths only).
+**Diff-introduced or worsened only.** MECE lenses **A1–A6**, **C1** — [lens-map.md](lens-map.md). Full anti-pattern table → [`sdd-audit` playbook § Anti-patterns](../sdd-audit/references/playbook.md#anti-patterns) (apply to changed paths only).
 
 - New modules, patterns, circular deps, shallow modules, pass-through layers
 - **Deletion test** on new modules in diff
@@ -80,7 +80,7 @@ Pre-existing outside diff → **Coverage — Limits**, not **Findings**.
 | **Test duplication** | Copied arrange/assert — table-driven candidate |
 | **Naming & control flow** | `temp`/`data`; nested ternaries |
 
-**Severity:** half-migration / large duplication → **should-fix**; DRY/KISS alone usually **suggestion**. Whole-repo patterns → **`sdd-improve`** or **Limits**.
+**Severity:** half-migration / large duplication → **should-fix**; DRY/KISS alone usually **suggestion**. Whole-repo patterns → **`sdd-audit`** or **Limits**.
 
 ## Conditional (when diff touches them)
 

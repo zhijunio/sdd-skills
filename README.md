@@ -19,7 +19,7 @@ Six principles in three layers — **shape** (what the repo is), **delivery** (h
 
 | Principle | In practice |
 | --- | --- |
-| **Verifiable slices** | Spec AC; plan as vertical slices (15–60 min), not a Gantt chart; optional grill / zoom / improve only when needed |
+| **Verifiable slices** | Spec AC; plan as vertical slices (15–60 min), not a Gantt chart; optional grill / zoom / audit only when needed |
 | **Test and prove** | `sdd-build`: failing test first; `sdd-review`: read-only, evidence-backed findings; `sdd-ship`: rerun verification, read full output — no completion claims without proof |
 
 ### Governance
@@ -37,7 +37,7 @@ flowchart TD
   G[sdd-grill]
   subgraph satellites["Optional satellites"]
     Z[sdd-zoom]
-    I[sdd-improve]
+    I[sdd-audit]
   end
 
   S[sdd-spec] -->|user approval| P[sdd-plan]
@@ -60,7 +60,7 @@ flowchart TD
 
 - **`sdd-worktree`** — optional **pre-loop** git isolation (worktree or topic branch) before spec; experimental until [CHANGELOG](CHANGELOG.md) spot-check passes.
 - **`sdd-grill`** — optional clarify before spec or plan (one question at a time); may hand off to **`sdd-plan`** when plan/design still needs decisions.
-- **`sdd-zoom`** / **`sdd-improve`** — optional satellites; neither is mandatory before ship.
+- **`sdd-zoom`** / **`sdd-audit`** — optional satellites; neither is mandatory before ship.
 - **`sdd-publish`** — optional **post-loop** remote integration (push / PR / merge / tag / release) after ship; experimental until spot-check in [CHANGELOG](CHANGELOG.md).
 
 ## Skills
@@ -85,15 +85,15 @@ Ten skills under `skills/<name>/`. Instructions **English**; deliverables follow
 | `sdd-worktree` | **Pre-loop** — isolate git context (worktree or topic branch) before spec; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
 | `sdd-publish` | **Post-loop** — remote integration after ship; per-step Present + confirm; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
 | `sdd-zoom` | Unfamiliar code — **territory map** (modules, callers, domain vocabulary); not refactor findings |
-| `sdd-improve` | **Opportunity scan** — MECE read-only audit (A/C/S/V/D/O), P0/P1/P2 roadmap, SDD **Next stage**; not **delivery review** |
+| `sdd-audit` | **Codebase audit** — same MECE model as `codebase-audit`; P0/P1/P2 roadmap; SDD handoff in **Suggested next steps**; not **delivery review** |
 
-### Review vs improve
+### Review vs audit
 
-| | `sdd-review` | `sdd-improve` |
+| | `sdd-review` | `sdd-audit` |
 | --- | --- | --- |
 | Question | Can **this increment** ship? | What opportunities exist in the **repo or branch**? |
 | Scope | Increment diff | Whole repo or branch vs merge-base |
-| Outcome | Delivery verdict + lens ids | Findings + roadmap + **Next stage** |
+| Outcome | Delivery verdict + lens ids | Findings + roadmap; handoff in **Suggested next steps** |
 | Severity | Delivery **🔴/🟡/🟢** groups (ship gate) | Impact **🚨/🔴/🟡/🟢** per finding + **P0/P1/P2** text |
 
 Pairing is **When/Skip** cross-links in each skill — do not substitute one for the other. Ambiguous "review" without a diff → ask which skill.
@@ -102,7 +102,7 @@ Pairing is **When/Skip** cross-links in each skill — do not substitute one for
 
 | Skill | Requires |
 | --- | --- |
-| `sdd-worktree`, `sdd-grill`, `sdd-spec`, `sdd-zoom`, `sdd-improve` | — |
+| `sdd-worktree`, `sdd-grill`, `sdd-spec`, `sdd-zoom`, `sdd-audit` | — |
 | `sdd-review` | Increment diff (spec/plan improve traceability) |
 | `sdd-plan` | Approved spec |
 | `sdd-build` | Approved spec + plan |
@@ -144,7 +144,7 @@ Add by name from default branch:
 ```bash
 npx skills@latest add zhijunio/sdd-skills \
   -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship \
-  -s sdd-improve -s sdd-zoom -a cursor -y
+  -s sdd-audit -s sdd-zoom -a cursor -y
 ```
 
 | Scope | Flag | Where skills land |
@@ -162,12 +162,12 @@ Add satellites only:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills \
-  -s sdd-worktree -s sdd-publish -s sdd-improve -s sdd-zoom -y
+  -s sdd-worktree -s sdd-publish -s sdd-audit -s sdd-zoom -y
 ```
 
 List without installing: `npx skills@latest add zhijunio/sdd-skills --list`
 
-**Manual install:** copy `skills/<name>/` into your agent's skills directory (include bundled templates under `sdd-spec/`, `sdd-plan/`, and `references/` for improve/review).
+**Manual install:** copy `skills/<name>/` into your agent's skills directory (include bundled templates under `sdd-spec/`, `sdd-plan/`, and `references/` for audit/review).
 
 No platform hooks, slash commands, or agent manifests in this repository.
 
@@ -180,7 +180,7 @@ docs/sdd/YYYY-MM-DD-<topic>-spec.md
 docs/sdd/YYYY-MM-DD-<topic>-plan.md
 ```
 
-Grill, zoom, improve, and review outputs stay in conversation unless the user asks to persist. No status fields or active-increment file required.
+Grill, zoom, audit, and review outputs stay in conversation unless the user asks to persist. No status fields or active-increment file required.
 
 Optional cross-feature decisions: `docs/adr/0001-short-title.md` (link from spec **Related ADRs**). Optional domain terms: `CONTEXT.md` or `docs/context/<domain>/CONTEXT.md` — see [engineering-rationale §2.5](docs/design/engineering-rationale.md#41-可选-context-与-adr).
 
@@ -191,7 +191,7 @@ Optional cross-feature decisions: `docs/adr/0001-short-title.md` (link from spec
 Before merge:
 
 1. Ten skills under `skills/*/SKILL.md`; CI **`validate`** passes.
-2. **`sdd-improve`** / **`sdd-review`** references intact.
+2. **`sdd-audit`** / **`sdd-review`** references intact.
 3. Spot-check Markdown links you edit.
 4. **Material** behavior changes → spot-check in a consumer repo; note friction in PR or [CHANGELOG.md](CHANGELOG.md) `[Unreleased]` when user-visible.
 
@@ -203,7 +203,7 @@ Full maintainer guidelines: [AGENTS.md](AGENTS.md). Design rationale: [engineeri
 
 ## Sources
 
-Ideas from [mattpocock/skills](https://github.com/mattpocock/skills), [obra/superpowers](https://github.com/obra/superpowers), [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), and [shadcn/improve](https://github.com/shadcn/improve) (audit checklist for **`sdd-improve`**).
+Ideas from [mattpocock/skills](https://github.com/mattpocock/skills), [obra/superpowers](https://github.com/obra/superpowers), [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), and [shadcn/improve](https://github.com/shadcn/improve) (audit checklist for **`sdd-audit`**).
 
 Pin mapping and per-skill decisions: [SOURCES.md](SOURCES.md) · [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
