@@ -125,40 +125,22 @@ Non-interactive example:
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-**Default branch** — ten skills (includes experimental **`sdd-worktree`** and **`sdd-publish`**); see [Unreleased](CHANGELOG.md#unreleased).
+**Default branch** — ten skills (experimental **`sdd-worktree`** and **`sdd-publish`**); see [Unreleased](CHANGELOG.md#unreleased). **Breaking:** `@sdd-ship` → `@sdd-verify`.
 
-**Recommended pin** — latest tagged release (`v0.3.1`, eight skills — bump pin when tagging a release that includes new satellites):
+**Recommended pin** — `v0.3.1` (eight skills, includes **`sdd-ship`**). After **`v0.4.0`** tags, pin ten skills + **`sdd-verify`**:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills@v0.3.1 -a cursor -a codex -a claude-code -y
 ```
 
-Older pin (`v0.2.1` — six core loop + **`sdd-zoom`** only):
-
-```bash
-npx skills@latest add zhijunio/sdd-skills@v0.2.1 -a cursor -a codex -a claude-code -y
-```
-
-Add by name from default branch:
+Core loop:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills \
-  -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-verify \
-  -s sdd-audit -s sdd-zoom -a cursor -y
+  -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-verify -y
 ```
 
-| Scope | Flag | Where skills land |
-| --- | --- | --- |
-| **Project** (default) | — | `./.agents/skills/` |
-| **Global** | `-g` | Cursor: `~/.cursor/skills/` · Codex: `~/.codex/skills/` · Claude Code: `~/.claude/skills/` |
-
-Minimal path (spec + plan only):
-
-```bash
-npx skills@latest add zhijunio/sdd-skills -s sdd-spec -s sdd-plan -y
-```
-
-Add satellites only:
+Satellites only:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills \
@@ -166,8 +148,6 @@ npx skills@latest add zhijunio/sdd-skills \
 ```
 
 List without installing: `npx skills@latest add zhijunio/sdd-skills --list`
-
-**Manual install:** copy `skills/<name>/` into your agent's skills directory (include bundled templates under `sdd-spec/`, `sdd-plan/`, and `references/` for audit/review).
 
 No platform hooks, slash commands, or agent manifests in this repository.
 
