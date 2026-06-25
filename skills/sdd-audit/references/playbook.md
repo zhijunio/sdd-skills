@@ -23,7 +23,6 @@ Run before any lens audit.
 ### Read first
 
 - `README`, `AGENTS.md` / `CLAUDE.md`, `CONTRIBUTING`
-- **SDD:** `CONTEXT.md`, `docs/sdd/*`, `docs/adr/` / `docs/adrs/` when present
 - Root manifests: `package.json`, `pyproject.toml`, `go.mod`, `pom.xml`, `build.gradle.kts`, `Cargo.toml`, …
 - CI/CD: `.github/workflows/`, `.gitlab-ci.yml`, `Jenkinsfile`, `Dockerfile*`, `deploy/`, `infra/`, `k8s/`, `helm/`, terraform
 - Intent docs: `docs/adr/`, `DESIGN.md`, `PRODUCT.md`, architecture diagrams in `docs/`

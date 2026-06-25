@@ -4,7 +4,7 @@ Route selected findings after present — not in-scan implementation. **Advisor 
 
 ## After present
 
-**Present** scopes follow-up — **not** a build trigger. No product edits in the improve session.
+**Present** scopes follow-up — **not** a build trigger. No product edits in the audit session.
 
 | User intent | Next |
 | --- | --- |
@@ -23,12 +23,12 @@ Respect **P0/P1/P2** order from the report. **Default when unclear:** **`sdd-spe
 
 | User says | Route |
 | --- | --- |
-| "Finished finding #3?" | **`sdd-review`** / **`sdd-ship`** if increment exists; else re-run **`sdd-improve`** or check persisted `docs/sdd/*` |
+| "Finished finding #3?" | **`sdd-review`** / **`sdd-ship`** if increment exists; else re-run **`sdd-audit`** or check persisted `docs/sdd/*` |
 | "Plan drifted / blocked" | **`sdd-plan`** or **`sdd-build`** |
 | "Sync watchlist / tag" | **`sdd-ship`** |
 
-Loop shorthand: `sdd-improve → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`. **Direct edit** valid: `sdd-improve → (user edits) → verify`.
+Loop shorthand: `sdd-audit → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`. **Direct edit** valid: `sdd-audit → (user edits) → verify`.
 
 ## Optional durable artifact
 
-Only when asked: `docs/sdd/YYYY-MM-DD-<topic>-improve.md` — reconcile aid, not spec/plan substitute.
+Only when asked: `docs/sdd/YYYY-MM-DD-<topic>-audit.md` — reconcile aid, not spec/plan substitute.

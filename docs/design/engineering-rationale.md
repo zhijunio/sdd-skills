@@ -62,7 +62,7 @@ grill（可选澄清）→ spec → plan → build → review → ship
 - **`sdd-worktree`** — 开工前 git 隔离（worktree 或 topic 分支）；用户显式 `@`，非 superpowers 自动编排；**不挡** ship。
 - **`sdd-publish`** — ship 后远程集成（push / PR / merge / tag / release）；分步 Present + 确认；用户显式 `@`；**不挡** ship 验收本身。
 - **`sdd-zoom`** — 领土地图：模块、调用方、域词汇；**不给** refactor findings，也不给 delivery verdict。
-- **`sdd-improve`** — 机会扫描：全库或分支只读体检；产出 findings 与 next-stage 建议，**不挡** ship。
+- **`sdd-audit`** — 机会扫描：全库或分支只读体检；产出 findings 与 next-stage 建议，**不挡** ship。
 
 技能指令用 **English**；交给用户的交付物跟 **用户语言** — 各 skill **Present** 硬约束（不默认英文）。字面保留：`AC-n`、skill id、category lens、`file:line`、git 字面量、🔴🟡🟢。
 
@@ -79,11 +79,11 @@ grill（可选澄清）→ spec → plan → build → review → ship
 
 - 新需求勿在 `main` 上直接开干 → 可先 **`sdd-worktree`**，再 spec / grill。
 - 陌生代码、术语乱 → 先 **`sdd-zoom`**，再 spec / grill。
-- 全库健康、分支上线前摸底、架构债盘点 → **`sdd-improve`**（不是「review 这个 PR」）。
+- 全库健康、分支上线前摸底、架构债盘点 → **`sdd-audit`**（不是「review 这个 PR」）。
 - ship 通过后用户要 push/PR/merge/tag/release → **`sdd-publish`**（不是 ship 内默认执行）。
 - 权衡仍开放 → **`sdd-grill`**，不要靠 improve 替代表决。
 
-### 2.2 两种「审」：review 与 improve
+### 2.2 两种「审」：review 与 audit
 
 二者共用 🔴🟡🟢 标签，**语义不同**，不可混用。
 
@@ -96,22 +96,21 @@ grill（可选澄清）→ spec → plan → build → review → ship
 - **Diff kind：** 含可执行逻辑或测试 → **code diff**，必走 Architecture（结构 + diff 内 DRY/KISS）；纯 Markdown/文档/注释 → **prose/docs-only**，`architecture: skip`，重点查 spec 对齐与**引用完整性**（改名后链接、install 示例是否仍对）。
 - 清单：`review-dimensions.md`；报告：`finding-format.md`。
 
-**`sdd-improve`（卫星 · 机会扫描）**
+**`sdd-audit`（卫星 · codebase audit）**
 
 - 问的是：全库或分支里**有哪些值得跟进的发现**？
 - 范围：whole repo，或 branch vs merge-base（finding 可标 `introduced` / `pre-existing`）。
-- 产出：**findings 报告** + **Next stage** 路由；经 **Confirm** 后 hand off，不是当场改产品代码。
-- 🔴🟡🟢：只排 **follow-up 优先级**（例如缺验证基线、HIGH 把握的安全项），**不挡** `sdd-ship`。
-- 标准扫描默认覆盖类别 1–8；用户问 roadmap 时才走 category 9 direction。
-- 清单：`audit-dimensions.md`；报告：`finding-format.md`；路由：`closing-the-loop.md`。
+- 产出：**Codebase Audit** 报告（与上游 `codebase-audit` 同结构）；handoff 写在报告末 **Suggested next steps**，路由见 `closing-the-loop.md`。
+- 🚨🔴🟡🟢：只排 **follow-up 优先级** — **不挡** `sdd-ship`。
+- 六柱 A/C/S/V/D/O；清单 `map.md` / `playbook.md`；报告 `report.md`（与上游同步）。
 
 **配对与歧义处理：**
 
 - 配对只写在各 skill **When/Skip** 互链；README 有一张速查表，本文不重复第三份 pairing 表。
-- 用户说「review」但没有 increment diff、也没有「这次 PR/提交」语境 → **必须问清**：delivery review 还是 opportunity scan。
-- 用户说「体检 / 健康检查 / 架构债」且无 delivery 语境 → 仅 **`sdd-improve`**。
+- 用户说「review」但没有 increment diff、也没有「这次 PR/提交」语境 → **必须问清**：delivery review 还是 codebase audit。
+- 用户说「体检 / 健康检查 / 架构债」且无 delivery 语境 → 仅 **`sdd-audit`**。
 
-**禁止：** improve 代替 review；improve 当 ship 门禁；review 会话里改产品代码。
+**禁止：** `sdd-audit` 代替 review；`sdd-audit` 当 ship 门禁；review 会话里改产品代码。
 
 ### 2.3 知识分层（消费者项目）
 
@@ -153,7 +152,8 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 - `mattpocock/skills` @ `be55a797`
 - `obra/superpowers` @ `6fd450765`
 - `addyosmani/agent-skills` @ `c076972e`
-- [shadcn/improve](https://github.com/shadcn/improve) — **未 pin**；MIT；类别大变时人工 diff 后更新 `audit-dimensions.md` 与本节
+- [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — **未 pin**；MIT；pillar 大变时人工 diff 后更新 `map.md` / `playbook.md` / `report.md` 与本节
+- [shadcn/improve](https://github.com/shadcn/improve) — **superseded** for `sdd-audit` checklist body
 
 四源共同点：先对齐再写码、测试作反馈、skill 可复用、**做与查分离**、健康度可单独审视。
 
@@ -215,7 +215,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 **拿什么**
 
 - spec-driven-development、planning-and-task-breakdown → `sdd-spec` / `sdd-plan` @ pin
-- code-review-quality 五轴 → `review-dimensions.md`（diff 审）+ `audit-dimensions.md`（全库 1–6、8 类）
+- code-review-quality 五轴 → `review-dimensions.md`（diff 审）；全库 MECE 审计 → `sdd-audit` `map.md` / `playbook.md`
 - shipping-and-launch、git-workflow → `sdd-ship` 叙述（不默认 push）
 
 **改什么**
@@ -235,7 +235,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 - `grill-me` verbatim → `sdd-grill`；`zoom-out` verbatim → `sdd-zoom`
 - `to-prd`、spec 开场 → `sdd-spec`；`to-issues` → `sdd-plan` 竖切片
-- `tdd` → `sdd-build`；架构词汇 → `sdd-improve` 第 5 类
+- `tdd` → `sdd-build`；架构词汇 → `sdd-audit` 第 5 类
 
 **扔什么**
 
@@ -243,19 +243,22 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 - grill 会话内写满 CONTEXT — 消费者 CONTEXT 可选（§2.3）
 - `diagnose` 专 skill — 不扩 core
 
-#### shadcn/improve → 分类体检
+#### zhijunio-skills `codebase-audit` → MECE 全库体检
 
 **拿什么**
 
-- 清单骨架 → `audit-dimensions.md`；只读规则 → Read-only + Red flags
-- scope/effort → `profile-guide.md`；报告与路由 → `finding-format.md`、`closing-the-loop.md`
+- 六柱 lens + effort 变体 → `map.md`、`playbook.md`、`report.md`、`deep-parallel.md`
+- 只读规则 → playbook § Recon + SKILL Hard rules
+- SDD 路由 → `closing-the-loop.md`（upstream 无此节）
 
 **扔什么**
 
-- **Simplify** 步名 — 并进 architecture
-- 体检挡 ship — improve 的 🔴 只排 follow-up
+- 体检挡 ship — improve 的严重度只排 follow-up
 - `plans/` 工厂、executor — 跟进走 SDD 或 direct edit
-- skill 正文引用 improve 产品 — 归因在 SOURCES / THIRD_PARTY_NOTICES
+
+#### shadcn/improve（已 superseded）
+
+**历史：** 分类清单骨架曾进 `audit-dimensions.md`；现由 `codebase-audit` 取代。归因在 SOURCES / THIRD_PARTY_NOTICES。
 
 ---
 
@@ -270,7 +273,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 - **`sdd-review`** — superpowers requesting-code-review + agent-skills code-review-quality @ pin
 - **`sdd-ship`** — superpowers verification-before-completion + agent-skills shipping
 - **`sdd-zoom`** — matt `zoom-out` @ pin（单源）
-- **`sdd-improve`** — shadcn/improve 清单 + agent-skills 五轴摘要 + matt 架构词汇
+- **`sdd-audit`** — zhijunio `codebase-audit` MECE playbooks + SDD `closing-the-loop.md`
 
 ---
 
@@ -278,13 +281,13 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 - **自动化程度** — superpowers 高、agent-skills 中、matt 低、improve 中；**本仓低**（用户 `@`，无子 agent）
 - **主产物** — 上游各异；**本仓**默认 spec+plan，其余多为会话报告
-- **审阅 vs 体检** — agent-skills `/review`+simplify、improve 全库 audit；**本仓**拆成 `sdd-review` + `sdd-improve`，simplify 语义并进 architecture
+- **审阅 vs 体检** — agent-skills `/review`+simplify、improve 全库 audit；**本仓**拆成 `sdd-review` + `sdd-audit`，simplify 语义并进 architecture
 - **域语言** — matt 主推 CONTEXT/ADR；**本仓**对消费者可选 L0–L3（§2.3）
 - **平台绑定** — 上游多插件/slash；**本仓**纯 Markdown，无 manifest、`status.json`、`using-sdd`
 
 **合成一句：**
 
-> superpowers **阶段纪律与证据链** + agent-skills **生命周期与审阅轴** + matt **采访、地图与架构词汇** + shadcn/improve **分类体检清单**，减去 **自动编排、平台锁、独立 Simplify、体检当 ship 门禁**。
+> superpowers **阶段纪律与证据链** + agent-skills **生命周期与审阅轴** + matt **采访、地图与架构词汇** + zhijunio **codebase-audit MECE 体检**，减去 **自动编排、平台锁、独立 Simplify、体检当 ship 门禁**。
 
 上游升级时：只 diff 相关 commit 片段 → 更新 `SKILL.md` / `references/`、`SOURCES.md` → material 变更后 consumer spot-check → 再改本节。
 
@@ -294,13 +297,13 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 - **磁盘上有 spec/plan = 已批准** — 文件存在 ≠ 用户点头；批准在 **Present** 之后。
 - **review 里改产品代码** — 失去独立视角；fix → hand off **`sdd-build`**。
-- **improve 挡 ship** — 体检排期 ≠ 本次增量门禁。
-- **两技能 🔴 混用** — improve 的 🔴 排 follow-up；review 的 🔴 才挡 ship。
+- **improve 挡 ship** — `sdd-audit` 体检排期 ≠ 本次增量门禁。
+- **两技能 🔴 混用** — `sdd-audit` 的 🚨/🔴 排 follow-up；review 的 🔴 才挡 ship。
 - **中心 routing doc 或 `using-sdd`** — 用户应直接 `@` stage skill；routing 增加空转。
 - **workflow status.json** — 状态机 + 平台绑定。
 - **每个小取舍一篇 ADR** — 文档通胀；ADR 留给跨增量、跨 feature 决策。
 
-**演化原则：** core 保持六段环；卫星不撑胖 core；**怎么做** 在 skill，**为什么** 在本文；成对文件（`audit-dimensions` / `review-dimensions`，`finding-format` 语义同步）。
+**演化原则：** core 保持六段环；卫星不撑胖 core；**怎么做** 在 skill，**为什么** 在本文；`sdd-review` 用 `review-dimensions.md` + `finding-format.md`；`sdd-audit` 用 `map.md` / `playbook.md` / `report.md`（delivery gate 语义不同）。
 
 ---
 
@@ -308,6 +311,6 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 - [SOURCES.md](../../SOURCES.md) · [THIRD_PARTY_NOTICES.md](../../THIRD_PARTY_NOTICES.md) · [AGENTS.md](../../AGENTS.md)
 - [README — Skills](../../README.md#skills) · [Maintainer verification](../../README.md#maintainer-verification)
-- [sdd-improve](../../skills/sdd-improve/SKILL.md) / [sdd-review](../../skills/sdd-review/SKILL.md) — When/Skip
+- [sdd-audit](../../skills/sdd-audit/SKILL.md) / [sdd-review](../../skills/sdd-review/SKILL.md) — When/Skip
 - [docs/design/README.md](./README.md)
 

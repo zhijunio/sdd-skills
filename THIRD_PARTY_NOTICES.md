@@ -27,7 +27,7 @@ Copyright (c) 2026 zhijunio
 
 Source: <https://github.com/zhijunio/zhijunio-skills>
 
-MECE audit playbooks adapted in `skills/sdd-improve/references/` (`map.md`, `playbook.md`, `report.md`, `deep-parallel.md`) from upstream `codebase-audit`.
+MECE audit playbooks adapted in `skills/sdd-audit/references/` (`map.md`, `playbook.md`, `report.md`, `deep-parallel.md`) from upstream `codebase-audit`.
 
 ## shadcn/improve
 
@@ -35,7 +35,7 @@ Copyright (c) 2026 shadcn
 
 Source: <https://github.com/shadcn/improve>
 
-Prior audit checklist pin; superseded for `sdd-improve` body by `codebase-audit` import (see `SOURCES.md`).
+Prior audit checklist pin; superseded for `sdd-audit` body by `codebase-audit` import (see `SOURCES.md`).
 
 ---
 

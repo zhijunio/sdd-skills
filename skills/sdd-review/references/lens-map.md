@@ -1,8 +1,8 @@
 # Lens map — delivery review
 
-**Scope:** **increment diff only**. Whole repo / branch opportunity scan → [`sdd-improve`](../sdd-improve/SKILL.md) (`map.md` there).
+**Scope:** **increment diff only**. Whole repo / branch codebase audit → [`sdd-audit`](../sdd-audit/SKILL.md) (`map.md` there).
 
-Map each finding to **one lens** id. Full MECE rules and anti-patterns → [`sdd-improve/references/map.md`](../sdd-improve/references/map.md) and `playbook.md` § Anti-patterns (diff-introduced signals only here).
+Map each finding to **one lens** id. Full MECE rules and anti-patterns → [`sdd-audit/references/map.md`](../sdd-audit/references/map.md) and `playbook.md` § Anti-patterns (diff-introduced signals only here).
 
 ## Review dimension → lens
 
@@ -32,7 +32,7 @@ Walk **diff-introduced or worsened** signals only. Pre-existing → **Coverage �
 | Layer breach / new cycle | **A1** |
 | Oversized increment (~>300 lines) without justification | **C1** or **A5** |
 
-Anti-pattern names and vet bar → `sdd-improve/references/playbook.md` § Anti-patterns, § Vet — apply only to **changed** paths.
+Anti-pattern names and vet bar → `sdd-audit/references/playbook.md` § Anti-patterns, § Vet — apply only to **changed** paths.
 
 ## Overlap (one row)
 
