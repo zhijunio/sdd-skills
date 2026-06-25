@@ -9,7 +9,7 @@ Ask the questions one at a time.
 
 If a question can be answered by exploring the codebase, explore the codebase instead.
 
-**Skip:** boundaries explicit → invoke `sdd-spec`.
+**Skip:** boundaries explicit → invoke `sdd-spec`; need isolated git context first → [`sdd-worktree`](../sdd-worktree/SKILL.md).
 
 **Present:** Write `Decisions:` / `Rejected:` / `Boundaries:` / `Open:` in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: skill ids, `file:line`, git literals.
 

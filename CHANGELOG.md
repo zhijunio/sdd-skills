@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Optional pre-loop satellite **`sdd-worktree`** — explicit `@` git isolation (worktree or topic branch); experimental until consumer spot-check recorded below
+- Optional post-loop satellite **`sdd-publish`** — explicit `@` remote integration (push / PR / merge / tag / release) after ship; experimental until consumer spot-check recorded below
+
+### Changed
+
+- **Ten skills** — README/AGENTS/SOURCES/engineering-rationale §3.3; CI `validate` counts ten `SKILL.md` files; README Mermaid post-loop edge `sdd-ship` → `sdd-publish`
+- **`sdd-spec` / `sdd-grill`**: **When/Skip** cross-link to **`sdd-worktree`**
+- **`sdd-ship`**: **Stop** / **SDD** hand off to **`sdd-publish`** when user separately requests integration
+
+**Spot-check (2026-06-12, `sdd-worktree`):** maintainer self-trial in this repo as consumer git workspace — evaluation order, Present/confirm gate, conflict/weak-isolation rules, and `sdd-spec` hand-off path reviewed against spec; no blocking friction. **`sdd-worktree` remains experimental** until a separate consumer-repo increment is recorded before recommended pin bump.
+
+**Spot-check (2026-06-12, `sdd-publish`):** maintainer self-trial against `skills/sdd-publish/SKILL.md` — gates, step menu, push-only subset, no-`gh` PR Present, CI/merge gate, sync-default-before-tag, CHANGELOG version resolution, and `sdd-ship` hand-off reviewed against spec; no blocking friction. **`sdd-publish` remains experimental** until a separate consumer-repo integration run is recorded before recommended pin bump.
+
 ## [0.3.1] - 2026-06-11
 
 Governance and Present-locale hardening after `v0.3.0`.
@@ -25,7 +40,7 @@ Governance and Present-locale hardening after `v0.3.0`.
 
 ## [0.3.0] - 2026-06-11
 
-Fourth validated release. Consumer fourth loop completed in [todo-web](https://github.com/zhijunio/todo-web).
+Fourth validated release. Consumer fourth loop completed in an external consumer repo.
 
 ### Added
 
@@ -47,7 +62,7 @@ Fourth validated release. Consumer fourth loop completed in [todo-web](https://g
 - **`sdd-improve` / `sdd-review`**: **🔴/🟡/🟢** meaning differs (follow-up priority vs delivery gate)
 - **docs/design**: [engineering-rationale.md](docs/design/engineering-rationale.md)（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节）
 - **`spec-template` / README**: multi-domain `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts
-- Fourth consumer trial in **todo-web**（improve → WebMvcTest 切片）
+- Fourth consumer trial（improve → WebMvcTest 切片）
 - **`sdd-grill`** / **`sdd-zoom`**: upstream single-source bodies + minimal SDD tails; doc drift cleanup (`tests/check.py` references; improve spec **AC-10** withdrawn)
 - **`sdd-improve`**: `SKILL.md` one-line Process + minimal tail; workflow detail in `references/`
 - **`sdd-improve`**: `finding-format.md` minimal optional report skeleton; required content unchanged
@@ -67,7 +82,7 @@ Maintainer patch: CI gate on `main` and stale gate-doc status fixes after **`v0.
 
 ## [0.2.0] - 2026-06-09
 
-Third validated release. Consumer third loop completed in [todo-web](https://github.com/zhijunio/todo-web).
+Third validated release. Consumer third loop completed in an external consumer repo.
 
 ### Added
 
@@ -100,7 +115,7 @@ Third validated release. Consumer third loop completed in [todo-web](https://git
 
 ## [0.1.0] - 2026-06-09
 
-First validated release. Consumer second loop completed in [todo-web](https://github.com/zhijunio/todo-web) (delete-confirmation increment).
+First validated release. Consumer second loop completed in an external consumer repo (delete-confirmation increment).
 
 ### Added
 

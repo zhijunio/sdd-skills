@@ -57,8 +57,10 @@ Agent 能写代码，但常见四类问题：
 grill（可选澄清）→ spec → plan → build → review → ship
 ```
 
-可选卫星（二颗）：
+可选卫星（四颗：一颗 pre-loop、一颗 post-loop）：
 
+- **`sdd-worktree`** — 开工前 git 隔离（worktree 或 topic 分支）；用户显式 `@`，非 superpowers 自动编排；**不挡** ship。
+- **`sdd-publish`** — ship 后远程集成（push / PR / merge / tag / release）；分步 Present + 确认；用户显式 `@`；**不挡** ship 验收本身。
 - **`sdd-zoom`** — 领土地图：模块、调用方、域词汇；**不给** refactor findings，也不给 delivery verdict。
 - **`sdd-improve`** — 机会扫描：全库或分支只读体检；产出 findings 与 next-stage 建议，**不挡** ship。
 
@@ -71,12 +73,14 @@ grill（可选澄清）→ spec → plan → build → review → ship
 - **plan** — 把 AC 映射到竖切片与验证命令；用户批准前不实现。
 - **build** — TDD 按片推进；仅实现 approved plan（或 review 点名 fix）。全片完成 → **`sdd-review`**，不跳 ship。
 - **review** — 只读审 **increment diff**；有 🔴 则 → **`sdd-build`** 修；通过 → **`sdd-ship`**。
-- **ship** — 按 AC 复验；更新 CHANGELOG（若项目惯例需要）；不默认 push/PR/发版。
+- **ship** — 按 AC 复验；更新 CHANGELOG（若项目惯例需要）；不默认 push/PR/发版；用户另行要求集成 → **`sdd-publish`**。
 
 **何时用卫星（启发式，非强制）：**
 
+- 新需求勿在 `main` 上直接开干 → 可先 **`sdd-worktree`**，再 spec / grill。
 - 陌生代码、术语乱 → 先 **`sdd-zoom`**，再 spec / grill。
 - 全库健康、分支上线前摸底、架构债盘点 → **`sdd-improve`**（不是「review 这个 PR」）。
+- ship 通过后用户要 push/PR/merge/tag/release → **`sdd-publish`**（不是 ship 内默认执行）。
 - 权衡仍开放 → **`sdd-grill`**，不要靠 improve 替代表决。
 
 ### 2.2 两种「审」：review 与 improve
@@ -255,8 +259,10 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 ---
 
-### 3.3 八技能与四源映射（速查）
+### 3.3 十技能与四源映射（速查）
 
+- **`sdd-worktree`** — 维护者自研；superpowers 自动 worktree **扔掉**；显式 `@` 轻量隔离
+- **`sdd-publish`** — 维护者自研；superpowers 自动发版 **扔掉**；显式 `@` 分步集成
 - **`sdd-grill`** — matt `grill-me`（主）；superpowers brainstorming thrown，不融合进正文
 - **`sdd-spec`** — agent-skills spec-driven + matt `to-prd` + superpowers brainstorming 开场
 - **`sdd-plan`** — superpowers `writing-plans` 精神 + agent-skills planning + matt `to-issues`

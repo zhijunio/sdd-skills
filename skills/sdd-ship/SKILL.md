@@ -9,7 +9,7 @@ NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 
 Before claiming done: identify proving command → run fresh → read full output → verify claim.
 
-**When:** after `sdd-review` — no unresolved must-fix; should-fix fixed or explicitly accepted. **Not for:** fixing review findings (→ `sdd-build`).
+**When:** after `sdd-review` — no unresolved must-fix; should-fix fixed or explicitly accepted. **Not for:** fixing review findings (→ `sdd-build`); remote integration after ship (→ [`sdd-publish`](../sdd-publish/SKILL.md)).
 
 Require spec, plan, reviewed diff, and review outcome.
 
@@ -29,4 +29,6 @@ Every AC needs fresh, proportionate evidence. Explain skipped checks.
 
 **Present:** Write the ship summary in the **user's language** (latest user turn when unclear) — do not default to English. Required content (layout flexible): Acceptance Evidence (Criterion | Implementation | Evidence | Pass/Fail); Regression Checks; Unrun Checks; Remaining Risks; CHANGELOG (user-visible only, or "none needed"); Delivery Status. Record CHANGELOG user-visible changes only.
 
-**SDD:** Stop after ship summary and any explicitly requested local commit. No push, PR, publish, or deploy unless separately requested.
+**Stop:** after ship summary and any explicitly requested local commit. No push, PR, publish, or deploy in-session.
+
+**SDD:** When user **separately requests** remote integration (push, PR, merge, tag, release) → hand off [`sdd-publish`](../sdd-publish/SKILL.md). Otherwise stop here.

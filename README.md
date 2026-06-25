@@ -1,6 +1,6 @@
 # SDD Skills
 
-Lightweight, platform-neutral skills for spec-driven development — **eight skills**, six-stage delivery loop, two optional satellites.
+Lightweight, platform-neutral skills for spec-driven development — **ten skills**, six-stage delivery loop, four optional satellites (one pre-loop, one post-loop).
 
 The repository keeps useful SDD discipline without a state machine, project manager, or Git workflow framework.
 
@@ -33,6 +33,7 @@ Six principles in three layers — **shape** (what the repo is), **delivery** (h
 
 ```mermaid
 flowchart TD
+  W[sdd-worktree]
   G[sdd-grill]
   subgraph satellites["Optional satellites"]
     Z[sdd-zoom]
@@ -44,7 +45,10 @@ flowchart TD
   B --> R[sdd-review]
   R -->|must-fix / should-fix| B
   R -->|pass| SH[sdd-ship]
+  SH --> PUB[sdd-publish]
 
+  W --> S
+  W --> G
   G --> S
   G -.->|plan/design decisions| P
   Z --> S
@@ -54,12 +58,14 @@ flowchart TD
 
 **Explicit stages:** one stage output → **Stop** → hand off; user **`@`** the next skill.
 
+- **`sdd-worktree`** — optional **pre-loop** git isolation (worktree or topic branch) before spec; experimental until [CHANGELOG](CHANGELOG.md) spot-check passes.
 - **`sdd-grill`** — optional clarify before spec or plan (one question at a time); may hand off to **`sdd-plan`** when plan/design still needs decisions.
 - **`sdd-zoom`** / **`sdd-improve`** — optional satellites; neither is mandatory before ship.
+- **`sdd-publish`** — optional **post-loop** remote integration (push / PR / merge / tag / release) after ship; experimental until spot-check in [CHANGELOG](CHANGELOG.md).
 
 ## Skills
 
-Eight skills under `skills/<name>/`. Instructions **English**; deliverables follow the user's language (**Present** hard rule in each `SKILL.md`).
+Ten skills under `skills/<name>/`. Instructions **English**; deliverables follow the user's language (**Present** hard rule in each `SKILL.md`).
 
 ### Core loop
 
@@ -76,6 +82,8 @@ Eight skills under `skills/<name>/`. Instructions **English**; deliverables foll
 
 | Skill | Use when |
 | --- | --- |
+| `sdd-worktree` | **Pre-loop** — isolate git context (worktree or topic branch) before spec; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
+| `sdd-publish` | **Post-loop** — remote integration after ship; per-step Present + confirm; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
 | `sdd-zoom` | Unfamiliar code — **territory map** (modules, callers, domain vocabulary); not refactor findings |
 | `sdd-improve` | **Opportunity scan** — read-only audit / health check (findings report); not **delivery review** |
 
@@ -94,11 +102,12 @@ Pairing is **When/Skip** cross-links in each skill — do not substitute one for
 
 | Skill | Requires |
 | --- | --- |
-| `sdd-grill`, `sdd-spec`, `sdd-zoom`, `sdd-improve` | — |
+| `sdd-worktree`, `sdd-grill`, `sdd-spec`, `sdd-zoom`, `sdd-improve` | — |
 | `sdd-review` | Increment diff (spec/plan improve traceability) |
 | `sdd-plan` | Approved spec |
 | `sdd-build` | Approved spec + plan |
 | `sdd-ship` | Spec + plan + passed review |
+| `sdd-publish` | Passed ship + user integration intent |
 
 Only plan, build, and ship need prior artifacts. **`sdd-review`** can run with diff only; it never assumes `main` — user-specified range or task scope wins.
 
@@ -116,7 +125,9 @@ Non-interactive example:
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-**Recommended pin** — latest tagged release (`v0.3.1`, eight skills):
+**Default branch** — ten skills (includes experimental **`sdd-worktree`** and **`sdd-publish`**); see [Unreleased](CHANGELOG.md#unreleased).
+
+**Recommended pin** — latest tagged release (`v0.3.1`, eight skills — bump pin when tagging a release that includes new satellites):
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills@v0.3.1 -a cursor -a codex -a claude-code -y
@@ -150,7 +161,8 @@ npx skills@latest add zhijunio/sdd-skills -s sdd-spec -s sdd-plan -y
 Add satellites only:
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s sdd-improve -s sdd-zoom -y
+npx skills@latest add zhijunio/sdd-skills \
+  -s sdd-worktree -s sdd-publish -s sdd-improve -s sdd-zoom -y
 ```
 
 List without installing: `npx skills@latest add zhijunio/sdd-skills --list`
@@ -174,11 +186,11 @@ Optional cross-feature decisions: `docs/adr/0001-short-title.md` (link from spec
 
 ## Maintainer verification
 
-**No** `tests/check.py`. Minimal CI **`validate`** (`.github/workflows/check.yml`) counts eight skills on PRs to `main` — branch protection only.
+**No** `tests/check.py`. Minimal CI **`validate`** (`.github/workflows/check.yml`) counts ten skills on PRs to `main` — branch protection only.
 
 Before merge:
 
-1. Eight skills under `skills/*/SKILL.md`; CI **`validate`** passes.
+1. Ten skills under `skills/*/SKILL.md`; CI **`validate`** passes.
 2. **`sdd-improve`** / **`sdd-review`** references intact.
 3. Spot-check Markdown links you edit.
 4. **Material** behavior changes → spot-check in a consumer repo; note friction in PR or [CHANGELOG.md](CHANGELOG.md) `[Unreleased]` when user-visible.
