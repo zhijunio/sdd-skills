@@ -118,4 +118,4 @@ Finding severity 🚨🔴🟡🟢 = follow-up priority only — **not** `sdd-rev
 
 `references/map.md` · `references/playbook.md` · `references/report.md`
 
-**Provenance:** Audit body synced from [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — see [SOURCES.md](../../docs/SOURCES.md).
+**Provenance:** Audit body synced from [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — see [SOURCES.md](../../docs/design/SOURCES.md).

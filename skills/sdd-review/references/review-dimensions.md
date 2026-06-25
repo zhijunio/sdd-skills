@@ -1,6 +1,6 @@
 # Review Dimensions
 
-**Delivery review** checklist — **increment diff** only. Whole repo / branch → **`sdd-audit`** [`When/Skip`](../../sdd-audit/SKILL.md). Attribution: **`docs/SOURCES.md`** / **`docs/THIRD_PARTY_NOTICES.md`**.
+**Delivery review** checklist — **increment diff** only. Whole repo / branch → **`sdd-audit`** [`When/Skip`](../../sdd-audit/SKILL.md). Attribution: **`docs/design/SOURCES.md`** / **`docs/design/THIRD_PARTY_NOTICES.md`**.
 
 ## Diff kind
 

@@ -2,7 +2,7 @@
 
 Decision and methodology records for the **sdd-skills repository**. These are **not** default SDD artifacts for projects using the skills.
 
-Runtime contracts: `skills/<name>/SKILL.md` and [SOURCES.md](../SOURCES.md).
+Runtime contracts: `skills/<name>/SKILL.md` and [SOURCES.md](./SOURCES.md).
 
 ## Reading order
 
@@ -15,8 +15,8 @@ Runtime contracts: `skills/<name>/SKILL.md` and [SOURCES.md](../SOURCES.md).
 
 | Document | Scope | Status |
 | --- | --- | --- |
-| [SOURCES.md](../SOURCES.md) | Upstream pins and per-skill mapping | living |
-| [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) | Third-party attribution | living |
+| [SOURCES.md](./SOURCES.md) | Upstream pins and per-skill mapping | living |
+| [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) | Third-party attribution | living |
 | [engineering-rationale.md](./engineering-rationale.md) | Principles, upstream comparison, CONTEXT/ADR north star, maintainer prompt | living |
 
 Maintainer Git workflow: [AGENTS.md](../../AGENTS.md). Release history: [CHANGELOG.md](../../CHANGELOG.md).

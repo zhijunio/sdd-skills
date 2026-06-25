@@ -26,7 +26,7 @@ Six principles in three layers — **shape** (what the repo is), **delivery** (h
 
 | Principle | In practice |
 | --- | --- |
-| **Borrow, don't rebuild** | Pin upstream @ [SOURCES.md](docs/SOURCES.md); verbatim @ pin + minimal SDD tail; fuse ideas — don't mirror upstream catalogs |
+| **Borrow, don't rebuild** | Pin upstream @ [SOURCES.md](docs/design/SOURCES.md); verbatim @ pin + minimal SDD tail; fuse ideas — don't mirror upstream catalogs |
 | **No empty ceremony** | No new core stages or state fields without consumer evidence; validate **material** skill changes by spot-checking in consumer repos |
 
 ## Workflow
@@ -140,7 +140,7 @@ Optional cross-feature decisions: `docs/adr/0001-short-title.md` (link from spec
 
 Ideas from [mattpocock/skills](https://github.com/mattpocock/skills), [obra/superpowers](https://github.com/obra/superpowers), [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), and [shadcn/improve](https://github.com/shadcn/improve) (audit checklist for **`sdd-audit`**).
 
-Pin mapping and per-skill decisions: [SOURCES.md](docs/SOURCES.md) · [THIRD_PARTY_NOTICES.md](docs/THIRD_PARTY_NOTICES.md)
+Pin mapping and per-skill decisions: [SOURCES.md](docs/design/SOURCES.md) · [THIRD_PARTY_NOTICES.md](docs/design/THIRD_PARTY_NOTICES.md)
 
 ## License
 
