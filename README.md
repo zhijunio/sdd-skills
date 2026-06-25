@@ -85,7 +85,7 @@ Ten skills under `skills/<name>/`. Instructions **English**; deliverables follow
 | `sdd-worktree` | **Pre-loop** — isolate git context (worktree or topic branch) before spec |
 | `sdd-publish` | **Post-loop** — remote integration; per-step Present + confirm; no `@sdd-verify` prerequisite |
 | `sdd-zoom` | Unfamiliar code — **territory map** (modules, callers, domain vocabulary); not refactor findings |
-| `sdd-audit` | **Codebase audit** — same MECE model as `codebase-audit`; P0/P1/P2 roadmap; SDD handoff in **Suggested next steps**; not **delivery review** |
+| `sdd-audit` | **Codebase audit** — MECE pillars A/C/S/V/D/O; P0/P1/P2 roadmap; SDD handoff in **Suggested next steps**; not **delivery review** |
 
 ### Review vs audit
 
@@ -103,7 +103,7 @@ Pairing is **When/Skip** cross-links in each skill — do not substitute one for
 | Skill | Requires |
 | --- | --- |
 | `sdd-worktree`, `sdd-grill`, `sdd-spec`, `sdd-zoom`, `sdd-audit` | — |
-| `sdd-review` | Increment diff (spec/plan improve traceability) |
+| `sdd-review` | Increment diff (spec/plan traceability when available) |
 | `sdd-plan` | Approved spec |
 | `sdd-build` | Approved spec + plan |
 | `sdd-verify` | Spec + plan + passed review |
@@ -135,6 +135,10 @@ Optional cross-feature decisions: `docs/adr/0001-short-title.md` (link from spec
 ## Changelog
 
 [CHANGELOG.md](CHANGELOG.md) — `sdd-verify` updates it when user-visible releases require it.
+
+## Maintainers
+
+[AGENTS.md](AGENTS.md) — merge checklist and authoring rules. Pre-merge: `python3 scripts/check-repo.py`.
 
 ## Sources
 

@@ -24,7 +24,7 @@ Platform-neutral **SDD stage skills** for consumer projects. Runtime contracts: 
 
 - Update [SOURCES.md](docs/design/SOURCES.md) and [THIRD_PARTY_NOTICES.md](docs/design/THIRD_PARTY_NOTICES.md) when upstream-derived behavior changes.
 - **No** `tests/check.py` or repo CI (no `.github` workflows).
+- Before merge: run `python3 scripts/check-repo.py` (ten skills + relative Markdown links); **`sdd-audit`** / **`sdd-review`** references intact.
 - **Material** skill or behavior changes: try in conversation or maintainer self-trial; note user-visible friction in PR or [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
-- Before merge: ten skills present; **`sdd-audit`** / **`sdd-review`** references intact; spot-check Markdown links you edit (checklist above).
 - Do not add core stages, state fields, or ceremony without consumer evidence.
 - `main` integrates via PR; preserve third-party notices.
