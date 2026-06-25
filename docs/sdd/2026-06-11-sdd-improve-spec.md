@@ -99,7 +99,7 @@ When the user says **"review"** without **increment diff** and delivery context,
    | 下一步做什么、路线图、direction | include category **9**; trade-offs → **`sdd-grill`** |
    | 没说清 | **standard** 1–8; optional **Profile** |
 
-9. **Effort levels (internal labels):** **quick**, **standard** (default), **deep** — normative table in [profile-guide.md](../../skills/sdd-audit/references/profile-guide.md).
+9. **Effort levels (internal labels):** **quick**, **standard** (default), **deep** — normative table in [playbook.md § Effort](../../skills/sdd-audit/references/playbook.md) *(was `profile-guide.md`; superseded by MECE playbooks)*.
 10. Parallel read-only subagents are **optional** when the host agent supports them; otherwise scan in-scope categories in priority order.
 11. **`Verify`:** Re-read cited code for every finding before presenting; downgrade, correct, or reject false positives. Record rejections in **considered and rejected**.
 12. **`Present`:** **`## Recon`** (Type/Verification/CI/HEAD/Working tree/Hotspots/Not audited); **`## Scope`**; **`## Findings`** as **`### 🔴/🟡/🟢` severity** list blocks (**not a table**): **Evidence** + Impact/Effort/Confidence/Risk emoji grading; **architecture** adds **Strength**. **`## Direction`** when category 9; **`## Dependency order`** when ≥2 follow-ups.

@@ -13,4 +13,4 @@ I don't know this area of code well. Go up a layer of abstraction. Give me a map
 
 **Stop:** **Present**, then name one next skill; **hand off** — no in-session next-stage work. Common: territory clear → `sdd-spec`; trade-offs → `sdd-grill`; findings wanted → `sdd-audit`; approved plan in area → `sdd-build`.
 
-**Red flags:** mandatory before every spec/ship; duplicating improve or review; raw tree without roles/callers/vocabulary; prose-only map when diagram would clarify; writing spec, plan, or product code in-session.
+**Red flags:** mandatory before every spec or verify; duplicating `sdd-audit` or `sdd-review`; raw tree without roles/callers/vocabulary; prose-only map when diagram would clarify; writing spec, plan, or product code in-session.

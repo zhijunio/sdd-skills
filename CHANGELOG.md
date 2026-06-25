@@ -11,13 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optional pre-loop satellite **`sdd-worktree`** — explicit `@` git isolation (worktree or topic branch)
 - Optional post-loop satellite **`sdd-publish`** — explicit `@` remote integration (push / PR / merge / tag / release); standalone entry OK, does not require `@sdd-verify`
+- Maintainer **`scripts/check-repo.py`** — ten-skill count + relative Markdown link check (local pre-merge; no GitHub Actions)
 
 ### Changed
 
 - **Breaking:** **`sdd-ship`** renamed to **`sdd-verify`** — reinstall or update `@` references; **`sdd-publish`** unchanged
-- **`sdd-audit`**: **`sdd-improve`** renamed; body synced from `codebase-audit` (`map` / `playbook` / `report` / `deep-parallel`); SDD handoff in **`SKILL.md` Stop** + **Suggested next steps** only; removed **`closing-the-loop.md`**
-- **`sdd-review`**: `lens-map.md`; MECE lens ids + optional impact emoji; architecture walk links to improve anti-patterns / vet
-- **Ten skills** — README/AGENTS/SOURCES/engineering-rationale §3.3; README Mermaid post-loop edge `sdd-verify` → `sdd-publish`
+- **`sdd-audit`**: **`sdd-improve`** renamed; MECE playbooks in `references/`; SDD handoff in **`SKILL.md` Stop** + **Suggested next steps** only; removed **`closing-the-loop.md`**
+- **`sdd-review`**: `lens-map.md`; MECE lens ids + optional impact emoji; architecture walk links to `sdd-audit` anti-patterns / vet
+- **Ten skills** — README/AGENTS/SOURCES/engineering-rationale §2.1/§3.3 aligned; README Mermaid post-loop edge `sdd-verify` → `sdd-publish`
+- **Audit remediation:** fixed `sdd-review/references/` cross-skill links; SOURCES `plan-template` path; `improve`→`sdd-audit` terminology in governance docs
 - **`sdd-spec` / `sdd-grill`**: **When/Skip** cross-link to **`sdd-worktree`**
 - **`sdd-verify`**: **Stop** / **SDD** hand off to **`sdd-publish`** when user separately requests integration
 

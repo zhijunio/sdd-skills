@@ -144,11 +144,11 @@
 - Depends on: Slice 1
 - Test or proof: 文档与配置 diff 覆盖清单。
 - Implementation outline:
-  - `README.md`：十 skill、四颗卫星（pre `sdd-worktree` + post `sdd-publish` + zoom + improve）；Mermaid 增 post-loop 边。
+  - `README.md`：十 skill、四颗卫星（pre `sdd-worktree` + post `sdd-publish` + zoom + `sdd-audit`）；Mermaid 增 post-loop 边。
   - `AGENTS.md`：九→十 skill。
   - `SOURCES.md`：新增 `sdd-publish` 小节（maintainer-authored）。
   - `docs/design/engineering-rationale.md` §3.2 / §3.3 增 `sdd-publish` 映射行。
-  - `.github/workflows/check.yml`：`eq 9` → `eq 10`。
+  - ~~`.github/workflows/check.yml`：`eq 9` → `eq 10`~~ *(removed — use `python3 scripts/check-repo.py`)*
   - `CHANGELOG.md` `[Unreleased]`：Added experimental optional `sdd-publish`。
 - Verification: `test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10`；`rg -q 'sdd-publish' README.md AGENTS.md docs/design/SOURCES.md docs/design/engineering-rationale.md`
 - Done: true

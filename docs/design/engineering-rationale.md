@@ -37,7 +37,7 @@ Agent 能写代码，但常见四类问题：
 
 #### 交付（消费者怎么出货）
 
-- **可验切片** — spec 写清可 pass/fail 的 AC；plan 拆 15–60 分钟竖切片；grill / zoom / improve 按需加装。目的是每个增量都有可演示、可命令验证的完成定义。
+- **可验切片** — spec 写清可 pass/fail 的 AC；plan 拆 15–60 分钟竖切片；grill / zoom / audit 按需加装。目的是每个增量都有可演示、可命令验证的完成定义。
 - **测试与证明** — build 先红测试；review 只读且有证据；verify 重跑验证、读全输出。目的是「完成」一词必须有可追溯证据，而不是会话里的口头确认。
 
 #### 治理（维护者怎么演进）
@@ -49,7 +49,7 @@ Agent 能写代码，但常见四类问题：
 
 ## 2. 本仓怎么落地
 
-### 2.1 八技能与主路径
+### 2.1 十技能与主路径
 
 核心交付环（六段）：
 
@@ -81,7 +81,7 @@ grill（可选澄清）→ spec → plan → build → review → verify
 - 陌生代码、术语乱 → 先 **`sdd-zoom`**，再 spec / grill。
 - 全库健康、分支上线前摸底、架构债盘点 → **`sdd-audit`**（不是「review 这个 PR」）。
 - 用户要 push/PR/merge/tag/release → **`sdd-publish`**（常见在 verify 之后，但非前置条件；不是 verify 内默认执行）。
-- 权衡仍开放 → **`sdd-grill`**，不要靠 improve 替代表决。
+- 权衡仍开放 → **`sdd-grill`**，不要靠 **`sdd-audit`** 替代表决。
 
 ### 2.2 两种「审」：review 与 audit
 
@@ -100,9 +100,9 @@ grill（可选澄清）→ spec → plan → build → review → verify
 
 - 问的是：全库或分支里**有哪些值得跟进的发现**？
 - 范围：whole repo，或 branch vs merge-base（finding 可标 `introduced` / `pre-existing`）。
-- 产出：**Codebase Audit** 报告（与上游 `codebase-audit` 同结构）；handoff 写在报告末 **Suggested next steps**，路由见 **`sdd-audit` `SKILL.md` Stop**。
+- 产出：**Codebase Audit** 报告（`report.md` 结构）；handoff 写在报告末 **Suggested next steps**，路由见 **`sdd-audit` `SKILL.md` Stop**。
 - 🚨🔴🟡🟢：只排 **follow-up 优先级** — **不挡** `sdd-verify`。
-- 六柱 A/C/S/V/D/O；清单 `map.md` / `playbook.md`；报告 `report.md`（与上游同步）。
+- 六柱 A/C/S/V/D/O；清单 `map.md` / `playbook.md`；报告 `report.md`（bundled under `skills/sdd-audit/references/`）。
 
 **配对与歧义处理：**
 
@@ -152,8 +152,8 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 - `mattpocock/skills` @ `be55a797`
 - `obra/superpowers` @ `6fd450765`
 - `addyosmani/agent-skills` @ `c076972e`
-- [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — **未 pin**；MIT；pillar 大变时人工 diff 后更新 `map.md` / `playbook.md` / `report.md` 与本节
-- [shadcn/improve](https://github.com/shadcn/improve) — **superseded** for `sdd-audit` checklist body
+- **`sdd-audit` references** — maintainer-authored MECE playbooks in `skills/sdd-audit/references/`
+- [shadcn/improve](https://github.com/shadcn/improve) — historical audit checklist influence only
 
 四源共同点：先对齐再写码、测试作反馈、skill 可复用、**做与查分离**、健康度可单独审视。
 
@@ -243,22 +243,22 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 - grill 会话内写满 CONTEXT — 消费者 CONTEXT 可选（§2.3）
 - `diagnose` 专 skill — 不扩 core
 
-#### zhijunio-skills `codebase-audit` → MECE 全库体检
+#### Maintainer MECE playbooks → `sdd-audit`
 
 **拿什么**
 
 - 六柱 lens + effort 变体 → `map.md`、`playbook.md`、`report.md`、`deep-parallel.md`
 - 只读规则 → playbook § Recon + SKILL Hard rules
-- SDD 路由 → **`sdd-audit` `SKILL.md` Stop**（upstream 无此节）
+- SDD 路由 → **`sdd-audit` `SKILL.md` Stop**
 
 **扔什么**
 
-- 体检挡 verify — improve 的严重度只排 follow-up
+- 体检挡 verify — audit 的严重度只排 follow-up
 - `plans/` 工厂、executor — 跟进走 SDD 或 direct edit
 
-#### shadcn/improve（已 superseded）
+#### shadcn/improve（historical）
 
-**历史：** 分类清单骨架曾进 `audit-dimensions.md`；现由 `codebase-audit` 取代。归因在 SOURCES / THIRD_PARTY_NOTICES。
+**历史：** 分类清单骨架曾进 `audit-dimensions.md`；现由 bundled MECE playbooks 取代。归因在 SOURCES / THIRD_PARTY_NOTICES。
 
 ---
 
@@ -273,7 +273,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 - **`sdd-review`** — superpowers requesting-code-review + agent-skills code-review-quality @ pin
 - **`sdd-verify`** — superpowers verification-before-completion + agent-skills shipping（本地验收）；远程集成 → **`sdd-publish`**
 - **`sdd-zoom`** — matt `zoom-out` @ pin（单源）
-- **`sdd-audit`** — zhijunio `codebase-audit` MECE playbooks + SDD handoff in **`SKILL.md` Stop**
+- **`sdd-audit`** — bundled MECE playbooks + SDD handoff in **`SKILL.md` Stop**
 
 ---
 
@@ -287,7 +287,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 **合成一句：**
 
-> superpowers **阶段纪律与证据链** + agent-skills **生命周期与审阅轴** + matt **采访、地图与架构词汇** + zhijunio **codebase-audit MECE 体检**，减去 **自动编排、平台锁、独立 Simplify、体检当 verify 门禁**。
+> superpowers **阶段纪律与证据链** + agent-skills **生命周期与审阅轴** + matt **采访、地图与架构词汇** + **MECE 全库体检（`sdd-audit`）**，减去 **自动编排、平台锁、独立 Simplify、体检当 verify 门禁**。
 
 上游升级时：只 diff 相关 commit 片段 → 更新 `SKILL.md` / `references/`、`docs/design/SOURCES.md` → material 变更后 maintainer 自检或会话试用 → 再改本节。
 
@@ -297,7 +297,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 - **磁盘上有 spec/plan = 已批准** — 文件存在 ≠ 用户点头；批准在 **Present** 之后。
 - **review 里改产品代码** — 失去独立视角；fix → hand off **`sdd-build`**。
-- **improve 挡 verify** — `sdd-audit` 体检排期 ≠ 本次增量门禁。
+- **audit 挡 verify** — `sdd-audit` 体检排期 ≠ 本次增量门禁。
 - **两技能 🔴 混用** — `sdd-audit` 的 🚨/🔴 排 follow-up；review 的 🔴 才挡 verify。
 - **中心 routing doc 或 `using-sdd`** — 用户应直接 `@` stage skill；routing 增加空转。
 - **workflow status.json** — 状态机 + 平台绑定。

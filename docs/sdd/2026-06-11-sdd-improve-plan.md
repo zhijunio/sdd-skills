@@ -1,6 +1,6 @@
 # sdd-audit Satellite Implementation Plan
 
-**Spec:** `docs/sdd/2026-06-11-sdd-audit-spec.md`
+**Spec:** `docs/sdd/2026-06-11-sdd-improve-spec.md`
 
 **Status:** complete (2026-06-11)
 
@@ -13,7 +13,7 @@
 | 3 | README, SOURCES, CHANGELOG, engineering-rationale | docs updated |
 | 4 | Consumer trial Pass | consumer repo fourth loop (`v0.3.0` gate) |
 
-> **Note:** Slices 1–3 originally cited `tests/check.py`; maintainer verify removed — acceptance per [spec revision log](./2026-06-11-sdd-audit-spec.md#revision-log) and consumer repo trial.
+> **Note:** Slices 1–3 originally cited `tests/check.py`; maintainer verify removed — acceptance per [spec revision log](./2026-06-11-sdd-improve-spec.md#revision-log) and consumer repo trial.
 
 ## Ship
 

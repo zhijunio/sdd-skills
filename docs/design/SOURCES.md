@@ -13,11 +13,10 @@ Snapshot date: 2026-06-12（upstream pin commits 未变；十 skill 含 maintain
 - `addyosmani/agent-skills`
   - Branch: `main`
   - Commit: `c076972e2626fe2acc30b00a6c7240d4c5fb786a`
-- [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — **third-party, not pinned**
+- Maintainer-authored MECE playbooks in `skills/sdd-audit/references/` (`map.md`, `playbook.md`, `report.md`, `deep-parallel.md`)
+- [shadcn/improve](https://github.com/shadcn/improve) — **third-party, not pinned**
   - License: MIT ([THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md))
-  - Adapted: MECE playbooks in `skills/sdd-audit/references/` (`map.md`, `playbook.md`, `report.md`, `deep-parallel.md`)
-  - Refresh: diff upstream when pillar checklists change materially; no automatic pin
-- [shadcn/improve](https://github.com/shadcn/improve) — **superseded** for `sdd-audit` body by `codebase-audit` import (see **`THIRD_PARTY_NOTICES.md`**)
+  - Historical audit checklist influence; **`sdd-audit`** body uses bundled MECE playbooks under `references/`
 
 ## Why six core skills
 
@@ -66,14 +65,14 @@ Local decisions:
 
 Sources:
 
-- [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — MECE pillars, `map.md`, `playbook.md`, `report.md`, `deep-parallel.md` (bundled under `references/`; sync on intentional upstream changes)
-- Prior pins: [shadcn/improve](https://github.com/shadcn/improve), `addyosmani/agent-skills`, `mattpocock/skills` — superseded for checklist body by `codebase-audit` import (see **`THIRD_PARTY_NOTICES.md`**)
+- Maintainer-authored — MECE pillars in `references/map.md`, `playbook.md`, `report.md`, `deep-parallel.md`
+- Prior pins: [shadcn/improve](https://github.com/shadcn/improve), `addyosmani/agent-skills`, `mattpocock/skills` — historical audit checklist influence only (see **`THIRD_PARTY_NOTICES.md`**)
 
 Local decisions:
 
 - Optional **satellite** — not a mandatory core stage before `sdd-verify`.
-- **`SKILL.md`** — `codebase-audit` body @ sync + minimal **SDD** tail (When/Skip vs `sdd-review`, **Stop**, handoff).
-- **`references/`** — `map.md`, `playbook.md`, `report.md`, `deep-parallel.md` synced from upstream; SDD handoff table in **`SKILL.md` Stop**.
+- **`SKILL.md`** — MECE audit workflow + minimal **SDD** tail (When/Skip vs `sdd-review`, **Stop**, handoff).
+- **`references/`** — `map.md`, `playbook.md`, `report.md`, `deep-parallel.md`; SDD handoff table in **`SKILL.md` Stop**.
 - **Present:** report per `report.md` (same section order as upstream). **Suggested next steps** (last) names one route per **`SKILL.md` Stop** handoff table. Severity 🚨🔴🟡🟢 = follow-up priority — **not** `sdd-review` delivery gate.
 - Disambiguation vs **`sdd-review`**: **codebase audit** vs **delivery review** — **When/Skip** cross-links only.
 - **Stop:** user **`@`** next skill — no auto-chain.
@@ -100,7 +99,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — upstream opening @ pin; **Present** + **15–60 min vertical slices**; [plan-template.md](../../skills/sdd-plan/plan-template.md); user approval before **`sdd-build`**.
+- **`SKILL.md`** — upstream opening @ pin; **Present** + **15–60 min vertical slices**; [plan-template.md](../../skills/sdd-plan/references/plan-template.md); user approval before **`sdd-build`**.
 
 ### `sdd-build`
 
