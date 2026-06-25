@@ -2,7 +2,7 @@
 
 Status: **living** · 更新: **2026-06-11**
 
-**谁说了算：** 日常行为以 `skills/*/SKILL.md` 为准；上游 pin 与 skill 映射见 [SOURCES.md](../../SOURCES.md)；本文说明 **本仓怎么想、上游怎么想、我们怎么取舍**。发版与试跑摘要见 [CHANGELOG.md](../../CHANGELOG.md)；维护操作见 [AGENTS.md](../../AGENTS.md)。
+**谁说了算：** 日常行为以 `skills/*/SKILL.md` 为准；上游 pin 与 skill 映射见 [SOURCES.md](../SOURCES.md)；本文说明 **本仓怎么想、上游怎么想、我们怎么取舍**。发版与试跑摘要见 [CHANGELOG.md](../../CHANGELOG.md)；维护操作见 [AGENTS.md](../../AGENTS.md)。
 
 **维护者：** 先改 skill 与 SOURCES，再同步本文。禁止编造未发生的 consumer 结果或版本 tag。若本文与 skill 冲突，以 skill 为准。刷新本文时：直白中文、一节一事、对比用列表；不新增第二份 rationale 文件。
 
@@ -145,7 +145,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 ## 3. 上游四源与本仓合成
 
-本仓不是四源的「合集镜像」，而是按 §1.0 **融合取用**：每个本地 skill 只借与阶段纪律相关的部分，并显式记录**扔掉了什么**。细节映射以 [SOURCES.md](../../SOURCES.md) 为准；本节讲**为什么这样拆**。
+本仓不是四源的「合集镜像」，而是按 §1.0 **融合取用**：每个本地 skill 只借与阶段纪律相关的部分，并显式记录**扔掉了什么**。细节映射以 [SOURCES.md](../SOURCES.md) 为准；本节讲**为什么这样拆**。
 
 **Pin 快照：**
 
@@ -289,7 +289,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 > superpowers **阶段纪律与证据链** + agent-skills **生命周期与审阅轴** + matt **采访、地图与架构词汇** + zhijunio **codebase-audit MECE 体检**，减去 **自动编排、平台锁、独立 Simplify、体检当 verify 门禁**。
 
-上游升级时：只 diff 相关 commit 片段 → 更新 `SKILL.md` / `references/`、`SOURCES.md` → material 变更后 consumer spot-check → 再改本节。
+上游升级时：只 diff 相关 commit 片段 → 更新 `SKILL.md` / `references/`、`docs/SOURCES.md` → material 变更后 consumer spot-check → 再改本节。
 
 ---
 
@@ -309,7 +309,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 ## 5. 延伸阅读
 
-- [SOURCES.md](../../SOURCES.md) · [THIRD_PARTY_NOTICES.md](../../THIRD_PARTY_NOTICES.md) · [AGENTS.md](../../AGENTS.md)
+- [SOURCES.md](../SOURCES.md) · [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) · [AGENTS.md](../../AGENTS.md)
 - [README — Skills](../../README.md#skills) · [Maintainer verification](../../README.md#maintainer-verification)
 - [sdd-audit](../../skills/sdd-audit/SKILL.md) / [sdd-review](../../skills/sdd-review/SKILL.md) — When/Skip
 - [docs/design/README.md](./README.md)

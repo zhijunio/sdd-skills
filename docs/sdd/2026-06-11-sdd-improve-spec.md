@@ -9,9 +9,9 @@ Consumers can run an optional **`sdd-audit`** satellite that performs a read-onl
 ## Scope
 
 - Add `skills/sdd-audit/` with `SKILL.md` and bundled `references/` (`audit-dimensions.md`, `finding-format.md`, `profile-guide.md`, `closing-the-loop.md`).
-- Update **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`CHANGELOG.md`**, and **`docs/design/engineering-rationale.md`** (as needed).
+- Update **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`docs/SOURCES.md`**, **`CHANGELOG.md`**, and **`docs/design/engineering-rationale.md`** (as needed).
 - Keep the core loop unchanged: `(optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-verify`; user **`@`** stage skills — no central routing doc.
-- Record upstream playbook attribution in **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`** only — **`sdd-audit` skill text does not reference other improve packages**.
+- Record upstream playbook attribution in **`docs/SOURCES.md`** / **`docs/THIRD_PARTY_NOTICES.md`** only — **`sdd-audit` skill text does not reference other improve packages**.
 
 ## Non-goals
 

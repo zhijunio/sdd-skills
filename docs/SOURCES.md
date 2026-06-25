@@ -21,7 +21,7 @@ Snapshot date: 2026-06-12（upstream pin commits 未变；十 skill 含 maintain
 
 ## Why six core skills
 
-Principles (six): [README — Core principles](README.md#core-principles) — shape / delivery / governance.
+Principles (six): [README — Core principles](../README.md#core-principles) — shape / delivery / governance.
 
 This repository ships a **minimal SDD stage set**, not a mirror of the upstream catalogs.
 
@@ -31,9 +31,9 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
 - **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), `sdd-publish` (post-loop remote integration), `sdd-audit` (codebase audit), and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
 
-For stage choice, see [README.md](README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
+For stage choice, see [README.md](../README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
 
-Sources and methodology: [docs/design/](docs/design/) ([index](docs/design/README.md)).
+Sources and methodology: [design/](design/) ([index](design/README.md)).
 
 ## Local Skills
 
@@ -59,7 +59,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — upstream opening @ pin; **Present** + [spec-template.md](skills/sdd-spec/spec-template.md).
+- **`SKILL.md`** — upstream opening @ pin; **Present** + [spec-template.md](../skills/sdd-spec/spec-template.md).
 - `docs/sdd/*-spec.md`; in-place revision + **Revision log**; user approval before **`sdd-plan`**.
 
 ### `sdd-audit`
@@ -100,7 +100,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — upstream opening @ pin; **Present** + **15–60 min vertical slices**; [plan-template.md](skills/sdd-plan/plan-template.md); user approval before **`sdd-build`**.
+- **`SKILL.md`** — upstream opening @ pin; **Present** + **15–60 min vertical slices**; [plan-template.md](../skills/sdd-plan/plan-template.md); user approval before **`sdd-build`**.
 
 ### `sdd-build`
 
@@ -131,7 +131,7 @@ Local decisions:
 - Default scope is merge-base diff plus task-related uncommitted work; never assume `main`.
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
-- **`SKILL.md`** — code-review-quality + requesting-code-review @ pin; **Present** + scope in [scope.md](skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md` (delivery gate).
+- **`SKILL.md`** — code-review-quality + requesting-code-review @ pin; **Present** + scope in [scope.md](../skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md` (delivery gate).
 - Delivery verdict → **`sdd-build`** or **`sdd-verify`**; full verification in **`sdd-verify`**.
 
 ### `sdd-worktree`

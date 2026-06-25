@@ -151,7 +151,7 @@
   - `docs/design/engineering-rationale.md` §3.2 / §3.3 增 `sdd-publish` 映射行。
   - `.github/workflows/check.yml`：`eq 9` → `eq 10`。
   - `CHANGELOG.md` `[Unreleased]`：Added experimental optional `sdd-publish`。
-- Verification: `test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10`；`rg -q 'sdd-publish' README.md AGENTS.md SOURCES.md docs/design/engineering-rationale.md`
+- Verification: `test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10`；`rg -q 'sdd-publish' README.md AGENTS.md docs/SOURCES.md docs/design/engineering-rationale.md`
 - Done: true
 
 ## Slice 10: Consumer spot-check（闭合 OQ-1）

@@ -26,7 +26,7 @@ Six principles in three layers — **shape** (what the repo is), **delivery** (h
 
 | Principle | In practice |
 | --- | --- |
-| **Borrow, don't rebuild** | Pin upstream @ [SOURCES.md](SOURCES.md); verbatim @ pin + minimal SDD tail; fuse ideas — don't mirror upstream catalogs |
+| **Borrow, don't rebuild** | Pin upstream @ [SOURCES.md](docs/SOURCES.md); verbatim @ pin + minimal SDD tail; fuse ideas — don't mirror upstream catalogs |
 | **No empty ceremony** | No new core stages or state fields without consumer evidence; validate **material** skill changes by spot-checking in consumer repos |
 
 ## Workflow
@@ -119,38 +119,6 @@ Install with the [skills CLI](https://github.com/vercel-labs/skills) (Cursor, Co
 npx skills@latest add zhijunio/sdd-skills
 ```
 
-Non-interactive example:
-
-```bash
-npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
-```
-
-**Default branch** — ten skills (experimental **`sdd-worktree`** and **`sdd-publish`**); see [Unreleased](CHANGELOG.md#unreleased). **Breaking:** `@sdd-ship` → `@sdd-verify`.
-
-**Recommended pin** — `v0.3.1` (eight skills, includes **`sdd-ship`**). After **`v0.4.0`** tags, pin ten skills + **`sdd-verify`**:
-
-```bash
-npx skills@latest add zhijunio/sdd-skills@v0.3.1 -a cursor -a codex -a claude-code -y
-```
-
-Core loop:
-
-```bash
-npx skills@latest add zhijunio/sdd-skills \
-  -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-verify -y
-```
-
-Satellites only:
-
-```bash
-npx skills@latest add zhijunio/sdd-skills \
-  -s sdd-worktree -s sdd-publish -s sdd-audit -s sdd-zoom -y
-```
-
-List without installing: `npx skills@latest add zhijunio/sdd-skills --list`
-
-No platform hooks, slash commands, or agent manifests in this repository.
-
 ## Minimal artifacts
 
 Default consumer documents:
@@ -164,19 +132,6 @@ Grill, zoom, audit, and review outputs stay in conversation unless the user asks
 
 Optional cross-feature decisions: `docs/adr/0001-short-title.md` (link from spec **Related ADRs**). Optional domain terms: `CONTEXT.md` or `docs/context/<domain>/CONTEXT.md` — see [engineering-rationale §2.5](docs/design/engineering-rationale.md#41-可选-context-与-adr).
 
-## Maintainer verification
-
-**No** `tests/check.py`. Minimal CI **`validate`** (`.github/workflows/check.yml`) counts ten skills on PRs to `main` — branch protection only.
-
-Before merge:
-
-1. Ten skills under `skills/*/SKILL.md`; CI **`validate`** passes.
-2. **`sdd-audit`** / **`sdd-review`** references intact.
-3. Spot-check Markdown links you edit.
-4. **Material** behavior changes → spot-check in a consumer repo; note friction in PR or [CHANGELOG.md](CHANGELOG.md) `[Unreleased]` when user-visible.
-
-Full maintainer guidelines: [AGENTS.md](AGENTS.md). Design rationale: [engineering-rationale.md](docs/design/engineering-rationale.md).
-
 ## Changelog
 
 [CHANGELOG.md](CHANGELOG.md) — `sdd-verify` updates it when user-visible releases require it.
@@ -185,7 +140,7 @@ Full maintainer guidelines: [AGENTS.md](AGENTS.md). Design rationale: [engineeri
 
 Ideas from [mattpocock/skills](https://github.com/mattpocock/skills), [obra/superpowers](https://github.com/obra/superpowers), [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), and [shadcn/improve](https://github.com/shadcn/improve) (audit checklist for **`sdd-audit`**).
 
-Pin mapping and per-skill decisions: [SOURCES.md](SOURCES.md) · [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
+Pin mapping and per-skill decisions: [SOURCES.md](docs/SOURCES.md) · [THIRD_PARTY_NOTICES.md](docs/THIRD_PARTY_NOTICES.md)
 
 ## License
 

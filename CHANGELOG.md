@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Spot-check (2026-06-12, `sdd-publish`):** maintainer self-trial against `skills/sdd-publish/SKILL.md` — gates, step menu, push-only subset, no-`gh` PR Present, CI/merge gate, sync-default-before-tag, CHANGELOG version resolution, and `sdd-verify` hand-off reviewed against spec; no blocking friction. **`sdd-publish` remains experimental** until a separate consumer-repo integration run is recorded before recommended pin bump.
 
 - **`sdd-publish`**: satellite independence — no hard `@sdd-verify` or review gate; **Integration readiness** probes CHANGELOG/`[Unreleased]` only; missing verify summary does not block push/PR; tag/release still Present gap when user-visible impact and empty `[Unreleased]`
-- **Docs:** restore `docs/design/README.md`; keep `SOURCES.md` / `THIRD_PARTY_NOTICES.md` at repo root; README install pin + **Maintainer verification** aligned with `AGENTS.md`
+- **Docs:** restore `docs/design/README.md`; move `SOURCES.md` / `THIRD_PARTY_NOTICES.md` to `docs/`; README install pin + **Maintainer verification** aligned with `AGENTS.md`
 
 ## [0.3.1] - 2026-06-11
 
