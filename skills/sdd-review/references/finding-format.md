@@ -1,28 +1,25 @@
 # Finding Format
 
-**Maintainers:** Sync **severity semantics**, **Report locale**, and **Verify** with **`sdd-improve`** `finding-format.md`. Layout need not match opportunity scan.
+**Maintainers:** Delivery **verdict** semantics stay here; MECE **lens** ids and severity emoji rubric align with [`sdd-improve`](../sdd-improve/references/report.md) — **different job**: ship gate vs opportunity scan.
 
 ## Report locale
 
-Skill instructions **English**. Report prose in the **user's language** (latest user turn when unclear) — hard rule at **Present** in `SKILL.md`.
-
-- Layout: tables, prose, or lists — no mandatory shared skeleton.
-- Keep literal: category lens ids; skill ids; `file:line`; git literals; **🔴/🟡/🟢** (group titles may translate).
+Skill instructions **English**. Report prose in the **user's language**. Keep literal: lens ids; skill ids; `file:line`; git literals; delivery groups **🔴/🟡/🟢 must-fix / should-fix / suggestion**.
 
 ## Required content
 
-**Delivery verdict** on an **increment diff** only. Checklists: [review-dimensions.md](review-dimensions.md).
+**Delivery verdict** on an **increment diff** only. Checklists: [review-dimensions.md](review-dimensions.md). Lenses: [lens-map.md](lens-map.md).
 
 1. **Scope** — diff range, **Diff kind** (`code` / `prose/docs-only`).
-2. **Findings** — **Evidence**; **🔴/🟡/🟢** **delivery gate** (blocks **`sdd-build`** / **`sdd-ship`** for this increment).
+2. **Findings** — **Evidence**; grouped by **delivery gate** (below).
 3. **Coverage** — dimensions walked; `architecture: pass` or `skip`; limits / pre-existing.
 4. **Verdict** — pass, or must-fix / should-fix → route.
 
-## Severity
+## Delivery gate (group headers)
 
-**Delivery gate** for **this increment** — same labels as **`sdd-improve`**; meaning differs — follow-up priority there only.
+**Blocks `sdd-build` / `sdd-ship` for this increment** — not the same as `sdd-improve` severity emoji.
 
-| Severity | Use when |
+| Group | Use when |
 | --- | --- |
 | **🔴 must-fix** | Blocks delivery — correctness, security, spec/AC gap, Non-goal violation |
 | **🟡 should-fix** | Fix unless user accepts risk — duplication, half-migration, test gaps on changed paths |
@@ -32,11 +29,13 @@ Do not use Nit/FYI labels — map to **suggestion**. Reserve **must-fix** for co
 
 ## Per-finding fields
 
-**Evidence** required. Optional: Impact (this increment), Confidence (✅ HIGH · ⚠️ MED · ❓ LOW), Effort (S/M/L), Risk (🔴/🟡/🟢). **Lens** in title: `[spec]` · `[standards]` · `[security]` — omit for **architecture** when obvious. Architecture (DRY/KISS in diff): **🟡** or **🟢** only — [review-dimensions.md](review-dimensions.md). Prioritize: severity class first; impact ÷ effort discounted by confidence.
+**Evidence** required. **Lens** column or title suffix: **A1–A6**, **C0–C3**, **S1**, **V1–V2**, **D1**, **O1**, or `—` for pure spec compliance — [lens-map.md](lens-map.md).
+
+Optional **impact** (not delivery gate): severity emoji per improve rubric — `🚨 Critical` · `🔴 High` · `🟡 Medium` · `🟢 Low` — when it helps rank within a group.
+
+Optional: Confidence (✅ HIGH · ⚠️ MED · ❓ LOW), Effort (S/M/L), Risk. Prioritize: delivery group first; then impact ÷ effort.
 
 ## Example (optional)
-
-Not mandatory.
 
 ```markdown
 ## Context
@@ -50,19 +49,24 @@ Not mandatory.
 ## Findings
 
 ### 🔴 must-fix
-**1. spec · [spec]** — AC unmapped; no test proof in diff.
+**1. AC unmapped** — `[spec]` · lens `—`
 - **Evidence:** `npm test` — no assertion for stated AC
-- **Confidence:** ✅ HIGH · **Effort:** S · **Risk:** 🟢 LOW
+- **Impact:** 🔴 High · **Confidence:** ✅ HIGH
+
+**2. SQL concat in new handler** — `[security]` · lens **S1**
+- **Evidence:** `src/api/user.ts:42`
+- **Impact:** 🚨 Critical
 
 ### 🟡 should-fix
-None.
+**3. Duplicate mapper in diff** — lens **C1**
+- **Evidence:** `src/foo.ts:10`, `src/bar.ts:88`
 
 ### 🟢 suggestion
 None.
 
 ## Coverage
 **Examined:** spec/plan ✅ · correctness ✅ · tests ✅ · docs ✅ · architecture ✅ · security ⏭️
-**Limits:** Large diff — sampled `src/` hotspots only.
+**Limits:** Pre-existing N+1 in `legacy/` — not in diff.
 
 ## Follow-up
 ### Verdict
@@ -71,4 +75,4 @@ None.
 
 ## Verify
 
-Re-read every cited location before **Present**; rejections and pre-existing outside diff → **Coverage — Limits**, not **Findings**.
+Re-read every cited location before **Present**; rejections and pre-existing outside diff → **Coverage — Limits**, not **Findings**. Vet rules → `sdd-improve/references/playbook.md` § Vet.

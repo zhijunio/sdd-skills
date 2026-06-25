@@ -21,13 +21,21 @@ Copyright (c) 2025 Addy Osmani
 
 Source: <https://github.com/addyosmani/agent-skills>
 
+## zhijunio/zhijunio-skills
+
+Copyright (c) 2026 zhijunio
+
+Source: <https://github.com/zhijunio/zhijunio-skills>
+
+MECE audit playbooks adapted in `skills/sdd-improve/references/` (`map.md`, `playbook.md`, `report.md`, `deep-parallel.md`) from upstream `codebase-audit`.
+
 ## shadcn/improve
 
 Copyright (c) 2026 shadcn
 
 Source: <https://github.com/shadcn/improve>
 
-Adapted in `skills/sdd-improve/references/audit-dimensions.md` (condensed audit checklist).
+Prior audit checklist pin; superseded for `sdd-improve` body by `codebase-audit` import (see `SOURCES.md`).
 
 ---
 

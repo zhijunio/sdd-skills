@@ -85,7 +85,7 @@ Ten skills under `skills/<name>/`. Instructions **English**; deliverables follow
 | `sdd-worktree` | **Pre-loop** — isolate git context (worktree or topic branch) before spec; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
 | `sdd-publish` | **Post-loop** — remote integration after ship; per-step Present + confirm; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
 | `sdd-zoom` | Unfamiliar code — **territory map** (modules, callers, domain vocabulary); not refactor findings |
-| `sdd-improve` | **Opportunity scan** — read-only audit / health check (findings report); not **delivery review** |
+| `sdd-improve` | **Opportunity scan** — MECE read-only audit (A/C/S/V/D/O), P0/P1/P2 roadmap, SDD **Next stage**; not **delivery review** |
 
 ### Review vs improve
 
@@ -93,8 +93,8 @@ Ten skills under `skills/<name>/`. Instructions **English**; deliverables follow
 | --- | --- | --- |
 | Question | Can **this increment** ship? | What opportunities exist in the **repo or branch**? |
 | Scope | Increment diff | Whole repo or branch vs merge-base |
-| Outcome | Delivery verdict | Findings report + next-stage route |
-| 🔴🟡🟢 | **Blocks ship** for this increment | **Follow-up priority** only |
+| Outcome | Delivery verdict + lens ids | Findings + roadmap + **Next stage** |
+| Severity | Delivery **🔴/🟡/🟢** groups (ship gate) | Impact **🚨/🔴/🟡/🟢** per finding + **P0/P1/P2** text |
 
 Pairing is **When/Skip** cross-links in each skill — do not substitute one for the other. Ambiguous "review" without a diff → ask which skill.
 
