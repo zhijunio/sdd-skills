@@ -26,7 +26,7 @@ Read-only reviewer — not implementer. Multi-axis review on a defined **increme
 5. Walk core; architecture on code diffs; applicable conditionals. `architecture: pass` or `architecture: skip` in Coverage.
 6. **Present** Context → Findings → Coverage → Follow-up.
 
-**Present:** User's language. Literals: lens ids, skill ids, `file:line`, git literals, delivery **🔴/🟡/🟢** groups. Optional impact emoji per `sdd-audit/references/report.md`. [finding-format.md](references/finding-format.md).
+**Present:** Write the review in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: lens ids, skill ids, `file:line`, git literals, delivery **🔴/🟡/🟢** groups. Optional impact emoji per `sdd-audit/references/report.md`. Layout: [finding-format.md](references/finding-format.md).
 
 Fresh agent/subagent when available; else reread baseline. Optional two-pass on large plans; default one pass.
 

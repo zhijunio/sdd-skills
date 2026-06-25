@@ -1,9 +1,9 @@
 ---
 name: sdd-audit
-description: Read-only codebase health audit — MECE pillars architecture (A1–A6), code (C0–C3), security (S1), verification (V1–V2), dependencies (D1), operations (O1). Chat-only P0/P1/P2 roadmap; effort snapshot, standard, or deep; variants simplicity, anti-pattern, branch, direction, cicd, and pillar-scoped review. Use for codebase audit, architecture review, security hygiene, CI/CD review, over-engineering and anti-pattern scan; not scoped diff delivery review (use sdd-review), article writing, topic learning, implementation edits, or plans/.
+description: Use when the user wants a read-only codebase or branch health audit—not increment delivery review (use sdd-review), implementation edits, articles, topic learning, or plans.
 ---
 
-# Codebase Audit
+# sdd-audit
 
 **Role:** Read-only **MECE** multi-pillar health assessment.
 
@@ -11,11 +11,11 @@ description: Read-only codebase health audit — MECE pillars architecture (A1�
 
 **Does not produce:** files in the target repo (unless user explicitly asks), `plans/`, code edits, articles, or delivery commits.
 
-**Report locale:** Skill docs English; **report body in the user's language**. Literals: paths, `file:line`, lens ids, git refs, severity emojis per `report.md` (roadmap phases: text only).
+**Present:** Write the report in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: paths, `file:line`, lens ids, git refs, severity emojis per `report.md` (roadmap phases P0/P1/P2: text only).
 
 ## Hard rules
 
-1. **Never modify the target repo** — read-only; no installs, commits, formatters; **report in chat only** (no `.codebase-audit/` or other audit files unless the user explicitly asks).
+1. **Never modify the target repo** — read-only; no installs, commits, formatters; **report in chat only** (no audit baseline files unless the user explicitly asks).
 2. **Systemic first** — pattern-class findings.
 3. **Vet before report** — re-read High+; ADRs are by-design unless contradicted.
 4. **No secret values** — `file:line` + credential type only.
@@ -116,6 +116,4 @@ Finding severity 🚨🔴🟡🟢 = follow-up priority only — **not** `sdd-rev
 
 ## References
 
-`references/map.md` · `references/playbook.md` · `references/report.md`
-
-**Provenance:** Audit body synced from [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — see [SOURCES.md](../../docs/design/SOURCES.md).
+`references/map.md` · `references/playbook.md` · `references/report.md` · `references/deep-parallel.md`

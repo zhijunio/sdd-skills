@@ -1,6 +1,6 @@
 # Finding Format
 
-**Maintainers:** Delivery **verdict** semantics stay here; MECE **lens** ids and severity emoji rubric align with [`sdd-audit`](../sdd-audit/references/report.md) — **different job**: delivery gate vs codebase audit.
+**Maintainers:** Delivery **verdict** semantics stay here; MECE **lens** ids and severity emoji rubric align with [`sdd-audit`](../../sdd-audit/references/report.md) — **different job**: delivery gate vs codebase audit.
 
 ## Report locale
 
@@ -31,7 +31,7 @@ Do not use Nit/FYI labels — map to **suggestion**. Reserve **must-fix** for co
 
 **Evidence** required. **Lens** column or title suffix: **A1–A6**, **C0–C3**, **S1**, **V1–V2**, **D1**, **O1**, or `—` for pure spec compliance — [lens-map.md](lens-map.md).
 
-Optional **impact** (not delivery gate): severity emoji per improve rubric — `🚨 Critical` · `🔴 High` · `🟡 Medium` · `🟢 Low` — when it helps rank within a group.
+Optional **impact** (not delivery gate): severity emoji per `sdd-audit` rubric — `🚨 Critical` · `🔴 High` · `🟡 Medium` · `🟢 Low` — when it helps rank within a group.
 
 Optional: Confidence (✅ HIGH · ⚠️ MED · ❓ LOW), Effort (S/M/L), Risk. Prioritize: delivery group first; then impact ÷ effort.
 

@@ -64,7 +64,7 @@ Pre-existing outside diff → **Coverage — Limits**, not **Findings**.
 
 ### Architecture
 
-**Diff-introduced or worsened only.** MECE lenses **A1–A6**, **C1** — [lens-map.md](lens-map.md). Full anti-pattern table → [`sdd-audit` playbook § Anti-patterns](../sdd-audit/references/playbook.md#anti-patterns) (apply to changed paths only).
+**Diff-introduced or worsened only.** MECE lenses **A1–A6**, **C1** — [lens-map.md](lens-map.md). Full anti-pattern table → [`sdd-audit` playbook § Anti-patterns](../../sdd-audit/references/playbook.md#anti-patterns) (apply to changed paths only).
 
 - New modules, patterns, circular deps, shallow modules, pass-through layers
 - **Deletion test** on new modules in diff

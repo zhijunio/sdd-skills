@@ -1,8 +1,8 @@
 # Lens map — delivery review
 
-**Scope:** **increment diff only**. Whole repo / branch codebase audit → [`sdd-audit`](../sdd-audit/SKILL.md) (`map.md` there).
+**Scope:** **increment diff only**. Whole repo / branch codebase audit → [`sdd-audit`](../../sdd-audit/SKILL.md) (`map.md` there).
 
-Map each finding to **one lens** id. Full MECE rules and anti-patterns → [`sdd-audit/references/map.md`](../sdd-audit/references/map.md) and `playbook.md` § Anti-patterns (diff-introduced signals only here).
+Map each finding to **one lens** id. Full MECE rules and anti-patterns → [`sdd-audit/references/map.md`](../../sdd-audit/references/map.md) and `playbook.md` § Anti-patterns (diff-introduced signals only here).
 
 ## Review dimension → lens
 

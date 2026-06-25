@@ -2,7 +2,7 @@
 
 **Delivery: chat only** — post the full report in the conversation.
 
-**No disk by default** — do **not** create or update audit files in the target repo (including `.codebase-audit/`, `findings-*.json`, or report Markdown) unless the user **explicitly** asks to persist a baseline or export.
+**No disk by default** — do **not** create or update audit files in the target repo (including findings JSON, dot-folders, or report Markdown) unless the user **explicitly** asks to persist a baseline or export.
 
 **Report body:** user's language. **Section headings** follow the user's language too (use English headings below when the user writes in English). Literals: paths, lens ids, git refs, **severity emojis** (below).
 
