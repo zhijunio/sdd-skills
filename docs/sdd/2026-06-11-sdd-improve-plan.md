@@ -17,4 +17,4 @@
 
 ## Ship
 
-- Maintainer review + `sdd-ship` slice → **`v0.3.0`** tag when ready.
+- Maintainer review + `sdd-verify` slice → **`v0.3.0`** tag when ready.

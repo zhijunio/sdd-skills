@@ -34,4 +34,4 @@ Fresh agent/subagent when available; else reread baseline. Optional two-pass on 
 
 **Verdict:** 🔴 must-fix blocks **this increment** (delivery gate). 🟡 should-fix unless user accepts risk. 🟢 suggestion — non-blocking.
 
-**SDD:** read-only; fresh verification → `sdd-ship`. Layout flexible. Default no durable file; do not update plan. Stop → invoke `sdd-build` if blocking findings; else invoke `sdd-ship`.
+**SDD:** read-only; fresh verification → `sdd-verify`. Layout flexible. Default no durable file; do not update plan. Stop → invoke `sdd-build` if blocking findings; else invoke `sdd-verify`.

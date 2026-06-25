@@ -25,7 +25,7 @@ Principles (six): [README — Core principles](README.md#core-principles) — sh
 
 This repository ships a **minimal SDD stage set**, not a mirror of the upstream catalogs.
 
-- **Six core skills cover the delivery loop:** (optional) clarify → spec → plan → build → review → ship. User **`@`** the stage skill directly.
+- **Six core skills cover the delivery loop:** (optional) clarify → spec → plan → build → review → verify. User **`@`** the stage skill directly.
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no auto worktree orchestration, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` covers decision interviews before spec or plan; the required artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
@@ -71,10 +71,10 @@ Sources:
 
 Local decisions:
 
-- Optional **satellite** — not a mandatory core stage before `sdd-ship`.
+- Optional **satellite** — not a mandatory core stage before `sdd-verify`.
 - **`SKILL.md`** — `codebase-audit` body @ sync + minimal **SDD** tail (When/Skip vs `sdd-review`, **Stop**, handoff).
-- **`references/`** — `map.md`, `playbook.md`, `report.md`, `deep-parallel.md` synced from upstream; **`closing-the-loop.md`** SDD-only (handoff routes).
-- **Present:** report per `report.md` (same section order as upstream). **Suggested next steps** (last) names one route per `closing-the-loop.md`. Severity 🚨🔴🟡🟢 = follow-up priority — **not** `sdd-review` ship gate.
+- **`references/`** — `map.md`, `playbook.md`, `report.md`, `deep-parallel.md` synced from upstream; SDD handoff table in **`SKILL.md` Stop**.
+- **Present:** report per `report.md` (same section order as upstream). **Suggested next steps** (last) names one route per **`SKILL.md` Stop** handoff table. Severity 🚨🔴🟡🟢 = follow-up priority — **not** `sdd-review` delivery gate.
 - Disambiguation vs **`sdd-review`**: **codebase audit** vs **delivery review** — **When/Skip** cross-links only.
 - **Stop:** user **`@`** next skill — no auto-chain.
 
@@ -132,7 +132,7 @@ Local decisions:
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
 - **`SKILL.md`** — code-review-quality + requesting-code-review @ pin; **Present** + scope in [scope.md](skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md` (delivery gate).
-- Delivery verdict → **`sdd-build`** or **`sdd-ship`**; full verification in **`sdd-ship`**.
+- Delivery verdict → **`sdd-build`** or **`sdd-verify`**; full verification in **`sdd-verify`**.
 
 ### `sdd-worktree`
 
@@ -151,7 +151,7 @@ Local decisions:
 
 Sources:
 
-- **Maintainer-authored** — no upstream pin; post-loop integration after ship, distinct from superpowers auto-release orchestration (thrown per engineering-rationale §3.2).
+- **Maintainer-authored** — no upstream pin; post-loop integration satellite (standalone `@` OK; does not require `@sdd-verify`); distinct from superpowers auto-release orchestration (thrown per engineering-rationale §3.2).
 - Cursor user rule `creating-pull-requests` may coexist — rule covers `gh` format; this skill covers SDD gates and Present/Stop.
 
 Local decisions:
@@ -159,9 +159,9 @@ Local decisions:
 - **`SKILL.md`** — evaluation order, per-step Present → confirm → mutating git/gh, pipeline subset, no-`gh` degradation, merge后 sync default branch before tag; contract `docs/sdd/2026-06-12-sdd-publish-spec.md`.
 - **Thrown:** superpowers auto-release chains, CI babysit loops, force push, platform DevOps bundles.
 - **Present:** user's language. **Stop:** integration complete — no default next skill.
-- **When/Skip** cross-links with **`sdd-ship`** only.
+- **When/Skip** cross-links with **`sdd-verify`** only.
 
-### `sdd-ship`
+### `sdd-verify`
 
 Sources:
 
@@ -172,7 +172,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — verification-before-completion iron law @ pin; **Present** ship summary; finishing-branch options as explicit user actions.
+- **`SKILL.md`** — verification-before-completion iron law @ pin; **Present** verify summary; finishing-branch remote steps → hand off **`sdd-publish`** (explicit user actions only).
 - Fresh evidence; CHANGELOG per repo convention only; no push/deploy in-session — separate request → hand off **`sdd-publish`**.
 
 ## Updating

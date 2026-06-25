@@ -154,7 +154,7 @@
 
 ## Ship
 
-- 全片 `Done: true` 后 → `@sdd-review`（本 increment diff）→ `@sdd-ship`。
+- 全片 `Done: true` 后 → `@sdd-review`（本 increment diff）→ `@sdd-verify`。
 - 发版 pin：**待 OQ-1 通过**；否则仅合并 main，tag 延后或标 pre-release/experimental（与 CHANGELOG 一致）。
 
 ## Verified slices (build 时追加)

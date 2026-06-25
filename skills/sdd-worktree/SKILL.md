@@ -3,7 +3,7 @@ name: sdd-worktree
 description: Use when starting a new change in a git repo and an isolated dev context (worktree or topic branch) is needed before spec or implementation, or the user asks for worktree / feature branch setup.
 ---
 
-Optional pre-loop satellite — isolate git context before the six-stage loop. **Present → user confirms →** run mutating git only after explicit approval. Not spec, plan, build, review, or ship.
+Optional pre-loop satellite — isolate git context before the six-stage loop. **Present → user confirms →** run mutating git only after explicit approval. Not spec, plan, build, review, or verify.
 
 **When:** new increment in a consumer git repo; user wants worktree or `feature/` / `fix/` / `docs/` branch before coding on `main`. **Skip:** spec/plan authoring → [`sdd-spec`](../sdd-spec/SKILL.md); open trade-offs only → [`sdd-grill`](../sdd-grill/SKILL.md); already on an isolated branch/worktree with clean tree and clear next stage.
 
@@ -47,6 +47,6 @@ Optional pre-loop satellite — isolate git context before the six-stage loop. *
 - Default **`sdd-spec`** when user gave recognizable intent (topic sentence or fix/docs keywords) or changed topic from slug default in **Present**.
 - **`sdd-grill`** when user gave no recognizable intent, topic stayed slug default, and user only replied 确认 without changing topic (e.g.「开个 worktree」only).
 
-**Red flags:** mutating git before confirm; skipping evaluation order; auto-chaining next skill; path conflict → silent branch fallback; treating worktree as ship gate; spec/plan/code in-session; cleaning dirty tree or deleting worktrees for the user.
+**Red flags:** mutating git before confirm; skipping evaluation order; auto-chaining next skill; path conflict → silent branch fallback; treating worktree as verify gate; spec/plan/code in-session; cleaning dirty tree or deleting worktrees for the user.
 
 **SDD:** maintainer-authored; explicit `@` only — not superpowers auto-worktree. Contract: `docs/sdd/2026-06-12-sdd-worktree-spec.md`. Experimental optional satellite until consumer spot-check in [CHANGELOG](../../CHANGELOG.md).

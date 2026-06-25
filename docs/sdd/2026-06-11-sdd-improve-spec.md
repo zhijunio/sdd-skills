@@ -1,4 +1,4 @@
-> **Historical filename.** Skill id is now **`sdd-audit`** (renamed from `sdd-improve`). Bundled references: `map.md`, `playbook.md`, `report.md`, `deep-parallel.md`, `closing-the-loop.md`.
+> **Historical filename.** Skill id is now **`sdd-audit`** (renamed from `sdd-improve`). Bundled references: `map.md`, `playbook.md`, `report.md`, `deep-parallel.md`. SDD handoff was `closing-the-loop.md` — **merged into `SKILL.md` Stop** (2026-06-25).
 
 # sdd-audit Optional Satellite Skill
 
@@ -10,7 +10,7 @@ Consumers can run an optional **`sdd-audit`** satellite that performs a read-onl
 
 - Add `skills/sdd-audit/` with `SKILL.md` and bundled `references/` (`audit-dimensions.md`, `finding-format.md`, `profile-guide.md`, `closing-the-loop.md`).
 - Update **`sdd-zoom`**, **`sdd-review`**, **`README.md`**, **`SOURCES.md`**, **`CHANGELOG.md`**, and **`docs/design/engineering-rationale.md`** (as needed).
-- Keep the core loop unchanged: `(optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-ship`; user **`@`** stage skills — no central routing doc.
+- Keep the core loop unchanged: `(optional sdd-grill) → sdd-spec → sdd-plan → sdd-build → sdd-review → sdd-verify`; user **`@`** stage skills — no central routing doc.
 - Record upstream playbook attribution in **`SOURCES.md`** / **`THIRD_PARTY_NOTICES.md`** only — **`sdd-audit` skill text does not reference other improve packages**.
 
 ## Non-goals
@@ -37,7 +37,7 @@ Consumers can run an optional **`sdd-audit`** satellite that performs a read-onl
 
 ### Skill identity and boundaries
 
-1. **`sdd-audit`** must identify as an **optional satellite**; not a mandatory stage before **`sdd-ship`**.
+1. **`sdd-audit`** must identify as an **optional satellite**; not a mandatory stage before **`sdd-verify`**.
 2. The skill must be **read-only** on consumer source: no edits, no mutating git commands, no installs that change the working tree. Read-only analysis commands (e.g. `tsc --noEmit`, audit in check mode) are allowed.
 3. Secret handling: findings reference **`file:line`** and credential type only; never reproduce secret values.
 4. When the user asks for direct implementation, the skill must decline and route to **`sdd-spec`**, **`sdd-plan`**, or **`sdd-build`** per **`references/closing-the-loop.md`**.

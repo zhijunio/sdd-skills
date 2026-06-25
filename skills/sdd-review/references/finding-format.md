@@ -1,6 +1,6 @@
 # Finding Format
 
-**Maintainers:** Delivery **verdict** semantics stay here; MECE **lens** ids and severity emoji rubric align with [`sdd-audit`](../sdd-audit/references/report.md) — **different job**: ship gate vs codebase audit.
+**Maintainers:** Delivery **verdict** semantics stay here; MECE **lens** ids and severity emoji rubric align with [`sdd-audit`](../sdd-audit/references/report.md) — **different job**: delivery gate vs codebase audit.
 
 ## Report locale
 
@@ -17,7 +17,7 @@ Skill instructions **English**. Report prose in the **user's language**. Keep li
 
 ## Delivery gate (group headers)
 
-**Blocks `sdd-build` / `sdd-ship` for this increment** — not the same as `sdd-audit` severity emoji.
+**Blocks `sdd-build` / `sdd-verify` for this increment** — not the same as `sdd-audit` severity emoji.
 
 | Group | Use when |
 | --- | --- |

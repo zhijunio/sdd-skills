@@ -23,7 +23,7 @@ Agent 能写代码，但常见四类问题：
 
 - 做着跑偏 → **可验切片**（spec 写 AC）
 - 范围变大 → **可验切片** + **显式阶段**（Stop 就停，不自动链下一阶段）
-- 没验证就说完 → **测试与证明**（build / review / ship 分工）
+- 没验证就说完 → **测试与证明**（build / review / verify 分工）
 - 流程太重 → **轻量中立** + **显式阶段**（只装需要的 skill，`@` 点名）
 
 ### 1.0 核心原则
@@ -38,7 +38,7 @@ Agent 能写代码，但常见四类问题：
 #### 交付（消费者怎么出货）
 
 - **可验切片** — spec 写清可 pass/fail 的 AC；plan 拆 15–60 分钟竖切片；grill / zoom / improve 按需加装。目的是每个增量都有可演示、可命令验证的完成定义。
-- **测试与证明** — build 先红测试；review 只读且有证据；ship 重跑验证、读全输出。目的是「完成」一词必须有可追溯证据，而不是会话里的口头确认。
+- **测试与证明** — build 先红测试；review 只读且有证据；verify 重跑验证、读全输出。目的是「完成」一词必须有可追溯证据，而不是会话里的口头确认。
 
 #### 治理（维护者怎么演进）
 
@@ -54,15 +54,15 @@ Agent 能写代码，但常见四类问题：
 核心交付环（六段）：
 
 ```text
-grill（可选澄清）→ spec → plan → build → review → ship
+grill（可选澄清）→ spec → plan → build → review → verify
 ```
 
 可选卫星（四颗：一颗 pre-loop、一颗 post-loop）：
 
-- **`sdd-worktree`** — 开工前 git 隔离（worktree 或 topic 分支）；用户显式 `@`，非 superpowers 自动编排；**不挡** ship。
-- **`sdd-publish`** — ship 后远程集成（push / PR / merge / tag / release）；分步 Present + 确认；用户显式 `@`；**不挡** ship 验收本身。
+- **`sdd-worktree`** — 开工前 git 隔离（worktree 或 topic 分支）；用户显式 `@`，非 superpowers 自动编排；**不挡** verify。
+- **`sdd-publish`** — 远程集成（push / PR / merge / tag / release）；分步 Present + 确认；用户显式 `@`、可单独入口；**不依赖** `@sdd-verify`；**不挡** verify 验收本身。
 - **`sdd-zoom`** — 领土地图：模块、调用方、域词汇；**不给** refactor findings，也不给 delivery verdict。
-- **`sdd-audit`** — 机会扫描：全库或分支只读体检；产出 findings 与 next-stage 建议，**不挡** ship。
+- **`sdd-audit`** — 机会扫描：全库或分支只读体检；产出 findings 与 next-stage 建议，**不挡** verify。
 
 技能指令用 **English**；交给用户的交付物跟 **用户语言** — 各 skill **Present** 硬约束（不默认英文）。字面保留：`AC-n`、skill id、category lens、`file:line`、git 字面量、🔴🟡🟢。
 
@@ -71,16 +71,16 @@ grill（可选澄清）→ spec → plan → build → review → ship
 - **grill** — 目标、边界、权衡未定时，一次一问、带推荐答案；可探索代码再提问。Stop 后默认 **`sdd-spec`**；已有 approved spec 且议题是 plan/切片时 → **`sdd-plan`**。
 - **spec** — 行为契约与 AC；用户批准前不 build。澄清性修订可只记 Revision log；AC 变更需再批准。
 - **plan** — 把 AC 映射到竖切片与验证命令；用户批准前不实现。
-- **build** — TDD 按片推进；仅实现 approved plan（或 review 点名 fix）。全片完成 → **`sdd-review`**，不跳 ship。
-- **review** — 只读审 **increment diff**；有 🔴 则 → **`sdd-build`** 修；通过 → **`sdd-ship`**。
-- **ship** — 按 AC 复验；更新 CHANGELOG（若项目惯例需要）；不默认 push/PR/发版；用户另行要求集成 → **`sdd-publish`**。
+- **build** — TDD 按片推进；仅实现 approved plan（或 review 点名 fix）。全片完成 → **`sdd-review`**，不跳 verify。
+- **review** — 只读审 **increment diff**；有 🔴 则 → **`sdd-build`** 修；通过 → **`sdd-verify`**。
+- **verify** — 按 AC 复验；更新 CHANGELOG（若项目惯例需要）；不默认 push/PR/发版；用户另行要求集成 → **`sdd-publish`**。
 
 **何时用卫星（启发式，非强制）：**
 
 - 新需求勿在 `main` 上直接开干 → 可先 **`sdd-worktree`**，再 spec / grill。
 - 陌生代码、术语乱 → 先 **`sdd-zoom`**，再 spec / grill。
 - 全库健康、分支上线前摸底、架构债盘点 → **`sdd-audit`**（不是「review 这个 PR」）。
-- ship 通过后用户要 push/PR/merge/tag/release → **`sdd-publish`**（不是 ship 内默认执行）。
+- 用户要 push/PR/merge/tag/release → **`sdd-publish`**（常见在 verify 之后，但非前置条件；不是 verify 内默认执行）。
 - 权衡仍开放 → **`sdd-grill`**，不要靠 improve 替代表决。
 
 ### 2.2 两种「审」：review 与 audit
@@ -91,7 +91,7 @@ grill（可选澄清）→ spec → plan → build → review → ship
 
 - 问的是：**这一次增量**能不能发？
 - 范围：**increment diff** — PR、commit range、`merge-base...HEAD`、或用户指定的 staged/unstaged 任务变更；**不默认** `main`。
-- 产出：**delivery verdict** — 挡不挡本次 ship。
+- 产出：**delivery verdict** — 挡不挡本次 verify。
 - 🔴 must-fix：挡本次增量的 correctness、security、spec/AC 缺口、Non-goal 违反等。
 - **Diff kind：** 含可执行逻辑或测试 → **code diff**，必走 Architecture（结构 + diff 内 DRY/KISS）；纯 Markdown/文档/注释 → **prose/docs-only**，`architecture: skip`，重点查 spec 对齐与**引用完整性**（改名后链接、install 示例是否仍对）。
 - 清单：`review-dimensions.md`；报告：`finding-format.md`。
@@ -100,8 +100,8 @@ grill（可选澄清）→ spec → plan → build → review → ship
 
 - 问的是：全库或分支里**有哪些值得跟进的发现**？
 - 范围：whole repo，或 branch vs merge-base（finding 可标 `introduced` / `pre-existing`）。
-- 产出：**Codebase Audit** 报告（与上游 `codebase-audit` 同结构）；handoff 写在报告末 **Suggested next steps**，路由见 `closing-the-loop.md`。
-- 🚨🔴🟡🟢：只排 **follow-up 优先级** — **不挡** `sdd-ship`。
+- 产出：**Codebase Audit** 报告（与上游 `codebase-audit` 同结构）；handoff 写在报告末 **Suggested next steps**，路由见 **`sdd-audit` `SKILL.md` Stop**。
+- 🚨🔴🟡🟢：只排 **follow-up 优先级** — **不挡** `sdd-verify`。
 - 六柱 A/C/S/V/D/O；清单 `map.md` / `playbook.md`；报告 `report.md`（与上游同步）。
 
 **配对与歧义处理：**
@@ -110,7 +110,7 @@ grill（可选澄清）→ spec → plan → build → review → ship
 - 用户说「review」但没有 increment diff、也没有「这次 PR/提交」语境 → **必须问清**：delivery review 还是 codebase audit。
 - 用户说「体检 / 健康检查 / 架构债」且无 delivery 语境 → 仅 **`sdd-audit`**。
 
-**禁止：** `sdd-audit` 代替 review；`sdd-audit` 当 ship 门禁；review 会话里改产品代码。
+**禁止：** `sdd-audit` 代替 review；`sdd-audit` 当 verify 门禁；review 会话里改产品代码。
 
 ### 2.3 知识分层（消费者项目）
 
@@ -187,7 +187,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 - **解决什么：** 按类**只读**体检，列有证据的发现；顾问扫描期不改仓。
 - **典型形态：** 多类 checklist；effort profile；follow-up 路由；上游另有 simplify 命名（本仓**不采用**该步名）。
 - **背后假设：** 体检与交付审分离；用户看完 findings 再决定 spec/build 或直接改。
-- **与本仓：** 借分类清单与只读规则；不借产品壳、execute 工厂、ship 门禁。
+- **与本仓：** 借分类清单与只读规则；不借产品壳、execute 工厂、verify 门禁。
 
 ---
 
@@ -200,7 +200,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 **拿什么**
 
 - spec 批准门、plan 竖切片、TDD → `sdd-spec` / `sdd-plan` / `sdd-build`
-- requesting-code-review、verification-before-completion → `sdd-review` / `sdd-ship`
+- requesting-code-review、verification-before-completion → `sdd-review` / `sdd-verify`
 - brainstorming「先想清楚」→ 部分进 `sdd-spec`；领土探索交给 `sdd-zoom`，不塞进 spec
 
 **扔什么**
@@ -216,7 +216,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 - spec-driven-development、planning-and-task-breakdown → `sdd-spec` / `sdd-plan` @ pin
 - code-review-quality 五轴 → `review-dimensions.md`（diff 审）；全库 MECE 审计 → `sdd-audit` `map.md` / `playbook.md`
-- shipping-and-launch、git-workflow → `sdd-ship` 叙述（不默认 push）
+- shipping-and-launch（本地验收纪律）→ `sdd-verify`；git-workflow / 远程集成 → **`sdd-publish`**
 
 **改什么**
 
@@ -227,7 +227,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 **扔什么**
 
 - slash 与巨大 catalog — 用户 `@` skill 即可
-- 独立 `/test` 阶段 — 测试在 build + ship
+- 独立 `/test` 阶段 — 测试在 build + verify
 
 #### mattpocock/skills → 采访、地图、架构词汇
 
@@ -249,11 +249,11 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 - 六柱 lens + effort 变体 → `map.md`、`playbook.md`、`report.md`、`deep-parallel.md`
 - 只读规则 → playbook § Recon + SKILL Hard rules
-- SDD 路由 → `closing-the-loop.md`（upstream 无此节）
+- SDD 路由 → **`sdd-audit` `SKILL.md` Stop**（upstream 无此节）
 
 **扔什么**
 
-- 体检挡 ship — improve 的严重度只排 follow-up
+- 体检挡 verify — improve 的严重度只排 follow-up
 - `plans/` 工厂、executor — 跟进走 SDD 或 direct edit
 
 #### shadcn/improve（已 superseded）
@@ -271,9 +271,9 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 - **`sdd-plan`** — superpowers `writing-plans` 精神 + agent-skills planning + matt `to-issues`
 - **`sdd-build`** — superpowers + matt TDD @ pin；agent-skills incremental-implementation
 - **`sdd-review`** — superpowers requesting-code-review + agent-skills code-review-quality @ pin
-- **`sdd-ship`** — superpowers verification-before-completion + agent-skills shipping
+- **`sdd-verify`** — superpowers verification-before-completion + agent-skills shipping（本地验收）；远程集成 → **`sdd-publish`**
 - **`sdd-zoom`** — matt `zoom-out` @ pin（单源）
-- **`sdd-audit`** — zhijunio `codebase-audit` MECE playbooks + SDD `closing-the-loop.md`
+- **`sdd-audit`** — zhijunio `codebase-audit` MECE playbooks + SDD handoff in **`SKILL.md` Stop**
 
 ---
 
@@ -287,7 +287,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 **合成一句：**
 
-> superpowers **阶段纪律与证据链** + agent-skills **生命周期与审阅轴** + matt **采访、地图与架构词汇** + zhijunio **codebase-audit MECE 体检**，减去 **自动编排、平台锁、独立 Simplify、体检当 ship 门禁**。
+> superpowers **阶段纪律与证据链** + agent-skills **生命周期与审阅轴** + matt **采访、地图与架构词汇** + zhijunio **codebase-audit MECE 体检**，减去 **自动编排、平台锁、独立 Simplify、体检当 verify 门禁**。
 
 上游升级时：只 diff 相关 commit 片段 → 更新 `SKILL.md` / `references/`、`SOURCES.md` → material 变更后 consumer spot-check → 再改本节。
 
@@ -297,8 +297,8 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 - **磁盘上有 spec/plan = 已批准** — 文件存在 ≠ 用户点头；批准在 **Present** 之后。
 - **review 里改产品代码** — 失去独立视角；fix → hand off **`sdd-build`**。
-- **improve 挡 ship** — `sdd-audit` 体检排期 ≠ 本次增量门禁。
-- **两技能 🔴 混用** — `sdd-audit` 的 🚨/🔴 排 follow-up；review 的 🔴 才挡 ship。
+- **improve 挡 verify** — `sdd-audit` 体检排期 ≠ 本次增量门禁。
+- **两技能 🔴 混用** — `sdd-audit` 的 🚨/🔴 排 follow-up；review 的 🔴 才挡 verify。
 - **中心 routing doc 或 `using-sdd`** — 用户应直接 `@` stage skill；routing 增加空转。
 - **workflow status.json** — 状态机 + 平台绑定。
 - **每个小取舍一篇 ADR** — 文档通胀；ADR 留给跨增量、跨 feature 决策。

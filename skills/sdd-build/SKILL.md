@@ -33,6 +33,6 @@ Require approved spec + plan. Read `AGENTS.md`, README, linters when present; el
 
 **Present:** Narration and plan appendices in the **user's language** (latest user turn when unclear) — do not default to English.
 
-**Red flags:** "small change" / "tests later"; production before red failure; scope expansion on review fixes; tests locking implementation; unrelated dirty files; commit hashes or invented state; quiet slice/AC changes; claiming merge-ready or invoking `sdd-ship` before `sdd-review`.
+**Red flags:** "small change" / "tests later"; production before red failure; scope expansion on review fixes; tests locking implementation; unrelated dirty files; commit hashes or invented state; quiet slice/AC changes; claiming merge-ready or invoking `sdd-verify` before `sdd-review`.
 
-**SDD:** Local reversible deviation may continue. Stop when all slices done → invoke `sdd-review` (not `sdd-ship`). Escalation → invoke `sdd-plan` or `sdd-spec`. Commits only when user authorizes.
+**SDD:** Local reversible deviation may continue. Stop when all slices done → invoke `sdd-review` (not `sdd-verify`). Escalation → invoke `sdd-plan` or `sdd-spec`. Commits only when user authorizes.

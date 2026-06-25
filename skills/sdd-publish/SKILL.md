@@ -1,11 +1,11 @@
 ---
 name: sdd-publish
-description: Use when a completed SDD increment passed ship and the user explicitly requests remote integration — push, PR, merge, tag, or GitHub release — in a git repo.
+description: Use when the user explicitly requests remote integration — push, PR, merge, tag, or GitHub release — in a git repo. Optional post-loop satellite; standalone `@` OK; does not require `@sdd-verify`.
 ---
 
-Optional **post-loop** satellite — remote integration after the six-stage loop. **Present → user confirms →** run mutating git/gh only after explicit per-step approval. Not spec, plan, build, review, or ship.
+Optional **post-loop** satellite — remote integration in any git repo. **Present → user confirms →** run mutating git/gh only after explicit per-step approval. Not spec, plan, build, review, or verify. **Does not depend on** `@sdd-verify` or other skills — common path after verify, not a prerequisite.
 
-**When:** after [`sdd-ship`](../sdd-ship/SKILL.md) — user explicitly requests push, PR, merge, tag, release, or integration subset. **Skip:** ship not done or review not passed → [`sdd-review`](../sdd-review/SKILL.md) / [`sdd-ship`](../sdd-ship/SKILL.md) / [`sdd-build`](../sdd-build/SKILL.md); fixing review findings → `sdd-build`; pre-loop isolation → [`sdd-worktree`](../sdd-worktree/SKILL.md); CI triage or PR comment resolution — not this skill.
+**When:** user explicitly requests push, PR, merge, tag, release, or integration subset — **standalone `@` OK**. **Skip:** fixing review findings → `sdd-build`; local AC acceptance / evidence tables → [`sdd-verify`](../sdd-verify/SKILL.md); pre-loop isolation → [`sdd-worktree`](../sdd-worktree/SKILL.md); CI triage or PR comment resolution — not this skill.
 
 **Pipeline steps** (user may name a subset; default does **not** chain merge → tag → release):
 
@@ -27,7 +27,7 @@ Optional **post-loop** satellite — remote integration after the six-stage loop
 4. Per step: **Present** → confirm (§14) → execute → optional **Stop** (user may continue next session)
 5. All requested steps done → **Stop** (integration complete — no default next skill)
 
-**Read-only probe first:** `git rev-parse --is-inside-work-tree`, `git status`, `git branch -vv`, `git remote -v`, `git log -1 --oneline`; when PR context exists and `gh` available → `gh pr view`.
+**Read-only probe first:** `git rev-parse --is-inside-work-tree`, `git status`, `git branch -vv`, `git remote -v`, `git log -1 --oneline`; when PR context exists and `gh` available → `gh pr view`. When `CHANGELOG.md` exists → skim `[Unreleased]`; when user named open PR / tag / release → also read recent increment commits or diff vs merge-base for user-visible hints.
 
 **Hard stops (no mutating git/gh until resolved):**
 
@@ -35,8 +35,25 @@ Optional **post-loop** satellite — remote integration after the six-stage loop
 - **Dirty working tree** — any uncommitted changes per `git status` (including untracked when status shows dirty) → prompt commit or stash; after stash user must re-`@sdd-publish`
 - **On `main` or `master` intending to push new work** — stop; use topic branch + PR (`main` if present, else `master` as production default)
 - **No integration intent** — user only asks "can we ship?" without naming steps → **Present** step menu; wait for named subset
-- **`sdd-ship` not confirmed** (no ship summary in session and user has not affirmed) **or** increment not passed **`sdd-review`** → hand off `sdd-review` / `sdd-ship` / `sdd-build`
 - **Force push, direct push to `main`, or `git config` changes** — refuse
+
+**Integration readiness** (Present when open PR / tag / release steps need CHANGELOG context — **not** a verify or review gate; user's language; layout flexible):
+
+| Probe | Record |
+| --- | --- |
+| `CHANGELOG.md` | present / absent / project has no convention |
+| `[Unreleased]` covers this increment | yes / empty / n/a (no user-visible impact) |
+| Named publish steps | e.g. push only, push + PR, through tag |
+| Verify summary in session (optional) | present / absent — if absent, may **note** `@sdd-verify` for AC evidence; **do not block** push/PR |
+
+**CHANGELOG gaps** — wait for explicit user choice; do not auto-pick:
+
+1. **Continue** — user accepts commit-based PR body and/or defers tag/release (push-only or open PR without `[Unreleased]`).
+2. **Patch `[Unreleased]` now** — **Present** draft bullets from increment scope; user confirms local `CHANGELOG.md` edit (file only — not push). Unblocks PR notes / later tag.
+3. **Optional → `@sdd-verify`** — when user wants AC evidence table or verify summary before tag/release; **suggestion only**, not default stop.
+4. **Stop tag/release** — when user-visible impact likely, `[Unreleased]` empty, and user will not patch or accept CHANGELOG debt — block **tag/release steps only**; push/PR may still proceed if user confirmed earlier.
+
+When `[Unreleased]` is empty and user-visible impact is likely → **Present** gap before open PR / tag; offer paths 1–4 — do not silently rely on commits-only PR body for release steps.
 
 **Push step:** **Present** remote, branch, `git push -u origin <branch>` (or equivalent) → user confirms → execute. Subset "push only" must not auto-run PR/merge/tag/release.
 
@@ -69,6 +86,6 @@ Optional **post-loop** satellite — remote integration after the six-stage loop
 
 **Stop:** integration complete — no in-session next-stage work. User may `@` again later for remaining steps.
 
-**Red flags:** mutating git/gh before per-step confirm; skipping gates; auto-chaining merge → tag → release; CI babysit loops; force push; pushing new work from `main`; claiming PR/release created when `gh` unavailable; editing CHANGELOG or README pin without confirm; treating publish as ship gate.
+**Red flags:** mutating git/gh before per-step confirm; skipping gates; auto-chaining merge → tag → release; CI babysit loops; force push; pushing new work from `main`; claiming PR/release created when `gh` unavailable; editing CHANGELOG or README pin without confirm; treating publish as verify or review gate; hard-blocking push/PR because verify summary absent; tag/release with empty `[Unreleased]` when user-visible impact exists without Present gap.
 
 **SDD:** maintainer-authored; explicit `@` only — not superpowers auto-release. Contract: `docs/sdd/2026-06-12-sdd-publish-spec.md`. Experimental optional satellite until consumer spot-check in [CHANGELOG](../../CHANGELOG.md).

@@ -20,7 +20,7 @@ Six principles in three layers — **shape** (what the repo is), **delivery** (h
 | Principle | In practice |
 | --- | --- |
 | **Verifiable slices** | Spec AC; plan as vertical slices (15–60 min), not a Gantt chart; optional grill / zoom / audit only when needed |
-| **Test and prove** | `sdd-build`: failing test first; `sdd-review`: read-only, evidence-backed findings; `sdd-ship`: rerun verification, read full output — no completion claims without proof |
+| **Test and prove** | `sdd-build`: failing test first; `sdd-review`: read-only, evidence-backed findings; `sdd-verify`: rerun verification, read full output — no completion claims without proof |
 
 ### Governance
 
@@ -44,8 +44,8 @@ flowchart TD
   P -->|user approval| B[sdd-build]
   B --> R[sdd-review]
   R -->|must-fix / should-fix| B
-  R -->|pass| SH[sdd-ship]
-  SH --> PUB[sdd-publish]
+  R -->|pass| VF[sdd-verify]
+  VF --> PUB[sdd-publish]
 
   W --> S
   W --> G
@@ -60,8 +60,8 @@ flowchart TD
 
 - **`sdd-worktree`** — optional **pre-loop** git isolation (worktree or topic branch) before spec; experimental until [CHANGELOG](CHANGELOG.md) spot-check passes.
 - **`sdd-grill`** — optional clarify before spec or plan (one question at a time); may hand off to **`sdd-plan`** when plan/design still needs decisions.
-- **`sdd-zoom`** / **`sdd-audit`** — optional satellites; neither is mandatory before ship.
-- **`sdd-publish`** — optional **post-loop** remote integration (push / PR / merge / tag / release) after ship; experimental until spot-check in [CHANGELOG](CHANGELOG.md).
+- **`sdd-zoom`** / **`sdd-audit`** — optional satellites; neither is mandatory before verify.
+- **`sdd-publish`** — optional **post-loop** remote integration (push / PR / merge / tag / release); standalone `@` OK, does not require `@sdd-verify`; experimental until spot-check in [CHANGELOG](CHANGELOG.md).
 
 ## Skills
 
@@ -76,14 +76,14 @@ Ten skills under `skills/<name>/`. Instructions **English**; deliverables follow
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |
 | `sdd-review` | **Delivery review** — increment diff needs delivery verdict (AC, tests, architecture) |
-| `sdd-ship` | A reviewed increment needs final acceptance evidence |
+| `sdd-verify` | A reviewed increment needs final acceptance evidence |
 
 ### Optional satellites
 
 | Skill | Use when |
 | --- | --- |
 | `sdd-worktree` | **Pre-loop** — isolate git context (worktree or topic branch) before spec; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
-| `sdd-publish` | **Post-loop** — remote integration after ship; per-step Present + confirm; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
+| `sdd-publish` | **Post-loop** — remote integration; per-step Present + confirm; no `@sdd-verify` prerequisite; experimental until spot-check in [CHANGELOG](CHANGELOG.md) |
 | `sdd-zoom` | Unfamiliar code — **territory map** (modules, callers, domain vocabulary); not refactor findings |
 | `sdd-audit` | **Codebase audit** — same MECE model as `codebase-audit`; P0/P1/P2 roadmap; SDD handoff in **Suggested next steps**; not **delivery review** |
 
@@ -94,7 +94,7 @@ Ten skills under `skills/<name>/`. Instructions **English**; deliverables follow
 | Question | Can **this increment** ship? | What opportunities exist in the **repo or branch**? |
 | Scope | Increment diff | Whole repo or branch vs merge-base |
 | Outcome | Delivery verdict + lens ids | Findings + roadmap; handoff in **Suggested next steps** |
-| Severity | Delivery **🔴/🟡/🟢** groups (ship gate) | Impact **🚨/🔴/🟡/🟢** per finding + **P0/P1/P2** text |
+| Severity | Delivery **🔴/🟡/🟢** groups (verify gate) | Impact **🚨/🔴/🟡/🟢** per finding + **P0/P1/P2** text |
 
 Pairing is **When/Skip** cross-links in each skill — do not substitute one for the other. Ambiguous "review" without a diff → ask which skill.
 
@@ -106,10 +106,10 @@ Pairing is **When/Skip** cross-links in each skill — do not substitute one for
 | `sdd-review` | Increment diff (spec/plan improve traceability) |
 | `sdd-plan` | Approved spec |
 | `sdd-build` | Approved spec + plan |
-| `sdd-ship` | Spec + plan + passed review |
-| `sdd-publish` | Passed ship + user integration intent |
+| `sdd-verify` | Spec + plan + passed review |
+| `sdd-publish` | User integration intent (push / PR / merge / tag / release) |
 
-Only plan, build, and ship need prior artifacts. **`sdd-review`** can run with diff only; it never assumes `main` — user-specified range or task scope wins.
+Only plan, build, and verify need prior artifacts. **`sdd-review`** can run with diff only; it never assumes `main` — user-specified range or task scope wins.
 
 ## Installation
 
@@ -143,7 +143,7 @@ Add by name from default branch:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills \
-  -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship \
+  -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-verify \
   -s sdd-audit -s sdd-zoom -a cursor -y
 ```
 
@@ -199,7 +199,7 @@ Full maintainer guidelines: [AGENTS.md](AGENTS.md). Design rationale: [engineeri
 
 ## Changelog
 
-[CHANGELOG.md](CHANGELOG.md) — `sdd-ship` updates it when user-visible releases require it.
+[CHANGELOG.md](CHANGELOG.md) — `sdd-verify` updates it when user-visible releases require it.
 
 ## Sources
 

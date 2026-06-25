@@ -97,12 +97,25 @@ Optional **satellite** — not [`sdd-review`](../sdd-review/SKILL.md) (scoped di
 
 **When/Skip:** increment diff delivery review → `sdd-review`; territory map only → `sdd-zoom`; trade-offs → `sdd-grill`; implement during scan → decline. Ambiguous **"review"** without diff → ask vs `sdd-review`.
 
-Finding severity 🚨🔴🟡🟢 = follow-up priority only — **not** `sdd-review` ship gate.
+Finding severity 🚨🔴🟡🟢 = follow-up priority only — **not** `sdd-review` delivery gate.
 
-**Stop:** After the report, name **one** handoff route in **Suggested next steps** per [closing-the-loop.md](references/closing-the-loop.md). User **`@`** that skill — no auto-chain, no in-session product edits.
+**Stop:** After the report, **Suggested next steps** (last section per `report.md`) names **one** handoff — user **`@`** that skill; no auto-chain; no in-session product edits. Respect report **P0/P1/P2** order when prioritizing follow-up.
+
+**Handoff** (default **`sdd-spec`** when unclear):
+
+| Intent | Route |
+| --- | --- |
+| New/changed behavior or AC | **`sdd-spec`** → plan → build |
+| Approved spec; plan/build only | **`sdd-plan`** / **`sdd-build`** |
+| Mechanical fix; boundaries clear | **`sdd-build`** (if plan) or thin **`sdd-plan`** |
+| Trade-offs / direction open | **`sdd-grill`** |
+| Increment built; check diff | **`sdd-review`** |
+| Tag / remote integration | **`sdd-verify`** / **`sdd-publish`** |
+| Implement during scan | Decline — **direct edit** after Stop; optional **`sdd-review`** later |
+| Cold handoff (no session context) | **`sdd-spec`** + **`sdd-plan`** (`docs/sdd/*`) |
 
 ## References
 
-`references/map.md` · `references/playbook.md` · `references/report.md` · `references/closing-the-loop.md` (SDD handoff only)
+`references/map.md` · `references/playbook.md` · `references/report.md`
 
 **Provenance:** Audit body synced from [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — see [SOURCES.md](../../SOURCES.md).

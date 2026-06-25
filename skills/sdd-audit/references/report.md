@@ -108,5 +108,5 @@ Simplicity audits: roadmap rows should favor **delete / merge / collapse** over 
 
 ## Suggested next steps
 
-**Always last section.** Direct edits · **`sdd-spec`** / **`sdd-plan`** / **`sdd-build`** · scoped diff → **`sdd-review`** · trade-offs → **`sdd-grill`** — pick **one** route per [closing-the-loop.md](closing-the-loop.md). Also: follow-up deep pillar when a single lens needs another pass.
+**Always last section.** Pick **one** route — handoff table in [`SKILL.md`](../SKILL.md) **Stop**. Also: follow-up deep pillar when a single lens needs another pass.
 ```
