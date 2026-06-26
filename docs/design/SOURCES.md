@@ -1,6 +1,6 @@
 # Upstream Sources
 
-Snapshot date: 2026-06-12（upstream pin commits 未变；十一 skill 含 maintainer-authored **`sdd-worktree`**、**`sdd-publish`**、**`sdd-repo-docs`**）
+Snapshot date: 2026-06-12（upstream pin commits 未变；maintainer-authored satellites 含 **`sdd-worktree`**、**`sdd-publish`**、meta **`sdd-readme`** / **`sdd-agents`** / **`sdd-explain`** / **`sdd-zoom`** / **`sdd-grill`** / **`sdd-onboard`**）
 
 ## Repositories
 
@@ -26,9 +26,9 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 
 - **Six core skills cover the delivery loop:** (optional) clarify → spec → plan → build → review → verify. User **`@`** the stage skill directly.
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no auto worktree orchestration, no auto-chaining, no state files).
-- **Optional clarify stays optional:** `sdd-grill` covers decision interviews before spec or plan; the required artifacts remain spec and plan only.
+- **Optional clarify stays optional:** `sdd-grill` can stress-test plans and trade-offs before spec or plan; the required delivery artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), `sdd-publish` (post-loop remote integration), `sdd-audit` (codebase audit), `sdd-zoom` (territory map), and `sdd-repo-docs` (README + AGENTS.md authoring) are published separately; they do not change the six-stage delivery loop.
+- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), `sdd-publish` (post-loop remote integration), `sdd-audit` (codebase audit), and meta skills `sdd-readme` / `sdd-agents` / `sdd-explain` / `sdd-zoom` / `sdd-grill` / `sdd-onboard` (repo docs, code explanation, territory map, decision interview, onboarding) are published separately; they do not change the six-stage delivery loop.
 
 For stage choice, see [engineering-rationale §2](./engineering-rationale.md#2-本仓定位与边界) and each skill `SKILL.md`. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
 
@@ -38,15 +38,17 @@ Sources and methodology: [design docs](./README.md) ([engineering-rationale](./e
 
 ### `sdd-grill`
 
-Sources (pin `be55a797`):
+Sources:
 
-- `mattpocock/skills`: `skills/productivity/grill-me` — one Q/turn + recommendation; decision-tree walk; explore codebase first
+- [`.github/prompts/grill-me.prompt.md`](../../.github/prompts/grill-me.prompt.md) — body aligned with prompt (not verbatim)
+- `mattpocock/skills`: `skills/productivity/grill-me` @ pin `be55a797` (superseded by local prompt for structure)
+- Historical thrown: `obra/superpowers` `skills/brainstorming` (territory/explore → **`sdd-zoom`** or user `@`); `addyosmani/agent-skills` `skills/interview-me`, `skills/idea-refine` (not fused into grill)
 
 Local decisions:
 
-- **`SKILL.md`** — upstream body verbatim @ pin; minimal SDD tail (Skip, **Present**, Stop, Red flags).
-- **Thrown:** `obra/superpowers` `skills/brainstorming` (territory/explore → **`sdd-zoom`** or user `@`); `addyosmani/agent-skills` `skills/interview-me`, `skills/idea-refine` (intent clarify — not fused into grill); Superpowers `docs/superpowers/specs/`, auto **writing-plans**, idea-refine `docs/ideas/`, implementation in-session.
-- **Present:** `Decisions:` / `Rejected:` / `Boundaries:` / `Open:` — user's language. **Stop:** hand off; default **`sdd-spec`**; **`sdd-plan`** when approved spec exists and subject is plan/slices.
+- Optional **meta satellite** — plan/design decision interview in chat; not delivery loop.
+- **`SKILL.md`** only — no bundled `references/`; default chat; write disk on user confirm.
+- **Present (summary):** `Decisions` → `Rejected` → `Boundaries` → `Open`. One question per turn during interview.
 
 ### `sdd-spec`
 
@@ -77,41 +79,62 @@ Local decisions:
 - Disambiguation vs **`sdd-review`**: **codebase audit** vs **delivery review** — **When/Skip** cross-links only.
 - **Stop:** user **`@`** next skill — no auto-chain.
 
-### `sdd-repo-docs`
+### `sdd-readme`
 
 Sources:
 
-- Codex **`init`** AGENTS.md generator prompt (outline adapted in `references/codex-init-outline.md`)
-- [agents.md](https://agents.md/) — open convention for agent-facing repo guides
-- [microsphere-java `create-readme.prompt.md`](https://github.com/microsphere-projects/microsphere-java/blob/main/.github/prompts/create-readme.prompt.md) — README authoring principles adapted in `references/readme-authoring.md` (not verbatim)
-- [netresearch/agent-rules-skill](https://github.com/netresearch/agent-rules-skill) — **handoff only** for heavy scaffold/validate; not fused into body
+- [`.github/prompts/create-readme.prompt.md`](../../.github/prompts/create-readme.prompt.md) — body aligned with prompt (not verbatim)
 
 Local decisions:
 
-- Optional **meta satellite** — generic README + AGENTS.md authoring for **any** consumer git repo; not delivery loop; not mandatory before **`sdd-verify`**.
-- Templates must **not** mirror this maintainer repo layout; recon drives content.
-- **`SKILL.md`** — recon (hubs + locale) → shape → **Hub map** → dedup → draft → vet-checklist → **Present**.
-- **`references/`** — `readme-outline.md` (**shape** + **thin/full depth**, full library section order), `readme-authoring.md`, `badges.md`, `docs-split.md`, `codex-init-outline.md`, `section-checklist.md`, `vet-checklist.md`, `examples/outline-snippets.md`.
-- **Badges:** optional README shields from recon — [badges.md](../../skills/sdd-repo-docs/references/badges.md); not in AGENTS.
-- **Doc hubs:** when `wiki/` or long conventions exist — thin README, link-only AGENTS Style/Testing; **Hub map** required in Present.
-- **Published libraries** (no hub): **full** README depth — Introduction → License section order ([microsphere-java](https://github.com/microsphere-projects/microsphere-java) as reference); **thin** when hub exists.
-- **Doc locale:** target repo evidence over chat language.
-- **CLAUDE.md** — pointer to AGENTS only; **CONTRIBUTING.md** only when user asks.
-- Default **chat-only** draft; write disk only on explicit user confirm.
-- **When/Skip:** single typo → edit directly; Cursor rules → **create-rule** / `.mdc`; ship check → **`sdd-review`**; repo health → **`sdd-audit`**.
-- **Stop:** after **Present** or confirmed write; no auto-chain.
+- Optional **meta satellite** — README.md authoring for any git repo; not delivery loop.
+- **`SKILL.md`** only — no bundled `references/`; default chat draft; write disk on user confirm.
+
+### `sdd-agents`
+
+Sources:
+
+- [`.github/prompts/create-agents-md.prompt.md`](../../.github/prompts/create-agents-md.prompt.md) — body aligned with prompt (not verbatim)
+- [agents.md](https://agents.md/) — generic `##` heading convention (Context, Structure, Commands, …)
+
+Local decisions:
+
+- Optional **meta satellite** — AGENTS.md authoring for any git repo; not delivery loop.
+- **`SKILL.md`** only — no bundled `references/`; default chat draft; write disk on user confirm.
+
+### `sdd-explain`
+
+Sources:
+
+- [`.github/prompts/explain-code.prompt.md`](../../.github/prompts/explain-code.prompt.md) — body aligned with prompt (not verbatim)
+
+Local decisions:
+
+- Optional **meta satellite** — code explanation in chat; not delivery loop; no default file write.
+
+### `sdd-onboard`
+
+Sources:
+
+- [`.github/prompts/onboarding-plan.prompt.md`](../../.github/prompts/onboarding-plan.prompt.md) — body aligned with prompt (not verbatim)
+
+Local decisions:
+
+- Optional **meta satellite** — phased contributor onboarding in chat; not delivery loop.
+- **`SKILL.md`** only — no bundled `references/`; default chat; write disk on user confirm.
 
 ### `sdd-zoom`
 
-Sources (pin `be55a797`):
+Sources:
 
-- `mattpocock/skills`: `skills/engineering/zoom-out` — up one abstraction layer; modules + callers; domain glossary vocabulary
+- [`.github/prompts/zoom-codebase.prompt.md`](../../.github/prompts/zoom-codebase.prompt.md) — body aligned with prompt (not verbatim)
+- Historical: `mattpocock/skills` `skills/engineering/zoom-out` @ pin `be55a797` (superseded by local prompt)
 
 Local decisions:
 
-- **`SKILL.md`** — **zoom-out** body verbatim @ pin; minimal SDD tail (Skip, Diagram, **Present**, Stop, Red flags).
-- **Present:** `Territory` / `Map` / `Glossary & Gaps` / `Suggested next`; diagram when ≥3 units. **Stop:** hand off — no in-session next-stage work.
-- Orientation only — no refactor findings (**`sdd-audit`**) or delivery review (**`sdd-review`**); no default on-disk map. Optional CONTEXT/ADR when present — infer from code/README when absent.
+- Optional **meta satellite** — codebase territory map in chat; not delivery loop.
+- **`SKILL.md`** only — no bundled `references/`; default chat; write disk on user confirm.
+- **Present:** `Territory` → `Map` → `Diagram` → `Glossary & gaps` → `Suggested next`; diagram when ≥3 units. Orientation only — not code review, audit, or implementation.
 
 ### `sdd-plan`
 
