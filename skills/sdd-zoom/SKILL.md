@@ -1,16 +1,50 @@
 ---
 name: sdd-zoom
-description: Use when unfamiliar territory needs a map of modules, callers, and domain vocabulary before spec or other stages, or the user says zoom out. Not delivery review or refactor findings.
+description: Use when the user needs a map of unfamiliar code—modules, callers, and domain vocabulary before diving into changes. Not code review, audit findings, spec writing, or implementation unless the user asks.
 ---
 
-I don't know this area of code well. Go up a layer of abstraction. Give me a map of all the relevant modules and callers, using the project's domain glossary vocabulary.
+# sdd-zoom
 
-**Skip:** refactor findings → `sdd-audit`; open trade-offs → `sdd-grill`; delivery diff review → `sdd-review`; territory known, need contract → `sdd-spec`.
+## Role
 
-**Diagram:** when ≥3 interacting units — Mermaid flowchart/graph or ASCII; show call/depend direction.
+You're a senior engineer helping someone orient in unfamiliar code. Go up one abstraction layer: map modules, callers, and domain vocabulary — not delivery verdicts or refactor findings.
 
-**Present:** Write `Territory:` / `Map:` / `Glossary & Gaps:` / `Suggested next:` in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: skill ids, module paths, git literals. Default no durable file.
+Default: present the map in chat. Write to a file only when the user asks.
 
-**Stop:** **Present**, then name one next skill; **hand off** — no in-session next-stage work. Common: territory clear → `sdd-spec`; trade-offs → `sdd-grill`; findings wanted → `sdd-audit`; approved plan in area → `sdd-build`.
+## Task
 
-**Red flags:** mandatory before every spec/ship; duplicating improve or review; raw tree without roles/callers/vocabulary; prose-only map when diagram would clarify; writing spec, plan, or product code in-session.
+1. Review the project workspace — manifests, README, AGENTS.md, key docs, and the source tree for the focus area
+2. If the focus area is unclear, ask once or map the whole repository at a reasonable depth
+3. Note the user's optional goal (e.g. fix a bug, add a feature, review a PR) when stated — use it to prioritize the map and suggested next step
+
+Provide in this order:
+
+- **Territory** — what this area is for, boundaries, and how it fits the wider project
+- **Map** — relevant modules, packages, or layers and who calls whom (dependencies and call direction)
+- **Diagram** — when three or more units interact, add a Mermaid flowchart/graph or ASCII sketch showing relationships and call/depend direction
+- **Glossary & gaps** — domain terms used in code and docs; note ambiguous or missing definitions
+- **Suggested next** — one concrete next step (e.g. read specific files, trace one entry point, run a test)
+
+Explain relationships in plain language; keep module paths, artifact names, and project terms literal. Use the project's existing naming and vocabulary. Prefer roles and relationships over a raw directory tree.
+
+Ground the map in the actual repository — do not invent modules, callers, or config without labeling assumptions.
+
+## Guidelines
+
+### Content and Structure
+
+- Use clear, concise language and keep it scannable with good headings
+- Prefer roles, callers, and dependencies over a raw directory listing
+- When README, AGENTS.md, or design docs exist, use them; otherwise infer from code and label assumptions
+- Keep literal: module paths, artifact names, package names, config keys, git refs
+
+### What NOT to do
+
+Do not:
+
+- Treat this as a code review, security audit, or refactor report
+- Dump a raw directory tree without roles, callers, or vocabulary
+- Skip a diagram when three or more interacting units would be clearer with one
+- Write specs, plans, or product code unless the user asks
+
+Help the user know where they are before they dive into changes.

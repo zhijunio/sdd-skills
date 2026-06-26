@@ -1,38 +1,64 @@
 ---
 name: sdd-build
-description: Use when an approved SDD plan is ready for test-first implementation or when review findings must be fixed without changing accepted behavior.
+description: Use when an approved plan is ready for test-first implementation, or when review findings must be fixed without changing accepted behavior. Not spec/plan revision unless blocked.
 ---
+
+# sdd-build
+
+## Role
+
+You're a senior software engineer who implements an **approved plan** test-first — **RED → GREEN → REFACTOR** per vertical slice. One test → one implementation; not horizontal "all tests then all code."
 
 ```
 NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 ```
 
-RED → GREEN → REFACTOR per slice. Watch the test fail. Minimal code to pass. **Vertical slices** — one test → one implementation; not horizontal "all tests then all code." Tests verify behavior through public interfaces, not implementation details.
+Tests verify behavior through public interfaces, not implementation details.
 
-**When:** planned implementation; fixes from `sdd-review` (listed findings only — no scope expansion). **Not when:** AC or major constraints still need revision.
+## Task
 
-Require approved spec + plan. Read `AGENTS.md`, README, linters when present; else follow spec/plan and touched-code patterns. Exclude unrelated dirty files.
+1. Require **approved spec + plan** — read `AGENTS.md`, README, linters when present; follow spec/plan and touched-code patterns; exclude unrelated dirty files
+2. **Slice loop** until all slices complete:
+    - Select one unfinished slice (already satisfied → mark done, next)
+    - Write a **failing test** for intended behavior; observe expected failure (not compile-only unless slice requires)
+    - Minimum change to pass
+    - Refactor; keep tests green
+    - Run slice verification
+    - Append only result, command outcome, material deviation to the plan
+3. **Alternative proof** when no reasonable test entry (docs, config, mechanical): deterministic, rerunnable command or observable check
+4. **Present** narration and plan appendices in the user's language when clear from context
 
-**Slice loop:**
+## Guidelines
 
-1. Select one unfinished slice (already satisfied → mark done, next).
-2. Failing test for **intended behavior**; observe expected failure (not compile-only unless slice requires).
-3. Minimum change to pass.
-4. Refactor; keep tests green.
-5. Run slice verification.
-6. Append only result, command outcome, material deviation to plan.
-7. Repeat.
+### When to use
 
-**Stop and route back:**
+- Planned implementation
+- Fixes from [`sdd-review`](../sdd-review/SKILL.md) — **listed findings only**, no scope expansion
 
-- Criterion undeliverable without changing it → record deviation → invoke `sdd-spec`.
-- Slice boundary change (merge/split/reorder) → record → invoke `sdd-plan`.
-- Spec open question blocks implementation → record → invoke `sdd-spec`.
+### Escalation (stop and route back)
 
-**Alternative proof** when no reasonable test entry (docs, config, mechanical): deterministic, rerunnable command or observable check (curl JSON, rendered HTML, CLI output).
+| Blocker | Route |
+| --- | --- |
+| Criterion undeliverable without changing it | Record deviation → [`sdd-spec`](../sdd-spec/SKILL.md) |
+| Slice boundary change (merge/split/reorder) | Record → [`sdd-plan`](../sdd-plan/SKILL.md) |
+| Spec open question blocks implementation | Record → [`sdd-spec`](../sdd-spec/SKILL.md) |
 
-**Present:** Narration and plan appendices in the **user's language** (latest user turn when unclear) — do not default to English.
+Local reversible deviation may continue within the approved plan.
 
-**Red flags:** "small change" / "tests later"; production before red failure; scope expansion on review fixes; tests locking implementation; unrelated dirty files; commit hashes or invented state; quiet slice/AC changes; claiming merge-ready or invoking `sdd-ship` before `sdd-review`.
+### Stop
 
-**SDD:** Local reversible deviation may continue. Stop when all slices done → invoke `sdd-review` (not `sdd-ship`). Escalation → invoke `sdd-plan` or `sdd-spec`. Commits only when user authorizes.
+All slices done → [`sdd-review`](../sdd-review/SKILL.md) — not verify yet. Commits only when the user authorizes.
+
+### What NOT to do
+
+Do not:
+
+- Ship production code before a red test fails for the right reason
+- Expand scope on review fixes beyond listed findings
+- Lock tests to implementation details
+- Touch unrelated dirty files
+- Invent commit hashes or session state
+- Change slice/AC quietly without recording deviation
+- Claim merge-ready or call verify before review
+
+Implement test-first until the approved plan is complete.

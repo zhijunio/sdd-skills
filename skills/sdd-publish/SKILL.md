@@ -1,74 +1,95 @@
 ---
 name: sdd-publish
-description: Use when a completed SDD increment passed ship and the user explicitly requests remote integration — push, PR, merge, tag, or GitHub release — in a git repo.
+description: Use when the user requests remote git integration—push, PR, merge, tag, or GitHub release. Not code review, local test verification, or fixing CI unless the user asks.
 ---
 
-Optional **post-loop** satellite — remote integration after the six-stage loop. **Present → user confirms →** run mutating git/gh only after explicit per-step approval. Not spec, plan, build, review, or ship.
+# sdd-publish
 
-**When:** after [`sdd-ship`](../sdd-ship/SKILL.md) — user explicitly requests push, PR, merge, tag, release, or integration subset. **Skip:** ship not done or review not passed → [`sdd-review`](../sdd-review/SKILL.md) / [`sdd-ship`](../sdd-ship/SKILL.md) / [`sdd-build`](../sdd-build/SKILL.md); fixing review findings → `sdd-build`; pre-loop isolation → [`sdd-worktree`](../sdd-worktree/SKILL.md); CI triage or PR comment resolution — not this skill.
+## Role
 
-**Pipeline steps** (user may name a subset; default does **not** chain merge → tag → release):
+You're a senior software engineer who integrates local git work with remotes safely. Run read-only checks first, then **Present → user confirms → execute** for each mutating `git` or `gh` step.
 
-1. **Gates** — read-only probes (Req §2)
-2. **Push** — `git push` (with `-u` on first upstream)
-3. **Open PR** — `gh pr create` when `gh` available; else Present copyable command
-4. **CI display** — `gh pr checks` / `gh pr view` (display only — no CI babysit)
-5. **Merge PR** — `gh pr merge` (separate confirm; CI failed/pending → default stop)
-6. **Sync default branch** — after merge, `checkout` + `pull` default branch before tag
-7. **Tag** — `git tag -a` + `git push origin <tag>` (version from CHANGELOG)
-8. **GitHub Release** — `gh release create` when `gh` available
-9. **Optional README pin** — only when repo has recommended-pin paragraph and user confirms
+Default: work in chat. Do not push, merge, tag, or release without explicit user confirmation.
 
-**Evaluation order (fixed):**
+## Task
 
-1. Gates (Req §2) → **hard stop**
-2. User-named step subset (Req §9)
-3. Multi-step runs keep pipeline order: push → open PR → CI display → merge → **sync default branch** (after merge, before tag) → tag → release → README pin (skip unnamed steps)
-4. Per step: **Present** → confirm (§14) → execute → optional **Stop** (user may continue next session)
-5. All requested steps done → **Stop** (integration complete — no default next skill)
+1. **Orient (read-only)** — `git rev-parse --is-inside-work-tree`, `git status`, `git branch -vv`, `git remote -v`, `git log -1 --oneline`; skim `CHANGELOG.md` `[Unreleased]` when PR/tag/release may apply; when `gh` is available, check existing PR context
+2. **Confirm steps** — user names a subset (push, open PR, merge, tag, release, …); if vague (e.g. "can we ship?"), present the step menu and wait
+3. **Gates** — hard stop before remote mutation if gates fail (see Guidelines)
+4. **Prepare commits (if dirty tree)** — read `git log` and repo commit rules (`AGENTS.md`, `CONTRIBUTING.md` when present); present an **atomic commit plan** (`feat:` / `fix:` / `docs:` / `chore:` / `refactor:` or project convention); one logical change per commit; confirm each `git commit` unless batch covers the full plan; re-run **Gates** when clean
+5. **Run named remote steps** in pipeline order (skip unnamed; default does **not** chain merge → tag → release):
 
-**Read-only probe first:** `git rev-parse --is-inside-work-tree`, `git status`, `git branch -vv`, `git remote -v`, `git log -1 --oneline`; when PR context exists and `gh` available → `gh pr view`.
+    - **Gates** (re-check) → **Push** → **Open PR** → **CI display** → **Merge** → **Sync default branch** → **Tag** → **GitHub Release** → **Optional README pin**
 
-**Hard stops (no mutating git/gh until resolved):**
+6. **Present → confirm → execute** — step-by-step (default) or batch when the user confirms the full plan upfront (see Guidelines)
+7. **Stop** when requested steps complete — user may continue remaining steps in a later session
 
-- **Not a git repo**
-- **Dirty working tree** — any uncommitted changes per `git status` (including untracked when status shows dirty) → prompt commit or stash; after stash user must re-`@sdd-publish`
-- **On `main` or `master` intending to push new work** — stop; use topic branch + PR (`main` if present, else `master` as production default)
-- **No integration intent** — user only asks "can we ship?" without naming steps → **Present** step menu; wait for named subset
-- **`sdd-ship` not confirmed** (no ship summary in session and user has not affirmed) **or** increment not passed **`sdd-review`** → hand off `sdd-review` / `sdd-ship` / `sdd-build`
-- **Force push, direct push to `main`, or `git config` changes** — refuse
+GitHub prompt entry: [publish-changes.prompt.md](../../.github/prompts/publish-changes.prompt.md).
 
-**Push step:** **Present** remote, branch, `git push -u origin <branch>` (or equivalent) → user confirms → execute. Subset "push only" must not auto-run PR/merge/tag/release.
+## Guidelines
 
-**Open PR step:** **Present** PR title/body (from CHANGELOG `[Unreleased]` or recent commits). `gh` available → `gh pr create` after confirm. No `gh` → **Present** full `gh pr create` command; label **step not executed** — do not claim PR exists.
+### Execution modes
 
-**CI display step:** when `gh` available and PR exists → **Present** `gh pr checks` summary. Failed or pending → default **do not merge**; suggest fix CI or user **explicitly accepts risk** then re-`@` merge in a new turn.
+| Mode | Behavior |
+| --- | --- |
+| **Step-by-step** (default) | One mutating step per explicit user confirmation |
+| **Batch** | User confirms the **full plan** upfront → present the complete command list once → run in order; stop on first failure, gate failure, or blocked CI (unless user said **merge despite CI risk**); merge/tag/release only if named in the plan |
 
-**Merge step:** **separate confirm** required. **Present** merge method (merge/squash/rebase) and target branch. `gh pr merge` or web-merge path. CI not green and user has not accepted risk → stop.
+After batch commits or stash, re-run **Gates** before push.
 
-**Sync default branch step:** when merge ran in this flow → **Present** `git checkout <default>` + `git pull origin <default>` (`<default>` = `main` or `master`) → confirm HEAD is post-merge tip before tag.
+### Hard stops (before mutating git/gh)
 
-**Tag step — version resolution** (stop if still ambiguous):
+- Not a git repo
+- **Dirty working tree** — offer **Prepare commits** or stash; after stash, restart from **Gates**
+- **New work on `main`/`master`** — use topic branch + PR
+- **Force push**, direct push to `main`, or **`git config` changes** — refuse
+- **No named integration steps** — present menu; wait
 
-1. User specifies `vX.Y.Z` in **Present**
-2. `CHANGELOG.md` has `## [X.Y.Z]` draft under `[Unreleased]`
-3. Suggest semver patch bump from `git describe --tags --abbrev=0` — **Present** for confirm; never silent adopt
-4. None of the above → stop; ask user to complete CHANGELOG
+### Integration readiness
 
-**Tag baseline:** after merge in this flow → sync default branch first. Tag-only on topic branch without merge → **Present** explicitly "tag on branch `<branch>` HEAD" and get confirm. Then **Present** `git tag -a vX.Y.Z -m "..."` and `git push origin vX.Y.Z` → confirm → execute.
+When open PR / tag / release need release notes context, present:
 
-**CHANGELOG promotion (optional, before tag):** when `[Unreleased]` exists → **Present** promoting to `[vX.Y.Z] - YYYY-MM-DD` (user confirms date) → edit file only after confirm; may share confirm round with tag step.
+| Probe | Record |
+| --- | --- |
+| `CHANGELOG.md` | present / absent / no project convention |
+| `[Unreleased]` covers this increment | yes / empty / n/a |
+| Named publish steps | e.g. push only, push + PR, through tag |
 
-**GitHub Release step:** `gh` available → **Present** `gh release create vX.Y.Z --notes "..."` (notes from CHANGELOG entry for that version) → confirm → execute. No `gh` → **Present** command only; do not execute.
+Do **not** block push/PR because local tests or a review summary were not run in this session.
 
-**README pin (optional):** when `README.md` (or project convention file) has recommended pin / install `@vX.Y.Z` → **Present** whether to replace with new tag → edit only after confirm; skip if absent or user declines.
+### CHANGELOG gaps
 
-**No `gh` degradation:** PR, merge, and release steps must not pretend execution — **Present** copyable commands + note local `gh` or web UI required.
+When `[Unreleased]` is empty and user-visible PR/tag/release is likely → present the gap; wait for explicit choice:
 
-**Present:** commands, targets, risks, step menu when needed. User's language — do not default to English. Keep literal: skill ids, git/gh commands, branch names, `vX.Y.Z`.
+1. **Continue** — commit-based PR body and/or defer tag/release
+2. **Patch `[Unreleased]` now** — present draft bullets; user confirms local edit (file only)
+3. **Defer tag/release** — push/PR may still proceed if already confirmed
 
-**Stop:** integration complete — no in-session next-stage work. User may `@` again later for remaining steps.
+### Pipeline step notes
 
-**Red flags:** mutating git/gh before per-step confirm; skipping gates; auto-chaining merge → tag → release; CI babysit loops; force push; pushing new work from `main`; claiming PR/release created when `gh` unavailable; editing CHANGELOG or README pin without confirm; treating publish as ship gate.
+- **Push** — present remote, branch, `git push -u origin <branch>`; "push only" must not auto-run PR/merge/tag/release
+- **Open PR** — title/body from `[Unreleased]` or recent commits; no `gh` → present full `gh pr create` command; label **step not executed**
+- **CI display** — display only; failed/pending → default do not merge unless user accepts risk
+- **Merge** — separate confirm; present merge method and target branch
+- **Sync default branch** — after merge, `checkout` + `pull` `main` or `master` before tag
+- **Tag** — version must be explicit: user states `vX.Y.Z`, `CHANGELOG` draft, semver suggestion from `git describe --tags --abbrev=0` with confirm, or stop; tag-only on topic branch without merge → present explicitly; optional CHANGELOG promotion — edit only after confirm
+- **GitHub Release** — notes from CHANGELOG for that version; no `gh` → command only
+- **README pin** — only when repo documents a version pin and user confirms
 
-**SDD:** maintainer-authored; explicit `@` only — not superpowers auto-release. Contract: `docs/sdd/2026-06-12-sdd-publish-spec.md`. Experimental optional satellite until consumer spot-check in [CHANGELOG](../../CHANGELOG.md).
+**No `gh` degradation:** do not claim a PR or release was created — present copyable commands.
+
+### What NOT to do
+
+Do not:
+
+- Run mutating git/gh before **Gates** pass or before confirm (plan confirm for batch; per-step for step-by-step)
+- Skip gates or auto-chain merge → tag → release
+- Babysit or fix CI in this session
+- Push new work from `main`/`master`
+- Edit `CHANGELOG.md` or README pins without user confirmation
+- Tag/release with empty `[Unreleased]` when user-visible impact exists without presenting the gap
+- Mix unrelated changes in one commit without confirm
+- Amend, rebase, or skip hooks unless the user explicitly asks
+- Treat this as code review, implementation work, or local test verification
+
+Help the user reach a clean, well-committed tree, then integrate with the remote safely.

@@ -1,27 +1,45 @@
 ---
 name: sdd-audit
-description: Read-only codebase health audit — MECE pillars architecture (A1–A6), code (C0–C3), security (S1), verification (V1–V2), dependencies (D1), operations (O1). Chat-only P0/P1/P2 roadmap; effort snapshot, standard, or deep; variants simplicity, anti-pattern, branch, direction, cicd, and pillar-scoped review. Use for codebase audit, architecture review, security hygiene, CI/CD review, over-engineering and anti-pattern scan; not scoped diff delivery review (use sdd-review), article writing, topic learning, implementation edits, or plans/.
+description: Use when the user wants a read-only codebase or branch health audit—not increment delivery review, implementation edits, or plans unless the user asks.
 ---
 
-# Codebase Audit
+# sdd-audit
 
-**Role:** Read-only **MECE** multi-pillar health assessment.
+## Role
 
-**Produces (chat only):** boundary map, findings (one pillar per row), P0/P1/P2 roadmap, optional direction notes, suggested next moves.
+You're a senior software engineer performing a **read-only MECE multi-pillar health assessment** — systemic patterns first, evidence-backed findings, no repo edits.
 
-**Does not produce:** files in the target repo (unless user explicitly asks), `plans/`, code edits, articles, or delivery commits.
+Default: post the full report in chat. Write to a file only when the user asks.
 
-**Report locale:** Skill docs English; **report body in the user's language**. Literals: paths, `file:line`, lens ids, git refs, severity emojis per `report.md` (roadmap phases: text only).
+## Task
 
-## Hard rules
+1. **Scope** — whole repo, branch, or user-named area; match invocation keywords to pillars (see Guidelines)
+2. **Recon** — per [references/playbook.md](references/playbook.md): stack signals → invoked pillar sections
+3. **Vet** — re-read High+ findings; ADRs are by-design unless contradicted
+4. **Present** the report per [references/report.md](references/report.md) — **Suggested next steps** last
+5. **Deep mode only** — follow [references/deep-parallel.md](references/deep-parallel.md) when user requests `deep` / 深度
 
-1. **Never modify the target repo** — read-only; no installs, commits, formatters; **report in chat only** (no `.codebase-audit/` or other audit files unless the user explicitly asks).
-2. **Systemic first** — pattern-class findings.
-3. **Vet before report** — re-read High+; ADRs are by-design unless contradicted.
-4. **No secret values** — `file:line` + credential type only.
-5. **MECE findings** — one lens per row; pillar boundaries in `references/map.md`.
+Pillar routing: [references/map.md](references/map.md).
 
-## Six pillars
+## Present
+
+Report prose in the **user's language** when clear from the latest user turn. Keep literal: paths, `file:line`, lens ids, git refs, severity emojis per `report.md` (P0/P1/P2 phases: text only).
+
+**Produces:** boundary map, findings (one pillar per row), P0/P1/P2 roadmap, optional direction notes, suggested next moves.
+
+Finding severity 🚨🔴🟡🟢 = **follow-up priority** — not [`sdd-review`](../sdd-review/SKILL.md) delivery gate.
+
+## Guidelines
+
+### Hard rules
+
+1. **Never modify the target repo** — read-only; no installs, commits, or formatters
+2. **Systemic first** — pattern-class findings
+3. **Vet before report** — re-read High+
+4. **No secret values** — `file:line` + credential type only
+5. **MECE findings** — one lens per row; boundaries in `map.md`
+
+### Six pillars
 
 | Pillar | IDs | Checklist |
 |--------|-----|-----------|
@@ -32,19 +50,15 @@ description: Read-only codebase health audit — MECE pillars architecture (A1�
 | Dependencies | D1 | `playbook.md` |
 | Operations | O1 | `playbook.md` |
 
-## Effort
+### Effort
 
 | Level | Findings | Parallelism |
 |-------|----------|-------------|
-| `snapshot` | ≤5 | 1 pass |
-| `standard` (default) | ≤20 | ≤3 batches |
-| `deep` | ≤20 + vet appendix | ≤6 workers |
+| `snapshot` / 快照 | ≤5 | 1 pass |
+| `standard` / 标准 (default) | ≤20 | ≤3 batches |
+| `deep` / 深度 | ≤20 + vet appendix | ≤6 workers |
 
-Chinese effort triggers (same limits): 快照 = snapshot · 标准 = standard · 深度 = deep.
-
-## Invocation
-
-### English
+### Invocation (English)
 
 | Keyword | Lenses |
 |---------|--------|
@@ -60,11 +74,11 @@ Chinese effort triggers (same limits): 快照 = snapshot · 标准 = standard ·
 | `branch` | same scope; tag `introduced` / `pre-existing` |
 | `direction` | + optional direction notes |
 
-### Chinese triggers (user phrases — no English words required)
+### Invocation (中文)
 
 | Trigger | Scope |
 |---------|-------|
-| 代码库审查 | all pillars (+ 快照/标准/深度 for effort) |
+| 代码库审查 | all pillars |
 | 架构审查 / 架构 | A1–A6 |
 | 安全审查 / 安全 | S1 |
 | 测试审查 / 测试 | V1 |
@@ -74,35 +88,38 @@ Chinese effort triggers (same limits): 快照 = snapshot · 标准 = standard ·
 | 流水线与发布审查 / 集成与部署审查 | V2 + O1 |
 | 简化审查 / 简化 / 过度设计 | A5, A6, C1 |
 | 反模式 | A1, A5, A6, C1 |
-| 分支审查 / 本分支 | same scope; attribution 本分支引入 / 既有问题 |
+| 分支审查 / 本分支 | attribution 本分支引入 / 既有问题 |
 | 方向性建议 / 方向 | + optional direction notes |
 
-When the user writes in Chinese, match Chinese triggers; do not require English keywords.
+Match Chinese triggers when the user writes in Chinese.
 
-## Workflow
+### Self-check
 
-1. `map.md` — pillar routing  
-2. `playbook.md` — Recon → invoked pillar sections → Stack signals  
-3. `playbook.md` § Vet  
-4. `report.md` — post full report in chat  
-5. `deep-parallel.md` — `deep` / 深度 only
+Valid lens: A1–A6, C0–C3, S1, V1–V2, D1, O1. One row per root cause. Skipped pillars stated in Coverage.
 
-## Self-check
+### Disambiguation
 
-Valid lens: A1–A6, C0–C3, S1, V1–V2, D1, O1. Simplicity (简化审查) → A5, A6, C1. Anti-pattern (反模式) → A1, A5, A6, C1. One row per root cause. Skipped pillars stated.
+| Request | Route |
+| --- | --- |
+| Increment diff delivery review | [`sdd-review`](../sdd-review/SKILL.md) |
+| Territory map only | [`sdd-zoom`](../sdd-zoom/SKILL.md) |
+| Trade-offs / design interview | [`sdd-grill`](../sdd-grill/SKILL.md) |
+| Implement fixes during scan | Decline — audit first; implement after Stop |
+| Ambiguous "review" without diff | Ask user vs **`sdd-review`** |
 
-## SDD
+### Stop
 
-Optional **satellite** — not [`sdd-review`](../sdd-review/SKILL.md) (scoped diff delivery review).
+After **Suggested next steps**, hand off — no in-session product edits. Name **one** concrete next step; respect P0/P1/P2 order when prioritizing.
 
-**When/Skip:** increment diff delivery review → `sdd-review`; territory map only → `sdd-zoom`; trade-offs → `sdd-grill`; implement during scan → decline. Ambiguous **"review"** without diff → ask vs `sdd-review`.
+### What NOT to do
 
-Finding severity 🚨🔴🟡🟢 = follow-up priority only — **not** `sdd-review` ship gate.
+Do not:
 
-**Stop:** After the report, name **one** handoff route in **Suggested next steps** per [closing-the-loop.md](references/closing-the-loop.md). User **`@`** that skill — no auto-chain, no in-session product edits.
+- Modify the target repo, write plans, or implement during the audit
+- Use audit severity as delivery gate for an increment diff
+- Duplicate [`sdd-review`](../sdd-review/SKILL.md) on a scoped PR diff
+- Emit one-line findings without evidence
 
 ## References
 
-`references/map.md` · `references/playbook.md` · `references/report.md` · `references/closing-the-loop.md` (SDD handoff only)
-
-**Provenance:** Audit body synced from [zhijunio/zhijunio-skills `codebase-audit`](https://github.com/zhijunio/zhijunio-skills/tree/main/codebase-audit) — see [SOURCES.md](../../SOURCES.md).
+[map.md](references/map.md) · [playbook.md](references/playbook.md) · [report.md](references/report.md) · [deep-parallel.md](references/deep-parallel.md)

@@ -6,10 +6,9 @@
 
 ## Risks / Dependencies
 
-- 本仓无 `tests/check.py`；行为验收靠 **SKILL.md 自检清单 + 手动 git/gh 场景**（在 `sdd-skills` 或消费者仓库）。
-- Slice 9 改 `.github/workflows/check.yml` skill 计数 9→10；须与 Slice 1 同 PR 合并，否则 CI 红。
-- OQ-1：recommended pin 发版前须 Slice 10 consumer spot-check；未做前 CHANGELOG 标 **experimental optional satellite**。
-- `sdd-ship` **Stop** hand off 在 Slice 8 改，避免 ship 仍只写「no push」而无 publish 指针。
+- 本仓无 `tests/check.py`；行为验收靠 **SKILL.md 自检清单 + 手动 git/gh 场景**（可在本仓或任意 git 仓库）。
+- OQ-1 **已闭合**：不要求独立消费者仓库 spot-check；maintainer self-trial + CHANGELOG 记录即可。
+- `sdd-verify` **Stop** hand off 在 Slice 8 改，避免 ship 仍只写「no push」而无 publish 指针。
 - 含 `gh` 的步骤（PR/CI/merge/release）在 CI 环境可能无 token — 验收以 Present 降级路径 + 本地有 `gh` 场景为主。
 
 ## AC 映射总览
@@ -57,7 +56,7 @@
 - Test or proof:
   - 场景 A：非 git 目录 → hard stop，无 mutating。
   - 场景 B：未提交/未跟踪（`git status` 脏）→ stop，提示 commit/stash；stash 后须重新 `@`。
-  - 场景 C：无 ship 摘要且用户未肯定 ship/review → hand off `sdd-review` / `sdd-ship` / `sdd-build`。
+  - 场景 C：无 verify 摘要且用户未肯定 verify/review → hand off `sdd-review` / `sdd-verify` / `sdd-build`。
   - 场景 D：在 `main` 意图 push 新 work → stop，提示 topic 分支 + PR。
   - 场景 E：仅问「能发吗」未选步骤 → Present 步骤菜单，等待点名。
 - Implementation outline: `SKILL.md` 增 read-only probe 列表、hard stop 表、步骤菜单（Req §9 子集入口）。
@@ -124,18 +123,18 @@
 - Verification: 场景 O/P 清单全勾；`rg -q 'gh release create' skills/sdd-publish/SKILL.md`
 - Done: true
 
-## Slice 8: `sdd-ship` Stop hand off 与 When/Skip 互链
+## Slice 8: `sdd-verify` Stop hand off 与 When/Skip 互链
 
-- Goal: ship 通过后用户要集成时 hand off `sdd-publish`；`sdd-publish` 与 `sdd-ship` 互链完整；可选 `sdd-worktree` 叙事不冲突。
+- Goal: verify 通过后用户要集成时 hand off `sdd-publish`；`sdd-publish` 与 `sdd-verify` 互链完整；可选 `sdd-worktree` 叙事不冲突。
 - Acceptance: AC-13（hand off 部分）, AC-14
 - Depends on: Slice 1
 - Test or proof:
-  - `rg 'sdd-publish' skills/sdd-ship/SKILL.md skills/sdd-publish/SKILL.md` 有 When/Skip 互链。
-  - ship **Stop** 或 **SDD:** 尾含「separately requested → `sdd-publish`」类指针，且不删原有 no-push 纪律。
+  - `rg 'sdd-publish' skills/sdd-verify/SKILL.md skills/sdd-publish/SKILL.md` 有 When/Skip 互链。
+  - verify **Stop** 或 **SDD:** 尾含「separately requested → `sdd-publish`」类指针，且不删原有 no-push 纪律。
 - Implementation outline:
-  - `skills/sdd-ship/SKILL.md`：**Stop** / **SDD:** 增 hand off `sdd-publish`（用户明确要求 push/PR/merge/tag/release 时）。
-  - 完善 `sdd-publish` **When/Skip** 与 `sdd-ship` 链接。
-- Verification: 互链 grep 通过；人工读 ship Stop 一句不矛盾
+  - `skills/sdd-verify/SKILL.md`：**Stop** / **SDD:** 增 hand off `sdd-publish`（用户明确要求 push/PR/merge/tag/release 时）。
+  - 完善 `sdd-publish` **When/Skip** 与 `sdd-verify` 链接。
+- Verification: 互链 grep 通过；人工读 verify Stop 一句不矛盾
 - Done: true
 
 ## Slice 9: 维护者文档与 CI（十 skill + Mermaid post-loop）
@@ -145,39 +144,38 @@
 - Depends on: Slice 1
 - Test or proof: 文档与配置 diff 覆盖清单。
 - Implementation outline:
-  - `README.md`：十 skill、四颗卫星（pre `sdd-worktree` + post `sdd-publish` + zoom + improve）；Mermaid 增 post-loop 边。
+  - `README.md`：十 skill、四颗卫星（pre `sdd-worktree` + post `sdd-publish` + zoom + `sdd-audit`）；Mermaid 增 post-loop 边。
   - `AGENTS.md`：九→十 skill。
   - `SOURCES.md`：新增 `sdd-publish` 小节（maintainer-authored）。
   - `docs/design/engineering-rationale.md` §3.2 / §3.3 增 `sdd-publish` 映射行。
-  - `.github/workflows/check.yml`：`eq 9` → `eq 10`。
+  - ~~`.github/workflows/check.yml`：`eq 9` → `eq 10`~~ *(removed — maintainer spot-check before merge)*
   - `CHANGELOG.md` `[Unreleased]`：Added experimental optional `sdd-publish`。
-- Verification: `test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10`；`rg -q 'sdd-publish' README.md AGENTS.md SOURCES.md docs/design/engineering-rationale.md`
+- Verification: `test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10`；`rg -q 'sdd-publish' README.md AGENTS.md docs/design/SOURCES.md docs/design/engineering-rationale.md`
 - Done: true
 
-## Slice 10: Consumer spot-check（闭合 OQ-1）
+## Slice 10: Maintainer self-trial（闭合 OQ-1）
 
-- Goal: 在消费者 git 仓库跑通 publish 子集（至少 push + PR Present），记录摩擦；决定是否标 non-experimental。
-- Acceptance: OQ-1（spec Open Questions）
+- Goal: 在本仓对照 `SKILL.md` 跑通 publish 子集（至少 push + PR Present），记录摩擦。
+- Acceptance: OQ-1 closed — no separate consumer-repo gate
 - Depends on: Slice 2–9 合并后
-- Test or proof: 消费者仓库内 `@sdd-publish`（ship 已过的模拟上下文）→ 门禁 → Present push/PR → 无阻断摩擦。
+- Test or proof: 门禁 → Present push/PR → 无阻断摩擦。
 - Implementation outline:
-  - 选任意本地消费者 git 仓库（**不**写死项目名）。
   - 记录：步骤菜单、Present 清晰度、`gh` 降级是否合理。
-  - 更新 `CHANGELOG.md` `[Unreleased]` 一句 spot-check 结论；未通过则保持 experimental，不 bump README recommended pin。
-- Verification: CHANGELOG 含 spot-check 记录；[README — Maintainer verification](../../README.md#maintainer-verification) 清单可勾选
+  - 更新 `CHANGELOG.md` `[Unreleased]` spot-check 一句。
+- Verification: CHANGELOG 含 spot-check 记录
 - Done: true
 
 ---
 
 ## Ship
 
-- 全片 `Done: true` 后 → `@sdd-review`（本 increment diff）→ `@sdd-ship`。
-- 发版 pin：**待 OQ-1 通过**；否则仅合并 main，tag 延后或保持 experimental（与 CHANGELOG 一致）。
+- 全片 `Done: true` 后 → `@sdd-review`（本 increment diff）→ `@sdd-verify`。
+- 发版 pin：按 CHANGELOG / 用户确认；无独立消费者仓库门禁。
 
 ## Verified slices (build 时追加)
 
 - 2026-06-12 | Slice 1 | `SKILL.md` + Evaluation order + Present — rg OK
 - 2026-06-12 | Slice 2–7 | full `skills/sdd-publish/SKILL.md` — rg OK; scenarios A–P covered in SKILL prose
-- 2026-06-12 | Slice 8 | `sdd-ship` Stop/SDD hand off + `sdd-publish` When/Skip — rg OK
+- 2026-06-12 | Slice 8 | `sdd-verify` Stop/SDD hand off + `sdd-publish` When/Skip — rg OK
 - 2026-06-12 | Slice 9 | ten skills count=10; docs/CI/CHANGELOG updated
 - 2026-06-12 | Slice 10 | CHANGELOG spot-check note; experimental pin unchanged

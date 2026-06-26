@@ -34,7 +34,7 @@ Default: **full** merge-base diff for current branch + task-related uncommitted 
 
 Issues **outside** scoped diff → out-of-scope observations only — not `must-fix`/`should-fix` unless diff reintroduces or worsens them.
 
-Full verification evidence → **`sdd-ship`**, not here.
+Full verification evidence → **`sdd-verify`**, not here.
 
 ## Diff kind
 
