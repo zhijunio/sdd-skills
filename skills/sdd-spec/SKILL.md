@@ -13,7 +13,7 @@ Default: present the spec in chat; write `docs/sdd/YYYY-MM-DD-<topic>-spec.md` w
 
 ## Task
 
-### New spec — [spec-template.md](spec-template.md)
+### New spec — [spec-template.md](references/spec-template.md)
 
 1. Read repository guidance, relevant code/docs, and prior decision summaries from the conversation
 2. Ask only for decisions not discoverable locally
@@ -71,3 +71,7 @@ Do not:
 - Skip re-approval after AC or constraint change
 
 Help the team agree on observable acceptance criteria before planning and building.
+
+## References
+
+[spec-template.md](references/spec-template.md)

@@ -60,7 +60,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — body restructured (Role / Task / Guidelines); **Present** + [spec-template.md](../../skills/sdd-spec/spec-template.md).
+- **`SKILL.md`** — body restructured (Role / Task / Guidelines); **Present** + [spec-template.md](../../skills/sdd-spec/references/spec-template.md).
 - `docs/sdd/*-spec.md`; in-place revision + **Revision log**; user approval before **`sdd-plan`**.
 
 ### `sdd-audit`
