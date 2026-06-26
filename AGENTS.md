@@ -67,7 +67,7 @@ Do not run or invent `npm test`, `pytest`, `mvn verify`, or similar — they are
 - Keep frontmatter **`description`** to triggering conditions only — not a workflow summary.
 - Borrow upstream ideas in skill bodies; keep bodies short; put detail in `references/`.
 - Preserve literals: `AC-n`, skill ids, lens ids, `file:line`, git literals, 🔴/🟡/🟢.
-- Pair **`sdd-audit`** vs **`sdd-review`** via **When/Skip** cross-links in each skill — do not add pairing tables to AGENTS or README.
+- Pair **`sdd-audit`** vs **`sdd-review`** via **When/Skip** cross-links in each skill — skill ↔ prompt pairing table lives in README only.
 - When adding or renaming a skill, update `check.yml` assertions and README skill tables if user-visible.
 - When a skill has a paired `.github/prompts/*.prompt.md`, keep **content aligned** but **no cross-links** between the two files; update both in the same change.
 - When upstream-derived behavior changes materially, note attribution in the PR or [CHANGELOG.md](CHANGELOG.md).
