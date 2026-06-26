@@ -1,52 +1,64 @@
 ---
 name: sdd-worktree
-description: Use when starting a new change in a git repo and an isolated dev context (worktree or topic branch) is needed before spec or implementation, or the user asks for worktree / feature branch setup.
+description: Use when starting a new change in a git repo and an isolated dev context (worktree or topic branch) is needed, or the user asks for worktree / feature branch setup. Not spec writing, implementation, or remote integration unless the user asks.
 ---
 
-Optional pre-loop satellite — isolate git context before the six-stage loop. **Present → user confirms →** run mutating git only after explicit approval. Not spec, plan, build, review, or verify.
+# sdd-worktree
 
-**When:** new increment in a consumer git repo; user wants worktree or `feature/` / `fix/` / `docs/` branch before coding on `main`. **Skip:** spec/plan authoring → [`sdd-spec`](../sdd-spec/SKILL.md); open trade-offs only → [`sdd-grill`](../sdd-grill/SKILL.md); already on an isolated branch/worktree with clean tree and clear next stage.
+## Role
 
-**Evaluation order (fixed):**
+You're a senior software engineer who sets up **isolated git context** for a new change — prefer `git worktree`, fall back to a topic branch when needed. **Present → user confirms → execute**; no mutating git before approval.
 
-1. Not a git repo (Req §2) → **hard stop**
-2. Dirty working tree (uncommitted changes) → **hard stop** — commit or stash; after stash user must re-`@sdd-worktree`
-3. Resolve baseline (§5–§6), prefix (§7), `topic` (§8–§9), path (§12)
-4. Branch `<prefix>/<topic>` exists or worktree path occupied → **stop**, contextual options (§10) — **no** branch fallback for path-only conflict
-5. No conflict: if branch fallback applies (§3) → `git checkout -b` (**weak isolation** — same directory); else → `git worktree add`
-6. **Present** editable prefix, topic, path; highlight non-standard baseline in same round if no `main`/`master` (§6)
-7. User confirms (确认 / yes / go / equivalent) → execute mutating commands
-8. **Stop** → hand off per rules below
+Default: work in chat. Not spec, plan, implementation, review, or publish.
 
-**Read-only probe first:** `git rev-parse --is-inside-work-tree`, `git rev-parse --show-toplevel`, `git status`, `git branch`, `git worktree list`.
+## Task
 
-**Hard stops:**
+1. **Orient (read-only)** — `git rev-parse --is-inside-work-tree`, `git rev-parse --show-toplevel`, `git status`, `git branch`, `git worktree list`
+2. **Gates** — hard stop if not a git repo, dirty tree, or no user confirmation yet
+3. **Resolve** — baseline, branch prefix, topic, path (see Guidelines)
+4. **Check conflicts** — existing branch or occupied path → stop with options; no silent branch fallback on path-only conflict
+5. **Present** — baseline, prefix, topic, path, full git command(s), weak-isolation label if applicable; editable fields
+6. **Execute** after confirm — `git worktree add` or weak-isolation `git checkout -b`
+7. **Stop** — setup complete; user continues the change in the new context
 
-- **Not a git repo** — do not run `git branch` or `git worktree`; ask user to retry inside the target repo.
-- **Dirty tree** — no new branch/worktree; prompt commit or stash; do not auto-retry after stash in the same turn.
-- **No user confirmation** — read-only git only; no `git worktree add`, no `git checkout -b`.
+## Guidelines
 
-**Baseline:** `main` if present, else `master` if present (prefer `main` when both exist). If neither exists, use **current branch** as baseline — call this out prominently in **Present** and include in the same confirmation round.
+### Evaluation order
 
-**Prefix:** default `feature/`; `fix/` when description mentions bug / fix / regression / 修复; `docs/` when clearly docs-only (README/CHANGELOG/comments, no behavior change). User override in **Present** wins.
+1. Not a git repo → **hard stop**
+2. Dirty tree → **hard stop** — commit or stash; restart from Gates after stash
+3. Resolve baseline, prefix, topic, path
+4. Branch exists or path occupied → **stop**, offer contextual options
+5. No conflict → worktree add, or branch fallback when applicable
+6. Present → user confirms → execute
+7. Stop
 
-**Topic:** extract from user description; else slug of repo root basename (`git rev-parse --show-toplevel`). Slug: lowercase kebab-case, `[a-z0-9-]`, max 48 chars, collapse `-`, trim edges; invalid → `-`; empty → `task`. Path uses **raw** root basename; topic segment is slugged.
+### Baseline and naming
 
-**Default path:** `../<repo-basename>-<topic>` relative to toplevel. User may override with path relative to toplevel or absolute path before confirm.
+- **Baseline:** `main` if present, else `master`; if neither, **current branch** — call out prominently in Present
+- **Prefix:** default `feature/`; `fix/` for bug/fix/regression/修复; `docs/` for docs-only; user override wins
+- **Topic:** from user description; else slug of repo root basename — lowercase kebab-case, `[a-z0-9-]`, max 48 chars; empty → `task`
+- **Default path:** `../<repo-basename>-<topic>` relative to toplevel; user may override
 
-**Worktree command:** `git worktree add -b <prefix>/<topic> <path> <baseline>`
+### Commands
 
-**Branch fallback (§3 only — not for path conflicts):** use when any of: `git worktree` subcommand unavailable; user explicitly rejects worktree this turn; worktree precheck fails (permissions, illegal path — **not** path already occupied). Command: `git checkout -b <prefix>/<topic> <baseline>` — label **weak isolation** in **Present** and state which trigger applied.
+- **Worktree:** `git worktree add -b <prefix>/<topic> <path> <baseline>`
+- **Branch fallback** (weak isolation — not for path conflicts): when `git worktree` unavailable, user rejects worktree, or precheck fails (not path occupied) → `git checkout -b <prefix>/<topic> <baseline>` — label **weak isolation** and state trigger
 
-**Conflicts (§10):** always offer change `topic` or cancel. If branch exists: also offer reuse (clean tree + user confirms). If path-only (branch absent): offer change path or `topic` — **no** reuse-branch option.
+### Conflicts
 
-**Present:** baseline, prefix, topic, path, full git command(s), weak-isolation label if applicable, editable fields. User's language — do not default to English. Keep literal: skill ids, git commands, branch names.
+- Always offer change `topic` or cancel
+- Branch exists → also offer reuse (clean tree + confirm)
+- Path-only (branch absent) → change path or topic — **no** reuse-branch option
 
-**Stop:** hand off — no in-session next-stage work.
+### What NOT to do
 
-- Default **`sdd-spec`** when user gave recognizable intent (topic sentence or fix/docs keywords) or changed topic from slug default in **Present**.
-- **`sdd-grill`** when user gave no recognizable intent, topic stayed slug default, and user only replied 确认 without changing topic (e.g.「开个 worktree」only).
+Do not:
 
-**Red flags:** mutating git before confirm; skipping evaluation order; auto-chaining next skill; path conflict → silent branch fallback; treating worktree as verify gate; spec/plan/code in-session; cleaning dirty tree or deleting worktrees for the user.
+- Run mutating git before user confirmation
+- Skip evaluation order or auto-chain unrelated work
+- Use branch fallback silently on path conflict
+- Commit, stash, delete worktrees, or write spec/plan/code in this session
+- Treat worktree setup as a delivery or verify gate
 
-**SDD:** maintainer-authored; explicit `@` only — not superpowers auto-worktree. Contract: `docs/sdd/2026-06-12-sdd-worktree-spec.md`.
+Help the user start the change in an isolated git context safely.

@@ -1,37 +1,73 @@
 ---
 name: sdd-spec
-description: Use when a software change needs a durable behavior contract, scope, acceptance criteria, and necessary technical constraints before implementation planning.
+description: Use when a software change needs a durable behavior contract, scope, acceptance criteria, and technical constraints before implementation planning. Not implementation or open-ended design interviews unless the user asks.
 ---
 
-Write a structured specification before writing any code. The spec is the shared source of truth — what we're building, why, and how we'll know it's done. Concise; no file-by-file implementation prescription.
+# sdd-spec
 
-**When:** new feature, bug fix, migration, or meaningful behavior change with sufficiently clear intent; or in-place revision when AC/constraints change during plan/build/review. **Skip:** open design directions (`sdd-grill`); implementation tasks; need isolated git context first → [`sdd-worktree`](../sdd-worktree/SKILL.md).
+## Role
 
-Read repository guidance, relevant code/docs, and any `sdd-grill` Stop summary from the conversation. Ask only for decisions not discoverable locally.
+You're a senior software engineer who writes a **structured specification** before code — the shared source of truth for what to build, why, and how to know it's done. Concise; no file-by-file implementation prescription.
 
-**New spec** — [spec-template.md](spec-template.md):
+Default: present the spec in chat; write `docs/sdd/YYYY-MM-DD-<topic>-spec.md` when the user confirms or repo convention requires it.
 
-1. Goal, scope, non-goals.
-2. Repository facts that constrain the change only.
-3. Requirements; compatibility, migration, security, or interface constraints as needed.
-4. Each observable criterion → stable `AC-n`.
-5. Remove irrelevant template sections.
-6. **Self-review:** no `TBD`/`TODO`/vague AC; sections agree; scope matches non-goals; pass/fail unambiguous; no hidden implementation tasks.
-7. **Present** for user approval.
+## Task
 
-**Present:** Write the spec in the **user's language** (latest user turn when unclear) — do not default to English. Keep literal: `AC-n`, skill ids, `file:line`, git literals.
+### New spec — [spec-template.md](spec-template.md)
 
-**Revision** — same `docs/sdd/YYYY-MM-DD-<topic>-spec.md` in place (no `-v2` copy):
+1. Read repository guidance, relevant code/docs, and prior decision summaries from the conversation
+2. Ask only for decisions not discoverable locally
+3. Draft: Goal, scope, non-goals; repository facts that constrain the change; requirements and constraints
+4. Each observable criterion → stable **`AC-n`**
+5. Remove irrelevant template sections
+6. **Self-review:** no `TBD`/`TODO`/vague AC; sections agree; scope matches non-goals; pass/fail unambiguous; no hidden implementation tasks
+7. **Present** for user approval
 
-1. Edit Requirements, AC, or Constraints.
-2. Append **Revision log**: date, reason, changed AC IDs (or `none — clarification`), plan impact (`yes`/`no` + note).
-3. Self-review (same checks as new).
-4. **Clarification only** (wording/background; pass/fail unchanged) → log, stop — no re-approval; continue triggering stage (`sdd-plan`, `sdd-build`, `sdd-review`).
-5. **AC or constraint change** → present for re-approval.
-6. After re-approval: `sdd-plan` only when slice boundaries or verification change; else return to prior stage.
+### Revision — same `docs/sdd/YYYY-MM-DD-<topic>-spec.md` in place (no `-v2` copy)
 
-Examples: reword AC-2 without changing pass/fail → log only. AC-3 limit 200ms→500ms → re-approve; unchanged slices → return to `sdd-build`.
+1. Edit Requirements, AC, or Constraints
+2. Append **Revision log:** date, reason, changed AC IDs (or `none — clarification`), plan impact (`yes`/`no` + note)
+3. Self-review (same checks as new)
+4. **Clarification only** (wording/background; pass/fail unchanged) → log and stop — no re-approval
+5. **AC or constraint change** → present for re-approval
+6. After re-approval: update plan only when slice boundaries or verification change; else return to prior stage
 
-**Red flags:** implementation steps inside AC; verbatim grill transcript; open questions blocking planning; file existence as approval; new spec file instead of revise; skipping re-approval after AC/constraint change.
+Examples: reword AC-2 without changing pass/fail → log only. AC-3 limit 200ms→500ms → re-approve.
 
-**SDD:** `docs/sdd/YYYY-MM-DD-<topic>-spec.md`. Layout flexible. New spec approved → invoke `sdd-plan`. Clarification-only → no stage change. AC change re-approved → invoke `sdd-plan` if plan impact yes, else prior stage.
+## Present
+
+Write the spec in the **user's language** when clear from the latest user turn. Keep literal: `AC-n`, `file:line`, git literals.
+
+## Guidelines
+
+### When to use
+
+- New feature, bug fix, migration, or meaningful behavior change with sufficiently clear intent
+- In-place revision when AC or constraints change during plan, build, or review
+
+### Disambiguation
+
+| Request | Route |
+| --- | --- |
+| Open design directions / trade-offs | [`sdd-grill`](../sdd-grill/SKILL.md) |
+| Isolated git context first | [`sdd-worktree`](../sdd-worktree/SKILL.md) |
+| Implementation | [`sdd-build`](../sdd-build/SKILL.md) — after approved spec + plan |
+
+### Stop
+
+- New spec **approved** → [`sdd-plan`](../sdd-plan/SKILL.md)
+- Clarification-only revision → no stage change; continue prior work
+- AC/constraint change re-approved → [`sdd-plan`](../sdd-plan/SKILL.md) if plan impact yes; else prior stage
+
+### What NOT to do
+
+Do not:
+
+- Put implementation steps inside AC
+- Paste verbatim interview transcripts
+- Leave open questions that block planning
+- Treat file existence as user approval
+- Create a new spec file instead of revising in place
+- Skip re-approval after AC or constraint change
+
+Help the team agree on observable acceptance criteria before planning and building.

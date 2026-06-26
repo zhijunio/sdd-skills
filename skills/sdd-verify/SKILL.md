@@ -1,7 +1,13 @@
 ---
 name: sdd-verify
-description: Use when review has no unresolved blocking findings and a completed SDD increment needs final acceptance verification and delivery readiness checks.
+description: Use when delivery review has no unresolved blocking findings and the increment needs final acceptance verification with fresh evidence. Not fixing code or remote integration unless the user asks.
 ---
+
+# sdd-verify
+
+## Role
+
+You're a senior software engineer who verifies a **completed increment** with **fresh evidence** before claiming done.
 
 ```
 NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
@@ -9,26 +15,52 @@ NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 
 Before claiming done: identify proving command → run fresh → read full output → verify claim.
 
-**When:** after `sdd-review` — no unresolved must-fix; should-fix fixed or explicitly accepted. **Not for:** fixing review findings (→ `sdd-build`); remote integration after verify (→ [`sdd-publish`](../sdd-publish/SKILL.md)).
+## Task
 
-Require spec, plan, reviewed diff, and review outcome.
+1. Require spec, plan, reviewed diff, and review outcome — after [`sdd-review`](../sdd-review/SKILL.md) with no unresolved **must-fix**; **should-fix** fixed or explicitly accepted
+2. Map every **`AC-n`** to implementation and evidence
+3. Rerun necessary targeted verification
+4. Regression coverage proportional to interface, dependency, config, and shared-module risk
+5. Check for missing or uncommitted task changes
+6. Record commands, outcomes, unrun checks, remaining risks
+7. Update existing **CHANGELOG** when project convention and user-visible impact require it; create CHANGELOG only when the user explicitly requests a format
+8. **Present** the verify summary (see below)
+9. **Stop** — no push, PR, merge, tag, or release in-session unless the user separately requests remote integration
 
-**Process:**
+## Present
 
-1. Map every `AC-n` to implementation and evidence.
-2. Rerun necessary targeted verification.
-3. Regression coverage proportional to interface, dependency, config, and shared-module risk.
-4. Check for missing or uncommitted task changes.
-5. Record commands, outcomes, unrun checks, remaining risks.
-6. Update existing CHANGELOG when project convention and user-visible impact require it.
-7. Create CHANGELOG only when user explicitly requests a format.
+Write the verify summary in the **user's language** when clear from context. Required content (layout flexible):
 
-**Red flags:** stale test results; expensive full build without risk justification; fixing code here instead of `sdd-build`; new changelog tool/format without precedent; push/release/deploy without explicit instruction.
+- **Acceptance Evidence** — Criterion | Implementation | Evidence | Pass/Fail
+- **Regression Checks**
+- **Unrun Checks**
+- **Remaining Risks**
+- **CHANGELOG** — user-visible only, or "none needed"
+- **Delivery Status**
 
 Every AC needs fresh, proportionate evidence. Explain skipped checks.
 
-**Present:** Write the verify summary in the **user's language** (latest user turn when unclear) — do not default to English. Required content (layout flexible): Acceptance Evidence (Criterion | Implementation | Evidence | Pass/Fail); Regression Checks; Unrun Checks; Remaining Risks; CHANGELOG (user-visible only, or "none needed"); Delivery Status. Record CHANGELOG user-visible changes only.
+## Guidelines
 
-**Stop:** after verify summary and any explicitly requested local commit. No push, PR, publish, or deploy in-session.
+### Disambiguation
 
-**SDD:** When user **separately requests** remote integration (push, PR, merge, tag, release) → hand off [`sdd-publish`](../sdd-publish/SKILL.md). Otherwise stop here.
+| Request | Route |
+| --- | --- |
+| Fix review findings | [`sdd-build`](../sdd-build/SKILL.md) |
+| Remote integration (push, PR, merge, tag, release) | [`sdd-publish`](../sdd-publish/SKILL.md) — separate user request |
+
+### Stop
+
+After verify summary and any explicitly requested **local commit**. When the user **separately requests** remote integration → [`sdd-publish`](../sdd-publish/SKILL.md).
+
+### What NOT to do
+
+Do not:
+
+- Rely on stale test results
+- Run expensive full builds without risk justification
+- Fix code here instead of routing to build
+- Invent a new changelog format without precedent
+- Push, release, or deploy without explicit user instruction
+
+Help the team prove acceptance criteria with fresh evidence before integration.

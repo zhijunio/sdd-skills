@@ -28,7 +28,7 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no auto worktree orchestration, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` can stress-test plans and trade-offs before spec or plan; the required delivery artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), utility **`sdd-publish`** (remote integration), `sdd-audit` (codebase audit), and meta skills `sdd-readme` / `sdd-agents` / `sdd-explain` / `sdd-zoom` / `sdd-grill` / `sdd-onboard` are published separately; they do not change the six-stage delivery loop.
+- **Optional satellites stay outside the core loop:** utility **`sdd-worktree`** (git isolation), **`sdd-publish`** (remote integration), **`sdd-audit`** (codebase audit), and meta skills `sdd-readme` / `sdd-agents` / `sdd-explain` / `sdd-zoom` / `sdd-grill` / `sdd-onboard` are published separately; they do not change the six-stage delivery loop.
 
 For stage choice, see [engineering-rationale §2](./engineering-rationale.md#2-本仓定位与边界) and each skill `SKILL.md`. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
 
@@ -60,7 +60,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — upstream opening @ pin; **Present** + [spec-template.md](../../skills/sdd-spec/spec-template.md).
+- **`SKILL.md`** — body restructured (Role / Task / Guidelines); **Present** + [spec-template.md](../../skills/sdd-spec/spec-template.md).
 - `docs/sdd/*-spec.md`; in-place revision + **Revision log**; user approval before **`sdd-plan`**.
 
 ### `sdd-audit`
@@ -72,12 +72,11 @@ Sources:
 
 Local decisions:
 
-- Optional **satellite** — not a mandatory core stage before `sdd-verify`.
-- **`SKILL.md`** — MECE audit workflow + minimal **SDD** tail (When/Skip vs `sdd-review`, **Stop**, handoff).
-- **`references/`** — `map.md`, `playbook.md`, `report.md`, `deep-parallel.md`; SDD handoff table in **`SKILL.md` Stop**.
-- **Present:** report per `report.md` (same section order as upstream). **Suggested next steps** (last) names one route per **`SKILL.md` Stop** handoff table. Severity 🚨🔴🟡🟢 = follow-up priority — **not** `sdd-review` delivery gate.
-- Disambiguation vs **`sdd-review`**: **codebase audit** vs **delivery review** — **When/Skip** cross-links only.
-- **Stop:** user **`@`** next skill — no auto-chain.
+- Optional **utility satellite** — MECE codebase/branch health audit; not delivery loop.
+- **`SKILL.md`** — body restructured (Role / Task / Guidelines); workflow in skill; details in **`references/`**.
+- **`references/`** — `map.md`, `playbook.md`, `report.md`, `deep-parallel.md`; report per `report.md`. Severity 🚨🔴🟡🟢 = follow-up priority — **not** `sdd-review` delivery gate.
+- Disambiguation vs **`sdd-review`**: codebase audit vs delivery review.
+- **Thrown:** full SDD handoff table (spec/plan/build routing) — not fused into skill body; **Suggested next steps** in report only.
 
 ### `sdd-readme`
 
@@ -146,7 +145,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — upstream opening @ pin; **Present** + **15–60 min vertical slices**; [plan-template.md](../../skills/sdd-plan/references/plan-template.md); user approval before **`sdd-build`**.
+- **`SKILL.md`** — body restructured (Role / Task / Guidelines); **15–60 min vertical slices**; [plan-template.md](../../skills/sdd-plan/references/plan-template.md); user approval before **`sdd-build`**.
 
 ### `sdd-build`
 
@@ -159,8 +158,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — superpowers TDD iron law + matt vertical-slice anti-pattern @ pin; **Present** for narration and plan appendices.
-- Escalation to **`sdd-spec`** / **`sdd-plan`**; **Stop** → **`sdd-review`**; no worktrees or per-slice commits required.
+- **`SKILL.md`** — body restructured (Role / Task / Guidelines); TDD iron law; vertical-slice loop; escalation → **`sdd-spec`** / **`sdd-plan`**; **Stop** → **`sdd-review`**.
 
 ### `sdd-review`
 
@@ -188,10 +186,9 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — evaluation order, Present → confirm → mutating git, weak-isolation branch fallback, conflict stop rules; contract `docs/sdd/2026-06-12-sdd-worktree-spec.md`.
-- **Thrown:** superpowers session worktree chains, Git hooks, worktree lifecycle cleanup, delivery-gate usage.
-- **Present:** user's language. **Stop:** default **`sdd-spec`**; **`sdd-grill`** when intent still vague after slug-default topic only.
-- **When/Skip** cross-links with **`sdd-spec`** and **`sdd-grill`** only.
+- Optional **utility satellite** — git isolation (worktree or topic branch); not delivery loop.
+- **`SKILL.md`** — body restructured (Role / Task / Guidelines); Present → confirm → mutating git; weak-isolation branch fallback; conflict stop rules.
+- **Thrown:** superpowers session worktree chains, SDD handoff to **`sdd-spec`** / **`sdd-grill`**, contract `docs/sdd/2026-06-12-sdd-worktree-spec.md`.
 
 ### `sdd-publish`
 
@@ -218,8 +215,7 @@ Sources:
 
 Local decisions:
 
-- **`SKILL.md`** — verification-before-completion iron law @ pin; **Present** verify summary; finishing-branch remote steps → hand off **`sdd-publish`** (explicit user actions only).
-- Fresh evidence; CHANGELOG per repo convention only; no push/deploy in-session — separate request → hand off **`sdd-publish`**.
+- **`SKILL.md`** — body restructured (Role / Task / Guidelines); verification-before-completion iron law; **Present** verify summary; remote integration → **`sdd-publish`** on separate user request.
 
 ## Updating
 
