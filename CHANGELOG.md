@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking:** **`sdd-ship`** renamed to **`sdd-verify`** — reinstall or update `@` references; **`sdd-publish`** unchanged
 - **`sdd-audit`**: **`sdd-improve`** renamed; MECE playbooks in `references/`; SDD handoff in **`SKILL.md` Stop** + **Suggested next steps** only; removed **`closing-the-loop.md`**
 - **`sdd-review`**: `lens-map.md`; MECE lens ids + optional impact emoji; architecture walk links to `sdd-audit` anti-patterns / vet
-- **Removed:** root `README.md` / `AGENTS.md` from this repo — design docs under `docs/design/`
+- **Restored:** root [README.md](README.md) and [AGENTS.md](AGENTS.md) (fourteen skills, `sdd-verify` / `sdd-audit` naming); added [docs/ONBOARDING.md](docs/ONBOARDING.md) contributor plan
 - **Audit remediation:** fixed `sdd-review/references/` cross-skill links; SOURCES `plan-template` path; `improve`→`sdd-audit` terminology in governance docs
 - **`sdd-audit` `report.md`:** optional **Strengths** section; **Coverage** before **Findings**; **Not audited** merged into **Coverage**
 - **`sdd-review` `finding-format.md`:** report sections aligned with `sdd-audit`; **Coverage** before **Findings**; **Verdict** before **Rejected / deferred**; delivery gate unchanged
