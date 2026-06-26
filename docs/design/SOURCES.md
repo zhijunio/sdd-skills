@@ -28,7 +28,7 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no auto worktree orchestration, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` can stress-test plans and trade-offs before spec or plan; the required delivery artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), `sdd-publish` (post-loop remote integration), `sdd-audit` (codebase audit), and meta skills `sdd-readme` / `sdd-agents` / `sdd-explain` / `sdd-zoom` / `sdd-grill` / `sdd-onboard` (repo docs, code explanation, territory map, decision interview, onboarding) are published separately; they do not change the six-stage delivery loop.
+- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), utility **`sdd-publish`** (remote integration), `sdd-audit` (codebase audit), and meta skills `sdd-readme` / `sdd-agents` / `sdd-explain` / `sdd-zoom` / `sdd-grill` / `sdd-onboard` are published separately; they do not change the six-stage delivery loop.
 
 For stage choice, see [engineering-rationale §2](./engineering-rationale.md#2-本仓定位与边界) and each skill `SKILL.md`. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
 
@@ -177,7 +177,7 @@ Local decisions:
 - Default scope is merge-base diff plus task-related uncommitted work; never assume `main`.
 - Pre-existing issues outside the scoped diff are out-of-scope observations, not delivery blockers.
 - Require explicit diff range; a repository path alone is insufficient.
-- **`SKILL.md`** — code-review-quality + requesting-code-review @ pin; **Present** + scope in [scope.md](../../skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md` (delivery gate).
+- **`SKILL.md`** — body restructured (Role / Task / Guidelines); scope in [scope.md](../../skills/sdd-review/references/scope.md); dimensions in `review-dimensions.md`; report in `finding-format.md` (delivery gate).
 - Delivery verdict → **`sdd-build`** or **`sdd-verify`**; full verification in **`sdd-verify`**.
 
 ### `sdd-worktree`
@@ -197,15 +197,15 @@ Local decisions:
 
 Sources:
 
-- **Maintainer-authored** — no upstream pin; post-loop integration satellite (standalone `@` OK; does not require `@sdd-verify`); distinct from superpowers auto-release orchestration (thrown per engineering-rationale §3.2).
-- Cursor user rule `creating-pull-requests` may coexist — rule covers `gh` format; this skill covers SDD gates and Present/Stop.
+- [`.github/prompts/publish-changes.prompt.md`](../../.github/prompts/publish-changes.prompt.md) — GitHub prompt entry (step-by-step / batch); body aligned with skill (not verbatim)
+- Historical: maintainer `docs/sdd/2026-06-12-sdd-publish-spec.md` (SDD contract — superseded by prompt + skill for agent use)
+- Cursor user rule `creating-pull-requests` may coexist — rule covers `gh` format; skill covers gates and Present/confirm flow.
 
 Local decisions:
 
-- **`SKILL.md`** — evaluation order, per-step Present → confirm → mutating git/gh, pipeline subset, no-`gh` degradation, merge后 sync default branch before tag; contract `docs/sdd/2026-06-12-sdd-publish-spec.md`.
-- **Thrown:** superpowers auto-release chains, CI babysit loops, force push, platform DevOps bundles.
-- **Present:** user's language. **Stop:** integration complete — no default next skill.
-- **When/Skip** cross-links with **`sdd-verify`** only.
+- Optional **utility satellite** — remote git integration in any repo; not delivery loop.
+- **`SKILL.md`** only — no bundled `references/`; Prepare commits, step-by-step / batch, pipeline subset, no-`gh` degradation, sync default branch before tag.
+- **Thrown:** superpowers auto-release chains, CI babysit loops, force push; SDD handoff to **`sdd-verify`** (not fused into skill body).
 
 ### `sdd-verify`
 
