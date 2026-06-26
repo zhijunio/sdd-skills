@@ -28,11 +28,23 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no auto worktree orchestration, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` can stress-test plans and trade-offs before spec or plan; the required delivery artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** utility **`sdd-worktree`** (git isolation), **`sdd-publish`** (remote integration), **`sdd-audit`** (codebase audit), and meta skills `sdd-readme` / `sdd-agents` / `sdd-explain` / `sdd-zoom` / `sdd-grill` / `sdd-onboard` are published separately; they do not change the six-stage delivery loop.
+- **Optional satellites stay outside the core loop:** utility **`sdd-worktree`** (git isolation), **`sdd-publish`** (remote integration), **`sdd-audit`** (codebase audit), and meta skills `sdd-readme` / `sdd-agents` / `sdd-explain` / `sdd-ci` / `sdd-zoom` / `sdd-grill` / `sdd-onboard` are published separately; they do not change the six-stage delivery loop.
 
 For stage choice, see [engineering-rationale §2](./engineering-rationale.md#2-本仓定位与边界) and each skill `SKILL.md`. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
 
 Sources and methodology: [design docs](./README.md) ([engineering-rationale](./engineering-rationale.md)).
+
+## Skill and prompt pairs
+
+Several skills share **basically the same content** as a [`.github/prompts/*.prompt.md`](../../.github/prompts/) file — one entry point for **`@` skills**, one for Cursor GitHub prompts.
+
+| Rule | Detail |
+| --- | --- |
+| **Independent** | `SKILL.md` and the prompt file do **not** link to each other — no "Skill entry" or "GitHub prompt entry" lines |
+| **Content parity** | Role, task flow, and guidelines stay aligned; when behavior changes, update **both** in the same change |
+| **Mapping only in maintainer docs** | Pairing table lives here and in [ONBOARDING.md](../ONBOARDING.md) — not in runtime artifacts |
+
+Prompt-only `${input:...}` placeholders stay in the prompt; the skill uses plain defaults (e.g. default platform, default triggers).
 
 ## Local Skills
 
@@ -40,7 +52,7 @@ Sources and methodology: [design docs](./README.md) ([engineering-rationale](./e
 
 Sources:
 
-- [`.github/prompts/grill-me.prompt.md`](../../.github/prompts/grill-me.prompt.md) — body aligned with prompt (not verbatim)
+- [`.github/prompts/grill-me.prompt.md`](../../.github/prompts/grill-me.prompt.md) — content aligned with skill (not verbatim); no cross-links
 - `mattpocock/skills`: `skills/productivity/grill-me` @ pin `be55a797` (superseded by local prompt for structure)
 - Historical thrown: `obra/superpowers` `skills/brainstorming` (territory/explore → **`sdd-zoom`** or user `@`); `addyosmani/agent-skills` `skills/interview-me`, `skills/idea-refine` (not fused into grill)
 
@@ -82,7 +94,7 @@ Local decisions:
 
 Sources:
 
-- [`.github/prompts/create-readme.prompt.md`](../../.github/prompts/create-readme.prompt.md) — body aligned with prompt (not verbatim)
+- [`.github/prompts/create-readme.prompt.md`](../../.github/prompts/create-readme.prompt.md) — content aligned with skill (not verbatim); no cross-links
 
 Local decisions:
 
@@ -93,7 +105,7 @@ Local decisions:
 
 Sources:
 
-- [`.github/prompts/create-agents-md.prompt.md`](../../.github/prompts/create-agents-md.prompt.md) — body aligned with prompt (not verbatim)
+- [`.github/prompts/create-agents-md.prompt.md`](../../.github/prompts/create-agents-md.prompt.md) — content aligned with skill (not verbatim); no cross-links
 - [agents.md](https://agents.md/) — generic `##` heading convention (Context, Structure, Commands, …)
 
 Local decisions:
@@ -105,7 +117,7 @@ Local decisions:
 
 Sources:
 
-- [`.github/prompts/explain-code.prompt.md`](../../.github/prompts/explain-code.prompt.md) — body aligned with prompt (not verbatim)
+- [`.github/prompts/explain-code.prompt.md`](../../.github/prompts/explain-code.prompt.md) — content aligned with skill (not verbatim); no cross-links
 
 Local decisions:
 
@@ -115,18 +127,30 @@ Local decisions:
 
 Sources:
 
-- [`.github/prompts/onboarding-plan.prompt.md`](../../.github/prompts/onboarding-plan.prompt.md) — body aligned with prompt (not verbatim)
+- [`.github/prompts/onboarding-plan.prompt.md`](../../.github/prompts/onboarding-plan.prompt.md) — content aligned with skill (not verbatim); no cross-links
 
 Local decisions:
 
 - Optional **meta satellite** — phased contributor onboarding in chat; not delivery loop.
 - **`SKILL.md`** only — no bundled `references/`; default chat; write disk on user confirm.
 
+### `sdd-ci`
+
+Sources:
+
+- [`.github/prompts/create-ci.prompt.md`](../../.github/prompts/create-ci.prompt.md) — content aligned with skill (not verbatim); no cross-links
+
+Local decisions:
+
+- Optional **meta satellite** — CI pipeline authoring for any git repo; not delivery loop; no triage of failing CI.
+- **`SKILL.md`** only — no bundled `references/`; default chat draft; write workflow files on user confirm.
+- **Stack conventions** subsection — Maven / Gradle / Node / Python / Go; apply only when detected; universal CI rules stay separate.
+
 ### `sdd-zoom`
 
 Sources:
 
-- [`.github/prompts/zoom-codebase.prompt.md`](../../.github/prompts/zoom-codebase.prompt.md) — body aligned with prompt (not verbatim)
+- [`.github/prompts/zoom-codebase.prompt.md`](../../.github/prompts/zoom-codebase.prompt.md) — content aligned with skill (not verbatim); no cross-links
 - Historical: `mattpocock/skills` `skills/engineering/zoom-out` @ pin `be55a797` (superseded by local prompt)
 
 Local decisions:
@@ -194,7 +218,7 @@ Local decisions:
 
 Sources:
 
-- [`.github/prompts/publish-changes.prompt.md`](../../.github/prompts/publish-changes.prompt.md) — GitHub prompt entry (step-by-step / batch); body aligned with skill (not verbatim)
+- [`.github/prompts/publish-changes.prompt.md`](../../.github/prompts/publish-changes.prompt.md) — content aligned with skill (not verbatim); no cross-links
 - Historical: maintainer `docs/sdd/2026-06-12-sdd-publish-spec.md` (SDD contract — superseded by prompt + skill for agent use)
 - Cursor user rule `creating-pull-requests` may coexist — rule covers `gh` format; skill covers gates and Present/confirm flow.
 

@@ -1,7 +1,9 @@
 ---
-agent: 'agent'
-description: 'Create a CI pipeline configuration for the project, or a minimal-check plan when no CI is warranted'
+name: sdd-ci
+description: Use when creating or extending CI pipeline config for a project—build, test, lint, coverage upload. Not triaging failing CI, babysitting red checks, merge, or publish unless the user asks separately.
 ---
+
+# sdd-ci
 
 ## Role
 
@@ -27,8 +29,8 @@ If unclear, ask once; default to minimal or no CI for docs-only or config-only r
 ### Task
 
 1. Detect the project stack from manifests (`package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `pom.xml`, `build.gradle*`, `Gemfile`, `composer.json`, etc.) and existing CI config
-2. Create a CI pipeline for: ${input:platform:Which CI platform? (GitHub Actions / GitLab CI / CircleCI / Azure Pipelines — leave blank for GitHub Actions)}
-3. Trigger it on: ${input:triggers:Which events? (push / pull_request / release — leave blank for push to default branch + pull_request)}
+2. Create a CI pipeline — default **GitHub Actions** unless the user or existing CI specifies another platform
+3. Trigger on **push to the default branch and pull_request** unless the user specifies otherwise
 4. Wire in the build, test, and lint commands the project actually uses
 5. Add caching for dependencies and any artifacts that meaningfully speed runs
 6. **Coverage** — only when the project already wires a coverage tool in manifests or build config (see Coverage and the matching Stack conventions subsection)
@@ -160,8 +162,6 @@ Do not invent per-repo secret names like `CENTRAL_USERNAME` or `OSSRH_PASSWORD` 
 
 When there is **no verifiable automated build/test/lint suite** (or CI would add little value), do **not** invent a full pipeline.
 
-Scope (optional): ${input:scope:What should CI cover, if anything?}
-
 1. **Recon** — state what you found (or did not find) in manifests, scripts, and docs
 2. **Recommendation** — "no CI needed" with rationale, or a **minimal** check aligned with what exists (e.g. YAML/Markdown lint, link check, `terraform validate`) only when the repo already documents or uses that tool
 3. **If the user explicitly wants CI anyway** — switch to CI pipeline only after they name verifiable commands or agree to add a checker
@@ -178,11 +178,9 @@ Do not:
 - Publish/deploy or wiki sync inline in the default CI pipeline unless asked
 - Duplicate jobs for environments that share the same command set
 - Add caches or matrix entries that don't exist in the project yet
-- Add coverage upload when no coverage tool is wired in; do not skip Codecov for JaCoCo projects unless the user opts out
+- Add coverage upload when no coverage tool is wired in; do not skip Codecov for JaCoCo projects unless the user opted out
 - Use commands or tools you couldn't verify exist in this repo
 - Apply stack conventions for a stack the repo does not use (e.g. Maven `-B -ntp` on a Node-only repo)
 - Triage or fix already-failing CI in this session
-
-Notes (optional): ${input:notes:Platform preference, triggers, deploy needs, coverage opt-in/out, or other context?}
 
 Help the user get CI that matches the repo — real commands, minimal scope, safe defaults.

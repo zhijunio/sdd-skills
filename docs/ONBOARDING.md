@@ -13,7 +13,7 @@ Related: [README.md](../README.md) · [AGENTS.md](../AGENTS.md) · [docs/design/
 ### What this repo is (5 minutes)
 
 - **Not** an app — no `package.json`, no test runner, no deployable service.
-- **Is** fourteen Markdown **agent skills** under `skills/<name>/SKILL.md`, plus maintainer design docs and minimal CI.
+- **Is** fifteen Markdown **agent skills** under `skills/<name>/SKILL.md`, plus maintainer design docs and minimal CI.
 - Consumers install skills into **their** projects via the [skills CLI](https://github.com/vercel-labs/skills) — see [README — Installation](../README.md#installation).
 
 ### Environment setup
@@ -86,21 +86,25 @@ Related: [README.md](../README.md) · [AGENTS.md](../AGENTS.md) · [docs/design/
    find skills -mindepth 2 -maxdepth 2 -name SKILL.md | sort
    ```
 
-   Group into: **core loop** (6) · **loop satellites** (2) · **exploration** (2) · **meta** (4) — see [AGENTS.md — Structure](../AGENTS.md#structure).
+   Group into: **core loop** (6) · **loop satellites** (2) · **exploration** (2) · **meta** (5) — see [AGENTS.md — Structure](../AGENTS.md#structure).
 
-2. **Prompt pairs** — several skills mirror [`.github/prompts/`](../.github/prompts/):
+2. **Prompt pairs** — several skills share content with [`.github/prompts/`](../.github/prompts/) (see [SOURCES — Skill and prompt pairs](../docs/design/SOURCES.md#skill-and-prompt-pairs)):
+
+   - **Independent** — neither file links to the other
+   - **Content parity** — update skill and prompt together when behavior changes
 
    | Skill | Prompt file |
    | --- | --- |
    | `sdd-readme` | `create-readme.prompt.md` |
    | `sdd-agents` | `create-agents-md.prompt.md` |
+   | `sdd-ci` | `create-ci.prompt.md` |
    | `sdd-onboard` | `onboarding-plan.prompt.md` |
    | `sdd-explain` | `explain-code.prompt.md` |
    | `sdd-zoom` | `zoom-codebase.prompt.md` |
    | `sdd-grill` | `grill-me.prompt.md` |
    | `sdd-publish` | `publish-changes.prompt.md` |
 
-   Other prompts (`create-ci`, `review-code`, `generate-unit-tests`, `document-api`) have no dedicated skill — use when the task matches the prompt description.
+   Other prompts (`review-code`, `generate-unit-tests`, `document-api`) have no dedicated skill — use when the task matches the prompt description.
 
 3. **Historical increments** — browse `docs/sdd/*-spec.md` and `*-plan.md` for how this repo dogfoods SDD on itself.
 
@@ -128,7 +132,7 @@ Suited to an experienced developer new to skills authoring:
 | Task | Scope | What you learn |
 | --- | --- | --- |
 | Fix a broken relative link in README, AGENTS, or `references/` | 1–2 files | Link hygiene; prose-only review mindset |
-| Align a `.github/prompts/*.prompt.md` **Role** with its paired skill | 1 prompt + 1 skill | Prompt/skill parity |
+| Align a paired skill and `.github/prompts/*.prompt.md` (same content, no cross-links) | 1 prompt + 1 skill | Prompt/skill parity |
 | Add a **Spot-check** line to [CHANGELOG.md](../CHANGELOG.md) `[Unreleased]` after self-trial | 1 file | Maintainer verification |
 | Tighten one skill **`description`** frontmatter (triggers only) | 1 `SKILL.md` | [AGENTS.md](../AGENTS.md) authoring rules |
 

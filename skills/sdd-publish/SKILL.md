@@ -24,8 +24,6 @@ Default: work in chat. Do not push, merge, tag, or release without explicit user
 6. **Present → confirm → execute** — step-by-step (default) or batch when the user confirms the full plan upfront (see Guidelines)
 7. **Stop** when requested steps complete — user may continue remaining steps in a later session
 
-GitHub prompt entry: [publish-changes.prompt.md](../../.github/prompts/publish-changes.prompt.md).
-
 ## Guidelines
 
 ### Execution modes
