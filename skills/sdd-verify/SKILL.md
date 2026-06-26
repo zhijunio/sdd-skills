@@ -47,11 +47,10 @@ Every AC needs fresh, proportionate evidence. Explain skipped checks.
 | Request | Route |
 | --- | --- |
 | Fix review findings | [`sdd-build`](../sdd-build/SKILL.md) |
-| Remote integration (push, PR, merge, tag, release) | [`sdd-publish`](../sdd-publish/SKILL.md) — separate user request |
 
 ### Stop
 
-After verify summary and any explicitly requested **local commit**. When the user **separately requests** remote integration → [`sdd-publish`](../sdd-publish/SKILL.md).
+After verify summary and any explicitly requested **local commit**.
 
 ### What NOT to do
 

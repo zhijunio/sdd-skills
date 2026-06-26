@@ -102,7 +102,7 @@ Valid lens: A1–A6, C0–C3, S1, V1–V2, D1, O1. One row per root cause. Skipp
 | Request | Route |
 | --- | --- |
 | Increment diff delivery review | [`sdd-review`](../sdd-review/SKILL.md) |
-| Territory map only | [`sdd-zoom`](../sdd-zoom/SKILL.md) |
+| Territory map only, no findings | Decline — out of scope; audit expects findings with evidence |
 | Trade-offs / design interview | [`sdd-grill`](../sdd-grill/SKILL.md) |
 | Implement fixes during scan | Decline — audit first; implement after Stop |
 | Ambiguous "review" without diff | Ask user vs **`sdd-review`** |

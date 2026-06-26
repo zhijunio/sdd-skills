@@ -1,12 +1,13 @@
 # Repository Guidelines
 
-Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only skill pack, not an application repo. Human overview: [README.md](README.md). Runtime contracts: `skills/<name>/SKILL.md`. Upstream pins: [docs/design/SOURCES.md](docs/design/SOURCES.md).
+Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only skill pack, not an application repo. Human overview: [README.md](README.md). Runtime contracts: `skills/<name>/SKILL.md`.
 
 ## Context
 
-- Maintain **fourteen** platform-neutral SDD skills: six-stage delivery loop plus optional satellites (see [README — Skills](README.md#skills)).
+- Maintain **thirteen** platform-neutral skills: **seven SDD** (`sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-verify`, `sdd-audit`) plus **six independent** utilities (see [README — Skills](README.md#skills)).
 - Write skill instructions in **English**; **Present** deliverables in the **user's language** (every `SKILL.md`).
-- Finish one stage → **Stop** → wait for the user to **`@`** the next skill. Never auto-chain stages in one session.
+- Finish one SDD stage → **Stop** → wait for the user to **`@`** the next skill. Never auto-chain stages in one session.
+- Independent skills (`create-readme`, `create-agentsmd`, `explain-code`, `git-context`, `git-release`, `onboarding-plan`) are **not** SDD loop stages — do not route SDD handoffs to them.
 - Do not add hooks, slash commands, agent manifests, central routing docs, or runtime state files unless the user asks.
 
 **Nested AGENTS.md:** not needed — skills are self-contained under `skills/`; one root file is enough.
@@ -17,20 +18,18 @@ Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only ski
 | --- | --- |
 | `skills/<name>/SKILL.md` | Skill runtime contract |
 | `skills/<name>/references/` | Bundled templates/checklists for that skill only |
-| `.github/prompts/*.prompt.md` | Cursor GitHub prompts — content aligned with paired skills; independent files (see [SOURCES — Skill and prompt pairs](docs/design/SOURCES.md#skill-and-prompt-pairs)) |
+| `.github/prompts/*.prompt.md` | Cursor GitHub prompts — content aligned with paired skills; independent files (see README — Skills) |
 | `.github/workflows/check.yml` | CI job **`validate`** |
-| `docs/design/` | Maintainer design — `engineering-rationale.md`, `SOURCES.md`, `THIRD_PARTY_NOTICES.md` |
-| `docs/sdd/` | SDD specs/plans for this repo's own increments |
+| `docs/sdd/` | Maintainer SDD archive specs/plans for this repo's increments |
 | `CHANGELOG.md` | User-visible release notes |
 
 **Skill groups**
 
 | Group | Members |
 | --- | --- |
-| Core loop | `sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-verify` |
-| Loop satellites | `sdd-worktree`, `sdd-publish` |
-| Exploration | `sdd-zoom`, `sdd-audit` |
-| Meta | `sdd-readme`, `sdd-agents`, `sdd-explain`, `sdd-onboard` |
+| SDD core loop | `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-verify` |
+| SDD optional | `sdd-grill`, `sdd-audit` |
+| Independent (not SDD) | `create-readme`, `create-agentsmd`, `explain-code`, `git-context`, `git-release`, `onboarding-plan` |
 
 Consumer projects use `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` by convention — not required in this maintainer repo.
 
@@ -39,7 +38,7 @@ Consumer projects use `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` by conventio
 No build, lint, format, or test runner exists here. Run these before opening a PR — they mirror [`.github/workflows/check.yml`](.github/workflows/check.yml):
 
 ```bash
-test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 14
+test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 13
 test ! -e skills/sdd-ship
 test -f skills/sdd-verify/SKILL.md
 ```
@@ -66,12 +65,12 @@ Do not run or invent `npm test`, `pytest`, `mvn verify`, or similar — they are
 **When editing `SKILL.md`**
 
 - Keep frontmatter **`description`** to triggering conditions only — not a workflow summary.
-- Borrow upstream prose verbatim @ pin ([SOURCES.md](docs/design/SOURCES.md)) + minimal **SDD:** tail; keep bodies short; put detail in `references/`.
+- Borrow upstream ideas in skill bodies; keep bodies short; put detail in `references/`.
 - Preserve literals: `AC-n`, skill ids, lens ids, `file:line`, git literals, 🔴/🟡/🟢.
-- Pair **`sdd-audit`** vs **`sdd-review`** via **When/Skip** cross-links in each skill — do not add pairing tables to AGENTS, README, or design docs.
+- Pair **`sdd-audit`** vs **`sdd-review`** via **When/Skip** cross-links in each skill — do not add pairing tables to AGENTS or README.
 - When adding or renaming a skill, update `check.yml` assertions and README skill tables if user-visible.
-- When a skill has a paired `.github/prompts/*.prompt.md`, keep **content aligned** but **no cross-links** between the two files; update both in the same change (see [SOURCES — Skill and prompt pairs](docs/design/SOURCES.md#skill-and-prompt-pairs)).
-- When upstream-derived behavior changes, update [docs/design/SOURCES.md](docs/design/SOURCES.md) and [docs/design/THIRD_PARTY_NOTICES.md](docs/design/THIRD_PARTY_NOTICES.md).
+- When a skill has a paired `.github/prompts/*.prompt.md`, keep **content aligned** but **no cross-links** between the two files; update both in the same change.
+- When upstream-derived behavior changes materially, note attribution in the PR or [CHANGELOG.md](CHANGELOG.md).
 
 ## Agent notes
 
@@ -84,7 +83,8 @@ Do not run or invent `npm test`, `pytest`, `mvn verify`, or similar — they are
 **Do not**
 
 - Treat **`sdd-audit`** as a delivery gate or substitute for **`sdd-review`**.
-- Chain review → verify → publish without explicit user `@`.
+- Chain SDD stages (review → verify) without explicit user `@`.
+- Route SDD **Stop** handoffs to independent skills (`git-context`, `git-release`, etc.).
 - Add core stages, state fields, or ceremony without evidence.
-- Babysit failing CI, merge on red checks, or run mutating `git`/`gh` unless the user scopes **`sdd-publish`**.
-- Reintroduce retired ids: `sdd-ship` (use **`sdd-verify`**), `sdd-improve` (use **`sdd-audit`**).
+- Babysit failing CI, merge on red checks, or run mutating `git`/`gh` unless the user scopes **`git-release`**.
+- Reintroduce retired ids: `sdd-ship` (use **`sdd-verify`**), `sdd-improve` (use **`sdd-audit`**), **`sdd-zoom`** (removed).

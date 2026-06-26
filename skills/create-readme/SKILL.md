@@ -1,9 +1,7 @@
 ---
-name: sdd-readme
+name: create-readme
 description: Use when creating or revising README.md for a project—comprehensive human onboarding for developers. Not AGENTS.md, CONTRIBUTING, or full API documentation unless the user asks.
 ---
-
-# sdd-readme
 
 ## Role
 
@@ -15,11 +13,11 @@ Write to disk only when the user confirms. Default: show the draft in chat.
 
 1. Review the entire project workspace and codebase
 2. Create a comprehensive README.md file with these essential sections:
-    - **What the project does**: Clear project title and description
-    - **Why the project is useful**: Key features and benefits
-    - **How users can get started**: Installation/setup instructions with usage examples
-    - **Where users can get help**: Support resources and documentation links
-    - **Who maintains and contributes**: Maintainer information and contribution guidelines
+   - **What the project does**: Clear project title and description
+   - **Why the project is useful**: Key features and benefits
+   - **How users can get started**: Installation/setup instructions with usage examples
+   - **Where users can get help**: Support resources and documentation links
+   - **Who maintains and contributes**: Maintainer information and contribution guidelines
 
 Ground content in manifests, CI, and the source tree — do not invent scripts, versions, or secrets. If a fact is missing, say so before writing the file.
 

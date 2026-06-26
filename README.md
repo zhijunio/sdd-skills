@@ -3,16 +3,17 @@
 [![CI](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml/badge.svg)](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml)
 [![License](https://img.shields.io/github/license/zhijunio/sdd-skills)](LICENSE)
 
-Lightweight, platform-neutral **agent skills** for spec-driven development — fourteen skills, a six-stage delivery loop, and optional satellites you install only when needed. No state machine, project manager, or Git workflow framework — just explicit stages you **`@`** one at a time.
+**Thirteen** platform-neutral agent skills in one repo: a **six-stage SDD delivery loop** (plus optional `sdd-grill` and `sdd-audit`), and **six independent utility skills** that are not part of that loop. No state machine, project manager, or Git workflow framework — SDD stages you **`@`** one at a time.
 
 ## Why use these skills
 
 - **Explicit stages** — one skill output → **Stop** → hand off; no auto-chaining
 - **Verifiable slices** — spec AC, plan as vertical slices, test-first build, evidence-backed review and verify
-- **Optional satellites** — worktree isolation, publish, zoom, audit, and meta skills (README, AGENTS, explain, onboard) only when you need them
+- **Optional SDD satellites** — `sdd-grill` (clarify) and `sdd-audit` (codebase health) only when you need them
+- **Independent utilities** — README, AGENTS.md, git isolation, release, explain, onboarding — install separately; no SDD coupling
 - **Platform-neutral** — Markdown skills only; works with Cursor, Codex, Claude Code, and other agents via the [skills CLI](https://github.com/vercel-labs/skills)
 
-Six principles (shape / delivery / governance): [engineering-rationale §1.0](docs/design/engineering-rationale.md#10-核心原则).
+Six principles (shape / delivery / governance): explicit stages, verifiable slices, test and prove, borrow don't rebuild — embodied in skill `SKILL.md` files and [AGENTS.md](AGENTS.md).
 
 ## Getting started
 
@@ -28,7 +29,15 @@ Non-interactive (multiple agents):
 npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
 ```
 
-Core loop only:
+SDD core loop only:
+
+```bash
+npx skills@latest add zhijunio/sdd-skills \
+  -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-verify \
+  -a cursor -y
+```
+
+SDD core + optional clarify (`sdd-grill`):
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills \
@@ -40,6 +49,13 @@ Minimal path (spec + plan):
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills -s sdd-spec -s sdd-plan -y
+```
+
+Independent skills only (examples):
+
+```bash
+npx skills@latest add zhijunio/sdd-skills -s git-context -s git-release -a cursor -y
+npx skills@latest add zhijunio/sdd-skills -s create-readme -s create-agentsmd -y
 ```
 
 **Stable pin** (`v0.3.1` — eight skills, pre-rename ids):
@@ -57,16 +73,14 @@ List without installing: `npx skills@latest add zhijunio/sdd-skills --list`
 
 **Manual install:** copy `skills/<name>/` into your agent's skills directory (include bundled `references/` where present).
 
-> **Breaking on current `main` (unreleased):** `sdd-ship` → `sdd-verify`; `sdd-improve` → `sdd-audit`. Update `@` references after upgrading from `v0.3.1`.
+> **Breaking on current `main` (unreleased):** `sdd-ship` → `sdd-verify`; `sdd-improve` → `sdd-audit`; `sdd-worktree` → `git-context`; `sdd-publish` → `git-release`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`; **`sdd-zoom` removed**. Update `@` references after upgrading from `v0.3.1`.
 
-## Workflow
+## SDD workflow
 
 ```mermaid
 flowchart TD
-  WT[sdd-worktree]
   G[sdd-grill]
-  subgraph explore["Optional exploration"]
-    Z[sdd-zoom]
+  subgraph audit["Optional audit"]
     A[sdd-audit]
   end
 
@@ -75,11 +89,8 @@ flowchart TD
   B --> R[sdd-review]
   R -->|must-fix| B
   R -->|pass| V[sdd-verify]
-  V -.->|user asks| PUB[sdd-publish]
 
-  WT --> S
   G --> S
-  Z --> S
   A --> S
 ```
 
@@ -87,28 +98,50 @@ flowchart TD
 
 Instructions **English**; deliverables follow the user's language (**Present** in each `SKILL.md`).
 
-### Core loop
+### SDD delivery loop
 
 | Skill | Use when |
 | --- | --- |
-| `sdd-grill` | Goals, boundaries, or trade-offs need decisions before spec or plan |
 | `sdd-spec` | A behavior contract and acceptance criteria are needed |
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |
 | `sdd-review` | An increment diff needs a delivery verdict |
 | `sdd-verify` | A reviewed increment needs final acceptance evidence |
 
-### Satellites
+### SDD optional
 
-| Group | Skills |
+| Skill | Use when |
 | --- | --- |
-| Loop | `sdd-worktree`, `sdd-publish` |
-| Exploration | `sdd-zoom`, `sdd-audit` |
-| Meta | `sdd-readme`, `sdd-agents`, `sdd-explain`, `sdd-onboard` |
+| `sdd-grill` | Goals, boundaries, or trade-offs need decisions before spec or plan |
+| `sdd-audit` | Repo or branch health scan for follow-ups — not a delivery gate |
 
 **Review vs audit:** `sdd-review` gates **this increment**; `sdd-audit` scans the **repo or branch** for follow-ups only. Do not substitute one for the other — see **When/Skip** links in each skill.
 
-Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independent files, content aligned with several skills (see [SOURCES — Skill and prompt pairs](docs/design/SOURCES.md#skill-and-prompt-pairs)).
+### Independent (not SDD)
+
+Bundled in this repo for convenience; **no SDD loop coupling** — `@` only when you need the task.
+
+| Skill | Use when |
+| --- | --- |
+| `create-readme` | Human-facing README.md for a project |
+| `create-agentsmd` | AGENTS.md for agent operating context |
+| `explain-code` | Explain code in chat |
+| `git-context` | Isolated git context (worktree or topic branch) before coding |
+| `git-release` | Push, PR, merge, tag, or GitHub release |
+| `onboarding-plan` | Phased contributor onboarding plan |
+
+Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independent files, content aligned with skills below (no cross-links between skill and prompt). **Prompt-only** (no skill): `review-code`, `document-api`, `generate-unit-tests`.
+
+| Skill | Paired prompt |
+| --- | --- |
+| `sdd-grill` | `grill-me.prompt.md` |
+| `create-readme` | `create-readme.prompt.md` |
+| `create-agentsmd` | `create-agentsmd.prompt.md` |
+| `explain-code` | `explain-code.prompt.md` |
+| `onboarding-plan` | `onboarding-plan.prompt.md` |
+| `git-release` | `git-release.prompt.md` |
+
+`git-context` has no paired prompt.
 
 ### Consumer artifacts
 
@@ -119,26 +152,24 @@ docs/sdd/YYYY-MM-DD-<topic>-spec.md
 docs/sdd/YYYY-MM-DD-<topic>-plan.md
 ```
 
-Optional: `docs/adr/`, `CONTEXT.md` — see [engineering-rationale §2.3](docs/design/engineering-rationale.md#23-知识分层消费者项目).
+Optional: `docs/adr/`, `CONTEXT.md` for stable domain language in consumer projects.
 
 ## Documentation
 
 | Topic | Link |
 | --- | --- |
-| Design rationale (中文) | [engineering-rationale.md](docs/design/engineering-rationale.md) |
-| Upstream pins | [SOURCES.md](docs/design/SOURCES.md) |
-| Maintainer design index | [docs/design/README.md](docs/design/README.md) |
 | Agent operating guide | [AGENTS.md](AGENTS.md) |
-| Contributor onboarding | [docs/ONBOARDING.md](docs/ONBOARDING.md) |
+| Maintainer SDD archives | [docs/sdd/README.md](docs/sdd/README.md) |
+| Contributor onboarding | [`onboarding-plan`](skills/onboarding-plan/SKILL.md) skill · [prompt](.github/prompts/onboarding-plan.prompt.md) |
 | Release history | [CHANGELOG.md](CHANGELOG.md) |
 
 ## Contributing
 
-Maintainers: read [AGENTS.md](AGENTS.md) and [docs/ONBOARDING.md](docs/ONBOARDING.md). Open PRs to `main`; CI job **`validate`** must pass (fourteen skills, `sdd-verify` present). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
+Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (thirteen skills, `sdd-verify` present). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
 
 ## Sources
 
-Ideas from [mattpocock/skills](https://github.com/mattpocock/skills), [obra/superpowers](https://github.com/obra/superpowers), [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), and [shadcn/improve](https://github.com/shadcn/improve) (audit influence for **`sdd-audit`**). Details: [SOURCES.md](docs/design/SOURCES.md) · [THIRD_PARTY_NOTICES.md](docs/design/THIRD_PARTY_NOTICES.md).
+Ideas from [mattpocock/skills](https://github.com/mattpocock/skills), [obra/superpowers](https://github.com/obra/superpowers), [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), and [shadcn/improve](https://github.com/shadcn/improve) (audit influence for **`sdd-audit`**).
 
 ## License
 

@@ -1,11 +1,13 @@
 ---
 agent: 'agent'
-description: 'Generate unit tests for code, or a maintainer verification checklist when the repo has no test framework'
+description: 'Unit tests or maintainer checklist when the repo has no test framework. For SDD test-first implementation use sdd-build skill.'
 ---
 
 ## Role
 
 You're a senior engineer who validates behavior with evidence. First determine **what kind of repository** you're in, then follow the matching path below — do not invent a test framework or application code that does not exist.
+
+For **test-first implementation on an approved SDD plan**, use the **`sdd-build`** skill — not this prompt.
 
 ## Route (pick one)
 

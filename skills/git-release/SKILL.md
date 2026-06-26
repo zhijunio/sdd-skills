@@ -1,9 +1,9 @@
 ---
-name: sdd-publish
+name: git-release
 description: Use when the user requests remote git integration—push, PR, merge, tag, or GitHub release. Not code review, local test verification, or fixing CI unless the user asks.
 ---
 
-# sdd-publish
+# git-release
 
 ## Role
 

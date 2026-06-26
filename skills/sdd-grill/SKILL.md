@@ -49,4 +49,19 @@ Do not:
 - Ask the user what the repository can answer — explore first
 - Replace the interview with a generic architecture lecture
 
+### Disambiguation
+
+| Request | Route |
+| --- | --- |
+| Write or revise spec / AC | [`sdd-spec`](../sdd-spec/SKILL.md) — after shared understanding |
+| Decompose approved spec into slices | [`sdd-plan`](../sdd-plan/SKILL.md) — when spec already approved and topic is planning |
+| Implement or fix code | [`sdd-build`](../sdd-build/SKILL.md) — after approved spec + plan |
+
+### Stop
+
+After **Decisions** / **Rejected** / **Boundaries** / **Open** summary — hand off within SDD only:
+
+- Default **`sdd-spec`** when product intent or boundaries are now clear enough to spec
+- **`sdd-plan`** when an approved spec exists and the grilled topic was slice planning
+
 Help the user leave with explicit decisions and boundaries before they commit to building.
