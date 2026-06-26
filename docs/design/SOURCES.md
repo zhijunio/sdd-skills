@@ -1,6 +1,6 @@
 # Upstream Sources
 
-Snapshot date: 2026-06-12（upstream pin commits 未变；十 skill 含 maintainer-authored **`sdd-worktree`**、**`sdd-publish`**）
+Snapshot date: 2026-06-12（upstream pin commits 未变；十一 skill 含 maintainer-authored **`sdd-worktree`**、**`sdd-publish`**、**`sdd-repo-docs`**）
 
 ## Repositories
 
@@ -20,7 +20,7 @@ Snapshot date: 2026-06-12（upstream pin commits 未变；十 skill 含 maintain
 
 ## Why six core skills
 
-Principles (six): [README — Core principles](../../README.md#core-principles) — shape / delivery / governance.
+Principles (six): [engineering-rationale §1.0](./engineering-rationale.md#10-核心原则) — shape / delivery / governance.
 
 This repository ships a **minimal SDD stage set**, not a mirror of the upstream catalogs.
 
@@ -28,9 +28,9 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no auto worktree orchestration, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` covers decision interviews before spec or plan; the required artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), `sdd-publish` (post-loop remote integration), `sdd-audit` (codebase audit), and `sdd-zoom` (territory map) are published separately; they do not change the six-stage delivery loop.
+- **Optional satellites stay outside the core loop:** `sdd-worktree` (pre-loop git isolation), `sdd-publish` (post-loop remote integration), `sdd-audit` (codebase audit), `sdd-zoom` (territory map), and `sdd-repo-docs` (README + AGENTS.md authoring) are published separately; they do not change the six-stage delivery loop.
 
-For stage choice, see [README.md](../../README.md#skills) skills table. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
+For stage choice, see [engineering-rationale §2](./engineering-rationale.md#2-本仓定位与边界) and each skill `SKILL.md`. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
 
 Sources and methodology: [design docs](./README.md) ([engineering-rationale](./engineering-rationale.md)).
 
@@ -76,6 +76,30 @@ Local decisions:
 - **Present:** report per `report.md` (same section order as upstream). **Suggested next steps** (last) names one route per **`SKILL.md` Stop** handoff table. Severity 🚨🔴🟡🟢 = follow-up priority — **not** `sdd-review` delivery gate.
 - Disambiguation vs **`sdd-review`**: **codebase audit** vs **delivery review** — **When/Skip** cross-links only.
 - **Stop:** user **`@`** next skill — no auto-chain.
+
+### `sdd-repo-docs`
+
+Sources:
+
+- Codex **`init`** AGENTS.md generator prompt (outline adapted in `references/codex-init-outline.md`)
+- [agents.md](https://agents.md/) — open convention for agent-facing repo guides
+- [microsphere-java `create-readme.prompt.md`](https://github.com/microsphere-projects/microsphere-java/blob/main/.github/prompts/create-readme.prompt.md) — README authoring principles adapted in `references/readme-authoring.md` (not verbatim)
+- [netresearch/agent-rules-skill](https://github.com/netresearch/agent-rules-skill) — **handoff only** for heavy scaffold/validate; not fused into body
+
+Local decisions:
+
+- Optional **meta satellite** — generic README + AGENTS.md authoring for **any** consumer git repo; not delivery loop; not mandatory before **`sdd-verify`**.
+- Templates must **not** mirror this maintainer repo layout; recon drives content.
+- **`SKILL.md`** — recon (hubs + locale) → shape → **Hub map** → dedup → draft → vet-checklist → **Present**.
+- **`references/`** — `readme-outline.md` (**shape** + **thin/full depth**, full library section order), `readme-authoring.md`, `badges.md`, `docs-split.md`, `codex-init-outline.md`, `section-checklist.md`, `vet-checklist.md`, `examples/outline-snippets.md`.
+- **Badges:** optional README shields from recon — [badges.md](../../skills/sdd-repo-docs/references/badges.md); not in AGENTS.
+- **Doc hubs:** when `wiki/` or long conventions exist — thin README, link-only AGENTS Style/Testing; **Hub map** required in Present.
+- **Published libraries** (no hub): **full** README depth — Introduction → License section order ([microsphere-java](https://github.com/microsphere-projects/microsphere-java) as reference); **thin** when hub exists.
+- **Doc locale:** target repo evidence over chat language.
+- **CLAUDE.md** — pointer to AGENTS only; **CONTRIBUTING.md** only when user asks.
+- Default **chat-only** draft; write disk only on explicit user confirm.
+- **When/Skip:** single typo → edit directly; Cursor rules → **create-rule** / `.mdc`; ship check → **`sdd-review`**; repo health → **`sdd-audit`**.
+- **Stop:** after **Present** or confirmed write; no auto-chain.
 
 ### `sdd-zoom`
 

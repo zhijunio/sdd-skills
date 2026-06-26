@@ -131,7 +131,7 @@
   - `AGENTS.md`：八→九 skill 表述。
   - `SOURCES.md`：新增 `sdd-worktree` 小节（融合取用、无上游 pin 或注明 maintainer-authored）。
   - `docs/design/engineering-rationale.md` §3.3 增 `sdd-worktree` 映射行。
-  - ~~`.github/workflows/check.yml`：`eq 8` → `eq 9`~~ *(removed — use `python3 scripts/check-repo.py`)*
+  - ~~`.github/workflows/check.yml`：`eq 8` → `eq 9`~~ *(removed — maintainer spot-check before merge)*
   - `CHANGELOG.md` `[Unreleased]`：Added experimental optional `sdd-worktree`。
 - Verification: `test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 9`；`rg -q 'sdd-worktree' README.md AGENTS.md docs/design/SOURCES.md docs/design/engineering-rationale.md`
 - Done: true

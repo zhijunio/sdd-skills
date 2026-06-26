@@ -11,14 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optional pre-loop satellite **`sdd-worktree`** — explicit `@` git isolation (worktree or topic branch)
 - Optional post-loop satellite **`sdd-publish`** — explicit `@` remote integration (push / PR / merge / tag / release); standalone entry OK, does not require `@sdd-verify`
-- Maintainer **`scripts/check-repo.py`** — ten-skill count + relative Markdown link check (local pre-merge; no GitHub Actions)
+- Optional meta satellite **`sdd-repo-docs`** — draft or revise root **README.md** and/or **AGENTS.md** (`readme-outline.md`, `docs-split.md`, Codex-init AGENTS outline + agents.md); not delivery loop
 
 ### Changed
 
 - **Breaking:** **`sdd-ship`** renamed to **`sdd-verify`** — reinstall or update `@` references; **`sdd-publish`** unchanged
 - **`sdd-audit`**: **`sdd-improve`** renamed; MECE playbooks in `references/`; SDD handoff in **`SKILL.md` Stop** + **Suggested next steps** only; removed **`closing-the-loop.md`**
 - **`sdd-review`**: `lens-map.md`; MECE lens ids + optional impact emoji; architecture walk links to `sdd-audit` anti-patterns / vet
-- **Ten skills** — README/AGENTS/SOURCES/engineering-rationale §2.1/§3.3 aligned; README Mermaid post-loop edge `sdd-verify` → `sdd-publish`
+- **`sdd-repo-docs`:** hub-aware dedup, **Hub map**, [vet-checklist.md](skills/sdd-repo-docs/references/vet-checklist.md), optional README [badges.md](skills/sdd-repo-docs/references/badges.md); renamed from **`sdd-agents`**
+- **`sdd-repo-docs` references** (rose reverse-check): monorepo thin README — **Documentation** table required when user hub exists; omit hub **metadata tables**; wiki publish sync note; cross-locale link labels; **Development** toolchain hint (`.sdkmanrc` / `.nvmrc`); [outline-snippets.md](skills/sdd-repo-docs/references/examples/outline-snippets.md) monorepo+hub example; **Context** → primary user hub; mixed-locale **Commit & PR** stays brief in AGENTS file language + `conventions §N`
+- **`sdd-repo-docs` references** (microsphere-java borrow): optional **Prerequisites**, **Getting Help**, **JavaDoc** / release-notes under **Documentation**; Maven **artifact ID** column on Packages; multi package-manager Install; consumer-first **Development** line when registry-published; **TOC** only on long non-thin README; Codecov / third-party doc badges in [badges.md](skills/sdd-repo-docs/references/badges.md); [outline-snippets.md](skills/sdd-repo-docs/references/examples/outline-snippets.md) published-library example
+- **`sdd-repo-docs` references:** **README depth** (**thin** vs **full**); [full library / platform](skills/sdd-repo-docs/references/readme-outline.md#full-library--platform-canonical-readme) section order (Introduction → License, per [microsphere-java](https://github.com/microsphere-projects/microsphere-java)); recon + vet record depth choice
+- **`sdd-repo-docs` [readme-authoring.md](skills/sdd-repo-docs/references/readme-authoring.md):** five-question draft model, GFM, relative in-repo links, 500 KiB bound, explicit exclude list — adapted from [microsphere-java create-readme.prompt.md](https://github.com/microsphere-projects/microsphere-java/blob/main/.github/prompts/create-readme.prompt.md)
+- **Removed:** root `README.md` / `AGENTS.md` from this repo — design docs under `docs/design/`
 - **Audit remediation:** fixed `sdd-review/references/` cross-skill links; SOURCES `plan-template` path; `improve`→`sdd-audit` terminology in governance docs
 - **`sdd-audit` `report.md`:** optional **Strengths** section; **Coverage** before **Findings**; **Not audited** merged into **Coverage**
 - **`sdd-review` `finding-format.md`:** report sections aligned with `sdd-audit`; **Coverage** before **Findings**; **Verdict** before **Rejected / deferred**; delivery gate unchanged
@@ -28,6 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Spot-check (2026-06-12, `sdd-worktree`):** maintainer self-trial in this repo as consumer git workspace — evaluation order, Present/confirm gate, conflict/weak-isolation rules, and `sdd-spec` hand-off path reviewed against spec; no blocking friction.
 
 **Spot-check (2026-06-12, `sdd-publish`):** maintainer self-trial against `skills/sdd-publish/SKILL.md` — gates, step menu, push-only subset, no-`gh` PR Present, CI/merge gate, sync-default-before-tag, CHANGELOG version resolution, and `sdd-verify` hand-off reviewed against spec; no blocking friction.
+
+**Spot-check (2026-06-25, `sdd-repo-docs`):** consumer trial on external Maven monorepo (`zhijun-io/rose`) — thin README + wiki hub dedup, badges from CI/LICENSE/manifest, **Documentation** link table, AGENTS Style/Testing link-only to conventions; reverse-check tightened references (`readme-outline`, `docs-split`, `vet-checklist`, `section-checklist`, `badges`, `outline-snippets`); no blocking friction.
 
 - **Governance:** no separate consumer-repo spot-check gate for satellites; maintainer self-trial + CHANGELOG note suffices
 

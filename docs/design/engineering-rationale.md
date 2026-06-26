@@ -28,7 +28,7 @@ Agent 能写代码，但常见四类问题：
 
 ### 1.0 核心原则
 
-六条原则分三层。英文速查表见 [README — Core principles](../../README.md#core-principles)。
+六条原则分三层（英文 id 见各小节标题）。
 
 #### 形态（仓库是什么）
 
@@ -106,7 +106,7 @@ grill（可选澄清）→ spec → plan → build → review → verify
 
 **配对与歧义处理：**
 
-- 配对只写在各 skill **When/Skip** 互链；README 有一张速查表，本文不重复第三份 pairing 表。
+- 配对只写在各 skill **When/Skip** 互链；消费者 README 可有一张速查表，本文不重复第三份 pairing 表。
 - 用户说「review」但没有 increment diff、也没有「这次 PR/提交」语境 → **必须问清**：delivery review 还是 codebase audit。
 - 用户说「体检 / 健康检查 / 架构债」且无 delivery 语境 → 仅 **`sdd-audit`**。
 
@@ -137,9 +137,9 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 - 增量以纯架构/边界调整为主，Constraints 节越来越长却无处沉淀；
 - 第二次以上 consumer 试跑证明「只靠 spec/plan 扛不住跨增量约束」。
 
-本仓是 skill 维护项目：用 [AGENTS.md](../../AGENTS.md) + SOURCES，**不在** 根目录放 CONTEXT。
+本仓是 skill 维护项目：用 SOURCES + 本文，**不在** 根目录放 CONTEXT。
 
-目录约定见 [README — Minimal artifacts](../../README.md#minimal-artifacts)：单域 `CONTEXT.md`；多域 `docs/context/<domain>/CONTEXT.md`；ADR `docs/adr/0001-short-title.md`。
+目录约定（消费者项目）：单域 `CONTEXT.md`；多域 `docs/context/<domain>/CONTEXT.md`；ADR `docs/adr/0001-short-title.md`（见 §2.3）。
 
 ---
 
@@ -309,8 +309,7 @@ Spec / Plan      → 这一次改什么、怎么验（增量事实）
 
 ## 5. 延伸阅读
 
-- [SOURCES.md](./SOURCES.md) · [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) · [AGENTS.md](../../AGENTS.md)
-- [README — Skills](../../README.md#skills) · [AGENTS.md](../../AGENTS.md)（维护者清单）
+- [SOURCES.md](./SOURCES.md) · [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) · [CHANGELOG.md](../../CHANGELOG.md)
 - [sdd-audit](../../skills/sdd-audit/SKILL.md) / [sdd-review](../../skills/sdd-review/SKILL.md) — When/Skip
 - [docs/design/README.md](./README.md)
 
