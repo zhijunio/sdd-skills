@@ -1,73 +1,47 @@
 ---
 agent: 'agent'
-description: 'Remote git integration — push, PR, merge, tag, or release with per-step confirmation'
+description: 'Remote git integration — push, PR, merge, tag, or release with confirmation'
 ---
 
-## Role
+I need to integrate local git work with the remote. Run read-only checks first; no mutating `git` or `gh` until I confirm.
 
-You're a senior software engineer who integrates local git work with remotes safely. You run read-only checks first, then **Present → user confirms → execute** for each mutating `git` or `gh` step — never rush push, PR, merge, tag, or release.
+Integration steps: ${input:steps:Which steps? (e.g., push, open PR, merge, tag, release — or a subset)}
+Notes (optional): ${input:notes:PR title, version, merge method, or other context?}
+Execution: ${input:mode:Step-by-step (default) or batch? If batch, list the full sequence — e.g. prepare commits → push → open PR → CI → merge if green}
 
-Integration steps: ${input:steps:Which steps? (e.g., push only, push + open PR, merge, tag, release — or name a subset)}
+## Workflow
 
-Notes (optional): ${input:notes:PR title hints, version, risks, or other context?}
+1. **Orient (read-only)** — `git status`, branch, remote, recent commits; skim `CHANGELOG.md` `[Unreleased]` when PR/tag/release may apply; check existing PR if `gh` is available
+2. **Gates** — stop remote work if: not a git repo; dirty tree; new work on `main`/`master`; no named steps (present the menu first)
+3. **Prepare commits (if dirty)** — read `git log` and repo commit rules; present an **atomic commit plan** (`feat:` / `fix:` / `docs:` / `chore:` / `refactor:` or project convention); one logical change per commit; confirm each `git commit` unless batch covers the full commit plan
+4. **Remote steps (named only, in order)** — skip unnamed; default does **not** chain merge → tag → release:
+    - Push → Open PR → CI display → Merge → Sync default branch → Tag → Release → optional README pin
+5. **Present → confirm → execute** — show exact commands, targets, and risks
 
-## Task
+## Batch mode
 
-1. **Orient (read-only)** — inspect the git workspace: `git rev-parse --is-inside-work-tree`, `git status`, `git branch -vv`, `git remote -v`, `git log -1 --oneline`; when `CHANGELOG.md` exists, skim `[Unreleased]`; when PR/tag/release steps are named and `gh` is available, check existing PR context
-2. If integration steps are not named (e.g. "can we ship?"), **Present the step menu** below and wait for an explicit subset
-3. **Gates (read-only, before any mutation)** — re-check repo validity, clean working tree, branch is not `main`/`master` for new work, and integration intent is clear; **hard stop** remote steps if any gate fails
-4. When the working tree is dirty and push/PR/tag/release is requested, **Prepare commits (optional pre-step)** before remote integration:
+When I choose **batch** and confirm the **full plan** upfront:
 
-    - Read recent `git log` and repo guidance (`AGENTS.md`, `CONTRIBUTING.md`, or team rules) for commit message format
-    - **Present an atomic commit plan** — one logical change per commit; group files by theme; draft each message (`feat:` / `fix:` / `docs:` / `chore:` / `refactor:` or project convention)
-    - For each commit: show `git add` scope and full message → wait for explicit confirm → run **one** `git commit` → stop before the next commit unless the user confirms continuing
-    - Do not mix unrelated changes in one commit; do not amend, rebase, or skip hooks unless the user explicitly asks
-    - When `[Unreleased]` or the change is user-visible, note whether `CHANGELOG.md` should be updated in the same commit or a separate docs commit — **Present** and wait for confirm before editing
-    - After all planned commits (or if the user chooses **stash** instead), re-run **Gates**; only then proceed to remote steps
+* Present the complete command list once, then run steps in order without pausing between them
+* Stop on the first failure, gate failure, or blocked CI (unless I said **merge despite CI risk**)
+* Include merge, tag, and release in batch only if I named them explicitly
+* After batch commits or stash, re-run Gates before push
 
-5. Run only the named remote steps, in this order (skip unnamed steps; default does **not** auto-chain merge → tag → release):
+Default when mode is unclear: **step-by-step** — one mutating step per confirmation.
 
-    - **Push** — `git push` (use `-u` on first upstream)
-    - **Open PR** — `gh pr create` when `gh` is available; otherwise present a copyable command
-    - **CI display** — show `gh pr checks` / PR status (display only)
-    - **Merge PR** — separate confirmation; default stop if CI failed or pending
-    - **Sync default branch** — after merge, checkout and pull `main` or `master` before tag
-    - **Tag** — annotated tag + push tag (version must be explicit; prefer `CHANGELOG.md`)
-    - **GitHub Release** — `gh release create` when `gh` is available
-    - **Optional README pin** — only when the repo documents a version pin and the user confirms
+## Hard stops
 
-6. **Per remote step:** Present exact commands, targets, and risks → wait for explicit user confirmation → execute **one mutating step** → stop unless the user confirms the next step in the same session
+* Force push, `git config` changes, or skip hooks — refuse unless I explicitly ask
+* Merge when CI failed/pending — stop unless I accept risk in the plan
+* Tag without explicit version — stop; prefer `CHANGELOG.md` or my stated `vX.Y.Z`
+* No `gh` — present copyable commands; do not claim a PR or release exists
+* Empty `[Unreleased]` with user-visible PR/tag/release — present the gap; do not auto-pick silently
 
-When `[Unreleased]` is empty but open PR, tag, or release likely needs user-visible notes, **Present the gap** and wait for the user to choose: continue with commit-based PR text and/or defer tag/release; patch `[Unreleased]` locally (file edit only, with confirm); or stop tag/release only while push/PR may still proceed if already confirmed.
+## Do not
 
-## Guidelines
+* Run mutating git/gh before Gates pass or before I confirm (plan confirm for batch; per-step confirm for step-by-step)
+* Mix unrelated files in one commit without my confirm
+* Edit `CHANGELOG.md` or README pins without confirm
+* Treat this as code review, local verify, or CI triage
 
-### Content and Structure
-
-- Open with a short status summary (branch, remote, clean/dirty, named steps), then the step plan, then one step at a time
-- Show literal commands in code blocks — branch names, remotes, and version tags as they apply to this repo
-- PR title/body from `[Unreleased]` or recent commits when opening a PR
-- If `gh` is missing, present full copyable commands and label steps **not executed** — do not claim a PR or release exists
-- After merge in this flow, sync the default branch before tag; tag-only on a topic branch requires explicit confirmation
-
-### Safety Requirements
-
-- **Hard stop** remote integration when: not a git repo; dirty working tree (offer **Prepare commits** or stash first); pushing new work directly from `main`/`master`; user requests force push or `git config` changes
-- Prompt **Prepare commits**, commit, or stash on dirty tree; after stash or each batch of local commits, re-run **Gates** before push/PR
-- Merge requires its own confirmation; CI not green → default do not merge unless the user explicitly accepts risk
-- Tag/version: user-specified, `CHANGELOG.md`, or a presented semver bump from `git describe --tags --abbrev=0` — always confirm; never adopt silently
-- Display CI status only — do not babysit or fix failing checks in this session
-- Do not block push/PR solely because a local verify summary is absent
-
-### What NOT to do
-
-Don't:
-
-- Run mutating git/gh before **Gates** pass or before per-step user confirmation
-- Execute multiple mutating steps in one turn unless the user explicitly confirms each step in advance for this session
-- Treat this as code review, local test verification, spec/plan authoring, or CI triage
-- Edit `CHANGELOG.md` or README pins without user confirmation
-- Squash unrelated work into one commit or split one logical change across commits without user confirm
-- Skip gates or pretend remote steps succeeded when tools are unavailable
-
-Help the user reach a clean, well-committed tree, then integrate with the remote safely — one confirmed step at a time.
+Help me get to a clean tree, then integrate with the remote safely.
