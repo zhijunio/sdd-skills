@@ -3,7 +3,7 @@
 [![CI](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml/badge.svg)](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml)
 [![License](https://img.shields.io/github/license/zhijunio/sdd-skills)](LICENSE)
 
-Lightweight, platform-neutral **agent skills** for spec-driven development — fifteen skills, a six-stage delivery loop, and optional satellites you install only when needed. No state machine, project manager, or Git workflow framework — just explicit stages you **`@`** one at a time.
+Lightweight, platform-neutral **agent skills** for spec-driven development — fourteen skills, a six-stage delivery loop, and optional satellites you install only when needed. No state machine, project manager, or Git workflow framework — just explicit stages you **`@`** one at a time.
 
 ## Why use these skills
 
@@ -104,7 +104,7 @@ Instructions **English**; deliverables follow the user's language (**Present** i
 | --- | --- |
 | Loop | `sdd-worktree`, `sdd-publish` |
 | Exploration | `sdd-zoom`, `sdd-audit` |
-| Meta | `sdd-readme`, `sdd-agents`, `sdd-explain`, `sdd-onboard`, `sdd-ci` |
+| Meta | `sdd-readme`, `sdd-agents`, `sdd-explain`, `sdd-onboard` |
 
 **Review vs audit:** `sdd-review` gates **this increment**; `sdd-audit` scans the **repo or branch** for follow-ups only. Do not substitute one for the other — see **When/Skip** links in each skill.
 
@@ -134,7 +134,7 @@ Optional: `docs/adr/`, `CONTEXT.md` — see [engineering-rationale §2.3](docs/d
 
 ## Contributing
 
-Maintainers: read [AGENTS.md](AGENTS.md) and [docs/ONBOARDING.md](docs/ONBOARDING.md). Open PRs to `main`; CI job **`validate`** must pass (fifteen skills, `sdd-verify` present). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
+Maintainers: read [AGENTS.md](AGENTS.md) and [docs/ONBOARDING.md](docs/ONBOARDING.md). Open PRs to `main`; CI job **`validate`** must pass (fourteen skills, `sdd-verify` present). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
 
 ## Sources
 

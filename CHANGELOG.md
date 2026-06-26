@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optional pre-loop satellite **`sdd-worktree`** — explicit `@` git isolation (worktree or topic branch)
 - Optional post-loop satellite **`sdd-publish`** — explicit `@` remote integration (push / PR / merge / tag / release); standalone entry OK, does not require `@sdd-verify`
-- Optional meta satellites **`sdd-readme`**, **`sdd-agents`**, **`sdd-explain`**, **`sdd-ci`** — aligned with [`.github/prompts/`](.github/prompts/); README / AGENTS.md / CI authoring; not delivery loop
+- Optional meta satellites **`sdd-readme`**, **`sdd-agents`**, **`sdd-explain`** — aligned with [`.github/prompts/`](.github/prompts/); README / AGENTS.md authoring; not delivery loop
 - GitHub prompts [**`zoom-codebase.prompt.md`**](.github/prompts/zoom-codebase.prompt.md), [**`grill-me.prompt.md`**](.github/prompts/grill-me.prompt.md) — aligned with **`sdd-zoom`** / **`sdd-grill`**
 - Optional meta satellite **`sdd-onboard`** — aligned with [**`onboarding-plan.prompt.md`**](.github/prompts/onboarding-plan.prompt.md); phased contributor onboarding; not delivery loop
 

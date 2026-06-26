@@ -13,7 +13,7 @@ Related: [README.md](../README.md) · [AGENTS.md](../AGENTS.md) · [docs/design/
 ### What this repo is (5 minutes)
 
 - **Not** an app — no `package.json`, no test runner, no deployable service.
-- **Is** fifteen Markdown **agent skills** under `skills/<name>/SKILL.md`, plus maintainer design docs and minimal CI.
+- **Is** fourteen Markdown **agent skills** under `skills/<name>/SKILL.md`, plus maintainer design docs and minimal CI.
 - Consumers install skills into **their** projects via the [skills CLI](https://github.com/vercel-labs/skills) — see [README — Installation](../README.md#installation).
 
 ### Environment setup
@@ -86,7 +86,7 @@ Related: [README.md](../README.md) · [AGENTS.md](../AGENTS.md) · [docs/design/
    find skills -mindepth 2 -maxdepth 2 -name SKILL.md | sort
    ```
 
-   Group into: **core loop** (6) · **loop satellites** (2) · **exploration** (2) · **meta** (5) — see [AGENTS.md — Structure](../AGENTS.md#structure).
+   Group into: **core loop** (6) · **loop satellites** (2) · **exploration** (2) · **meta** (4) — see [AGENTS.md — Structure](../AGENTS.md#structure).
 
 2. **Prompt pairs** — several skills share content with [`.github/prompts/`](../.github/prompts/) (see [SOURCES — Skill and prompt pairs](../docs/design/SOURCES.md#skill-and-prompt-pairs)):
 
@@ -97,7 +97,6 @@ Related: [README.md](../README.md) · [AGENTS.md](../AGENTS.md) · [docs/design/
    | --- | --- |
    | `sdd-readme` | `create-readme.prompt.md` |
    | `sdd-agents` | `create-agents-md.prompt.md` |
-   | `sdd-ci` | `create-ci.prompt.md` |
    | `sdd-onboard` | `onboarding-plan.prompt.md` |
    | `sdd-explain` | `explain-code.prompt.md` |
    | `sdd-zoom` | `zoom-codebase.prompt.md` |

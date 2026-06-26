@@ -28,7 +28,7 @@ This repository ships a **minimal SDD stage set**, not a mirror of the upstream 
 - **Upstream ideas are fused, not copied:** each local skill lists sources in the sections below and records what was deliberately left out (no auto worktree orchestration, no auto-chaining, no state files).
 - **Optional clarify stays optional:** `sdd-grill` can stress-test plans and trade-offs before spec or plan; the required delivery artifacts remain spec and plan only.
 - **No skill sprawl before evidence:** new core stages need repeated real-project gaps, not parity with upstream skill counts.
-- **Optional satellites stay outside the core loop:** utility **`sdd-worktree`** (git isolation), **`sdd-publish`** (remote integration), **`sdd-audit`** (codebase audit), and meta skills `sdd-readme` / `sdd-agents` / `sdd-explain` / `sdd-ci` / `sdd-zoom` / `sdd-grill` / `sdd-onboard` are published separately; they do not change the six-stage delivery loop.
+- **Optional satellites stay outside the core loop:** utility **`sdd-worktree`** (git isolation), **`sdd-publish`** (remote integration), **`sdd-audit`** (codebase audit), and meta skills `sdd-readme` / `sdd-agents` / `sdd-explain` / `sdd-zoom` / `sdd-grill` / `sdd-onboard` are published separately; they do not change the six-stage delivery loop.
 
 For stage choice, see [engineering-rationale §2](./engineering-rationale.md#2-本仓定位与边界) and each skill `SKILL.md`. **Output locale:** skill instructions English; deliverables follow user's language — **Present** hard rule in every skill `SKILL.md`; improve report in `report.md` **Report locale**; review in `finding-format.md` **Report locale**.
 
@@ -133,18 +133,6 @@ Local decisions:
 
 - Optional **meta satellite** — phased contributor onboarding in chat; not delivery loop.
 - **`SKILL.md`** only — no bundled `references/`; default chat; write disk on user confirm.
-
-### `sdd-ci`
-
-Sources:
-
-- [`.github/prompts/create-ci.prompt.md`](../../.github/prompts/create-ci.prompt.md) — content aligned with skill (not verbatim); no cross-links
-
-Local decisions:
-
-- Optional **meta satellite** — CI pipeline authoring for any git repo; not delivery loop; no triage of failing CI.
-- **`SKILL.md`** only — no bundled `references/`; default chat draft; write workflow files on user confirm.
-- **Stack conventions** subsection — Maven / Gradle / Node / Python / Go; apply only when detected; universal CI rules stay separate.
 
 ### `sdd-zoom`
 

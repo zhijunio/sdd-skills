@@ -4,7 +4,7 @@ Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only ski
 
 ## Context
 
-- Maintain **fifteen** platform-neutral SDD skills: six-stage delivery loop plus optional satellites (see [README — Skills](README.md#skills)).
+- Maintain **fourteen** platform-neutral SDD skills: six-stage delivery loop plus optional satellites (see [README — Skills](README.md#skills)).
 - Write skill instructions in **English**; **Present** deliverables in the **user's language** (every `SKILL.md`).
 - Finish one stage → **Stop** → wait for the user to **`@`** the next skill. Never auto-chain stages in one session.
 - Do not add hooks, slash commands, agent manifests, central routing docs, or runtime state files unless the user asks.
@@ -30,7 +30,7 @@ Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only ski
 | Core loop | `sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-verify` |
 | Loop satellites | `sdd-worktree`, `sdd-publish` |
 | Exploration | `sdd-zoom`, `sdd-audit` |
-| Meta | `sdd-readme`, `sdd-agents`, `sdd-explain`, `sdd-onboard`, `sdd-ci` |
+| Meta | `sdd-readme`, `sdd-agents`, `sdd-explain`, `sdd-onboard` |
 
 Consumer projects use `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` by convention — not required in this maintainer repo.
 
@@ -39,7 +39,7 @@ Consumer projects use `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` by conventio
 No build, lint, format, or test runner exists here. Run these before opening a PR — they mirror [`.github/workflows/check.yml`](.github/workflows/check.yml):
 
 ```bash
-test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 15
+test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 14
 test ! -e skills/sdd-ship
 test -f skills/sdd-verify/SKILL.md
 ```

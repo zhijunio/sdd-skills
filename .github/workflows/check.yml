@@ -20,8 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4.2.2
 
-      - name: Fifteen skills present
-        run: test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 15
+      - name: Fourteen skills present
+        run: test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 14
 
       - name: sdd-ship removed and sdd-verify present
         run: |
