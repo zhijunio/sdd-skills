@@ -1,6 +1,7 @@
 # SDD Skills
 
-[![CI](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml/badge.svg)](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml) [![License](https://img.shields.io/github/license/zhijunio/sdd-skills)](LICENSE)
+[![CI](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml/badge.svg)](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml)
+[![License](https://img.shields.io/github/license/zhijunio/sdd-skills)](LICENSE)
 
 Lightweight, platform-neutral **agent skills** for spec-driven development — fourteen skills, a six-stage delivery loop, and optional satellites you install only when needed. No state machine, project manager, or Git workflow framework — just explicit stages you **`@`** one at a time.
 

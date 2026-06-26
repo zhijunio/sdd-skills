@@ -24,7 +24,7 @@ You're a senior software engineer with extensive experience in open source proje
 - Focus only on information necessary for developers to get started using and contributing to the project
 - Use clear, concise language and keep it scannable with good headings
 - Include relevant code examples and usage snippets
-- Add badges suitable for the current project — infer from CI, LICENSE, manifests, and wired integrations (e.g. coverage); place them directly under the H1 (one or more lines); do not badge unpublished or unwired services
+- Badges under the H1: one per line, no blank lines between them (renders as one row); blank line before the body. Infer from CI, LICENSE, manifests, and wired integrations; skip unpublished or unwired services
 - Keep content under 500 KiB (GitHub truncates beyond this)
 
 ### Technical Requirements
