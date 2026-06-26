@@ -30,7 +30,7 @@ Ground content in manifests, CI, and the source tree — do not invent scripts, 
 - Focus only on information necessary for developers to get started using and contributing to the project
 - Use clear, concise language and keep it scannable with good headings
 - Include relevant code examples and usage snippets
-- Add badges suitable for the current project; one line directly under the H1
+- Add badges suitable for the current project — infer from CI, LICENSE, manifests, and wired integrations; place them directly under the H1 (one or more lines); do not badge unpublished or unwired services
 - Keep content under 500 KiB (GitHub truncates beyond this)
 
 ### Technical Requirements
