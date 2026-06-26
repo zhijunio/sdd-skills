@@ -1,6 +1,6 @@
 # Maintainer SDD archives
 
-Historical **spec** and **plan** documents for increments landed in this repository. They record decisions at merge time — **not** current runtime contracts.
+Historical **spec** and **plan** documents for increments landed in this repository. They record decisions at merge time — **not** current runtime contracts. Archive prose may reference removed paths (e.g. `docs/design/`, retired skill ids) — ignore for current behavior.
 
 **Live contracts:** `skills/<name>/SKILL.md` · [README.md](../../README.md) · [AGENTS.md](../../AGENTS.md)
 

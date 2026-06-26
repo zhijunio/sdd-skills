@@ -62,12 +62,12 @@ Fourth validated release. Consumer fourth loop completed in an external consumer
 ### Changed
 
 - **Eight skills** — six core loop + optional **`sdd-improve`** and **`sdd-zoom`**; user **`@`** stage skills directly; no routing skill or central routing doc
-- **Core principles** (six, three layers: shape / delivery / governance) — dedupe nine → six: minimal & neutral, explicit stages, verifiable slices, test and prove, borrow don't rebuild, no empty ceremony; README, [engineering-rationale §1.0](docs/design/engineering-rationale.md#10-核心原则), AGENTS, SOURCES
+- **Core principles** (six, three layers: shape / delivery / governance) — dedupe nine → six: minimal & neutral, explicit stages, verifiable slices, test and prove, borrow don't rebuild, no empty ceremony; README, engineering-rationale §1.0, AGENTS, SOURCES (removed in a later release)
 - **`SKILL.md`** — concise bodies with semantic preservation; hand off at Stop; improve/review **When/Skip** cross-links
 - **`sdd-improve`**: **🔴/🟡/🟢** Findings groups; `audit-dimensions.md` (pairs with **`sdd-review`** `review-dimensions.md`); **`Follow-up` → `Next stage`**
 - **`sdd-review`**: **Architecture** absorbs Simplify + readability; **Diff kind** (`code` / `prose/docs-only`); list-block Findings + **🔴/🟡/🟢** (delivery gate); `references/scope.md`
 - **`sdd-improve` / `sdd-review`**: **🔴/🟡/🟢** meaning differs (follow-up priority vs delivery gate)
-- **docs/design**: [engineering-rationale.md](docs/design/engineering-rationale.md)（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节）
+- **docs/design** (removed in a later release): engineering-rationale.md（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节）
 - **`spec-template` / README**: multi-domain `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts
 - Fourth consumer trial（improve → WebMvcTest 切片）
 - **`sdd-grill`** / **`sdd-zoom`**: upstream single-source bodies + minimal SDD tails; doc drift cleanup (`tests/check.py` references; improve spec **AC-10** withdrawn)

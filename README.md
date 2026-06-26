@@ -9,7 +9,7 @@
 
 - **Explicit stages** — one skill output → **Stop** → hand off; no auto-chaining
 - **Verifiable slices** — spec AC, plan as vertical slices, test-first build, evidence-backed review and verify
-- **Optional SDD satellites** — `sdd-grill` (clarify) and `sdd-audit` (codebase health) only when you need them
+- **SDD optional** — `sdd-grill` (clarify) and `sdd-audit` (codebase health) only when you need them
 - **Independent utilities** — README, AGENTS.md, git isolation, release, explain, onboarding — install separately; no SDD coupling
 - **Platform-neutral** — Markdown skills only; works with Cursor, Codex, Claude Code, and other agents via the [skills CLI](https://github.com/vercel-labs/skills)
 
@@ -56,6 +56,12 @@ Independent skills only (examples):
 ```bash
 npx skills@latest add zhijunio/sdd-skills -s git-context -s git-release -a cursor -y
 npx skills@latest add zhijunio/sdd-skills -s create-readme -s create-agentsmd -y
+```
+
+SDD optional audit:
+
+```bash
+npx skills@latest add zhijunio/sdd-skills -s sdd-audit -a cursor -y
 ```
 
 **Stable pin** (`v0.3.1` — eight skills, pre-rename ids):
@@ -130,7 +136,7 @@ Bundled in this repo for convenience; **no SDD loop coupling** — `@` only when
 | `git-release` | Push, PR, merge, tag, or GitHub release |
 | `onboarding-plan` | Phased contributor onboarding plan |
 
-Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independent files, content aligned with skills below (no cross-links between skill and prompt). **Prompt-only** (no skill): `review-code`, `document-api`, `generate-unit-tests`.
+Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independent files, content aligned with skills below (no cross-links between skill and prompt).
 
 | Skill | Paired prompt |
 | --- | --- |
@@ -142,6 +148,14 @@ Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independe
 | `git-release` | `git-release.prompt.md` |
 
 `git-context` has no paired prompt.
+
+**Prompt-only** (no skill):
+
+| Prompt | Prefer skill when |
+| --- | --- |
+| `review-code.prompt.md` | Increment delivery gate → `sdd-review` |
+| `document-api.prompt.md` | Behavior contract / AC → `sdd-spec` |
+| `generate-unit-tests.prompt.md` | Test-first on approved plan → `sdd-build` |
 
 ### Consumer artifacts
 
