@@ -1,6 +1,6 @@
 ---
 agent: 'agent'
-description: 'Create or update README.md for the project, including badges suitable for the repo when warranted'
+description: Use when creating or revising README.md for a project—comprehensive human onboarding for developers. Not AGENTS.md, CONTRIBUTING, or full API documentation unless the user asks.
 ---
 
 ## Role
