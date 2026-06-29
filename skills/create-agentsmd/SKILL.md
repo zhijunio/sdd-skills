@@ -36,7 +36,10 @@ Ground content in manifests, CI, and the source tree — do not invent scripts, 
 - Prefer facts discovered in the repo over assumptions
 - Link to README and CONTRIBUTING rather than duplicating them
 - Keep it concise and high-signal; agents pay per token
-- For nested AGENTS.md files: keep the root high-level and push package-specific detail down; scope is implicit unless a nested file narrows or overrides the parent — nested overrides parent; user instruction overrides all
+- For nested AGENTS.md files: keep the root high-level and push package-specific detail down only when it materially improves agent accuracy; scope is implicit unless a nested file narrows or overrides the parent — nested overrides parent; user instruction overrides all
+- For **Commit & PR**, prefer the concise **Temporal `AGENTS.md`** style: state that commit messages follow **Chris Beams** style (plus repo-specific prefixes/conventions if the repo has them), keep commit guidance to one logical change per commit, and require PRs to answer **What changed?**, **Why?**, **Breaking changes?**, and **How was it verified?**. Do not expand this into a long tutorial unless the repository already does.
+- When the repository has no existing contribution guide, keep generated `AGENTS.md` short and operational: surface only commands, structure, conventions, and gotchas that change agent behavior.
+- Prefer a single root `AGENTS.md` unless a subdirectory has meaningfully different rules, workflows, or safety boundaries that the root file would otherwise hide.
 
 ### Technical Requirements
 
