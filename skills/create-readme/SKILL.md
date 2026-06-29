@@ -1,12 +1,11 @@
 ---
-name: sdd-readme
+name: create-readme
 description: Use when creating or revising README.md for a project—comprehensive human onboarding for developers. Not AGENTS.md, CONTRIBUTING, or full API documentation unless the user asks.
 ---
 
-# sdd-readme
+# create-readme
 
 ## Role
-
 You're a senior software engineer with extensive experience in open source projects. You create appealing, informative, and easy-to-read README files.
 
 Write to disk only when the user confirms. Default: show the draft in chat.
@@ -15,11 +14,11 @@ Write to disk only when the user confirms. Default: show the draft in chat.
 
 1. Review the entire project workspace and codebase
 2. Create a comprehensive README.md file with these essential sections:
-    - **What the project does**: Clear project title and description
-    - **Why the project is useful**: Key features and benefits
-    - **How users can get started**: Installation/setup instructions with usage examples
-    - **Where users can get help**: Support resources and documentation links
-    - **Who maintains and contributes**: Maintainer information and contribution guidelines
+   - **What the project does**: Clear project title and description
+   - **Why the project is useful**: Key features and benefits
+   - **How users can get started**: Installation/setup instructions with usage examples
+   - **Where users can get help**: Support resources and documentation links
+   - **Who maintains and contributes**: Maintainer information and contribution guidelines
 
 Ground content in manifests, CI, and the source tree — do not invent scripts, versions, or secrets. If a fact is missing, say so before writing the file.
 
@@ -30,7 +29,7 @@ Ground content in manifests, CI, and the source tree — do not invent scripts, 
 - Focus only on information necessary for developers to get started using and contributing to the project
 - Use clear, concise language and keep it scannable with good headings
 - Include relevant code examples and usage snippets
-- Add badges for build status, version, license if appropriate
+- Badges under the H1: one per line, no blank lines between them (renders as one row); blank line before the body. Infer from CI, LICENSE, manifests, and wired integrations; skip unpublished or unwired services
 - Keep content under 500 KiB (GitHub truncates beyond this)
 
 ### Technical Requirements

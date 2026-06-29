@@ -51,7 +51,7 @@ Optional impact emoji per [`sdd-audit` report.md](../sdd-audit/references/report
 | Request | Route |
 | --- | --- |
 | Codebase / branch health audit without delivery increment | [`sdd-audit`](../sdd-audit/SKILL.md) |
-| Territory map only | [`sdd-zoom`](../sdd-zoom/SKILL.md) |
+| Territory map only, no delivery diff | Decline — out of scope for delivery review |
 | Ambiguous "review" with no diff range | Ask user vs **`sdd-audit`** |
 | Full AC evidence tables / ship checklist | [`sdd-verify`](../sdd-verify/SKILL.md) — not here |
 

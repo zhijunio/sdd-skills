@@ -1,9 +1,9 @@
 ---
-name: sdd-explain
+name: explain-code
 description: Use when the user wants a clear explanation of selected code or a snippet—overview, walkthrough, concepts, and examples. Not implementation, refactoring, or test generation unless the user asks.
 ---
 
-# sdd-explain
+# explain-code
 
 ## Role
 

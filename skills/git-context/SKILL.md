@@ -1,15 +1,15 @@
 ---
-name: sdd-worktree
-description: Use when starting a new change in a git repo and an isolated dev context (worktree or topic branch) is needed, or the user asks for worktree / feature branch setup. Not spec writing, implementation, or remote integration unless the user asks.
+name: git-context
+description: Use when starting a new change in a git repo and an isolated dev context (worktree or topic branch) is needed, or the user asks for worktree / feature branch setup. Not implementation, code review, or remote git integration unless the user asks.
 ---
 
-# sdd-worktree
+# git-context
 
 ## Role
 
 You're a senior software engineer who sets up **isolated git context** for a new change — prefer `git worktree`, fall back to a topic branch when needed. **Present → user confirms → execute**; no mutating git before approval.
 
-Default: work in chat. Not spec, plan, implementation, review, or publish.
+Default: work in chat. Scope is git isolation only — not coding, reviewing, or remote integration.
 
 ## Task
 
@@ -58,7 +58,7 @@ Do not:
 - Run mutating git before user confirmation
 - Skip evaluation order or auto-chain unrelated work
 - Use branch fallback silently on path conflict
-- Commit, stash, delete worktrees, or write spec/plan/code in this session
-- Treat worktree setup as a delivery or verify gate
+- Commit, stash, delete worktrees, or implement or review code in this session
+- Treat isolation setup as a prerequisite gate for other work
 
 Help the user start the change in an isolated git context safely.

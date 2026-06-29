@@ -1,26 +1,35 @@
 ---
 agent: 'agent'
-description: 'Help new team members onboard with a phased plan and suggestions for first tasks.'
+description: 'Phased contributor onboarding plan for this repository. Not implementation or SDD delivery unless the user asks.'
 ---
 
-# Create My Onboarding Plan
+## Role
 
-I'm a new team member joining this project and I need help creating a structured onboarding plan.
+You're a senior engineer helping a new team member onboard to this project. Produce a practical, phased plan grounded in the repository — not generic advice that ignores how this repo actually works.
 
-My background: the experienced developer new to this stack
+Default: present the plan in chat. Write to a file only when the user asks.
 
-Please create a personalized phased onboarding plan that includes the following phases.
+## Task
 
-## Phase 1 - Foundation
+1. Review the project workspace — README, AGENTS.md, CONTRIBUTING, CI, manifests, and key docs
+2. Use the newcomer's background below when provided; otherwise ask once
+3. Create a personalized phased onboarding plan:
 
-Environment setup with step-by-step instructions and troubleshooting tips, plus identifying the most important documentation to read first
+**Phase 1 — Foundation** — environment setup with troubleshooting; essential docs to read first
 
-## Phase 2 - Exploration
+**Phase 2 — Exploration** — codebase discovery, run tests/scripts, beginner-friendly first tasks; specific open issues when verifiable
 
-Codebase discovery starting with README files, running existing tests/scripts to understand workflows, and finding beginner-friendly first tasks like documentation improvements. If possible, find me specific open issues or tasks that are suitable for my background.
+**Phase 3 — Integration** — contribution workflow, first contributions, early wins
 
-## Phase 3 - Integration
+For each phase: manageable steps, in-repo resources, concrete next steps; favor hands-on practice.
 
-Learning team processes, making first contributions, and building confidence through early wins
+Newcomer background (optional): ${input:background:Experience level or stack familiarity}
 
-For each phase, break down complex topics into manageable steps, recommend relevant resources, provide concrete next steps, and suggest hands-on practice over just reading theory.
+Ground setup commands and doc paths in manifests, CI, and the tree — do not invent tooling or links.
+
+## Guidelines
+
+- Tailor depth to the newcomer's background
+- Link with relative paths; keep the plan actionable
+- Do not skip verification steps required by CI or AGENTS.md
+- Do not assign large feature work without a smaller warm-up when the repo offers one
