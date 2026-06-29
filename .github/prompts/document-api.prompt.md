@@ -1,6 +1,6 @@
 ---
 agent: 'agent'
-description: 'Generate OpenAPI 3.0 specification for API endpoints'
+description: 'OpenAPI 3.0 from API endpoint code. For behavior contracts and AC use sdd-spec skill.'
 ---
 
 ## Task

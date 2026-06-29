@@ -1,6 +1,6 @@
 # Review Dimensions
 
-**Delivery review** checklist — **increment diff** only. Whole repo / branch → **`sdd-audit`** [`When/Skip`](../../sdd-audit/SKILL.md). Attribution: **`docs/design/SOURCES.md`** / **`docs/design/THIRD_PARTY_NOTICES.md`**.
+**Delivery review** checklist — **increment diff** only. Whole repo / branch → **`sdd-audit`** [`When/Skip`](../../sdd-audit/SKILL.md). Upstream influence: obra/superpowers, addyosmani/agent-skills, mattpocock/skills (see README Sources).
 
 ## Diff kind
 
@@ -56,7 +56,7 @@ Pre-existing outside diff → **Coverage — Limits**, not **Findings**.
 
 **Reference integrity** (primary when **architecture** skipped):
 
-- Stale links after renames/deletes (`SKILL.md`, `references/**`, `README`, `SOURCES`, `docs/**`)
+- Stale links after renames/deletes (`SKILL.md`, `references/**`, `README`, `AGENTS.md`, `docs/**`)
 - Install pins, skill lists, routing tables match tree
 - Terminology consistent across skills touched in increment
 

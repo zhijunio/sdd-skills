@@ -1,9 +1,9 @@
 ---
-name: sdd-onboard
+name: onboarding-plan
 description: Use when a new contributor needs a phased onboarding plan for this repository—environment setup, codebase exploration, and first tasks. Not implementation, spec, or delivery review unless the user asks.
 ---
 
-# sdd-onboard
+# onboarding-plan
 
 ## Role
 

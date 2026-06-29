@@ -1,9 +1,9 @@
 ---
-name: sdd-publish
+name: git-release
 description: Use when the user requests remote git integration—push, PR, merge, tag, or GitHub release. Not code review, local test verification, or fixing CI unless the user asks.
 ---
 
-# sdd-publish
+# git-release
 
 ## Role
 
@@ -23,8 +23,6 @@ Default: work in chat. Do not push, merge, tag, or release without explicit user
 
 6. **Present → confirm → execute** — step-by-step (default) or batch when the user confirms the full plan upfront (see Guidelines)
 7. **Stop** when requested steps complete — user may continue remaining steps in a later session
-
-GitHub prompt entry: [publish-changes.prompt.md](../../.github/prompts/publish-changes.prompt.md).
 
 ## Guidelines
 

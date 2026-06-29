@@ -9,39 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Optional pre-loop satellite **`sdd-worktree`** — explicit `@` git isolation (worktree or topic branch)
-- Optional post-loop satellite **`sdd-publish`** — explicit `@` remote integration (push / PR / merge / tag / release); standalone entry OK, does not require `@sdd-verify`
-- Optional meta satellites **`sdd-readme`**, **`sdd-agents`**, **`sdd-explain`** — aligned with [`.github/prompts/`](.github/prompts/); README / AGENTS.md authoring and code explanation; not delivery loop
-- GitHub prompts [**`zoom-codebase.prompt.md`**](.github/prompts/zoom-codebase.prompt.md), [**`grill-me.prompt.md`**](.github/prompts/grill-me.prompt.md) — aligned with **`sdd-zoom`** / **`sdd-grill`**
-- Optional meta satellite **`sdd-onboard`** — aligned with [**`onboarding-plan.prompt.md`**](.github/prompts/onboarding-plan.prompt.md); phased contributor onboarding; not delivery loop
+- **Independent skills** (not SDD loop): `git-context`, `git-release`, `create-readme`, `create-agentsmd`, `explain-code`, `onboarding-plan` — paired prompts listed in README
+- GitHub prompt [`grill-me.prompt.md`](.github/prompts/grill-me.prompt.md) — aligned with `sdd-grill`
 
 ### Removed
 
-- **`sdd-repo-docs`** — replaced by **`sdd-readme`** + **`sdd-agents`** (+ **`sdd-explain`** for code explanation); hub map / vet / thin-full README references removed with the skill
+- **`sdd-zoom`** — territory map skill; map-only requests declined in audit/review or handled ad hoc
+- **`sdd-repo-docs`** — replaced by `create-readme` + `create-agentsmd` (+ `explain-code`)
+- **`docs/design/`** — removed maintainer design docs (`SOURCES.md`, `engineering-rationale.md`, `THIRD_PARTY_NOTICES.md`); runtime contracts live in `skills/*/SKILL.md`, pairing table in README
+
+- **`.github/prompts/zoom-codebase.prompt.md`** — orphan prompt left after `sdd-zoom` removal
 
 ### Changed
 
-- **Breaking:** **`sdd-ship`** renamed to **`sdd-verify`** — reinstall or update `@` references; **`sdd-publish`** unchanged
-- **`sdd-audit`**: **`sdd-improve`** renamed; MECE playbooks in `references/`; SDD handoff in **`SKILL.md` Stop** + **Suggested next steps** only; removed **`closing-the-loop.md`**
-- **`sdd-review`**: `lens-map.md`; MECE lens ids + optional impact emoji; architecture walk links to `sdd-audit` anti-patterns / vet
-- **Restored:** root [README.md](README.md) and [AGENTS.md](AGENTS.md) (fourteen skills, `sdd-verify` / `sdd-audit` naming); added [docs/ONBOARDING.md](docs/ONBOARDING.md) contributor plan
-- **Audit remediation:** fixed `sdd-review/references/` cross-skill links; SOURCES `plan-template` path; `improve`→`sdd-audit` terminology in governance docs
-- **`sdd-audit` `report.md`:** optional **Strengths** section; **Coverage** before **Findings**; **Not audited** merged into **Coverage**
-- **`sdd-review` `finding-format.md`:** report sections aligned with `sdd-audit`; **Coverage** before **Findings**; **Verdict** before **Rejected / deferred**; delivery gate unchanged
-- **`sdd-spec` / `sdd-grill`**: **When/Skip** cross-link to **`sdd-worktree`**
-- **`sdd-verify`**: **Stop** / **SDD** hand off to **`sdd-publish`** when user separately requests integration
-- **`sdd-zoom`**, **`sdd-grill`**: restructured as meta satellites (Role / Task / Guidelines); removed SDD handoff tails; **`sdd-zoom`** present order `Territory` → `Map` → `Diagram` → `Glossary & gaps` → `Suggested next`
+**Breaking renames** (update `@` after upgrading from `v0.3.1`): `sdd-ship` → `sdd-verify`; `sdd-improve` → `sdd-audit`; `sdd-worktree` → `git-context`; `sdd-publish` → `git-release`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`.
 
-**Spot-check (2026-06-12, `sdd-worktree`):** maintainer self-trial in this repo as consumer git workspace — evaluation order, Present/confirm gate, conflict/weak-isolation rules, and `sdd-spec` hand-off path reviewed against spec; no blocking friction.
+- **Thirteen skills:** seven SDD (`sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-verify`, `sdd-audit`) + six independent utilities; SDD skills do not cross-link to independent skills
+- **`sdd-audit` / `sdd-review`:** MECE lenses, report section order, removed `sdd-zoom` routes
+- **`sdd-grill`**: Role / Task / Guidelines; SDD optional **Stop** → `sdd-spec` / `sdd-plan`
+- **Docs:** restore [README.md](README.md), [AGENTS.md](AGENTS.md), [docs/sdd/README.md](docs/sdd/README.md) (maintainer archive index); skill ↔ prompt pairing table in README
 
-**Spot-check (2026-06-12, `sdd-publish`):** maintainer self-trial against `skills/sdd-publish/SKILL.md` — gates, step menu, push-only subset, no-`gh` PR Present, CI/merge gate, sync-default-before-tag, CHANGELOG version resolution, and `sdd-verify` hand-off reviewed against spec; no blocking friction.
+**Spot-check:** `git-context`, `git-release` (2026-06-12); doc satellites on consumer repo (2026-06-25) — no blocking friction. Maintainer self-trial suffices for satellites; no separate consumer-repo gate.
 
-**Spot-check (2026-06-25, doc satellites on `zhijun-io/rose`):** **`sdd-readme`** / **`sdd-agents`** via `.github/prompts/` — thin README + wiki hub, AGENTS Style/Testing link-only to conventions; no blocking friction.
-
-- **Governance:** no separate consumer-repo spot-check gate for satellites; maintainer self-trial + CHANGELOG note suffices
-
-- **`sdd-publish`**: satellite independence — no hard `@sdd-verify` or review gate; **Integration readiness** probes CHANGELOG/`[Unreleased]` only; missing verify summary does not block push/PR; tag/release still Present gap when user-visible impact and empty `[Unreleased]`
-- **Docs:** restore `docs/design/README.md`; move `SOURCES.md` / `THIRD_PARTY_NOTICES.md` to `docs/design/`; README 保持精简安装段
+- **CI `validate`:** assert all retired skill ids (`sdd-ship`, `sdd-improve`, `sdd-zoom`, …) stay absent and every `.github/prompts/*.prompt.md` is registered in README
 
 ## [0.3.1] - 2026-06-11
 
@@ -76,12 +66,12 @@ Fourth validated release. Consumer fourth loop completed in an external consumer
 ### Changed
 
 - **Eight skills** — six core loop + optional **`sdd-improve`** and **`sdd-zoom`**; user **`@`** stage skills directly; no routing skill or central routing doc
-- **Core principles** (six, three layers: shape / delivery / governance) — dedupe nine → six: minimal & neutral, explicit stages, verifiable slices, test and prove, borrow don't rebuild, no empty ceremony; README, [engineering-rationale §1.0](docs/design/engineering-rationale.md#10-核心原则), AGENTS, SOURCES
+- **Core principles** (six, three layers: shape / delivery / governance) — dedupe nine → six: minimal & neutral, explicit stages, verifiable slices, test and prove, borrow don't rebuild, no empty ceremony; README, engineering-rationale §1.0, AGENTS, SOURCES (removed in a later release)
 - **`SKILL.md`** — concise bodies with semantic preservation; hand off at Stop; improve/review **When/Skip** cross-links
 - **`sdd-improve`**: **🔴/🟡/🟢** Findings groups; `audit-dimensions.md` (pairs with **`sdd-review`** `review-dimensions.md`); **`Follow-up` → `Next stage`**
 - **`sdd-review`**: **Architecture** absorbs Simplify + readability; **Diff kind** (`code` / `prose/docs-only`); list-block Findings + **🔴/🟡/🟢** (delivery gate); `references/scope.md`
 - **`sdd-improve` / `sdd-review`**: **🔴/🟡/🟢** meaning differs (follow-up priority vs delivery gate)
-- **docs/design**: [engineering-rationale.md](docs/design/engineering-rationale.md)（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节）
+- **docs/design** (removed in a later release): engineering-rationale.md（直白中文 + [shadcn/improve](https://github.com/shadcn/improve) 专节）
 - **`spec-template` / README**: multi-domain `docs/context/<domain>/CONTEXT.md`; spec **Current Context** stays increment facts
 - Fourth consumer trial（improve → WebMvcTest 切片）
 - **`sdd-grill`** / **`sdd-zoom`**: upstream single-source bodies + minimal SDD tails; doc drift cleanup (`tests/check.py` references; improve spec **AC-10** withdrawn)

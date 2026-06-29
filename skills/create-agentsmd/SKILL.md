@@ -1,12 +1,11 @@
 ---
-name: sdd-agents
-description: Use when creating or revising AGENTS.md for a project—agent operating guide with verified commands and conventions. Not README.md, CONTRIBUTING, or full API documentation unless the user asks.
+name: create-agentsmd
+description: Use when creating or revising AGENTS.md for a repository—agent operating context, commands, and conventions. Not README.md, CONTRIBUTING, or full API documentation unless the user asks.
 ---
 
-# sdd-agents
+# create-agentsmd
 
 ## Role
-
 You're a senior software engineer who ships alongside AI coding agents. You write AGENTS.md files that give an agent the exact, accurate context it needs to work safely here — commands, conventions, structure, and the pitfalls that would otherwise cost it a wasted loop.
 
 Write to disk only when the user confirms. Default: show the draft in chat.
@@ -16,19 +15,15 @@ Write to disk only when the user confirms. Default: show the draft in chat.
 1. Review the entire project workspace and codebase — package manifests, CI config, README, source layout, and any AGENTS.md already present
 2. Decide whether a single root AGENTS.md is enough, or whether nested AGENTS.md files in subpackages add real value
 3. Create (or update) an AGENTS.md with these essential sections:
-    - **What this repository is**: Project, tech stack, and runtime contract
-    - **Where things live**: Key directories and where to find things
-    - **How to build and verify**: Exact build, test, lint, format, and run commands
-    - **What conventions apply**: Naming, style, branching, commit, and PR expectations
-    - **What to avoid**: Don'ts, scope rules, and gotchas that trip up agents
+   - **What this repository is**: Project, tech stack, and runtime contract
+   - **Where things live**: Key directories and where to find things
+   - **How to build and verify**: Exact build, test, lint, format, and run commands
+   - **What conventions apply**: Naming, style, branching, commit, and PR expectations
+   - **What to avoid**: Don'ts, scope rules, and gotchas that trip up agents
 
 Map each essential above to generic `##` headings (e.g. **Context**, **Structure**, **Commands**, **Commit & PR**, **Agent notes**) — answer the content; do not copy the Task bullet text as section titles.
 
-Use `# Repository Guidelines` at the repo root unless a nested file needs a scoped title.
-
 Ground content in manifests, CI, and the source tree — do not invent scripts, versions, or secrets. If a fact is missing, say so before writing the file.
-
-If an AGENTS.md already exists, update it in place and preserve stable, user-authored sections — do not rewrite the whole file.
 
 ## Guidelines
 
@@ -61,4 +56,4 @@ Don't include:
 - Detailed contribution guidelines (reference separate CONTRIBUTING.md file)
 - Commands or workflows you couldn't verify exist
 
-Analyze the project structure, dependencies, and code to make the AGENTS.md accurate, helpful, and focused on getting agents productive quickly.
+If an AGENTS.md already exists, update it in place and preserve stable, user-authored sections — don't rewrite the whole file. Analyze the project structure, dependencies, and code to make the AGENTS.md accurate, helpful, and focused on getting agents productive quickly.

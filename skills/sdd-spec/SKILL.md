@@ -50,7 +50,6 @@ Write the spec in the **user's language** when clear from the latest user turn. 
 | Request | Route |
 | --- | --- |
 | Open design directions / trade-offs | [`sdd-grill`](../sdd-grill/SKILL.md) |
-| Isolated git context first | [`sdd-worktree`](../sdd-worktree/SKILL.md) |
 | Implementation | [`sdd-build`](../sdd-build/SKILL.md) — after approved spec + plan |
 
 ### Stop
