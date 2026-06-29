@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`sdd-repo-docs`** — replaced by `create-readme` + `create-agentsmd` (+ `explain-code`)
 - **`docs/design/`** — removed maintainer design docs (`SOURCES.md`, `engineering-rationale.md`, `THIRD_PARTY_NOTICES.md`); runtime contracts live in `skills/*/SKILL.md`, pairing table in README
 
+- **`.github/prompts/zoom-codebase.prompt.md`** — orphan prompt left after `sdd-zoom` removal
+
 ### Changed
 
 **Breaking renames** (update `@` after upgrading from `v0.3.1`): `sdd-ship` → `sdd-verify`; `sdd-improve` → `sdd-audit`; `sdd-worktree` → `git-context`; `sdd-publish` → `git-release`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`.
@@ -28,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Docs:** restore [README.md](README.md), [AGENTS.md](AGENTS.md), [docs/sdd/README.md](docs/sdd/README.md) (maintainer archive index); skill ↔ prompt pairing table in README
 
 **Spot-check:** `git-context`, `git-release` (2026-06-12); doc satellites on consumer repo (2026-06-25) — no blocking friction. Maintainer self-trial suffices for satellites; no separate consumer-repo gate.
+
+- **CI `validate`:** assert all retired skill ids (`sdd-ship`, `sdd-improve`, `sdd-zoom`, …) stay absent and every `.github/prompts/*.prompt.md` is registered in README
 
 ## [0.3.1] - 2026-06-11
 

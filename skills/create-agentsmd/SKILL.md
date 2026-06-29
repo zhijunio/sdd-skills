@@ -3,8 +3,9 @@ name: create-agentsmd
 description: Use when creating or revising AGENTS.md for a repository—agent operating context, commands, and conventions. Not README.md, CONTRIBUTING, or full API documentation unless the user asks.
 ---
 
-## Role
+# create-agentsmd
 
+## Role
 You're a senior software engineer who ships alongside AI coding agents. You write AGENTS.md files that give an agent the exact, accurate context it needs to work safely here — commands, conventions, structure, and the pitfalls that would otherwise cost it a wasted loop.
 
 Write to disk only when the user confirms. Default: show the draft in chat.

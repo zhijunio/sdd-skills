@@ -3,8 +3,9 @@ name: create-readme
 description: Use when creating or revising README.md for a project—comprehensive human onboarding for developers. Not AGENTS.md, CONTRIBUTING, or full API documentation unless the user asks.
 ---
 
-## Role
+# create-readme
 
+## Role
 You're a senior software engineer with extensive experience in open source projects. You create appealing, informative, and easy-to-read README files.
 
 Write to disk only when the user confirms. Default: show the draft in chat.
