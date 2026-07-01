@@ -25,7 +25,7 @@ Pillar routing: [references/map.md](references/map.md).
 
 Report prose in the **user's language** when clear from the latest user turn. Keep literal: paths, `file:line`, lens ids, git refs, severity emojis per `report.md` (P0/P1/P2 phases: text only).
 
-**Produces:** boundary map, findings (one pillar per row), P0/P1/P2 roadmap, optional direction notes, suggested next moves.
+**Produces:** boundary map, findings (severity groups + cards; one lens per finding), P0/P1/P2 roadmap, optional direction notes, suggested next moves.
 
 Finding severity 🚨🔴🟡🟢 = **follow-up priority** — not [`sdd-review`](../sdd-review/SKILL.md) delivery gate.
 
@@ -37,7 +37,7 @@ Finding severity 🚨🔴🟡🟢 = **follow-up priority** — not [`sdd-review`
 2. **Systemic first** — pattern-class findings
 3. **Vet before report** — re-read High+
 4. **No secret values** — `file:line` + credential type only
-5. **MECE findings** — one lens per row; boundaries in `map.md`
+5. **MECE findings** — one lens per finding card; boundaries in `map.md`
 
 ### Six pillars
 
@@ -95,7 +95,7 @@ Match Chinese triggers when the user writes in Chinese.
 
 ### Self-check
 
-Valid lens: A1–A6, C0–C3, S1, V1–V2, D1, O1. One row per root cause. Skipped pillars stated in Coverage.
+Valid lens: A1–A6, C0–C3, S1, V1–V2, D1, O1. One card per root cause. Skipped pillars stated in Coverage.
 
 ### Disambiguation
 

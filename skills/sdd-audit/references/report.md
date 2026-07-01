@@ -8,7 +8,7 @@
 
 ## Severity emoji
 
-Use emoji **with** the level text in the findings table — not instead of rubric. **Roadmap phases use text only** (`P0` / `P1` / `P2` — no emoji).
+Use emoji **with** the level text in each finding — not instead of rubric. **Roadmap phases use text only** (`P0` / `P1` / `P2` — no emoji).
 
 | Emoji | Level | When |
 |-------|-------|------|
@@ -31,25 +31,42 @@ Cell format: `🚨 Critical` / `🚨 严重` — emoji + localized label.
 
 Cell format: `P0` · `P1` · `P2` only — **no emoji**. Severity and scheduling are independent (e.g. `🟡 Medium` finding may appear under **P0**).
 
-## Finding table
+## Finding format
+
+**Do not** use a wide markdown table (too many columns hurt readability). Use **severity groups + numbered cards** below.
+
+**snapshot / 快照:** ≤5 findings. **standard / 标准 / deep / 深度:** max **20** cards. Zero → `NO_FINDINGS` + patterns searched; simplicity audits with no cuts end `Lean already — ship.`
+
+### Group order
+
+`🚨 Critical` → `🔴 High` → `🟡 Medium` → `🟢 Low`. Omit empty groups.
+
+### Per-finding card
 
 ```markdown
-| severity | lens | title | files | evidence | evidence_type | confidence | impact | effort | fix_risk | attribution | structural_fix |
+**{n}. {title}** — lens **{id}**
+- **Evidence:** ≤3 lines or call-path · `{observed|inferred}`
+- **Location:** `path:line`, …
+- **Fix:** {structural_fix — systemic move, not typo}
+- **Meta (optional, one line):** confidence · effort S/M/L · fix risk · branch: introduced / pre-existing
 ```
 
-**snapshot / 快照:** ≤5 rows. **standard / deep / 标准 / 深度:** max **20** rows. Zero → `NO_FINDINGS` + patterns searched.
-
-### Columns
-
-| Col | Rule |
-|-----|------|
-| severity | 🚨 Critical · 🔴 High · 🟡 Medium · 🟢 Low (+ localized label) |
+| Field | Rule |
+|-------|------|
+| title | Short pattern name |
 | lens | **A1–A6**, **C0–C3**, **S1**, **V1–V2**, **D1**, **O1** — `map.md` |
-| files | `path:line` comma-separated |
-| evidence | ≤3 lines or call-path |
-| evidence_type | `observed` \| `inferred` |
-| attribution | `—` \| `introduced` / `pre-existing` (English branch audit) \| 本分支引入 / 既有问题 (Chinese branch audit) |
-| structural_fix | Systemic move — not typo fix |
+| Evidence | Required; tag `observed` or `inferred` inline |
+| Location | `path:line` comma-separated |
+| Fix | **structural_fix** — systemic move |
+| Meta | Optional tail: confidence (HIGH/MED/LOW), effort (S/M/L), fix risk, **attribution** on branch audits (`introduced` / `pre-existing` · 本分支引入 / 既有问题) |
+
+**snapshot / 快照** may add a slim index (≤5 rows) **after** the cards for quick scan:
+
+```markdown
+| severity | lens | title | location |
+```
+
+Four columns only — no evidence or meta in the index.
 
 ## Report template
 
@@ -99,7 +116,19 @@ Localized heading: **Coverage** · **审查覆盖**
 
 ## Findings
 
-Finding table above. Branch audits: use **attribution** column or split sections.
+Severity groups + numbered cards (see **Finding format** above). Branch audits: put attribution in **Meta** or split `### 本分支引入` / `### 既有问题` subsections.
+
+Example:
+
+```markdown
+### 🔴 High
+
+**1. Domain imports infrastructure adapter** — lens **A1**
+- **Evidence:** `OrderService` constructs `PrismaOrderRepo` directly · `observed`
+- **Location:** `src/orders/order-service.ts:42`
+- **Fix:** Introduce port in domain; inject adapter at composition root
+- **Meta:** confidence HIGH · effort M · branch: introduced
+```
 
 ## Strengths
 
@@ -116,7 +145,7 @@ Localized heading examples: **Strengths** (English) · **健康面** / **做得�
 | P1 | … | … |
 | P2 | … | … |
 
-Simplicity audits: roadmap rows should favor **delete / merge / collapse** over extract-and-wrap.
+Simplicity audits: roadmap rows should favor **delete / merge / collapse** over extract-and-wrap. End with net-removal estimate: `net: -<N> lines, -<M> deps possible.` — `0` when a finding simplifies without removing lines.
 
 ## Direction notes (optional)
 
