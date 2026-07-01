@@ -46,12 +46,22 @@ Walk areas **1–4 always**. Walk **5** on executable code changes. Walk **6–1
 
 *Does the change worsen structure without justification?* (executable code only)
 
-- Layer boundaries, circular dependencies, pass-through or shallow modules
-- **SOLID** — SRP, DIP violations, fat interfaces, domain→infra leaks
+- **SOLID** — SRP, DIP violations, fat interfaces, domain→infra leaks,
+  circular deps, layer boundaries, error-handling strategy at boundaries
 - Design patterns used correctly (Command, Factory, Repository, DI lifetimes)
-- Parallel APIs or duplicated 5+ line blocks — DRY/KISS candidates
-- Half migrations, dead code, or shims left in the diff
-- Separation of concerns; dependency direction; error-handling strategy at boundaries
+- **Design signals** — DRY/KISS/YAGNI, FFP (fail fast), PoLA (least surprise),
+  SLAP (single abstraction level per method), LoD/TDA (tell, don't ask),
+  CRP (composition over inheritance), POJO (domain free of framework deps)
+- **Code hygiene** — defensive assertions at public boundaries, prefer
+  immutability, concurrent utilities over raw synchronized,
+  try-with-resources for lifecycle, cache with TTL/eviction,
+  exceptions for errors not control flow
+- **API contracts** — return empty collections not null, parameter object for 3+ args,
+  static factory over complex constructors, Optional for return type only,
+  least exposure (narrowest visibility), no static mutable collections,
+  exception hierarchy with common base
+- **Discipline cross-cuts** — consistent logger/test naming, log level discipline,
+  test behavior not internals, Design by Contract (pre/post honored by subtypes)
 
 ### 4. Tests & verification
 

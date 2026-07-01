@@ -9,8 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Design principle docs — [`docs/design.md`](docs/design.md), 33 framework-neutral principles extracted and deduplicated from Spring Boot conventions
 - **Independent skills** (not SDD loop): `git-context`, `git-release`, `create-readme`, `create-agentsmd`, `explain-code`, `onboarding-plan` — paired prompts listed in README
 - GitHub prompt [`grill-me.prompt.md`](.github/prompts/grill-me.prompt.md) — aligned with `sdd-grill`
+
+
+### Changed
+
+- [`review-code.prompt.md`](.github/prompts/review-code.prompt.md) — §3 Architecture & design consolidated: merged duplicate layer/error-handling lines into SOLID, added 4 grouped design signals (Design signals, Code hygiene, API contracts, Discipline cross-cuts) sourced from `docs/design.md`
 
 ### Removed
 
