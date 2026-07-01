@@ -4,10 +4,10 @@ Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only ski
 
 ## Context
 
-- Maintain **thirteen** platform-neutral skills: **seven SDD** (`sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-verify`, `sdd-audit`) plus **six independent** utilities (see [README — Skills](README.md#skills)).
+- Maintain **thirteen** platform-neutral skills: **seven SDD** (`sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship`, `sdd-audit`) plus **six independent** utilities (see [README — Skills](README.md#skills)).
 - Write skill instructions in **English**; **Present** deliverables in the **user's language** (every `SKILL.md`).
 - Finish one SDD stage → **Stop** → wait for the user to **`@`** the next skill. Never auto-chain stages in one session.
-- Independent skills (`create-readme`, `create-agentsmd`, `explain-code`, `git-context`, `git-release`, `onboarding-plan`) are **not** SDD loop stages — do not route SDD handoffs to them.
+- Independent skills (`create-readme`, `create-agentsmd`, `explain-code`, `git-context`, `onboarding-plan`, `ponytail-audit`) are **not** SDD loop stages — do not route SDD handoffs to them.
 - Do not add hooks, slash commands, agent manifests, central routing docs, or runtime state files unless the user asks.
 
 **Nested AGENTS.md:** not needed — skills are self-contained under `skills/`; one root file is enough.
@@ -27,9 +27,9 @@ Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only ski
 
 | Group | Members |
 | --- | --- |
-| SDD core loop | `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-verify` |
+| SDD core loop | `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship` |
 | SDD optional | `sdd-grill`, `sdd-audit` |
-| Independent (not SDD) | `create-readme`, `create-agentsmd`, `explain-code`, `git-context`, `git-release`, `onboarding-plan` |
+| Independent (not SDD) | `create-readme`, `create-agentsmd`, `explain-code`, `git-context`, `onboarding-plan`, `ponytail-audit` |
 
 Consumer projects use `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` by convention — not required in this maintainer repo.
 
@@ -39,8 +39,8 @@ No build, lint, format, or test runner exists here. Run these before opening a P
 
 ```bash
 test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 13
-test ! -e skills/sdd-ship
-test -f skills/sdd-verify/SKILL.md
+test ! -e skills/git-release
+test -f skills/sdd-ship/SKILL.md
 ```
 
 Spot-check relative Markdown links in files you edit. Preserve cross-skill links under `sdd-audit/references/` and `sdd-review/references/`.
@@ -84,7 +84,7 @@ Do not run or invent `npm test`, `pytest`, `mvn verify`, or similar — they are
 
 - Treat **`sdd-audit`** as a delivery gate or substitute for **`sdd-review`**.
 - Chain SDD stages (review → verify) without explicit user `@`.
-- Route SDD **Stop** handoffs to independent skills (`git-context`, `git-release`, etc.).
+- Route SDD **Stop** handoffs to independent skills (`git-context`, etc.).
 - Add core stages, state fields, or ceremony without evidence.
-- Babysit failing CI, merge on red checks, or run mutating `git`/`gh` unless the user scopes **`git-release`**.
-- Reintroduce retired ids: `sdd-ship` (use **`sdd-verify`**), `sdd-improve` (use **`sdd-audit`**), **`sdd-zoom`** (removed).
+- Babysit failing CI, merge on red checks, or run mutating `git`/`gh` unless the user scopes **`sdd-ship`**.
+- Reintroduce retired ids: `git-release` (use **`sdd-ship`**), `sdd-improve` (use **`sdd-audit`**), **`sdd-zoom`** (removed).

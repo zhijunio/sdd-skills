@@ -16,12 +16,10 @@ Review the **work product**, not session history. Default: post the full review 
 1. **Establish scope** — per [scope.md](references/scope.md): user range, merge-base diff, or task-related uncommitted work; never assume `main`/`master` without evidence; record **Diff kind** (`code` / `prose/docs-only`) in the report
 2. **Read the scoped diff** — complete increment, or triage large diffs per scope.md and disclose **Limits**
 3. **Read spec/plan when available** — map Acceptance Criteria when a plan exists; disclose missing spec/plan and label **inferred** claims
-4. **Review test changes first**, then walk review dimensions per [review-dimensions.md](references/review-dimensions.md):
-    - **Core (always):** spec/plan compliance; correctness/regressions; tests; docs/traceability + reference integrity on renames
-    - **Mandatory on code diffs:** architecture (structure + DRY/KISS in the diff) — **skip** on prose/docs-only
-    - **Conditional when signals apply:** standards, security, performance, dependencies, observability, accessibility, operations — record `*: skip` in **Coverage** when not walked
-5. **Present** the review per [finding-format.md](references/finding-format.md) — section order in the **Report template**; **Suggested next steps** last
-6. **Verdict** — state whether this increment is blocked; name one next skill in **Suggested next steps** (see below)
+4. Review test changes first
+5. Walk review dimensions per [review-dimensions.md](references/review-dimensions.md) — **Core** always, **Mandatory** on code diffs, **Conditional** when signals apply (see Guidelines)
+6. **Present** the review per [finding-format.md](references/finding-format.md) — section order in the **Report template**; **Suggested next steps** last
+7. **Verdict** — state whether this increment is blocked; name one next skill in **Suggested next steps** (see below)
 
 Use [lens-map.md](references/lens-map.md) for lens ids on findings. Prefer a fresh agent/subagent when available; optional two-pass on large diffs; default one pass.
 
@@ -46,6 +44,14 @@ Optional impact emoji per [`sdd-audit` report.md](../sdd-audit/references/report
 - Pre-existing issues **outside** the scoped diff → **Coverage — Limits** or out-of-scope observations — not must-fix unless the diff reintroduces or worsens them
 - Each finding needs **Evidence**; avoid one-line findings without grading
 
+### Dimension selection
+
+| Priority | Dimensions | Trigger |
+|----------|-----------|---------|
+| Core (always) | spec/plan compliance; correctness/regressions; tests; docs/traceability + reference integrity on renames | Every diff |
+| Mandatory on code diffs | architecture (structure + DRY/KISS in the diff) | Code diffs only; **skip** on prose/docs-only |
+| Conditional | standards, security, performance, dependencies, observability, accessibility, operations | When signals apply; record `*: skip` in **Coverage** when not walked
+
 ### Disambiguation
 
 | Request | Route |
@@ -53,14 +59,14 @@ Optional impact emoji per [`sdd-audit` report.md](../sdd-audit/references/report
 | Codebase / branch health audit without delivery increment | [`sdd-audit`](../sdd-audit/SKILL.md) |
 | Territory map only, no delivery diff | Decline — out of scope for delivery review |
 | Ambiguous "review" with no diff range | Ask user vs **`sdd-audit`** |
-| Full AC evidence tables / ship checklist | [`sdd-verify`](../sdd-verify/SKILL.md) — not here |
+| Full AC evidence tables / ship checklist | [`sdd-ship`](../sdd-ship/SKILL.md) — not here |
 
 ### Stop
 
 After **Suggested next steps**, hand off — no in-session product edits or plan updates:
 
 - **`sdd-build`** when 🔴 must-fix findings are unresolved
-- **`sdd-verify`** otherwise (fresh verification on this increment)
+- **`sdd-ship`** otherwise (fresh verification on this increment)
 
 ### What NOT to do
 

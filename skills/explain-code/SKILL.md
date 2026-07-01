@@ -23,6 +23,8 @@ Provide:
 - A simple example showing how it works
 - Common use cases or when you might use this approach
 
+**Stop** when the user confirms they can follow the code, or asks to end.
+
 Ground the explanation in the actual code shown — do not invent behavior, APIs, or dependencies that are not present. If context is missing, say what you assumed.
 
 ## Guidelines

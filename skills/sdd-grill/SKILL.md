@@ -19,7 +19,7 @@ Default: conduct the interview in chat. Write a summary to a file only when the 
 
 For each question:
 
-- Ask **one question at a time**; wait for the user's answer before the next
+- Ask **exactly one question per message**; wait for the answer before the next
 - Include your **recommended answer** with the question
 - If the question can be answered by exploring the codebase, explore the codebase instead of asking the user
 
