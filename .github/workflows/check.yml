@@ -21,14 +21,14 @@ jobs:
       - uses: actions/checkout@v4.2.2
 
       - name: Thirteen skills present
-        run: test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 14
+        run: test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 13
 
-      - name: Retired skill ids absent and sdd-verify present
+      - name: Retired skill ids absent and sdd-ship present
         run: |
-          for id in sdd-ship sdd-improve sdd-zoom sdd-worktree sdd-publish sdd-explain sdd-onboard sdd-readme sdd-agents sdd-repo-docs using-sdd; do
+          for id in sdd-improve sdd-zoom sdd-worktree sdd-publish sdd-explain sdd-onboard sdd-readme sdd-agents sdd-repo-docs using-sdd git-release; do
             test ! -e "skills/$id"
           done
-          test -f skills/sdd-verify/SKILL.md
+          test -f skills/sdd-ship/SKILL.md
 
       - name: Every prompt registered in README
         run: |

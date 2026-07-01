@@ -30,7 +30,6 @@ Ground content in manifests, CI, and the source tree — do not invent scripts, 
 - Use clear, concise language and keep it scannable with good headings
 - Include relevant code examples and usage snippets
 - Badges under the H1: one per line, no blank lines between them (renders as one row); blank line before the body. Infer from CI, LICENSE, manifests, and wired integrations; skip unpublished or unwired services
-- Keep content under 500 KiB (GitHub truncates beyond this)
 
 ### Technical Requirements
 

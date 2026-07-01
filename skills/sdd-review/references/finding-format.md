@@ -12,7 +12,7 @@ Checklists: [review-dimensions.md](review-dimensions.md). Lenses: [lens-map.md](
 
 ## Delivery gate (group headers)
 
-**Blocks `sdd-build` / `sdd-verify` for this increment** — not the same as `sdd-audit` severity emoji or P0/P1/P2.
+**Blocks `sdd-build` / `sdd-ship` for this increment** — not the same as `sdd-audit` severity emoji or P0/P1/P2.
 
 | Group | Use when |
 | --- | --- |
@@ -102,7 +102,7 @@ Localized heading examples: **Strengths** · **健康面** / **做得好的地�
 
 **pass** — no unresolved 🔴 must-fix (🟡 may remain if user accepts risk).
 
-**blocked** — list 🔴 ids/titles; increment must not proceed to **`sdd-verify`** until fixed.
+**blocked** — list 🔴 ids/titles; increment must not proceed to **`sdd-ship`** until fixed.
 
 Review-specific — **not** `sdd-audit` Roadmap P0/P1/P2.
 
@@ -119,7 +119,7 @@ Pre-existing / out-of-scope items vetted out of **Findings**.
 | Verdict | Typical route |
 | --- | --- |
 | **blocked** (🔴 must-fix) | **`sdd-build`** |
-| **pass** | **`sdd-verify`** |
+| **pass** | **`sdd-ship`** |
 | Whole-repo follow-up (optional note) | **`sdd-audit`** — not a substitute for Verdict |
 
 Also: open trade-offs → **`sdd-grill`**; spec/AC gap needs contract change → **`sdd-spec`**.

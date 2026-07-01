@@ -13,6 +13,9 @@ Default: work in chat. Scope is git isolation only — not coding, reviewing, or
 
 ## Task
 
+> Execute steps strictly in order — do not skip or reorder.
+
+
 1. **Orient (read-only)** — `git rev-parse --is-inside-work-tree`, `git rev-parse --show-toplevel`, `git status`, `git branch`, `git worktree list`
 2. **Gates** — hard stop if not a git repo, dirty tree, or no user confirmation yet
 3. **Resolve** — baseline, branch prefix, topic, path (see Guidelines)
@@ -22,16 +25,6 @@ Default: work in chat. Scope is git isolation only — not coding, reviewing, or
 7. **Stop** — setup complete; user continues the change in the new context
 
 ## Guidelines
-
-### Evaluation order
-
-1. Not a git repo → **hard stop**
-2. Dirty tree → **hard stop** — commit or stash; restart from Gates after stash
-3. Resolve baseline, prefix, topic, path
-4. Branch exists or path occupied → **stop**, offer contextual options
-5. No conflict → worktree add, or branch fallback when applicable
-6. Present → user confirms → execute
-7. Stop
 
 ### Baseline and naming
 

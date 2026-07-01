@@ -33,7 +33,7 @@ SDD core loop only:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills \
-  -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-verify \
+  -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship \
   -a cursor -y
 ```
 
@@ -41,7 +41,7 @@ SDD core + optional clarify (`sdd-grill`):
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills \
-  -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-verify \
+  -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship \
   -a cursor -y
 ```
 
@@ -54,7 +54,7 @@ npx skills@latest add zhijunio/sdd-skills -s sdd-spec -s sdd-plan -y
 Independent skills only (examples):
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s git-context -s git-release -a cursor -y
+npx skills@latest add zhijunio/sdd-skills -s git-context -a cursor -y
 npx skills@latest add zhijunio/sdd-skills -s create-readme -s create-agentsmd -y
 ```
 
@@ -79,7 +79,7 @@ List without installing: `npx skills@latest add zhijunio/sdd-skills --list`
 
 **Manual install:** copy `skills/<name>/` into your agent's skills directory (include bundled `references/` where present).
 
-> **Breaking on current `main` (unreleased):** `sdd-ship` → `sdd-verify`; `sdd-improve` → `sdd-audit`; `sdd-worktree` → `git-context`; `sdd-publish` → `git-release`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`; **`sdd-zoom` removed**. Update `@` references after upgrading from `v0.3.1`.
+> **Breaking on current `main` (unreleased):** `sdd-verify` → `sdd-ship` (git-release merged in); `sdd-improve` → `sdd-audit`; `sdd-worktree` → `git-context`; `sdd-publish` → `git-release`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`; **`sdd-zoom` removed**. Update `@` references after upgrading from `v0.3.1`.
 
 ## SDD workflow
 
@@ -94,7 +94,7 @@ flowchart TD
   P -->|user approval| B[sdd-build]
   B --> R[sdd-review]
   R -->|must-fix| B
-  R -->|pass| V[sdd-verify]
+  R -->|pass| V[sdd-ship]
 
   G --> S
   A --> S
@@ -112,7 +112,7 @@ Instructions **English**; deliverables follow the user's language (**Present** i
 | `sdd-plan` | An approved spec needs testable vertical slices |
 | `sdd-build` | An approved plan is ready for test-first implementation |
 | `sdd-review` | An increment diff needs a delivery verdict |
-| `sdd-verify` | A reviewed increment needs final acceptance evidence |
+| `sdd-ship` | Verify and ship a reviewed increment — from evidence through merged PR |
 
 ### SDD optional
 
@@ -133,7 +133,6 @@ Bundled in this repo for convenience; **no SDD loop coupling** — `@` only when
 | `create-agentsmd` | AGENTS.md for agent operating context |
 | `explain-code` | Explain code in chat |
 | `git-context` | Isolated git context (worktree or topic branch) before coding |
-| `git-release` | Push, PR, merge, tag, or GitHub release |
 | `onboarding-plan` | Phased contributor onboarding plan |
 
 Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independent files, content aligned with skills below (no cross-links between skill and prompt).
@@ -145,7 +144,6 @@ Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independe
 | `create-agentsmd` | `create-agentsmd.prompt.md` |
 | `explain-code` | `explain-code.prompt.md` |
 | `onboarding-plan` | `onboarding-plan.prompt.md` |
-| `git-release` | `git-release.prompt.md` |
 
 `git-context` has no paired prompt.
 
@@ -156,6 +154,7 @@ Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independe
 | `review-code.prompt.md` | Increment delivery gate → `sdd-review` |
 | `document-api.prompt.md` | Behavior contract / AC → `sdd-spec` |
 | `generate-unit-tests.prompt.md` | Test-first on approved plan → `sdd-build` |
+ | `git-release.prompt.md` | Push & PR lifecycle → `sdd-ship` |
 
 ### Consumer artifacts
 
@@ -179,7 +178,7 @@ Optional: `docs/adr/`, `CONTEXT.md` for stable domain language in consumer proje
 
 ## Contributing
 
-Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (thirteen skills, `sdd-verify` present). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
+Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (twelve skills, `sdd-ship` present). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
 
 ## Sources
 
