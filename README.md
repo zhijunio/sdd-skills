@@ -154,6 +154,7 @@ Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independe
 | `review-code.prompt.md` | Increment delivery gate → `sdd-review` |
 | `document-api.prompt.md` | Behavior contract / AC → `sdd-spec` |
 | `generate-unit-tests.prompt.md` | Test-first on approved plan → `sdd-build` |
+ | `git-release.prompt.md` | Push & PR lifecycle → `sdd-ship` |
 
 ### Consumer artifacts
 
