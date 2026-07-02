@@ -4,7 +4,7 @@ Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only ski
 
 ## Context
 
-- Maintain **thirteen** platform-neutral skills: **seven SDD** (`sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship`, `sdd-audit`) plus **six independent** utilities (see [README — Skills](README.md#skills)).
+- Maintain **fourteen** platform-neutral skills: **seven SDD** (`sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship`, `sdd-audit`), **two audit** (`repo-audit`, `repo-audit-full`), plus **six independent** utilities (see [README — Skills](README.md#skills)).
 - Write skill instructions in **English**; **Present** deliverables in the **user's language** (every `SKILL.md`).
 - Finish one SDD stage → **Stop** → wait for the user to **`@`** the next skill. Never auto-chain stages in one session.
 - Independent skills (`create-readme`, `create-agentsmd`, `explain-code`, `git-context`, `onboarding-plan`, `ponytail-audit`) are **not** SDD loop stages — do not route SDD handoffs to them.
@@ -29,6 +29,7 @@ Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only ski
 | --- | --- |
 | SDD core loop | `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship` |
 | SDD optional | `sdd-grill`, `sdd-audit` |
+| Audit (not SDD) | `repo-audit`, `repo-audit-full` |
 | Independent (not SDD) | `create-readme`, `create-agentsmd`, `explain-code`, `git-context`, `onboarding-plan`, `ponytail-audit` |
 
 Consumer projects use `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` by convention — not required in this maintainer repo.
@@ -38,7 +39,7 @@ Consumer projects use `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` by conventio
 No build, lint, format, or test runner exists here. Run these before opening a PR — they mirror [`.github/workflows/check.yml`](.github/workflows/check.yml):
 
 ```bash
-test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 13
+test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 14
 test ! -e skills/git-release
 test -f skills/sdd-ship/SKILL.md
 ```
@@ -83,6 +84,7 @@ Do not run or invent `npm test`, `pytest`, `mvn verify`, or similar — they are
 **Do not**
 
 - Treat **`sdd-audit`** as a delivery gate or substitute for **`sdd-review`**.
+- Treat `repo-audit` as a repo-wide health scan; use `repo-audit-full` for whole-repo audits.
 - Chain SDD stages (review → verify) without explicit user `@`.
 - Route SDD **Stop** handoffs to independent skills (`git-context`, etc.).
 - Add core stages, state fields, or ceremony without evidence.

@@ -3,13 +3,14 @@
 [![CI](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml/badge.svg)](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml)
 [![License](https://img.shields.io/github/license/zhijunio/sdd-skills)](LICENSE)
 
-**Thirteen** platform-neutral agent skills in one repo: a **six-stage SDD delivery loop** (plus optional `sdd-grill` and `sdd-audit`), and **six independent utility skills** that are not part of that loop. No state machine, project manager, or Git workflow framework — SDD stages you **`@`** one at a time.
+**Fourteen** platform-neutral agent skills in one repo: a **six-stage SDD delivery loop** (plus optional `sdd-grill` and `sdd-audit`), **two audit skills** (`repo-audit` for increment diffs, `repo-audit-full` for whole-repo scans), and **six independent utility skills** that are not part of that loop. No state machine, project manager, or Git workflow framework — SDD stages you **`@`** one at a time.
 
 ## Why use these skills
 
 - **Explicit stages** — one skill output → **Stop** → hand off; no auto-chaining
 - **Verifiable slices** — spec AC, plan as vertical slices, test-first build, evidence-backed review and verify
 - **SDD optional** — `sdd-grill` (clarify) and `sdd-audit` (codebase health) only when you need them
+- **Audit split** — `repo-audit` reviews increment diffs; `repo-audit-full` reviews the whole repo; `sdd-audit` stays the health/roadmap audit
 - **Independent utilities** — README, AGENTS.md, git isolation, release, explain, onboarding — install separately; no SDD coupling
 - **Platform-neutral** — Markdown skills only; works with Cursor, Codex, Claude Code, and other agents via the [skills CLI](https://github.com/vercel-labs/skills)
 
@@ -62,6 +63,12 @@ SDD optional audit:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills -s sdd-audit -a cursor -y
+```
+
+Audit skills:
+
+```bash
+npx skills@latest add zhijunio/sdd-skills -s repo-audit -s repo-audit-full -y
 ```
 
 **Stable pin** (`v0.3.1` — eight skills, pre-rename ids):
@@ -120,8 +127,10 @@ Instructions **English**; deliverables follow the user's language (**Present** i
 | --- | --- |
 | `sdd-grill` | Goals, boundaries, or trade-offs need decisions before spec or plan |
 | `sdd-audit` | Repo or branch health scan for follow-ups — not a delivery gate |
+| `repo-audit` | Increment diff review along `Standards` and `Spec` axes |
+| `repo-audit-full` | Whole-repo / module / area audit along `Standards` and `Spec` axes |
 
-**Review vs audit:** `sdd-review` gates **this increment**; `sdd-audit` scans the **repo or branch** for follow-ups only. Do not substitute one for the other — see **When/Skip** links in each skill.
+**Review vs audit:** `sdd-review` gates **this increment**; `repo-audit` reviews **this increment**; `repo-audit-full` reviews the **repo / module / area**; `sdd-audit` scans the **repo or branch** for follow-ups only. Do not substitute one for the other — see **When/Skip** links in each skill.
 
 ### Independent (not SDD)
 
@@ -154,7 +163,7 @@ Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independe
 | `review-code.prompt.md` | Increment delivery gate → `sdd-review` |
 | `document-api.prompt.md` | Behavior contract / AC → `sdd-spec` |
 | `generate-unit-tests.prompt.md` | Test-first on approved plan → `sdd-build` |
- | `git-release.prompt.md` | Push & PR lifecycle → `sdd-ship` |
+| `git-release.prompt.md` | Push & PR lifecycle → `sdd-ship` |
 
 ### Consumer artifacts
 
@@ -178,7 +187,7 @@ Optional: `docs/adr/`, `CONTEXT.md` for stable domain language in consumer proje
 
 ## Contributing
 
-Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (twelve skills, `sdd-ship` present). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
+Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (fourteen skills, `sdd-ship` present). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
 
 ## Sources
 
