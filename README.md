@@ -1,6 +1,5 @@
 # SDD Skills
 
-[![CI](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml/badge.svg)](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml)
 [![License](https://img.shields.io/github/license/zhijunio/sdd-skills)](LICENSE)
 
 **Eleven** platform-neutral agent skills in one repo: a **five-stage SDD delivery loop** (plus optional `sdd-audit`) and **five independent utility skills** that are not part of that loop. No state machine, project manager, or Git workflow framework — SDD stages you **`@`** one at a time.
@@ -145,7 +144,6 @@ Paired prompt files under [`docs/prompts/`](docs/prompts/) — independent files
 | `review-code.prompt.md` | Increment delivery gate → `sdd-review` |
 | `document-api.prompt.md` | Behavior contract / AC → `sdd-spec` |
 | `generate-unit-tests.prompt.md` | Test-first on approved plan → `sdd-build` |
-| `git-release.prompt.md` | Push & PR lifecycle → `sdd-ship` |
 
 ### Consumer artifacts
 
@@ -168,7 +166,7 @@ Optional: `docs/adr/`, `CONTEXT.md` for stable domain language in consumer proje
 
 ## Contributing
 
-Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (eleven skills, `sdd-ship` present, retired ids absent). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
+Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; run the documented local validation commands before opening a PR (eleven skills, `sdd-ship` present, retired ids absent). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
 
 ## Sources
 

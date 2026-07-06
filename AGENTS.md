@@ -61,7 +61,7 @@ Do not run or invent `npm test`, `pytest`, `mvn verify`, or similar — they are
 - Branch from `main` using `feature/`, `fix/`, or `docs/` + topic; merge via PR only — do not push new work to `main`.
 - One logical change per commit; use `feat:` / `fix:` / `docs:` / `chore:` / `refactor:` (or project convention).
 - Record user-visible skill changes in [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
-- Ensure CI **`validate`** passes — branch protection requires it on `main`.
+- Run the documented local validation commands before opening a PR.
 - Do not force-push `main`, change git config, or skip hooks unless the user explicitly asks.
 
 **When editing `SKILL.md`**
@@ -71,7 +71,7 @@ Do not run or invent `npm test`, `pytest`, `mvn verify`, or similar — they are
 - Preserve literals: `AC-n`, skill ids, lens ids, `file:line`, git literals, 🔴/🟡/🟢.
 - Pair **`sdd-audit`** vs **`sdd-review`** via **When/Skip** cross-links in each skill — skill ↔ prompt pairing table lives in README only.
 - Keep **`sdd-audit` Standards** and **`sdd-review` Standards** dimensions synchronized; only scope and Spec handling should differ.
-- When adding or renaming a skill, update `check.yml` assertions and README skill tables if user-visible.
+- When adding or renaming a skill, update the validation commands and README skill tables if user-visible.
 - When a skill has a paired `docs/prompts/*.prompt.md`, keep **content aligned** but **no cross-links** between the two files; update both in the same change.
 - When upstream-derived behavior changes materially, note attribution in the PR or [CHANGELOG.md](CHANGELOG.md).
 
@@ -90,5 +90,5 @@ Do not run or invent `npm test`, `pytest`, `mvn verify`, or similar — they are
 - Chain SDD stages (review → verify) without explicit user `@`.
 - Route SDD **Stop** handoffs to independent skills (`create-readme`, etc.).
 - Add core stages, state fields, or ceremony without evidence.
-- Babysit failing CI, merge on red checks, or run mutating `git`/`gh` unless the user scopes **`sdd-ship`**.
+- Invent a repo-local CI gate, or run mutating `git`/`gh` unless the user scopes **`sdd-ship`**.
 - Reintroduce retired ids: `sdd-grill` (use an upstream design-interview skill), `git-release` (use **`sdd-ship`**), `repo-audit` (merged into **`sdd-review`**), `repo-audit-full` (merged into **`sdd-audit`**), `sdd-improve` (use **`sdd-audit`**), **`sdd-zoom`** (removed).
