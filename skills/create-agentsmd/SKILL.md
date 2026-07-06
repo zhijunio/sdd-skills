@@ -14,7 +14,8 @@ Write to disk only when the user confirms. Default: show the draft in chat.
 
 1. Review the entire project workspace and codebase — package manifests, CI config, README, source layout, and any AGENTS.md already present
 2. Decide whether a single root AGENTS.md is enough, or whether nested AGENTS.md files in subpackages add real value
-3. Create (or update) an AGENTS.md with these essential sections:
+3. Rank agent-risk areas before drafting: dangerous commands, true verification commands, generated files, env/secrets, dirty worktree rules, deploy/release boundaries, and common local traps
+4. Create (or update) an AGENTS.md with these essential sections:
    - **What this repository is**: Project, tech stack, and runtime contract
    - **Where things live**: Key directories and where to find things
    - **How to build and verify**: Exact build, test, lint, format, and run commands
@@ -30,13 +31,14 @@ Ground content in manifests, CI, and the source tree — do not invent scripts, 
 ### Content and Structure
 
 - Focus only on information necessary for agents to work safely in this repository
+- Prioritize information that changes agent behavior; omit background that README already covers
 - Use clear, concise language and keep it scannable with good headings
 - Address the agent directly in the imperative ("run ...", "do not ..."), not marketing prose
 - Include exact commands in code blocks when the repo has them; use tables for directory maps when helpful
 - Prefer facts discovered in the repo over assumptions
 - Link to README and CONTRIBUTING rather than duplicating them
 - For nested AGENTS.md files: keep the root high-level and push package-specific detail down only when it materially improves agent accuracy; scope is implicit unless a nested file narrows or overrides the parent — nested overrides parent; user instruction overrides all
-- For **Commit & PR**, prefer the concise **Temporal `AGENTS.md`** style: state that commit messages follow **Chris Beams** style (plus repo-specific prefixes/conventions if the repo has them), keep commit guidance to one logical change per commit, and require PRs to answer **What changed?**, **Why?**, **Breaking changes?**, and **How was it verified?**. Do not expand this into a long tutorial unless the repository already does.
+- For **Commit & PR**, use repo-specific rules first. If none exist, keep defaults short: one logical change per commit, concise imperative subject, and PR notes covering what changed, why, breaking changes, and verification. Do not expand this into a tutorial unless the repository already does.
 - When the repository has no existing contribution guide, keep generated `AGENTS.md` short and operational: surface only commands, structure, conventions, and gotchas that change agent behavior.
 - Prefer a single root `AGENTS.md` unless a subdirectory has meaningfully different rules, workflows, or safety boundaries that the root file would otherwise hide.
 

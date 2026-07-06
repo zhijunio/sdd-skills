@@ -9,7 +9,7 @@
   - Risks / Dependencies (optional): build-affecting risks, external deps, or rollback
     notes that change slice order or verification — add this section only when needed;
     do not leave an empty heading in the plan file.
-  - "Done" is set to true only after the verification command passes.
+  - During build, only flip "Done" to true after verification passes; append results at the bottom.
 -->
 
 **Spec:** `<relative path to approved spec file>`

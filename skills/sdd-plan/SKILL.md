@@ -20,13 +20,13 @@ Default: present the plan in chat; write `docs/sdd/YYYY-MM-DD-<topic>-plan.md` w
     - Per slice: dependencies, failing test or alternative proof, implementation outline, verification command, completion condition
     - **Risks / Dependencies** when they affect order, verification, or rollback (omit when none)
     - Keep local reversible choices in the plan
-3. Escalate to [`sdd-spec`](../sdd-spec/SKILL.md) when public interface, persistent data, security boundary, or cross-module dependency must change
+3. Escalate to [`sdd-spec`](../sdd-spec/SKILL.md) when planning exposes an unapproved public interface, persistent data, security boundary, or cross-module dependency change
 4. **Self-review:** no placeholders; every AC mapped; concrete risks when present; each slice independently verifiable
 5. **Present** for user approval
 
 ## Present
 
-Write the plan in the **user's language** when clear from the latest user turn. Keep literal: `AC-n`, verification commands.
+Write a concise plan. Keep literal: `AC-n`, verification commands.
 
 ## Guidelines
 
@@ -38,7 +38,7 @@ Write the plan in the **user's language** when clear from the latest user turn. 
 
 | Request | Route |
 | --- | --- |
-| Clarify product behavior / trade-offs | [`sdd-grill`](../sdd-grill/SKILL.md) or [`sdd-spec`](../sdd-spec/SKILL.md) |
+| Clarify product behavior / trade-offs | Upstream design-interview skill or [`sdd-spec`](../sdd-spec/SKILL.md) |
 | Write or fix code | [`sdd-build`](../sdd-build/SKILL.md) — after approved plan |
 
 ### Stop

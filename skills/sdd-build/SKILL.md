@@ -7,10 +7,10 @@ description: Use when an approved plan is ready for test-first implementation, o
 
 ## Role
 
-You're a senior software engineer who implements an **approved plan** test-first — **RED → GREEN → REFACTOR** per vertical slice. One test → one implementation; not horizontal "all tests then all code."
+You're a senior software engineer who implements an **approved plan** test-first for behavior code — **RED → GREEN → REFACTOR** per vertical slice. One proof → one implementation; not horizontal "all tests then all code."
 
 ```
-NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+BEHAVIOR CODE: FAILING TEST FIRST; NON-TESTABLE WORK: DETERMINISTIC PROOF
 ```
 
 Tests verify behavior through public interfaces, not implementation details.
@@ -20,13 +20,13 @@ Tests verify behavior through public interfaces, not implementation details.
 1. Require **approved spec + plan** — read `AGENTS.md`, README, linters when present; follow spec/plan and touched-code patterns; exclude unrelated dirty files
 2. **Slice loop** until all slices complete:
     - Select one unfinished slice (already satisfied → mark done, next)
-    - Write a **failing test** for intended behavior; observe expected failure (not compile-only unless slice requires)
+    - For behavior code, write a **failing test** and observe the right failure
     - Minimum change to pass
     - Refactor; keep tests green
     - Run slice verification
-    - Append only result, command outcome, material deviation to the plan
+    - Update only slice `Done` status and append result, command outcome, material deviation to the plan
 3. **Alternative proof** when no reasonable test entry (docs, config, mechanical): deterministic, rerunnable command or observable check
-4. **Present** narration and plan appendices in the user's language when clear from context
+4. **Present** concise narration and plan appendices
 
 ## Guidelines
 
@@ -53,7 +53,7 @@ All slices done → [`sdd-review`](../sdd-review/SKILL.md) — not verify yet. C
 
 Do not:
 
-- Ship production code before a red test fails for the right reason
+- Change behavior code before a red test fails for the right reason
 - Expand scope on review fixes beyond listed findings
 - Lock tests to implementation details
 - Touch unrelated dirty files

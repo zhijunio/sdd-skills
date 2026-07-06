@@ -3,13 +3,13 @@
 [![CI](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml/badge.svg)](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml)
 [![License](https://img.shields.io/github/license/zhijunio/sdd-skills)](LICENSE)
 
-**Twelve** platform-neutral agent skills in one repo: a **five-stage SDD delivery loop** (plus optional `sdd-grill` and `sdd-audit`) and **five independent utility skills** that are not part of that loop. No state machine, project manager, or Git workflow framework — SDD stages you **`@`** one at a time.
+**Eleven** platform-neutral agent skills in one repo: a **five-stage SDD delivery loop** (plus optional `sdd-audit`) and **five independent utility skills** that are not part of that loop. No state machine, project manager, or Git workflow framework — SDD stages you **`@`** one at a time.
 
 ## Why use these skills
 
 - **Explicit stages** — one skill output → **Stop** → hand off; no auto-chaining
 - **Verifiable slices** — spec AC, plan as vertical slices, test-first build, evidence-backed review and verify
-- **SDD optional** — `sdd-grill` (clarify) and `sdd-audit` (codebase health) only when you need them
+- **SDD optional** — `sdd-audit` (codebase health) only when you need it; use an upstream design-interview skill for plan/design clarification
 - **Review/audit split** — `sdd-review` gates increment diffs; `sdd-audit` reviews repo / module / area / branch health
 - **Independent utilities** — README, AGENTS.md, explain, onboarding, over-engineering audit — install separately; no SDD coupling
 - **Platform-neutral** — Markdown skills only; works with Cursor, Codex, Claude Code, and other agents via the [skills CLI](https://github.com/vercel-labs/skills)
@@ -35,14 +35,6 @@ SDD core loop only:
 ```bash
 npx skills@latest add zhijunio/sdd-skills \
   -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship \
-  -a cursor -y
-```
-
-SDD core + optional clarify (`sdd-grill`):
-
-```bash
-npx skills@latest add zhijunio/sdd-skills \
-  -s sdd-grill -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship \
   -a cursor -y
 ```
 
@@ -80,13 +72,12 @@ List without installing: `npx skills@latest add zhijunio/sdd-skills --list`
 
 **Manual install:** copy `skills/<name>/` into your agent's skills directory (include bundled `references/` where present).
 
-> **Breaking on current `main` (unreleased):** `sdd-verify` → `sdd-ship`; `repo-audit` → `sdd-review`; `repo-audit-full` → `sdd-audit`; `sdd-improve` → `sdd-audit`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`; **`git-release`**, **`sdd-worktree`**, and **`sdd-zoom` removed**. Update `@` references after upgrading from `v0.3.1`.
+> **Breaking on current `main` (unreleased):** `sdd-verify` → `sdd-ship`; `repo-audit` → `sdd-review`; `repo-audit-full` → `sdd-audit`; `sdd-improve` → `sdd-audit`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`; **`sdd-grill`**, **`git-release`**, **`sdd-worktree`**, and **`sdd-zoom` removed**. Use an upstream design-interview skill for plan/design clarification. Update `@` references after upgrading from `v0.3.1`.
 
 ## SDD workflow
 
 ```mermaid
 flowchart TD
-  G[sdd-grill]
   subgraph audit["Optional audit"]
     A[sdd-audit]
   end
@@ -97,13 +88,12 @@ flowchart TD
   R -->|must-fix| B
   R -->|pass| V[sdd-ship]
 
-  G --> S
   A --> S
 ```
 
 ## Skills
 
-Instructions **English**; deliverables follow the user's language (**Present** in each `SKILL.md`).
+Skill instructions are written in English.
 
 ### SDD delivery loop
 
@@ -119,8 +109,9 @@ Instructions **English**; deliverables follow the user's language (**Present** i
 
 | Skill | Use when |
 | --- | --- |
-| `sdd-grill` | Goals, boundaries, or trade-offs need decisions before spec or plan |
 | `sdd-audit` | Whole-repo / module / area / branch health audit using the same `Standards` dimensions as `sdd-review` — not a delivery gate and not a Spec review |
+
+Use an upstream design-interview skill when goals, boundaries, or trade-offs need interview before spec or plan.
 
 **Review vs audit:** `sdd-review` gates **this increment**; `sdd-audit` audits the **repo / module / area / branch** for follow-ups.
 
@@ -140,7 +131,6 @@ Paired prompt files under [`docs/prompts/`](docs/prompts/) — independent files
 
 | Skill | Paired prompt |
 | --- | --- |
-| `sdd-grill` | `grill-me.prompt.md` |
 | `create-readme` | `create-readme.prompt.md` |
 | `create-agentsmd` | `create-agentsmd.prompt.md` |
 | `explain-code` | `explain-code.prompt.md` |
@@ -178,7 +168,7 @@ Optional: `docs/adr/`, `CONTEXT.md` for stable domain language in consumer proje
 
 ## Contributing
 
-Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (twelve skills, `sdd-ship` present, retired audit ids absent). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
+Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (eleven skills, `sdd-ship` present, retired ids absent). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
 
 ## Sources
 

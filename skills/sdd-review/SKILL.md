@@ -89,11 +89,11 @@ End with one next route:
 
 ## Present
 
-Write the report in the **user's language** when clear from the latest user turn. Localize section headings too. Keep literal: `AC-n`, `file:line`, git refs, skill ids, and **🔴/🟡/🟢** groups.
+Write a concise report. Keep literal: `AC-n`, `file:line`, git refs, skill ids, and **🔴/🟡/🟢** groups.
 
 Optimize for a clear, readable review, not a formal dump. Findings and verdict matter more than the template, but the reader must be able to scan scope, coverage, evidence, and next route quickly.
 
-Required semantic sections. The English labels below name the slots; do not force them as headings when the user is using another language:
+Required semantic sections:
 
 - **Scope** — baseline/range, diff kind, spec source, standards sources
 - **Coverage** — examined axes/dimensions, large-diff triage if any, commands run/skipped, and limits
@@ -101,8 +101,6 @@ Required semantic sections. The English labels below name the slots; do not forc
 - **Spec**
 - **Verdict**
 - **Suggested next steps** — always last
-
-For Chinese output, use headings like **范围**, **覆盖**, **标准**, **规格**, **结论**, **建议下一步**.
 
 ## Guidelines
 

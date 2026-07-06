@@ -62,9 +62,9 @@ Run only read-only verification commands when they materially reduce uncertainty
 
 ### 4. Present
 
-Write the report in the user's language when clear from the latest user turn. Localize section headings too. Keep literal: paths, `file:line`, git refs, skill ids, and severity emojis.
+Write a concise report. Keep literal: paths, `file:line`, git refs, skill ids, and severity emojis.
 
-Required semantic sections. The English labels below name the slots; do not force them as headings when the user is using another language:
+Required semantic sections:
 
 - **Scope** — target, effort, branch/range when relevant, standards sources
 - **Coverage** — examined dimensions, commands run/skipped, sampled/skipped areas, limits
@@ -72,8 +72,6 @@ Required semantic sections. The English labels below name the slots; do not forc
 - **Strengths** — optional, only evidence-backed systemic positives
 - **Roadmap** — P0/P1/P2 follow-up sequence when findings exist
 - **Suggested next steps** — always last; name one next route
-
-For Chinese output, use headings like **范围**, **覆盖**, **标准**, **健康面**, **路线图**, **建议下一步**.
 
 Finding card:
 
@@ -113,7 +111,7 @@ Finding card:
 | --- | --- |
 | Increment diff delivery review | [`sdd-review`](../sdd-review/SKILL.md) |
 | Spec / AC compliance | [`sdd-review`](../sdd-review/SKILL.md) for a scoped diff, or [`sdd-spec`](../sdd-spec/SKILL.md) when the contract is missing |
-| Trade-offs / design interview | [`sdd-grill`](../sdd-grill/SKILL.md) |
+| Trade-offs / design interview | Upstream design-interview skill |
 | Implement fixes during scan | Decline; audit first, implement after Stop |
 
 ### What NOT to do

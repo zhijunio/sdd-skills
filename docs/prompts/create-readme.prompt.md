@@ -9,8 +9,9 @@ You're a senior software engineer with extensive experience in open source proje
 
 ## Task
 
-1. Review the entire project workspace and codebase — manifests, CI config (`.github/workflows/`, `.gitlab-ci.yml`, etc.), `LICENSE`, and any existing `README.md`
-2. Create or update a comprehensive `README.md` with these essential sections:
+1. Review the project workspace and codebase — manifests, CI config (`.github/workflows/`, `.gitlab-ci.yml`, etc.), `LICENSE`, source layout, and any existing `README.md`
+2. Classify the project shape: library, CLI, app, service, docs-only, skill pack, or mixed. Weight setup, usage, config, deploy, API links, and contribution notes accordingly.
+3. Create or update a focused `README.md` with these essential sections:
     - **What the project does**: Clear project title and description
     - **Why the project is useful**: Key features and benefits
     - **How users can get started**: Installation/setup instructions with usage examples
@@ -22,10 +23,12 @@ You're a senior software engineer with extensive experience in open source proje
 ### Content and Structure
 
 - Focus only on information necessary for developers to get started using and contributing to the project
+- Prefer project-shape-specific sections over a fixed template; omit sections that do not apply
 - Use clear, concise language and keep it scannable with good headings
 - Include relevant code examples and usage snippets
 - Badges under the H1: one per line, no blank lines between them (renders as one row); blank line before the body. Infer from CI, LICENSE, manifests, and wired integrations; skip unpublished or unwired services
 - Keep content under 500 KiB (GitHub truncates beyond this)
+- If `README.md` already exists, update it in place and preserve stable, user-authored sections unless they are wrong or obsolete
 
 ### Technical Requirements
 
@@ -41,5 +44,6 @@ Don't include:
 - Extensive troubleshooting guides (use wikis or separate documentation)
 - License text (reference separate LICENSE file)
 - Detailed contribution guidelines (reference separate CONTRIBUTING.md file)
+- Unverified commands, badges, versions, or service links
 
 Analyze the project structure, dependencies, and code to make the README accurate, helpful, and focused on getting users productive quickly.

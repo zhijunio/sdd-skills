@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Design principle docs — [`docs/design.md`](docs/design.md), 33 framework-neutral principles extracted and deduplicated from Spring Boot conventions
 - **Independent skills** (not SDD loop): `git-context`, `git-release`, `create-readme`, `create-agentsmd`, `explain-code`, `onboarding-plan` — paired prompts listed in README
-- GitHub prompt [`grill-me.prompt.md`](.github/prompts/grill-me.prompt.md) — aligned with `sdd-grill`
 
 
 ### Changed
@@ -22,14 +21,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — absorbs the former `repo-audit` two-axis Standards / Spec review style while keeping SDD delivery groups, verdict, and `sdd-build` / `sdd-ship` handoff semantics
 - [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — adds large-diff triage and explicit verification coverage reporting after the rose repo review exposed those failure modes
 - [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — clarifies that report headings must be localized to the user's language while preserving the required semantic sections
+- [`skills/sdd-spec/SKILL.md`](skills/sdd-spec/SKILL.md), [`skills/sdd-plan/SKILL.md`](skills/sdd-plan/SKILL.md), [`skills/sdd-build/SKILL.md`](skills/sdd-build/SKILL.md), and [`skills/sdd-ship/SKILL.md`](skills/sdd-ship/SKILL.md) — tighten lightweight SDD trigger, proof, approval, and write boundaries while keeping the core skills concise
+- SDD skills — remove explicit output-language localization rules; skill contracts remain English-only
+- [`skills/create-readme/SKILL.md`](skills/create-readme/SKILL.md) and [`skills/create-agentsmd/SKILL.md`](skills/create-agentsmd/SKILL.md) — tighten evidence, preservation, project-shape, agent-risk, size, and repo-specific convention rules; paired prompts aligned
 - [`docs/prompts/review-code.prompt.md`](docs/prompts/review-code.prompt.md) — §3 Architecture & design consolidated: merged duplicate layer/error-handling lines into SOLID, added 4 grouped design signals (Design signals, Code hygiene, API contracts, Discipline cross-cuts) sourced from `docs/design.md`
 
 ### Removed
 
 - **`repo-audit`** — merged into `sdd-review`
 - **`repo-audit-full`** — merged into `sdd-audit`
+- **`sdd-grill`** — use an upstream design-interview skill
 - **`git-release`** — absorbed into `sdd-ship`
 - **`.github/prompts/git-release.prompt.md`** — skill absorbed
+- Local design-interview prompt — use an upstream design-interview skill
 
 
 
@@ -41,7 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **`sdd-verify` → `sdd-ship`**: renamed to signal end-to-end delivery; **`git-release`** merged in — ship handles commit, push, PR, merge, tag, and release
-- **Twelve skills:** seven SDD (`sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship`, `sdd-audit`) + five independent utilities
+- **Eleven skills:** six SDD (`sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship`, `sdd-audit`) + five independent utilities
 
 
 
