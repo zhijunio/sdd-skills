@@ -1,86 +1,143 @@
 ---
 name: sdd-review
-description: Use when a scoped diff needs an independent, read-only review before delivery, after implementation, or when the user asks for a review. Classifies code diff vs prose/docs-only; mandatory architecture walk on code diffs only.
+description: >
+  Review a scoped increment diff before delivery. Use when the user wants a branch, PR, WIP change, or "review since X" checked against repo standards and the originating spec. Not whole-repo health audit.
 ---
 
 # sdd-review
 
-## Role
+Two-axis delivery review of an increment diff:
 
-You're a senior software engineer performing a **read-only delivery review** on a defined **increment diff**. You produce a **delivery verdict** with evidence — not implementation, plan updates, or full verification.
+- **Standards** — does the diff conform to this repo's documented standards and baseline quality bar?
+- **Spec** — does the diff faithfully implement the originating issue / PRD / spec / plan?
 
-Review the **work product**, not session history. Default: post the full review in chat. Write to a file only when the user asks.
+Both axes may run as parallel sub-agents so they do not pollute each other's context. This skill aggregates their findings and gives a delivery verdict. Read-only: no file edits, plan edits, commits, or fixes.
 
-## Task
+## Process
 
-1. **Establish scope** — per [scope.md](references/scope.md): user range, merge-base diff, or task-related uncommitted work; never assume `main`/`master` without evidence; record **Diff kind** (`code` / `prose/docs-only`) in the report
-2. **Read the scoped diff** — complete increment, or triage large diffs per scope.md and disclose **Limits**
-3. **Read spec/plan when available** — map Acceptance Criteria when a plan exists; disclose missing spec/plan and label **inferred** claims
-4. Review test changes first
-5. Walk review dimensions per [review-dimensions.md](references/review-dimensions.md) — **Core** always, **Mandatory** on code diffs, **Conditional** when signals apply (see Guidelines)
-6. **Present** the review per [finding-format.md](references/finding-format.md) — section order in the **Report template**; **Suggested next steps** last
-7. **Verdict** — state whether this increment is blocked; name one next skill in **Suggested next steps** (see below)
+### 1. Pin the scope
 
-Use [lens-map.md](references/lens-map.md) for lens ids on findings. Prefer a fresh agent/subagent when available; optional two-pass on large diffs; default one pass.
+Use the fixed point or range the user supplies: commit SHA, branch, tag, PR, `main`, `HEAD~5`, etc.
+
+If they did not specify one, infer from the current task/spec/plan or current branch merge-base. Ask only when the scope is ambiguous: path-only request, unrelated dirty files, unknown integration branch, multiple topics, or a very large diff.
+
+For a very large diff, triage before deep review: record file count and diffstat, group changed files by subsystem, identify public API / docs / tests / build / migration hotspots, then inspect the highest-risk hunks first. If time or context limits prevent full coverage, say exactly which groups were sampled and which remain unreviewed.
+
+Capture once:
+
+- Diff command: `git diff <fixed-point>...HEAD` when a fixed point exists
+- WIP commands when scope includes working tree changes: `git diff` and `git diff --cached`
+- WIP file list: `git status --short` so untracked files are not missed
+- Commit list: `git log <fixed-point>..HEAD --oneline` when useful
+- Diff kind: `code` / `prose/docs-only`; mixed diffs count as `code`
+
+Confirm the scope resolves and has reviewable changes before reviewing. Bad ref or empty committed/staged/unstaged scope fails here, not inside sub-agents.
+
+### 2. Identify the spec source
+
+Look for the originating contract, in this order:
+
+- A spec / plan path the user passed
+- Issue or PR references in commit messages
+- A PRD/spec file under `docs/`, `specs/`, or `wiki/` matching the branch or feature
+- Repository docs that define expected behavior for this increment
+
+If nothing is found, disclose it. Skip the Spec axis only when no local source is discoverable or the user says there is no spec. In that case, do not claim **Spec pass**. For an SDD delivery gate, do not route to `sdd-ship` unless the user explicitly accepts a standards-only review; otherwise route to `sdd-spec` / `sdd-plan`.
+
+### 3. Identify the standards sources
+
+Use repo guidance such as `AGENTS.md`, README, CONTRIBUTING, CODING_STANDARDS, CI docs, and touched-area conventions.
+
+On top of documented standards, carry this baseline:
+
+- **Correctness** — changed code behaves correctly under real inputs, edge cases, failures, state, lifecycle, and concurrency.
+- **Maintainability** — names, duplication, KISS, DRY, SLAP, YAGNI, immutability, and avoidable complexity stay reasonable.
+- **Tests / verification** — changed behavior has convincing behavior-focused coverage, CI/local verification covers the risk, or there is a deterministic alternative proof.
+- **Docs / traceability / compatibility** — spec, plan, CHANGELOG, links, install examples, public APIs, config keys, package names, migration paths, skill lists, and routing tables still match the tree.
+- **Architecture** — for code diffs only: boundaries, responsibilities, dependency direction, half migrations, dead code, parallel APIs, and large duplication.
+- **Conditionals** — security, performance, dependencies, data/migration/persistence, observability, accessibility, and operations only when the diff has real signals.
+
+Repo standards override the baseline. Baseline findings are judgement calls; documented-standard breaches may be hard violations. Skip style nits already enforced by tooling.
+
+### 4. Review both axes
+
+Prefer two parallel sub-agents when available.
+
+**Standards brief:** inspect the scoped diff against documented standards and the baseline. Quote file/hunk evidence. Classify each finding as **🔴 must-fix**, **🟡 should-fix**, or **🟢 suggestion**.
+
+**Spec brief:** compare the scoped diff to the spec/plan. Report missing/partial requirements, scope creep, and wrong-looking implementations. Quote spec lines when possible. Classify each finding as **🔴 must-fix**, **🟡 should-fix**, or **🟢 suggestion**.
+
+If sub-agents are unavailable, run the two passes sequentially and disclose that in Coverage.
+
+Run only relevant, non-mutating verification commands when they materially reduce uncertainty. Report command outcomes as evidence, not as a substitute for review. Tie each skipped command to the risk it leaves open, especially for integration tests, generated docs, package metadata, and release notes.
+
+### 5. Aggregate
+
+Present `Standards` and `Spec` separately. Do not merge or rerank the axes.
+
+Delivery verdict:
+
+- **blocked** — any unresolved **🔴 must-fix**
+- **pass** — no unresolved **🔴 must-fix** and no unaccepted **🟡 should-fix**
+- **pass pending risk acceptance** — no **🔴 must-fix**, but **🟡 should-fix** remains for the user to accept or route to `sdd-build`
+
+End with one next route:
+
+- **`sdd-build`** when blocked
+- **`sdd-ship`** when pass
+- **`sdd-spec`** when the spec/AC must change before judging the diff
 
 ## Present
 
-Write the review in the **user's language** (latest user turn when unclear) — do not default to English for report prose. Keep literal: lens ids, skill ids, `file:line`, git literals, delivery groups **🔴 must-fix / 🟡 should-fix / 🟢 suggestion**.
+Write the report in the **user's language** when clear from the latest user turn. Localize section headings too. Keep literal: `AC-n`, `file:line`, git refs, skill ids, and **🔴/🟡/🟢** groups.
 
-| Group | Meaning |
-| --- | --- |
-| **🔴 must-fix** | Blocks delivery for this increment — delivery gate |
-| **🟡 should-fix** | Fix unless the user accepts risk |
-| **🟢 suggestion** | Non-blocking |
+Optimize for a clear, readable review, not a formal dump. Findings and verdict matter more than the template, but the reader must be able to scan scope, coverage, evidence, and next route quickly.
 
-Optional impact emoji per [`sdd-audit` report.md](../sdd-audit/references/report.md) — ranks within a group; **not** the delivery gate.
+Required semantic sections. The English labels below name the slots; do not force them as headings when the user is using another language:
+
+- **Scope** — baseline/range, diff kind, spec source, standards sources
+- **Coverage** — examined axes/dimensions, large-diff triage if any, commands run/skipped, and limits
+- **Standards**
+- **Spec**
+- **Verdict**
+- **Suggested next steps** — always last
+
+For Chinese output, use headings like **范围**, **覆盖**, **标准**, **规格**, **结论**, **建议下一步**.
 
 ## Guidelines
 
-### Scope and dimensions
+### Delivery groups
 
-- **Increment diff only** — not whole-repo health audit (see Disambiguation)
-- **Never skip architecture on code diffs** — empty walk → `architecture: pass` in Coverage
-- Pre-existing issues **outside** the scoped diff → **Coverage — Limits** or out-of-scope observations — not must-fix unless the diff reintroduces or worsens them
-- Each finding needs **Evidence**; avoid one-line findings without grading
-
-### Dimension selection
-
-| Priority | Dimensions | Trigger |
-|----------|-----------|---------|
-| Core (always) | spec/plan compliance; correctness/regressions; tests; docs/traceability + reference integrity on renames | Every diff |
-| Mandatory on code diffs | architecture (structure + DRY/KISS in the diff) | Code diffs only; **skip** on prose/docs-only |
-| Conditional | standards, security, performance, dependencies, observability, accessibility, operations | When signals apply; record `*: skip` in **Coverage** when not walked
+| Group | Use when |
+| --- | --- |
+| **🔴 must-fix** | Blocks delivery: correctness, security, spec/AC gap, data loss, non-goal violation |
+| **🟡 should-fix** | Fix unless user accepts risk: half migration, changed-path test gap, meaningful duplication |
+| **🟢 suggestion** | Non-blocking: docs, small DRY/KISS, readability in the diff |
 
 ### Disambiguation
 
 | Request | Route |
 | --- | --- |
-| Codebase / branch health audit without delivery increment | [`sdd-audit`](../sdd-audit/SKILL.md) |
-| Territory map only, no delivery diff | Decline — out of scope for delivery review |
-| Ambiguous "review" with no diff range | Ask user vs **`sdd-audit`** |
-| Full AC evidence tables / ship checklist | [`sdd-ship`](../sdd-ship/SKILL.md) — not here |
-
-### Stop
-
-After **Suggested next steps**, hand off — no in-session product edits or plan updates:
-
-- **`sdd-build`** when 🔴 must-fix findings are unresolved
-- **`sdd-ship`** otherwise (fresh verification on this increment)
+| Whole-repo / module / area audit | [`sdd-audit`](../sdd-audit/SKILL.md) |
+| Fresh health roadmap | [`sdd-audit`](../sdd-audit/SKILL.md) |
+| Final AC evidence / delivery verification | [`sdd-ship`](../sdd-ship/SKILL.md) |
+| Fix review findings | [`sdd-build`](../sdd-build/SKILL.md) |
 
 ### What NOT to do
 
 Do not:
 
-- Edit product, test, or plan files while reviewing
-- Review staged-only when the increment includes unstaged work the user expects in scope
-- Use a path alone without a commit range, PR, or baseline
-- Treat whole-repo patterns as must-fix without a scoped diff (note in Limits or route to **`sdd-audit`**)
-- Claim spec/plan compliance without reading them when paths exist
-- Run architecture walk on prose/docs-only diffs
-- Skip architecture on code diffs
-- Use audit severity (P0/P1/P2) as the delivery gate — use **🔴/🟡/🟢** groups per [finding-format.md](references/finding-format.md)
+- Edit files while reviewing
+- Treat whole-repo patterns as must-fix unless the diff introduced or worsened them
+- Use audit P0/P1/P2 as the delivery gate
+- Claim spec compliance without reading the spec when it exists
+- Pick one winner across Standards and Spec
 
-## References
+## Why two axes
 
-[scope.md](references/scope.md) · [review-dimensions.md](references/review-dimensions.md) · [lens-map.md](references/lens-map.md) · [finding-format.md](references/finding-format.md)
+A change can pass one axis and fail the other:
+
+- Code that follows every standard but implements the wrong thing → **Standards pass, Spec fail.**
+- Code that does exactly what the issue asked but breaks repo conventions → **Spec pass, Standards fail.**
+
+Keeping the axes separate stops one from masking the other.

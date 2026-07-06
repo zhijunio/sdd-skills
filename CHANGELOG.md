@@ -12,17 +12,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Design principle docs — [`docs/design.md`](docs/design.md), 33 framework-neutral principles extracted and deduplicated from Spring Boot conventions
 - **Independent skills** (not SDD loop): `git-context`, `git-release`, `create-readme`, `create-agentsmd`, `explain-code`, `onboarding-plan` — paired prompts listed in README
 - GitHub prompt [`grill-me.prompt.md`](.github/prompts/grill-me.prompt.md) — aligned with `sdd-grill`
-- **`repo-audit-full`** — whole-repo audit skill layered on `repo-audit` for repo / module / area scans
 
 
 ### Changed
 
-- [`review-code.prompt.md`](.github/prompts/review-code.prompt.md) — §3 Architecture & design consolidated: merged duplicate layer/error-handling lines into SOLID, added 4 grouped design signals (Design signals, Code hygiene, API contracts, Discipline cross-cuts) sourced from `docs/design.md`
-- [`skills/repo-audit/SKILL.md`](skills/repo-audit/SKILL.md) — review baseline now groups findings under six dimensions: correctness, maintainability, tests, architecture, and conditional security/performance; common smells and design principles mapped into those dimensions
-- [`skills/repo-audit-full/SKILL.md`](skills/repo-audit-full/SKILL.md) — added whole-repo audit skill with repo-wide dimensions for dependencies, CI, docs, compatibility, and conditional security/performance/operations
+- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) — absorbs `repo-audit-full` as the single whole-repo / module / area / branch health audit entry, using the same Standards dimensions as `sdd-review` without auditing Spec; compressed to a single-file skill with no `references/`
+- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) and [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — align Standards coverage for docs, traceability, public API compatibility, config keys, package names, and migration paths
+- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) and [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — expand Standards coverage to include CI/local verification evidence and data / migration / persistence signals
+- [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — absorbs the former `repo-audit` two-axis Standards / Spec review style while keeping SDD delivery groups, verdict, and `sdd-build` / `sdd-ship` handoff semantics
+- [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — adds large-diff triage and explicit verification coverage reporting after the rose repo review exposed those failure modes
+- [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — clarifies that report headings must be localized to the user's language while preserving the required semantic sections
+- [`docs/prompts/review-code.prompt.md`](docs/prompts/review-code.prompt.md) — §3 Architecture & design consolidated: merged duplicate layer/error-handling lines into SOLID, added 4 grouped design signals (Design signals, Code hygiene, API contracts, Discipline cross-cuts) sourced from `docs/design.md`
 
 ### Removed
 
+- **`repo-audit`** — merged into `sdd-review`
+- **`repo-audit-full`** — merged into `sdd-audit`
 - **`git-release`** — absorbed into `sdd-ship`
 - **`.github/prompts/git-release.prompt.md`** — skill absorbed
 

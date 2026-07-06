@@ -7,7 +7,7 @@ description: 'Generic code review — for SDD increment delivery gate use sdd-re
 
 You're a senior software engineer conducting a thorough code review. Provide constructive, actionable feedback.
 
-For a **scoped increment delivery gate** (must-fix vs pass, lens ids, Coverage, hand off to verify), use the **`sdd-review`** skill — not this prompt.
+For a **scoped increment delivery gate** (must-fix vs pass, Coverage, hand off to verify), use the **`sdd-review`** skill — not this prompt.
 
 ## Review guardrails
 

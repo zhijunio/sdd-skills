@@ -3,15 +3,15 @@
 [![CI](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml/badge.svg)](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml)
 [![License](https://img.shields.io/github/license/zhijunio/sdd-skills)](LICENSE)
 
-**Fourteen** platform-neutral agent skills in one repo: a **six-stage SDD delivery loop** (plus optional `sdd-grill` and `sdd-audit`), **two audit skills** (`repo-audit` for increment diffs, `repo-audit-full` for whole-repo scans), and **six independent utility skills** that are not part of that loop. No state machine, project manager, or Git workflow framework — SDD stages you **`@`** one at a time.
+**Twelve** platform-neutral agent skills in one repo: a **five-stage SDD delivery loop** (plus optional `sdd-grill` and `sdd-audit`) and **five independent utility skills** that are not part of that loop. No state machine, project manager, or Git workflow framework — SDD stages you **`@`** one at a time.
 
 ## Why use these skills
 
 - **Explicit stages** — one skill output → **Stop** → hand off; no auto-chaining
 - **Verifiable slices** — spec AC, plan as vertical slices, test-first build, evidence-backed review and verify
 - **SDD optional** — `sdd-grill` (clarify) and `sdd-audit` (codebase health) only when you need them
-- **Audit split** — `repo-audit` reviews increment diffs; `repo-audit-full` reviews the whole repo; `sdd-audit` stays the health/roadmap audit
-- **Independent utilities** — README, AGENTS.md, git isolation, release, explain, onboarding — install separately; no SDD coupling
+- **Review/audit split** — `sdd-review` gates increment diffs; `sdd-audit` reviews repo / module / area / branch health
+- **Independent utilities** — README, AGENTS.md, explain, onboarding, over-engineering audit — install separately; no SDD coupling
 - **Platform-neutral** — Markdown skills only; works with Cursor, Codex, Claude Code, and other agents via the [skills CLI](https://github.com/vercel-labs/skills)
 
 Six principles (shape / delivery / governance): explicit stages, verifiable slices, test and prove, borrow don't rebuild — embodied in skill `SKILL.md` files and [AGENTS.md](AGENTS.md).
@@ -55,7 +55,7 @@ npx skills@latest add zhijunio/sdd-skills -s sdd-spec -s sdd-plan -y
 Independent skills only (examples):
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -s git-context -a cursor -y
+npx skills@latest add zhijunio/sdd-skills -s ponytail-audit -a cursor -y
 npx skills@latest add zhijunio/sdd-skills -s create-readme -s create-agentsmd -y
 ```
 
@@ -63,12 +63,6 @@ SDD optional audit:
 
 ```bash
 npx skills@latest add zhijunio/sdd-skills -s sdd-audit -a cursor -y
-```
-
-Audit skills:
-
-```bash
-npx skills@latest add zhijunio/sdd-skills -s repo-audit -s repo-audit-full -y
 ```
 
 **Stable pin** (`v0.3.1` — eight skills, pre-rename ids):
@@ -86,7 +80,7 @@ List without installing: `npx skills@latest add zhijunio/sdd-skills --list`
 
 **Manual install:** copy `skills/<name>/` into your agent's skills directory (include bundled `references/` where present).
 
-> **Breaking on current `main` (unreleased):** `sdd-verify` → `sdd-ship` (git-release merged in); `sdd-improve` → `sdd-audit`; `sdd-worktree` → `git-context`; `sdd-publish` → `git-release`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`; **`sdd-zoom` removed**. Update `@` references after upgrading from `v0.3.1`.
+> **Breaking on current `main` (unreleased):** `sdd-verify` → `sdd-ship`; `repo-audit` → `sdd-review`; `repo-audit-full` → `sdd-audit`; `sdd-improve` → `sdd-audit`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`; **`git-release`**, **`sdd-worktree`**, and **`sdd-zoom` removed**. Update `@` references after upgrading from `v0.3.1`.
 
 ## SDD workflow
 
@@ -126,11 +120,9 @@ Instructions **English**; deliverables follow the user's language (**Present** i
 | Skill | Use when |
 | --- | --- |
 | `sdd-grill` | Goals, boundaries, or trade-offs need decisions before spec or plan |
-| `sdd-audit` | Repo or branch health scan for follow-ups — not a delivery gate |
-| `repo-audit` | Increment diff review along `Standards` and `Spec` axes |
-| `repo-audit-full` | Whole-repo / module / area audit along `Standards` and `Spec` axes |
+| `sdd-audit` | Whole-repo / module / area / branch health audit using the same `Standards` dimensions as `sdd-review` — not a delivery gate and not a Spec review |
 
-**Review vs audit:** `sdd-review` gates **this increment**; `repo-audit` reviews **this increment**; `repo-audit-full` reviews the **repo / module / area**; `sdd-audit` scans the **repo or branch** for follow-ups only. Do not substitute one for the other — see **When/Skip** links in each skill.
+**Review vs audit:** `sdd-review` gates **this increment**; `sdd-audit` audits the **repo / module / area / branch** for follow-ups.
 
 ### Independent (not SDD)
 
@@ -141,10 +133,10 @@ Bundled in this repo for convenience; **no SDD loop coupling** — `@` only when
 | `create-readme` | Human-facing README.md for a project |
 | `create-agentsmd` | AGENTS.md for agent operating context |
 | `explain-code` | Explain code in chat |
-| `git-context` | Isolated git context (worktree or topic branch) before coding |
 | `onboarding-plan` | Phased contributor onboarding plan |
+| `ponytail-audit` | Whole-repo over-engineering audit |
 
-Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independent files, content aligned with skills below (no cross-links between skill and prompt).
+Paired prompt files under [`docs/prompts/`](docs/prompts/) — independent files, content aligned with skills below (no cross-links between skill and prompt).
 
 | Skill | Paired prompt |
 | --- | --- |
@@ -154,7 +146,7 @@ Paired GitHub prompts under [`.github/prompts/`](.github/prompts/) — independe
 | `explain-code` | `explain-code.prompt.md` |
 | `onboarding-plan` | `onboarding-plan.prompt.md` |
 
-`git-context` has no paired prompt.
+`ponytail-audit` has no paired prompt.
 
 **Prompt-only** (no skill):
 
@@ -181,13 +173,12 @@ Optional: `docs/adr/`, `CONTEXT.md` for stable domain language in consumer proje
 | Topic | Link |
 | --- | --- |
 | Agent operating guide | [AGENTS.md](AGENTS.md) |
-| Maintainer SDD archives | [docs/sdd/README.md](docs/sdd/README.md) |
-| Contributor onboarding | [`onboarding-plan`](skills/onboarding-plan/SKILL.md) skill · [prompt](.github/prompts/onboarding-plan.prompt.md) |
+| Contributor onboarding | [`onboarding-plan`](skills/onboarding-plan/SKILL.md) skill · [prompt](docs/prompts/onboarding-plan.prompt.md) |
 | Release history | [CHANGELOG.md](CHANGELOG.md) |
 
 ## Contributing
 
-Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (fourteen skills, `sdd-ship` present). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
+Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; CI job **`validate`** must pass (twelve skills, `sdd-ship` present, retired audit ids absent). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
 
 ## Sources
 

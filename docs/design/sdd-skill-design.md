@@ -163,7 +163,7 @@
 - Put examples, templates, and checklists in `references/`.
 - Split by stage if the workflow grows.
 - Do not turn the skill into a generic developer assistant.
-- Do not fold unrelated repo-audit behavior into the delivery loop.
+- Do not fold whole-repo audit behavior into the delivery loop.
 
 ## What To Put In SKILL.md
 
