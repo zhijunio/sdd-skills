@@ -53,7 +53,7 @@ On top of documented standards, carry this baseline:
 - **Correctness** — changed code behaves correctly under real inputs, edge cases, failures, state, lifecycle, and concurrency.
 - **Maintainability** — names, duplication, KISS, DRY, SLAP, YAGNI, immutability, and avoidable complexity stay reasonable.
 - **Tests / verification** — changed behavior has convincing behavior-focused coverage, CI/local verification covers the risk, or there is a deterministic alternative proof.
-- **Docs / traceability / compatibility** — spec, plan, CHANGELOG, links, install examples, public APIs, config keys, package names, migration paths, skill lists, and routing tables still match the tree.
+- **Docs / traceability / compatibility / DX** — spec, plan, CHANGELOG, links, install examples, local setup, tooling, developer workflow, public APIs, config keys, package names, migration paths, skill lists, and routing tables still match the tree.
 - **Architecture** — for code diffs only: boundaries, responsibilities, dependency direction, half migrations, dead code, parallel APIs, and large duplication.
 - **Conditionals** — security, performance, dependencies, data/migration/persistence, observability, accessibility, and operations only when the diff has real signals.
 

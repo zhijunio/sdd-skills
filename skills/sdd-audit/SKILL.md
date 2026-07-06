@@ -39,7 +39,7 @@ On top of documented standards, carry the same Standards baseline as `sdd-review
 - **Correctness** — real inputs, edge cases, failures, state, lifecycle, concurrency.
 - **Maintainability** — names, duplication, KISS, DRY, SLAP, YAGNI, immutability, avoidable complexity.
 - **Tests / verification** — behavior-focused coverage, CI/local verification covers the risk, or deterministic proof.
-- **Docs / traceability / compatibility** — README, AGENTS, wiki, CHANGELOG, install examples, public APIs, config keys, package names, migration paths, routing tables, and public docs match the tree.
+- **Docs / traceability / compatibility / DX** — README, AGENTS, wiki, CHANGELOG, install examples, local setup, tooling, developer workflow, public APIs, config keys, package names, migration paths, routing tables, and public docs match the tree.
 - **Architecture** — boundaries, responsibilities, dependency direction, half migrations, dead code, parallel APIs, large duplication.
 - **Conditionals** — security, performance, dependencies, data/migration/persistence, observability, accessibility, and operations only when the scope has real signals.
 
