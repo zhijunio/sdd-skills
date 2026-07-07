@@ -1,0 +1,23 @@
+name: check
+
+on:
+  push:
+    paths:
+      - 'skills/**'
+      - 'scripts/**'
+      - '.github/workflows/check.yml'
+  pull_request:
+    paths:
+      - 'skills/**'
+      - 'scripts/**'
+      - '.github/workflows/check.yml'
+
+jobs:
+  skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify cross-skill routing links
+        run: |
+          chmod +x scripts/check-skills.sh
+          ./scripts/check-skills.sh

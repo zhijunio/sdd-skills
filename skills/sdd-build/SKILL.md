@@ -17,7 +17,7 @@ Tests verify behavior through public interfaces, not implementation details.
 
 ## Task
 
-1. Require **approved spec + plan** — read `AGENTS.md`, README, linters when present; follow spec/plan and touched-code patterns; exclude unrelated dirty files
+1. Require **approved spec + plan** — read `AGENTS.md`, README, linters when present; follow spec/plan and touched-code patterns; exclude unrelated dirty files. On the review-fix path, sdd-review's listed findings are the plan: skip the spec/plan prerequisite and treat "listed findings only" as the scope contract.
 2. **Slice loop** until all slices complete:
     - Select one unfinished slice (already satisfied → mark done, next)
     - For behavior code, write a **failing test** and observe the right failure
