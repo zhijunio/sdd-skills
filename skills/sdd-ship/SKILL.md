@@ -16,7 +16,7 @@ NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 
 This skill has two phases:
 
-- **Verify** — quality gate (evidence, regression, CHANGELOG)
+- **Verify** — quality gate (evidence, regression, CHANGELOG check)
 - **Ship** — delivery (commit, push, PR, merge, tag, release)
 
 ## Gates (both phases)
@@ -45,7 +45,7 @@ This skill has two phases:
 3. **Regression** coverage proportional to interface, dependency, config, and shared-module risk
 4. **Check** for missing or uncommitted task changes
 5. **Record** commands, outcomes, unrun checks, remaining risks
-6. **Update** existing **CHANGELOG** when project convention and user-visible impact require it; create CHANGELOG only when the user explicitly requests a format
+6. **Check** existing **CHANGELOG** when project convention and user-visible impact require it; report gaps only
 7. **Present** the verify summary (see Present)
 8. **Ask**: "Continue to Ship phase?" — if yes, proceed to Ship phase; if no, stop here
 
@@ -64,13 +64,13 @@ This skill has two phases:
 
 ## Present
 
-Write the verify summary in the **user's language** when clear from context. Required content (layout flexible):
+Write a concise verify summary. Required content (layout flexible):
 
 - **Acceptance Evidence** — Criterion | Implementation | Evidence | Pass/Fail
 - **Regression Checks**
 - **Unrun Checks**
 - **Remaining Risks**
-- **CHANGELOG** — user-visible only, or "none needed"
+- **CHANGELOG** — checked / gap / none needed; no edit unless confirmed
 - **Delivery Status** — "Ready for Ship" or "Gaps found"
 
 Every AC needs fresh, proportionate evidence. Explain skipped checks.

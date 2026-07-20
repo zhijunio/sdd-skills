@@ -9,47 +9,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Design principle docs — [`docs/design.md`](docs/design.md), 33 framework-neutral principles extracted and deduplicated from Spring Boot conventions
-- **Independent skills** (not SDD loop): `git-context`, `git-release`, `create-readme`, `create-agentsmd`, `explain-code`, `onboarding-plan` — paired prompts listed in README
-- GitHub prompt [`grill-me.prompt.md`](.github/prompts/grill-me.prompt.md) — aligned with `sdd-grill`
+- Design principle docs — [`docs/design/design.md`](docs/design/design.md), 33 framework-neutral principles extracted and deduplicated from Spring Boot conventions
 
 
 ### Changed
 
-- [`review-code.prompt.md`](.github/prompts/review-code.prompt.md) — §3 Architecture & design consolidated: merged duplicate layer/error-handling lines into SOLID, added 4 grouped design signals (Design signals, Code hygiene, API contracts, Discipline cross-cuts) sourced from `docs/design.md`
-- [`skills/repo-audit/SKILL.md`](skills/repo-audit/SKILL.md) — review baseline now groups findings under six dimensions: correctness, maintainability, tests, architecture, and conditional security/performance; common smells and design principles mapped into those dimensions
+- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) — absorbs `repo-audit-full` as the single whole-repo / module / area / branch health audit entry, using the same Standards dimensions as `sdd-review` without auditing Spec; compressed to a single-file skill with no `references/`
+- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) and [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — align Standards coverage for docs, traceability, public API compatibility, config keys, package names, and migration paths
+- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) and [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — expand Standards coverage to include CI/local verification evidence and data / migration / persistence signals
+- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) and [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — make DX / tooling an explicit Standards dimension without adding product direction review
+- [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — absorbs the former `repo-audit` two-axis Standards / Spec review style while keeping SDD delivery groups, verdict, and `sdd-build` / `sdd-ship` handoff semantics
+- [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — adds large-diff triage and explicit verification coverage reporting after the rose repo review exposed those failure modes
+- [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — clarifies that report headings must be localized to the user's language while preserving the required semantic sections
+- [`skills/sdd-spec/SKILL.md`](skills/sdd-spec/SKILL.md), [`skills/sdd-plan/SKILL.md`](skills/sdd-plan/SKILL.md), [`skills/sdd-build/SKILL.md`](skills/sdd-build/SKILL.md), and [`skills/sdd-ship/SKILL.md`](skills/sdd-ship/SKILL.md) — tighten lightweight SDD trigger, proof, approval, and write boundaries while keeping the core skills concise
+- SDD skills — remove explicit output-language localization rules; skill contracts remain English-only
+- [`skills/create-readme/SKILL.md`](skills/create-readme/SKILL.md) and [`skills/create-agentsmd/SKILL.md`](skills/create-agentsmd/SKILL.md) — tighten evidence, preservation, project-shape, agent-risk, size, and repo-specific convention rules; paired prompts aligned
+- [`docs/prompts/review-code.prompt.md`](docs/prompts/review-code.prompt.md) — align code-review dimensions with `sdd-review` using six compact areas, including DX, tooling, traceability, compatibility, and consolidated architecture signals
+- [`README.md`](README.md) and [`AGENTS.md`](AGENTS.md) — remove repo-local CI workflow references and point maintainers to the local validation commands instead
+- [`README.md`](README.md) — remove the retired `git-release.prompt.md` entry so the prompt registry matches `docs/prompts/`
 
 ### Removed
 
+- **`repo-audit`** — merged into `sdd-review`
+- **`repo-audit-full`** — merged into `sdd-audit`
+- **`sdd-grill`** — use an upstream design-interview skill
 - **`git-release`** — absorbed into `sdd-ship`
-- **`.github/prompts/git-release.prompt.md`** — skill absorbed
-
-
-
+- **`git-release.prompt.md`** — prompt absorbed into `sdd-ship`
+- Local design-interview prompt — use an upstream design-interview skill
 - **`sdd-zoom`** — territory map skill; map-only requests declined in audit/review or handled ad hoc
-- **`sdd-repo-docs`** — replaced by `create-readme` + `create-agentsmd` (+ `explain-code`)
-- **`docs/design/`** — removed maintainer design docs (`SOURCES.md`, `engineering-rationale.md`, `THIRD_PARTY_NOTICES.md`); runtime contracts live in `skills/*/SKILL.md`, pairing table in README
-
-- **`.github/prompts/zoom-codebase.prompt.md`** — orphan prompt left after `sdd-zoom` removal
-
-### Changed
-- **`sdd-verify` → `sdd-ship`**: renamed to signal end-to-end delivery; **`git-release`** merged in — ship handles commit, push, PR, merge, tag, and release
-- **Twelve skills:** seven SDD (`sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship`, `sdd-audit`) + five independent utilities
-
-
-
-**Breaking renames** (update `@` after upgrading from `v0.3.1`): `sdd-ship` → `sdd-verify`; `sdd-improve` → `sdd-audit`; `sdd-worktree` → `git-context`; `sdd-publish` → `git-release`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`.
-
-- **Twelve skills:** seven SDD (`sdd-grill`, `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-verify`, `sdd-audit`) + six independent utilities; SDD skills do not cross-link to independent skills
-- **`sdd-audit` / `sdd-review`:** MECE lenses, report section order, removed `sdd-zoom` routes; audit Findings use severity groups + cards (not 12-column table)
-- **`sdd-grill`**: Role / Task / Guidelines; SDD optional **Stop** → `sdd-spec` / `sdd-plan`
-- **Docs:** restore [README.md](README.md), [AGENTS.md](AGENTS.md), [docs/sdd/README.md](docs/sdd/README.md) (maintainer archive index); skill ↔ prompt pairing table in README
-
-**Spot-check:** `git-context`, `git-release` (2026-06-12); doc satellites on consumer repo (2026-06-25) — no blocking friction. Maintainer self-trial suffices for satellites; no separate consumer-repo gate.
-
-- **CI `validate`:** assert all retired skill ids (`git-release`, `sdd-improve`, `sdd-zoom`, …) stay absent and every `.github/prompts/*.prompt.md` is registered in README
-
-- **`sdd-audit` report:** zero-cut simplicity audits end `Lean already — ship.`; simplicity roadmap rows end with `net: -<N> lines, -<M> deps possible.` estimate — inspired by [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) `ponytail-audit`
 
 ## [0.3.1] - 2026-06-11
 

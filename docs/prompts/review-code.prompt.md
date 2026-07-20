@@ -7,7 +7,7 @@ description: 'Generic code review — for SDD increment delivery gate use sdd-re
 
 You're a senior software engineer conducting a thorough code review. Provide constructive, actionable feedback.
 
-For a **scoped increment delivery gate** (must-fix vs pass, lens ids, Coverage, hand off to verify), use the **`sdd-review`** skill — not this prompt.
+For a **scoped increment delivery gate** (must-fix vs pass, Coverage, hand off to verify), use the **`sdd-review`** skill — not this prompt.
 
 ## Review guardrails
 
@@ -19,7 +19,7 @@ For a **scoped increment delivery gate** (must-fix vs pass, lens ids, Coverage, 
 
 ## Review Areas
 
-Walk areas **1–4 always**. Walk **5** on executable code changes. Walk **6–14** when the change touches those surfaces (skip with a one-line note when not applicable).
+Walk areas **1–5 always**. Walk **6** only for touched surfaces; skip with a one-line note when not applicable.
 
 ### 1. Spec & intent compliance
 
@@ -42,10 +42,11 @@ Walk areas **1–4 always**. Walk **5** on executable code changes. Walk **6–1
 - **Cross-file consistency** — same field/limit/policy consistent across files touched (validation vs storage, auth config vs outbound client)
 - Bug fixes should include a regression test (see §4)
 
-### 3. Architecture & design
+### 3. Maintainability & architecture
 
 *Does the change worsen structure without justification?* (executable code only)
 
+- Names, duplication, KISS, DRY, SLAP, YAGNI, immutability, and avoidable complexity stay reasonable
 - **SOLID** — SRP, DIP violations, fat interfaces, domain→infra leaks,
   circular deps, layer boundaries, error-handling strategy at boundaries
 - Design patterns used correctly (Command, Factory, Repository, DI lifetimes)
@@ -62,6 +63,7 @@ Walk areas **1–4 always**. Walk **5** on executable code changes. Walk **6–1
   exception hierarchy with common base
 - **Discipline cross-cuts** — consistent logger/test naming, log level discipline,
   test behavior not internals, Design by Contract (pre/post honored by subtypes)
+- No half migrations, dead code, parallel APIs, or large duplication without a clear reason
 
 ### 4. Tests & verification
 
@@ -74,92 +76,25 @@ Walk areas **1–4 always**. Walk **5** on executable code changes. Walk **6–1
 
 ### 5. Documentation & traceability
 
-*Can readers follow the change without broken pointers?*
+*Can readers and tools follow the change without broken pointers?*
 
-- Public API, README, CHANGELOG, runbooks updated when behavior or ops change
-- Stale links after renames; install pins and examples match the tree
+- Spec, plan, public API, README, CHANGELOG, runbooks updated when behavior or ops change
+- Stale links after renames; install pins, package metadata, and examples match the tree
+- Local setup, tooling, developer workflow, config keys, package names, migration notes, registries, and routing tables stay compatible with code changes
 - Comments explain non-obvious invariants — not narrate obvious code
 
-### 6. Security
+### 6. Conditional surfaces
 
-*When the change touches I/O, auth, data, crypto, or secrets.*
+*Only inspect surfaces the change actually touches.*
 
-- **Injection** — SQL concat, command execution, XSS, SSRF, path traversal
-- **AuthN / AuthZ** — missing guards, BOLA/IDOR, JWT weaknesses, CSRF on cookie auth
-- **Secrets & exposure** — hardcoded credentials; tokens/passwords in logs or error responses
-- **Cryptography** — weak algorithms (MD5/SHA1), weak randomness for tokens
-- **Deserialization / XML** — unsafe `ObjectInputStream`, XXE, pickle/unserialize
-- **Business logic** — TOCTOU on checks-then-acts; missing rate limits on sensitive endpoints
-- Report credential **type** and location only — never echo secret values
-
-### 7. SQL & data access
-
-*When the change includes SQL, migrations, ORM raw queries, or data-layer code.*
-
-- Parameterized queries; no dynamic SQL via string concat
-- Index-friendly predicates; avoid functions on indexed columns in WHERE
-- N+1 queries, unbounded fetches, missing pagination
-- Migration safety — constraints, reversibility, deploy order
-- Least-privilege grants; sensitive columns not over-selected
-
-### 8. Performance & efficiency
-
-*When the change affects hot paths, queries, loops, or batch work.*
-
-- Algorithm and allocation cost on changed paths
-- Blocking work on async/event threads; unnecessary re-renders (UI)
-- Caching, batching, pagination where lists or queries grew
-- Database: join shape, DISTINCT masking bad joins, correlated subqueries
-
-### 9. Dependencies & supply chain
-
-*When manifests, lockfiles, vendored libs, or generated code from deps change.*
-
-- Necessity and scope of new dependencies; license fit
-- Known CVEs in **changed** versions; pin vs floating versions
-- Lockfile consistency; breaking upgrades with migration notes
-- CI actions pinned to SHA where third-party (supply chain)
-
-### 10. Observability
-
-*When logging, metrics, tracing, or error responses change.*
-
-- Critical paths log enough context to debug — not noise
-- No PII, secrets, or full payloads in logs
-- Errors actionable for operators; metrics match new behavior
-
-### 11. Accessibility
-
-*When UI markup, components, or forms change.*
-
-- Keyboard navigation and focus order
-- Accessible names, labels, alt text
-- Form errors associated with fields; focus traps avoided
-
-### 12. Operations & CI/CD
-
-*When workflows, deploy scripts, Docker, K8s, Terraform, or feature flags change.*
-
-- **Script injection** — `${{ }}` expanded into shell before run; untrusted PR/issue text in `run:` steps
-- **Privileged triggers** — `pull_request_target` / `workflow_run` running untrusted fork code with secrets
-- **Token scope** — least-privilege `permissions:`; secrets not passed to untrusted steps
-- Rollback story, health checks, migration vs deploy order, runbook updates
-
-### 13. Standards & conventions
-
-*When repo guidance or linter config is touched, or patterns clearly violate project rules.*
-
-- `AGENTS.md`, README, team coding standards, CI-enforced rules
-- Naming, module layout, and patterns consistent with surrounding code
-- Skip pure formatting already gated by formatter/linter
-
-### 14. Privacy & compliance
-
-*When the change handles personal data, accounts, cookies, analytics, or retention.*
-
-- Data minimization; purpose limitation; retention/deletion paths
-- Pseudonymization/anonymization where required; audit vs application logs separated
-- Export/erase flows; consent and lawful basis reflected in code paths
+- **Security / privacy** — injection, auth, secrets, crypto, unsafe deserialization, rate limits, PII, retention, consent, erase/export paths. Report credential type and location only; never echo secret values.
+- **Data / persistence** — SQL safety, ORM raw queries, N+1, pagination, indexes, least-privilege grants, migration safety, reversibility, deploy order.
+- **Performance** — algorithm cost, allocation, hot paths, blocking async/event threads, UI re-renders, caching, batching, query shape.
+- **Dependencies / supply chain** — necessity, scope, license fit, changed-version CVEs, pinning, lockfile consistency, third-party CI action pinning.
+- **Observability** — logs, metrics, tracing, error responses, operator actionability, no secrets/PII/full payloads in logs.
+- **Accessibility** — keyboard flow, focus order, accessible names, labels, alt text, form errors, focus traps.
+- **Operations / CI** — workflow injection, privileged triggers, token scope, feature flags, rollback, health checks, runbooks, migration vs deploy order.
+- **Repo standards** — `AGENTS.md`, README, team coding standards, CI-enforced rules, naming, module layout, and surrounding patterns.
 
 ---
 

@@ -1,113 +1,129 @@
 ---
 name: sdd-audit
-description: Use when the user wants a read-only codebase or branch health audit—not increment delivery review, implementation edits, or plans unless the user asks.
+description: >
+  Read-only whole-repo, module, area, or branch health audit. Use when the user asks for a repository-wide review, health scan, or architecture/security/tests/deps/ops audit. Not increment delivery review, implementation edits, or Spec review.
 ---
 
 # sdd-audit
 
-## Role
+Standards-only health audit of a broad scope:
 
-You're a senior software engineer performing a **read-only MECE multi-pillar health assessment** — systemic patterns first, evidence-backed findings, no repo edits.
+- **Same content as `sdd-review` Standards** — correctness, maintainability, tests, docs/traceability, architecture, and conditional signals.
+- **Different scope from `sdd-review`** — repo, module, area, or branch instead of an increment diff.
 
-Default: post the full report in chat. Write to a file only when the user asks.
+Read-only: no file edits, plan edits, installs, formatters, commits, or fixes. Do not audit **Spec** or AC compliance here; scoped delivery Spec review belongs to [`sdd-review`](../sdd-review/SKILL.md).
 
-## Task
+## Process
 
-1. **Scope** — whole repo, branch, or user-named area; match invocation keywords to pillars (see Guidelines)
-2. **Recon** — per [references/playbook.md](references/playbook.md): stack signals → invoked pillar sections
-3. **Vet** — re-read High+ findings; ADRs are by-design unless contradicted
-4. **Present** the report per [references/report.md](references/report.md) — **Suggested next steps** last
-5. **Deep mode only** — follow [references/deep-parallel.md](references/deep-parallel.md) when user requests `deep` / 深度
+### 1. Pin the scope
 
-Pillar routing: [references/map.md](references/map.md).
+Use the scope the user supplies: whole repo, branch, module, directory, package, or named area.
 
-## Present
+If they did not specify one, default to the current repository. Ask only when the target repo/path is unclear, the request sounds like an increment diff review, or multiple unrelated scopes are present.
 
-Report prose in the **user's language** when clear from the latest user turn. Keep literal: paths, `file:line`, lens ids, git refs, severity emojis per `report.md` (P0/P1/P2 phases: text only).
+Capture once:
 
-**Produces:** boundary map, findings (severity groups + cards; one lens per finding), P0/P1/P2 roadmap, optional direction notes, suggested next moves.
+- Target path and audit scope
+- Git branch, `HEAD`, and `git status --short` when inside a git repo
+- Branch baseline and changed files when the user asks for branch audit
+- Effort: `snapshot` / `standard` / `deep`; default `standard`
 
-Finding severity 🚨🔴🟡🟢 = **follow-up priority** — not [`sdd-review`](../sdd-review/SKILL.md) delivery gate.
+For large scopes, triage before deep reading: identify stack, entrypoints, modules, manifests, CI/deploy files, docs, churn hotspots, and public surfaces. State sampled and skipped areas in Coverage.
+
+### 2. Identify standards sources
+
+Use repo guidance such as `AGENTS.md`, README, CONTRIBUTING, CODING_STANDARDS, CI docs, manifests, and touched-area conventions.
+
+On top of documented standards, carry the same Standards baseline as `sdd-review`:
+
+- **Correctness** — real inputs, edge cases, failures, state, lifecycle, concurrency.
+- **Maintainability** — names, duplication, KISS, DRY, SLAP, YAGNI, immutability, avoidable complexity.
+- **Tests / verification** — behavior-focused coverage, CI/local verification covers the risk, or deterministic proof.
+- **Docs / traceability / compatibility / DX** — README, AGENTS, wiki, CHANGELOG, install examples, local setup, tooling, developer workflow, public APIs, config keys, package names, migration paths, routing tables, and public docs match the tree.
+- **Architecture** — boundaries, responsibilities, dependency direction, half migrations, dead code, parallel APIs, large duplication.
+- **Conditionals** — security, performance, dependencies, data/migration/persistence, observability, accessibility, and operations only when the scope has real signals.
+
+Repo standards override the baseline. Baseline findings are judgement calls; documented-standard breaches may be hard violations. Skip style nits already enforced by tooling.
+
+### 3. Audit
+
+Inspect systemic patterns first, not isolated nits. Prefer findings that repeat across a module, boundary, workflow, or public surface.
+
+Classify each finding as:
+
+- **🚨 Critical** — systematic contract break, secret/auth class issue, or source-of-truth divergence that blocks safe follow-up work.
+- **🔴 High** — boundary violation, major verification gap, critical dependency/security/ops risk, or widespread correctness risk.
+- **🟡 Medium** — duplication tax, meaningful test/doc drift, local architecture debt, observability gap.
+- **🟢 Low** — minor drift or smell without broad impact.
+
+Severity is follow-up priority, not a delivery gate.
+
+Run only read-only verification commands when they materially reduce uncertainty. Report command outcomes as evidence, not as a substitute for audit. If cheap checks are skipped, state the residual risk.
+
+### 4. Present
+
+Write a concise report. Keep literal: paths, `file:line`, git refs, skill ids, and severity emojis.
+
+Required semantic sections:
+
+- **Scope** — target, effort, branch/range when relevant, standards sources
+- **Coverage** — examined dimensions, commands run/skipped, sampled/skipped areas, limits
+- **Standards** — severity groups + numbered finding cards with evidence, location, and fix
+- **Strengths** — optional, only evidence-backed systemic positives
+- **Roadmap** — P0/P1/P2 follow-up sequence when findings exist
+- **Suggested next steps** — always last; name one next route
+
+Finding card:
+
+```markdown
+**1. Short finding title**
+- **Evidence:** observed or inferred evidence
+- **Location:** `path:line`
+- **Fix:** systemic move, not a typo fix
+- **Meta:** optional confidence, effort, risk, branch attribution
+```
 
 ## Guidelines
 
-### Hard rules
-
-1. **Never modify the target repo** — read-only; no installs, commits, or formatters
-2. **Systemic first** — pattern-class findings
-3. **Vet before report** — re-read High+
-4. **No secret values** — `file:line` + credential type only
-5. **MECE findings** — one lens per finding card; boundaries in `map.md`
-
-### Six pillars
-
-| Pillar | IDs | Checklist |
-|--------|-----|-----------|
-| Architecture | A1–A6 | `playbook.md` |
-| Code | C0–C3 | `playbook.md` |
-| Security | S1 | `playbook.md` |
-| Verification | V1, V2 | `playbook.md` |
-| Dependencies | D1 | `playbook.md` |
-| Operations | O1 | `playbook.md` |
-
 ### Effort
 
-| Level | Findings | Parallelism |
-|-------|----------|-------------|
-| `snapshot` / 快照 | ≤5 | 1 pass |
-| `standard` / 标准 (default) | ≤20 | ≤3 batches |
-| `deep` / 深度 | ≤20 + vet appendix | ≤6 workers |
+| Level | Use when |
+| --- | --- |
+| `snapshot` / 快照 | Fast scan, up to 5 findings |
+| `standard` / 标准 | Default audit, up to 20 findings |
+| `deep` / 深度 | Broad audit with extra verification and explicit skipped areas |
 
-### Invocation (English)
+### Trigger hints
 
-| Keyword | Lenses |
-|---------|--------|
-| `architecture` | A1–A6 |
-| `security` | S1 |
-| `tests` | V1 |
-| `ci` | V2 |
-| `deps` / `dx` | D1 |
-| `ops` / `release` / `cd` | O1 |
-| `cicd` | V2, O1 |
-| `simplicity` / `over-engineering` | A5, A6, C1 |
-| `anti-pattern` | A1, A5, A6, C1 |
-| `branch` | same scope; tag `introduced` / `pre-existing` |
-| `direction` | + optional direction notes |
-
-### Invocation (中文)
-
-Scope mapping mirrors the [English table](#invocation-english) above.
-Full table: [zh-invocation.md](references/zh-invocation.md).
-
-Match Chinese triggers when the user writes in Chinese.
-
-### Self-check
-
-Valid lens: A1–A6, C0–C3, S1, V1–V2, D1, O1. One card per root cause. Skipped pillars stated in Coverage.
+| Request | Focus |
+| --- | --- |
+| architecture / 架构 | Boundaries, responsibilities, dependency direction, extension seams |
+| security / 安全 | Secrets, auth, injection, unsafe APIs, sensitive data |
+| tests / 测试 | Coverage, behavior focus, CI proof, flaky or missing gates |
+| deps / 依赖 / dx | Dependency drift, manifests, local setup, install/docs |
+| ops / release / deploy | Release, deploy, rollback, runtime health, migration order |
+| simplicity / 简化 / 过度设计 | Delete, merge, collapse, remove speculative abstraction |
+| branch / 分支审查 | Scope to branch changes plus direct callers/importers when tractable |
 
 ### Disambiguation
 
 | Request | Route |
 | --- | --- |
 | Increment diff delivery review | [`sdd-review`](../sdd-review/SKILL.md) |
-| Territory map only, no findings | Decline — out of scope; audit expects findings with evidence |
-| Trade-offs / design interview | [`sdd-grill`](../sdd-grill/SKILL.md) |
-| Implement fixes during scan | Decline — audit first; implement after Stop |
-| Ambiguous "review" without diff | Ask user vs **`sdd-review`** |
-
-### Stop
-
-After **Suggested next steps**, hand off — no in-session product edits. Name **one** concrete next step; respect P0/P1/P2 order when prioritizing.
+| Spec / AC compliance | [`sdd-review`](../sdd-review/SKILL.md) for a scoped diff, or [`sdd-spec`](../sdd-spec/SKILL.md) when the contract is missing |
+| Trade-offs / design interview | Upstream design-interview skill |
+| Implement fixes during scan | Decline; audit first, implement after Stop |
 
 ### What NOT to do
 
 Do not:
 
-- Modify the target repo, write plans, or implement during the audit
-- Use audit severity as delivery gate for an increment diff
-- Duplicate [`sdd-review`](../sdd-review/SKILL.md) on a scoped PR diff
+- Edit the target repo while auditing
+- Treat audit severity as a delivery gate
+- Duplicate `sdd-review` on a scoped PR diff
+- Audit Spec or AC compliance
 - Emit one-line findings without evidence
 
-## References
+## Stop
 
-[map.md](references/map.md) · [playbook.md](references/playbook.md) · [report.md](references/report.md) · [deep-parallel.md](references/deep-parallel.md)
+After **Suggested next steps**, hand off. Do not auto-chain. Pick one route: usually ask the user to choose a finding or roadmap item; use `sdd-plan` only when the user wants an accepted audit roadmap decomposed into implementation slices; use `sdd-build` only when the user explicitly asks to fix concrete findings; use `sdd-spec` only when the next step is to define or revise a behavior contract.

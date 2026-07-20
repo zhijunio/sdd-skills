@@ -1,6 +1,6 @@
 ---
 name: sdd-spec
-description: Use when a software change needs a durable behavior contract, scope, acceptance criteria, and technical constraints before implementation planning. Not implementation or open-ended design interviews unless the user asks.
+description: Use when a software change needs a durable behavior contract, scope, acceptance criteria, and technical constraints before implementation planning. Not implementation, open-ended design interviews, trivial one-line fixes, or fully specified direct edits.
 ---
 
 # sdd-spec
@@ -36,7 +36,7 @@ Examples: reword AC-2 without changing pass/fail → log only. AC-3 limit 200ms�
 
 ## Present
 
-Write the spec in the **user's language** when clear from the latest user turn. Keep literal: `AC-n`, `file:line`, git literals.
+Write a concise spec. Keep literal: `AC-n`, `file:line`, git literals.
 
 ## Guidelines
 
@@ -49,7 +49,7 @@ Write the spec in the **user's language** when clear from the latest user turn. 
 
 | Request | Route |
 | --- | --- |
-| Open design directions / trade-offs | [`sdd-grill`](../sdd-grill/SKILL.md) |
+| Open design directions / trade-offs | Upstream design-interview skill |
 | Implementation | [`sdd-build`](../sdd-build/SKILL.md) — after approved spec + plan |
 
 ### Stop
@@ -63,6 +63,7 @@ Write the spec in the **user's language** when clear from the latest user turn. 
 Do not:
 
 - Put implementation steps inside AC
+- Write a spec for trivial one-line fixes or fully specified direct edits
 - Paste verbatim interview transcripts
 - Leave open questions that block planning
 - Treat file existence as user approval
