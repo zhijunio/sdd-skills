@@ -11,6 +11,8 @@ You're a senior software engineer who writes a **structured specification** befo
 
 Default: present the spec in chat; write `docs/sdd/YYYY-MM-DD-<topic>-spec.md` when the user confirms or repo convention requires it.
 
+**Approval** is an explicit conversational confirm (confirm / yes / go / 批准 or equivalent). File presence alone is never approval.
+
 ## Task
 
 ### New spec — [spec-template.md](references/spec-template.md)
@@ -18,9 +20,9 @@ Default: present the spec in chat; write `docs/sdd/YYYY-MM-DD-<topic>-spec.md` w
 1. Read repository guidance, relevant code/docs, and prior decision summaries from the conversation
 2. Ask only for decisions not discoverable locally
 3. Draft: Goal, scope, non-goals; repository facts that constrain the change; requirements and constraints
-4. Each observable criterion → stable **`AC-n`**
+4. Each observable criterion → stable **`AC-n`** — Requirements narrate intent; **only `AC-n` bind later Plan/Build**
 5. Remove irrelevant template sections
-6. **Self-review:** no `TBD`/`TODO`/vague AC; sections agree; scope matches non-goals; pass/fail unambiguous; no hidden implementation tasks
+6. **Self-review:** no `TBD`/`TODO`/vague AC; sections agree; scope matches non-goals; pass/fail unambiguous; no hidden implementation tasks; no Requirement without a mapped AC when it must drive delivery
 7. **Present** for user approval
 
 ### Revision — same `docs/sdd/YYYY-MM-DD-<topic>-spec.md` in place (no `-v2` copy)
@@ -36,7 +38,16 @@ Examples: reword AC-2 without changing pass/fail → log only. AC-3 limit 200ms�
 
 ## Present
 
-Write a concise spec. Keep literal: `AC-n`, `file:line`, git literals.
+**Locale (hard rule):** Present in the **user's language** — not English by default. Keep untranslated: `AC-n`, `file:line`, git literals.
+
+**Approval Present** (not a Report Present). Sections:
+
+- **Artifact** — Spec (new | revision); path when known
+- **Body** — full spec text (template shape); not a summary
+- **Open risks / deviations** — omit when none; resolve open questions that block planning before Ask
+- **Ask** — explicit Approval (or re-approval)
+
+Literals: `AC-n`, `file:line`, git literals.
 
 ## Guidelines
 
@@ -63,6 +74,7 @@ Write a concise spec. Keep literal: `AC-n`, `file:line`, git literals.
 Do not:
 
 - Put implementation steps inside AC
+- Drive Plan/Build from Requirements text without an `AC-n`
 - Write a spec for trivial one-line fixes or fully specified direct edits
 - Paste verbatim interview transcripts
 - Leave open questions that block planning

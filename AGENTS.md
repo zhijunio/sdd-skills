@@ -1,94 +1,76 @@
-# Repository Guidelines
+# AGENTS.md
 
-Operating guide for AI agents in **zhijunio/sdd-skills** — a Markdown-only skill pack, not an application repo. Human overview: [README.md](README.md). Runtime contracts: `skills/<name>/SKILL.md`.
+本仓是 **zhijunio/sdd-skills**：给 AI Agent 用的 Markdown skill 包，不是可运行应用。人类说明见 [README.md](README.md)。每个 skill 的契约是 `skills/<name>/SKILL.md`。相关时再读：[CONTEXT.md](CONTEXT.md)、[docs/adr/0001-sdd-skill-pack-shape.md](docs/adr/0001-sdd-skill-pack-shape.md)、[CHANGELOG.md](CHANGELOG.md)。
 
 ## Context
 
-- Maintain **eleven** platform-neutral skills: **six SDD** (`sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship`, `sdd-audit`) plus **five independent** utilities (see [README — Skills](README.md#skills)).
-- Write skill instructions in **English**.
-- Finish one SDD stage → **Stop** → wait for the user to **`@`** the next skill. Never auto-chain stages in one session.
-- Independent skills (`create-readme`, `create-agentsmd`, `explain-code`, `onboarding-plan`, `ponytail-audit`) are **not** SDD loop stages — do not route SDD handoffs to them.
-- Do not add hooks, slash commands, agent manifests, central routing docs, or runtime state files unless the user asks.
-
-**Nested AGENTS.md:** not needed — skills are self-contained under `skills/`; one root file is enough.
+- 包形态（ADR）：交付环 `sdd-spec` → `sdd-plan` → `sdd-build` → **Stop**；`sdd-review` 与 `sdd-improve` **独立**，不要求先走 Spec/Plan/Build。
+- Skill 总数与 id 以 [`skills/`](skills/) 目录为准（当前 10 个）。不要在本文件维护会腐烂的全表。
+- Skill 指令正文用 **English**。对用户的 Present 用对话语言（见各 skill Present）。
+- 一阶段结束必须 **Stop**，等用户再 `@`。禁止自动串环，也禁止把 Stop 自动路由到 `sdd-review` / `sdd-improve` / 非 SDD 工具。
+- 除非用户要求：不要新增 hooks、slash commands、中央路由文档、运行时状态文件。
+- 不需要嵌套 `AGENTS.md`。
 
 ## Structure
 
-| Path | Purpose |
+| 路径 | 用途 |
 | --- | --- |
-| `skills/<name>/SKILL.md` | Skill runtime contract |
-| `skills/<name>/references/` | Bundled templates/checklists for that skill only |
-| `docs/prompts/*.prompt.md` | Cursor prompt files — content aligned with paired skills; independent files (see README — Skills) |
-| `docs/design/` | Maintainer design notes |
-| `CHANGELOG.md` | User-visible release notes |
+| `skills/<name>/SKILL.md` | 运行时契约 |
+| `skills/<name>/references/` | 该 skill 模板/基线（如有）；Standards 共享基线在 `skills/sdd-review/references/` |
+| `docs/prompts/` | Cursor prompt；与 skill 内容对齐时 **互不交叉链接**；配对表只放 README |
+| `docs/adr/` | ADR |
+| `docs/design/` | 维护者设计笔记 |
+| `scripts/check-skills.sh` | 交叉 skill 链接检查 |
+| `.github/workflows/check.yml` | 对 skills/scripts 变更跑上述脚本 |
 
-**Skill groups**
-
-| Group | Members |
-| --- | --- |
-| SDD core loop | `sdd-spec`, `sdd-plan`, `sdd-build`, `sdd-review`, `sdd-ship` |
-| SDD optional | `sdd-audit` |
-| Independent (not SDD) | `create-readme`, `create-agentsmd`, `explain-code`, `onboarding-plan`, `ponytail-audit` |
-
-Consumer projects use `docs/sdd/*-spec.md` and `docs/sdd/*-plan.md` by convention — not required in this maintainer repo.
+消费方可用 `docs/sdd/*-spec.md` / `*-plan.md`。本维护仓 **不强制** 每次改动都走 SDD；有对应契约时再读。
 
 ## Commands
 
-No build, lint, format, or test runner exists here. Run these before opening a PR:
+无应用 build / lint / format / 测试框架。
+
+**primary（开 PR 前）：**
 
 ```bash
-test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 11
+test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10
+test ! -e skills/sdd-ship
+test ! -e skills/sdd-verify
+test ! -e skills/git-release
+test ! -e skills/sdd-audit
 test ! -e skills/repo-audit
 test ! -e skills/repo-audit-full
 test ! -e skills/sdd-grill
-test ! -e skills/git-release
-test -f skills/sdd-ship/SKILL.md
+test -f skills/sdd-improve/SKILL.md
+test -f skills/sdd-review/SKILL.md
 ```
 
-Spot-check relative Markdown links in files you edit. Preserve cross-skill links in `sdd-review` and any skill-local references that still exist.
-
-Optional — trial install into an agent:
+**also OK：**
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills --list
-npx skills@latest add zhijunio/sdd-skills -a cursor -y
+./scripts/check-skills.sh
 ```
 
-Do not run or invent `npm test`, `pytest`, `mvn verify`, or similar — they are not part of this repository.
+可选试装：`npx skills@latest add zhijunio/sdd-skills --list` 或 `-a cursor -y`。
+
+不要发明 `npm test` / `pytest` / `mvn verify`。改过的 Markdown 抽查相对链接。
 
 ## Commit & PR
 
-- Branch from `main` using `feature/`, `fix/`, or `docs/` + topic; merge via PR only — do not push new work to `main`.
-- One logical change per commit; use `feat:` / `fix:` / `docs:` / `chore:` / `refactor:` (or project convention).
-- Record user-visible skill changes in [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
-- Run the documented local validation commands before opening a PR.
-- Do not force-push `main`, change git config, or skip hooks unless the user explicitly asks.
+- 默认分支 `main`；经 PR 合入；不要直接推新工作到 `main`。
+- **新提交** 用 `feat:` / `fix:` / `docs:` / `chore:` / `refactor:`（可带 scope）；一逻辑一提交。历史可见 `ci:`、`feature:` — 不要求改写历史。
+- **新分支** 优先 `feature/`、`fix/`、`docs/` + 主题（历史亦有 `feat/`）。
+- 用户可见变更写入 [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`。
+- 未经明确要求：不要 force-push `main`、改 git config、跳过 hooks。
 
-**When editing `SKILL.md`**
-
-- Keep frontmatter **`description`** to triggering conditions only — not a workflow summary.
-- Borrow upstream ideas in skill bodies; keep bodies short; put bulky detail in `references/` only when the skill still needs progressive disclosure.
-- Preserve literals: `AC-n`, skill ids, lens ids, `file:line`, git literals, 🔴/🟡/🟢.
-- Pair **`sdd-audit`** vs **`sdd-review`** via **When/Skip** cross-links in each skill — skill ↔ prompt pairing table lives in README only.
-- Keep **`sdd-audit` Standards** and **`sdd-review` Standards** dimensions synchronized; only scope and Spec handling should differ.
-- When adding or renaming a skill, update the validation commands and README skill tables if user-visible.
-- When a skill has a paired `docs/prompts/*.prompt.md`, keep **content aligned** but **no cross-links** between the two files; update both in the same change.
-- When upstream-derived behavior changes materially, note attribution in the PR or [CHANGELOG.md](CHANGELOG.md).
+改 `SKILL.md`：`description` 只写触发条件；正文短，大段进 `references/`；保留 `AC-n`、skill id、`file:line`、🔴/🟡/🟢；`sdd-review` 与 `sdd-improve` 用 When/Skip 互链且 Standards 维度同步；增删 skill 时同步校验命令与 README；配对 prompt 同改、无交叉链接。
 
 ## Agent notes
 
-**Do**
+**做：** 先读目标 `SKILL.md`（及 `references/`）；实质行为变更自试；人类上手链 README，勿在此写营销文。
 
-- Read the target `SKILL.md` and any existing skill-local references before editing.
-- Self-trial **material** behavior changes; note user-visible friction in the PR or CHANGELOG.
-- Link [README.md](README.md) for onboarding — do not duplicate it here.
+**不做：**
 
-**Do not**
-
-- Treat **`sdd-audit`** as a delivery gate or substitute for **`sdd-review`**.
-- Treat `sdd-review` as a repo-wide health scan; use **`sdd-audit`** for whole-repo / module / area audits.
-- Chain SDD stages (review → verify) without explicit user `@`.
-- Route SDD **Stop** handoffs to independent skills (`create-readme`, etc.).
-- Add core stages, state fields, or ceremony without evidence.
-- Invent a repo-local CI gate, or run mutating `git`/`gh` unless the user scopes **`sdd-ship`**.
-- Reintroduce retired ids: `sdd-grill` (use an upstream design-interview skill), `git-release` (use **`sdd-ship`**), `repo-audit` (merged into **`sdd-review`**), `repo-audit-full` (merged into **`sdd-audit`**), `sdd-improve` (use **`sdd-audit`**), **`sdd-zoom`** (removed).
+- 用 `sdd-improve` 当交付门禁，或用 `sdd-review` 做整仓扫描（角色相反）。
+- 无用户 `@` 串阶段，或把交付环 Stop 自动路由到独立 skill。
+- 把 git push/PR/merge 当成包内 SDD 阶段（ADR：不接管 Git）。
+- 恢复已退役 skill id（见 CHANGELOG Removed）；替代：`sdd-improve`、`sdd-review`、上游 design-interview、环止于 `sdd-build`。

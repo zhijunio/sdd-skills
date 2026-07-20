@@ -8,7 +8,7 @@ description: Use when creating or revising AGENTS.md for a repository—agent op
 ## Role
 You're a senior software engineer who ships alongside AI coding agents. You write AGENTS.md files that give an agent the exact, accurate context it needs to work safely here — commands, conventions, structure, and the pitfalls that would otherwise cost it a wasted loop.
 
-Write to disk only when the user confirms. Default: show the draft in chat.
+Stack-agnostic: apply to any language, build system, or monorepo layout. Do not assume a particular ecosystem.
 
 ## Task
 
@@ -26,6 +26,14 @@ Map each essential above to generic `##` headings (e.g. **Context**, **Structure
 
 Ground content in manifests, CI, and the source tree — do not invent scripts, versions, or secrets. If a fact is missing, say so before writing the file.
 
+## Present
+
+**Locale (hard rule):** Write the AGENTS.md draft and any chat Present in the **user's language** for this conversation. Do **not** default to English because this skill’s instructions are English. Keep untranslated: command literals, paths, env var names, skill/tool ids.
+
+**Flow:** Show the full draft in chat first. Write to disk **only** after the user confirms. After write (or if they decline): **Stop** — do not auto-chain into README, review, or other skills.
+
+If `git log` (or equivalent history) shows commit/branch conventions that **conflict** with user-specified rules, disclose the conflict in the draft Present and ask which policy to encode (new-commits-only vs rewrite the rule vs dual-track note) **before** writing the file.
+
 ## Guidelines
 
 ### Content and Structure
@@ -41,6 +49,34 @@ Ground content in manifests, CI, and the source tree — do not invent scripts, 
 - For **Commit & PR**, use repo-specific rules first. If none exist, keep defaults short: one logical change per commit, concise imperative subject, and PR notes covering what changed, why, breaking changes, and verification. Do not expand this into a tutorial unless the repository already does.
 - When the repository has no existing contribution guide, keep generated `AGENTS.md` short and operational: surface only commands, structure, conventions, and gotchas that change agent behavior.
 - Prefer a single root `AGENTS.md` unless a subdirectory has meaningfully different rules, workflows, or safety boundaries that the root file would otherwise hide.
+
+### Stable vs ephemeral (hard rule)
+
+AGENTS.md is a **long-lived** agent contract (often treated as a hard standard by downstream review). Keep it durable.
+
+- **Stable — may live in AGENTS.md:** default branch, dangerous commands, secrets/env rules, verification **primary / also OK**, lasting layout conventions, dirty-worktree / deploy boundaries that outlive one change.
+- **Ephemeral — do not bake into AGENTS.md body:** single-ticket product bans, one-off migration steps, feature-only behavior boundaries, “this increment must not …”. Link to the issue / spec / plan / PR instead, or say “see the change’s spec when present”.
+- Self-check before Present: would this sentence still be true after the current feature ships? If no → ephemeral.
+
+### Inventories
+
+- Anchor a few durable entry points (e.g. start/app package, main CLI) when evidenced.
+- For **exhaustive** package/module/workspace lists, point at the manifest of record (`pom.xml` / `package.json` workspaces / `go.work` / `Cargo.toml` workspace / etc.) — do **not** hand-copy a full inventory that will rot.
+- Representative examples in a table are fine; mark them as examples.
+
+### Optional docs (no invented ceremony)
+
+- If `CONTEXT.md`, `docs/sdd/`, ADRs, or similar exist → **link** them (“read when relevant”).
+- If they do not exist → do **not** invent an obligation to create or always follow a spec/plan workflow.
+- Phrase as “when a spec/plan exists for this change, read it” — never “always run SDD before coding” unless the repo already documents that gate.
+
+### Verification paths (hard rule — no over-constraint)
+
+AGENTS.md is often treated as a **hard standard** by review tools — over-narrow lines cause false failures. Do not invent exclusivity.
+
+- For build / test / lint locations and commands, state **primary** (what agents should run by default) and, when the tree shows more than one valid place, **also OK** (other legitimate paths or package-scoped commands).
+- **Forbidden without repo evidence:** wording like “only”, “must all live under”, “must always run solely via …” for test/layout/verify paths.
+- If CI or docs truly mandate a single path, cite that evidence; otherwise prefer “prefer X; Y is fine for scoped changes”.
 
 ### Technical Requirements
 
@@ -59,5 +95,9 @@ Don't include:
 - License text (reference separate LICENSE file)
 - Detailed contribution guidelines (reference separate CONTRIBUTING.md file)
 - Commands or workflows you couldn't verify exist
+- Stack-specific assumptions not evidenced in this repo (do not bake in a default language or build tool)
+- Ephemeral / single-feature constraints that belong in a ticket or spec
+- Hand-maintained full module inventories that duplicate the manifest
+- Default process ceremony (spec/plan gates) the repository does not already require
 
 If an AGENTS.md already exists, update it in place and preserve stable, user-authored sections — don't rewrite the whole file. Analyze the project structure, dependencies, and code to make the AGENTS.md accurate, helpful, and focused on getting agents productive quickly.

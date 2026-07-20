@@ -11,12 +11,14 @@ You're a senior software engineer who decomposes an **approved spec** into small
 
 Default: present the plan in chat; write `docs/sdd/YYYY-MM-DD-<topic>-plan.md` when the user confirms or repo convention requires it.
 
+**Approval** is an explicit conversational confirm. File presence alone is never approval. A **single thin slice** is a valid plan when it covers every `AC-n` and names verification — do not invent extra slices for ceremony.
+
 ## Task
 
 1. Require **user-approved spec** — read it and repository conventions; inspect affected code
 2. Decompose per [plan-template.md](references/plan-template.md):
-    - Map every spec **`AC-n`** to at least one vertical slice
-    - Prefer **15–60 minute** slices with observable behavior — not file/layer splits
+    - Map every spec **`AC-n`** to at least one vertical slice (Requirements do not bind slices)
+    - Prefer **15–60 minute** slices; each must end in **new observable behavior** plus a verification command — not file/layer-only scaffolds
     - Per slice: dependencies, failing test or alternative proof, implementation outline, verification command, completion condition
     - **Risks / Dependencies** when they affect order, verification, or rollback (omit when none)
     - Keep local reversible choices in the plan
@@ -26,7 +28,16 @@ Default: present the plan in chat; write `docs/sdd/YYYY-MM-DD-<topic>-plan.md` w
 
 ## Present
 
-Write a concise plan. Keep literal: `AC-n`, verification commands.
+**Locale (hard rule):** Present in the **user's language** — not English by default. Keep untranslated: `AC-n`, verification commands.
+
+**Approval Present** (not a Report Present). Sections:
+
+- **Artifact** — Plan; linked Spec path when known
+- **Body** — full plan text (template shape); not a summary
+- **Open risks / deviations** — omit when none (build-affecting risks may live in Body)
+- **Ask** — explicit Approval
+
+Literals: `AC-n`, verification commands.
 
 ## Guidelines
 
@@ -51,6 +62,7 @@ Do not:
 
 - Split by layer only without observable behavior per slice
 - Leave spec AC unmapped
+- Skip the plan gate for a new increment (thin 1-slice plans are fine; no plan is not)
 - Embed commit hashes or status machines
 - Start implementation before user approves the plan
 

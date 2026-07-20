@@ -10,9 +10,11 @@
     terminology belongs in optional `CONTEXT.md` (single domain) or
     `docs/context/<domain>/CONTEXT.md` (multi-domain) — link or
     reference shared terms here; do not paste the full glossary.
-  - Requirements: numbered list of observable behaviors or capabilities.
+  - Requirements: numbered list of intended capabilities (narrative). Orient readers;
+    Plan/Build bind only to Acceptance Criteria, not to Requirements alone.
   - Acceptance Criteria: each criterion gets a stable identifier (AC-1, AC-2...).
     Format: "When <precondition>, then <observable result>." Must be pass/fail.
+    Every Requirement that must drive delivery needs at least one AC.
   - Constraints: technical limits and trade-offs for this change (compatibility,
     security, performance, migration). Prefer this for decisions scoped to this spec.
   - Decisions (optional): major trade-offs for this change only — chosen approach,
