@@ -13,8 +13,9 @@ on:
       - '.github/workflows/check.yml'
 
 jobs:
-  skills:
+  validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - name: Verify cross-skill routing links
