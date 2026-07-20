@@ -1,177 +1,145 @@
 # SDD Skills
 
 [![License](https://img.shields.io/github/license/zhijunio/sdd-skills)](LICENSE)
+[![check](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml/badge.svg)](https://github.com/zhijunio/sdd-skills/actions/workflows/check.yml)
 
-**Eleven** platform-neutral agent skills in one repo: a **five-stage SDD delivery loop** (plus optional `sdd-audit`) and **five independent utility skills** that are not part of that loop. No state machine, project manager, or Git workflow framework — SDD stages you **`@`** one at a time.
+面向 Agent 的 **Spec-Driven Development（SDD）** 技能包：纯 Markdown，无状态机、无内置项目管理、不接管 Git 工作流。你在对话里 **`@`** 某一个 skill，跑完该阶段后 **Stop**，再决定是否 `@` 下一个。
 
-## Why use these skills
+人类上手读本文；Agent 操作契约见 [AGENTS.md](AGENTS.md)。术语见 [CONTEXT.md](CONTEXT.md)。包形态决策见 [docs/adr/0001-sdd-skill-pack-shape.md](docs/adr/0001-sdd-skill-pack-shape.md)。
 
-- **Explicit stages** — one skill output → **Stop** → hand off; no auto-chaining
-- **Verifiable slices** — spec AC, plan as vertical slices, test-first build, evidence-backed review and verify
-- **SDD optional** — `sdd-audit` (codebase health) only when you need it; use an upstream design-interview skill for plan/design clarification
-- **Review/audit split** — `sdd-review` gates increment diffs; `sdd-audit` reviews repo / module / area / branch health
-- **Independent utilities** — README, AGENTS.md, explain, onboarding, over-engineering audit — install separately; no SDD coupling
-- **Platform-neutral** — Markdown skills only; works with Cursor, Codex, Claude Code, and other agents via the [skills CLI](https://github.com/vercel-labs/skills)
+## 它解决什么问题
 
-Six principles (shape / delivery / governance): explicit stages, verifiable slices, test and prove, borrow don't rebuild — embodied in skill `SKILL.md` files and [AGENTS.md](AGENTS.md).
+一次改动先写成可验收契约，再拆成可测垂直切片，再测试优先落地；质量报告与仓库改进扫描可单独使用，不必绑在交付环上。
 
-## Getting started
+- **交付环**：`sdd-spec` → `sdd-plan` → `sdd-build` → Stop（用户显式审批；不自动串阶段）
+- **独立质量**：`sdd-review`（增量双轴报告）、`sdd-improve`（广范围 Standards 候选）
+- **独立工具**：README / AGENTS / 解释代码 / 入职计划 / 过度工程审计 — 与 SDD 环无耦合
 
-Install from this repository:
+完整 skill 目录以 [`skills/`](skills/) 为准（当前 **10** 个）。
 
-```bash
-npx skills@latest add zhijunio/sdd-skills
-```
+## 安装
 
-Non-interactive (multiple agents):
+**primary**（试装 / 列清单，见 [AGENTS.md](AGENTS.md)）：
 
 ```bash
-npx skills@latest add zhijunio/sdd-skills -a cursor -a codex -a claude-code -y
+npx skills@latest add zhijunio/sdd-skills --list
+npx skills@latest add zhijunio/sdd-skills -a cursor -y
 ```
 
-SDD core loop only:
+`npx skills@latest` 来自 [skills CLI](https://github.com/vercel-labs/skills)（仓库 [CHANGELOG](CHANGELOG.md) 有记载）。按需加 `-s <skill-id>` 只装子集；钉版本可用已发布 tag，例如 `zhijunio/sdd-skills@v0.3.1`（tag 存在于本仓；该版本 skill 集合与当前 `main` 不同）。
 
-```bash
-npx skills@latest add zhijunio/sdd-skills \
-  -s sdd-spec -s sdd-plan -s sdd-build -s sdd-review -s sdd-ship \
-  -a cursor -y
-```
+**also OK：** 把 `skills/<name>/`（含 `references/`）拷进你所用 Agent 的 skills 目录。
 
-Minimal path (spec + plan):
+## 怎么用（交付环）
 
-```bash
-npx skills@latest add zhijunio/sdd-skills -s sdd-spec -s sdd-plan -y
-```
-
-Independent skills only (examples):
-
-```bash
-npx skills@latest add zhijunio/sdd-skills -s ponytail-audit -a cursor -y
-npx skills@latest add zhijunio/sdd-skills -s create-readme -s create-agentsmd -y
-```
-
-SDD optional audit:
-
-```bash
-npx skills@latest add zhijunio/sdd-skills -s sdd-audit -a cursor -y
-```
-
-**Stable pin** (`v0.3.1` — eight skills, pre-rename ids):
-
-```bash
-npx skills@latest add zhijunio/sdd-skills@v0.3.1 -a cursor -a codex -a claude-code -y
-```
-
-| Scope | Flag | Where skills land |
-| --- | --- | --- |
-| Project (default) | — | `./.agents/skills/` |
-| Global | `-g` | Cursor: `~/.cursor/skills/` · Codex: `~/.codex/skills/` · Claude Code: `~/.claude/skills/` |
-
-List without installing: `npx skills@latest add zhijunio/sdd-skills --list`
-
-**Manual install:** copy `skills/<name>/` into your agent's skills directory (include bundled `references/` where present).
-
-> **Breaking on current `main` (unreleased):** `sdd-verify` → `sdd-ship`; `repo-audit` → `sdd-review`; `repo-audit-full` → `sdd-audit`; `sdd-improve` → `sdd-audit`; `sdd-explain` → `explain-code`; `sdd-onboard` → `onboarding-plan`; `sdd-readme` / `sdd-agents` → `create-readme` / `create-agentsmd`; **`sdd-grill`**, **`git-release`**, **`sdd-worktree`**, and **`sdd-zoom` removed**. Use an upstream design-interview skill for plan/design clarification. Update `@` references after upgrading from `v0.3.1`.
-
-## SDD workflow
+示意（**illustrative**）：
 
 ```mermaid
-flowchart TD
-  subgraph audit["Optional audit"]
-    A[sdd-audit]
-  end
-
-  S[sdd-spec] -->|user approval| P[sdd-plan]
-  P -->|user approval| B[sdd-build]
-  B --> R[sdd-review]
-  R -->|must-fix| B
-  R -->|pass| V[sdd-ship]
-
-  A --> S
+flowchart LR
+  spec[sdd-spec] --> plan[sdd-plan]
+  plan --> build[sdd-build]
+  build --> stop[Stop]
 ```
 
-## Skills
+1. `@sdd-spec` — 行为契约与 `AC-n`
+2. 对话里 **Approval** 后 `@sdd-plan` — 覆盖全部 AC 的垂直切片
+3. Approval 后 `@sdd-build` — 测试优先实现 + 收尾验证
+4. **Stop** — 需要质量报告再 `@sdd-review`；需要广范围改进候选再 `@sdd-improve`（二者均非环内强制阶段）
 
-Skill instructions are written in English.
-
-### SDD delivery loop
-
-| Skill | Use when |
-| --- | --- |
-| `sdd-spec` | A behavior contract and acceptance criteria are needed |
-| `sdd-plan` | An approved spec needs testable vertical slices |
-| `sdd-build` | An approved plan is ready for test-first implementation |
-| `sdd-review` | An increment diff needs a delivery verdict |
-| `sdd-ship` | Verify and ship a reviewed increment — from evidence through merged PR |
-
-### SDD optional
-
-| Skill | Use when |
-| --- | --- |
-| `sdd-audit` | Whole-repo / module / area / branch health audit using the same `Standards` dimensions as `sdd-review` — not a delivery gate and not a Spec review |
-
-Use an upstream design-interview skill when goals, boundaries, or trade-offs need interview before spec or plan.
-
-**Review vs audit:** `sdd-review` gates **this increment**; `sdd-audit` audits the **repo / module / area / branch** for follow-ups.
-
-### Independent (not SDD)
-
-Bundled in this repo for convenience; **no SDD loop coupling** — `@` only when you need the task.
-
-| Skill | Use when |
-| --- | --- |
-| `create-readme` | Human-facing README.md for a project |
-| `create-agentsmd` | AGENTS.md for agent operating context |
-| `explain-code` | Explain code in chat |
-| `onboarding-plan` | Phased contributor onboarding plan |
-| `ponytail-audit` | Whole-repo over-engineering audit |
-
-Paired prompt files under [`docs/prompts/`](docs/prompts/) — independent files, content aligned with skills below (no cross-links between skill and prompt).
-
-| Skill | Paired prompt |
-| --- | --- |
-| `create-readme` | `create-readme.prompt.md` |
-| `create-agentsmd` | `create-agentsmd.prompt.md` |
-| `explain-code` | `explain-code.prompt.md` |
-| `onboarding-plan` | `onboarding-plan.prompt.md` |
-
-`ponytail-audit` has no paired prompt.
-
-**Prompt-only** (no skill):
-
-| Prompt | Prefer skill when |
-| --- | --- |
-| `review-code.prompt.md` | Increment delivery gate → `sdd-review` |
-| `document-api.prompt.md` | Behavior contract / AC → `sdd-spec` |
-| `generate-unit-tests.prompt.md` | Test-first on approved plan → `sdd-build` |
-
-### Consumer artifacts
-
-Default documents in **your** project:
+消费方项目里常用约定（本维护仓不强制）：
 
 ```text
 docs/sdd/YYYY-MM-DD-<topic>-spec.md
 docs/sdd/YYYY-MM-DD-<topic>-plan.md
 ```
 
-Optional: `docs/adr/`, `CONTEXT.md` for stable domain language in consumer projects.
+## Skills 一览
 
-## Documentation
+正文为英文；下表「何时用」取自各 `SKILL.md` 的 `description`。
 
-| Topic | Link |
+### 交付环
+
+| Skill | 何时用 |
 | --- | --- |
-| Agent operating guide | [AGENTS.md](AGENTS.md) |
-| Contributor onboarding | [`onboarding-plan`](skills/onboarding-plan/SKILL.md) skill · [prompt](docs/prompts/onboarding-plan.prompt.md) |
-| Release history | [CHANGELOG.md](CHANGELOG.md) |
+| [`sdd-spec`](skills/sdd-spec/SKILL.md) | 需要持久行为契约、范围、验收标准与技术约束，再进入实现规划 |
+| [`sdd-plan`](skills/sdd-plan/SKILL.md) | 已批准 Spec 要拆成可测垂直切片 |
+| [`sdd-build`](skills/sdd-build/SKILL.md) | 已批准 Plan 可测试优先实现，或按 review 发现修复且不改已接受行为 |
 
-## Contributing
+### SDD 独立
 
-Maintainers: read [AGENTS.md](AGENTS.md). Open PRs to `main`; run the documented local validation commands before opening a PR (eleven skills, `sdd-ship` present, retired ids absent). User-visible changes → [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`.
+| Skill | 何时用 |
+| --- | --- |
+| [`sdd-review`](skills/sdd-review/SKILL.md) | 自固定点起的分支/PR/「review since X」双轴 Standards/Spec 质量报告（非整仓 improve） |
+| [`sdd-improve`](skills/sdd-improve/SKILL.md) | 仓库/模块/区域/分支的广范围 Standards 扫描，热点优先候选（非增量交付评审） |
 
-## Sources
+### 非 SDD
 
-Ideas from [mattpocock/skills](https://github.com/mattpocock/skills), [obra/superpowers](https://github.com/obra/superpowers), [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), and [shadcn/improve](https://github.com/shadcn/improve) (audit influence for **`sdd-audit`**).
+| Skill | 何时用 |
+| --- | --- |
+| [`create-readme`](skills/create-readme/SKILL.md) | 编写或修订给人看的 README.md |
+| [`create-agentsmd`](skills/create-agentsmd/SKILL.md) | 编写或修订 AGENTS.md |
+| [`explain-code`](skills/explain-code/SKILL.md) | 解释选中代码或片段 |
+| [`onboarding-plan`](skills/onboarding-plan/SKILL.md) | 新贡献者分阶段入职计划 |
+| [`ponytail-audit`](skills/ponytail-audit/SKILL.md) | 仅过度工程：排序删除/简化/换 stdlib·native；一次性报告，不自动改代码 |
+
+部分 skill 在 [`docs/prompts/`](docs/prompts/) 有内容对齐的 Cursor prompt（文件独立、与 skill **无交叉链接**）。另有仅 prompt、无 skill 的文件（如 `review-code.prompt.md`）— 有对应 skill 时优先用 skill。
+
+## 仓库里有什么
+
+| 路径 | 用途 |
+| --- | --- |
+| `skills/<name>/SKILL.md` | 运行时契约 |
+| `skills/<name>/references/` | 该 skill 模板/基线（如有） |
+| `docs/prompts/` | Cursor prompts |
+| `docs/adr/` | ADR |
+| `docs/design/` | 维护者设计笔记 |
+| `docs/references.md` | 上游灵感链接 |
+| `scripts/check-skills.sh` | 交叉 skill 链接检查 |
+| `.github/workflows/check.yml` | CI：对 `skills/**` / `scripts/**` 跑上述脚本 |
+
+无应用运行时、无 `package.json` 测试脚本。
+
+## 维护者校验
+
+**primary**（[AGENTS.md](AGENTS.md)）：
+
+```bash
+test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10
+test ! -e skills/repo-audit
+test ! -e skills/repo-audit-full
+test ! -e skills/sdd-grill
+test ! -e skills/git-release
+test ! -e skills/sdd-ship
+test ! -e skills/sdd-verify
+test ! -e skills/sdd-audit
+test -f skills/sdd-improve/SKILL.md
+test -f skills/sdd-review/SKILL.md
+```
+
+**also OK：**
+
+```bash
+./scripts/check-skills.sh
+```
+
+向 `main` 开 PR；用户可见变更记入 [CHANGELOG.md](CHANGELOG.md) `[Unreleased]`。
+
+## 当前 main 相对已发布 tag
+
+相对 `v0.3.1`，`[Unreleased]` 中已移除/改名的 id 包括：`sdd-ship` / `sdd-verify` / `git-release`、`sdd-audit` / `repo-audit-full`、`repo-audit`（并入 `sdd-review`）、`sdd-grill` / `sdd-zoom` 等 — 细节以 [CHANGELOG.md](CHANGELOG.md) 为准。
+
+## 文档
+
+| 文档 | 用途 |
+| --- | --- |
+| [AGENTS.md](AGENTS.md) | Agent / 维护者操作指南 |
+| [CONTEXT.md](CONTEXT.md) | 领域用语 |
+| [docs/adr/0001-sdd-skill-pack-shape.md](docs/adr/0001-sdd-skill-pack-shape.md) | 包形态 |
+| [CHANGELOG.md](CHANGELOG.md) | 变更历史 |
+| [docs/references.md](docs/references.md) | 上游来源 |
+
+上游灵感（见 `docs/references.md`）：[mattpocock/skills](https://github.com/mattpocock/skills)、[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)、[shadcn/improve](https://github.com/shadcn/improve)、[obra/superpowers](https://github.com/obra/superpowers/)、[DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)。
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — [LICENSE](LICENSE)（Copyright 2026 zhijunio）。

@@ -1,141 +1,162 @@
 ---
 name: sdd-review
 description: >
-  Review a scoped increment diff before delivery. Use when the user wants a branch, PR, WIP change, or "review since X" checked against repo standards and the originating spec. Not whole-repo health audit.
+  Two-axis Standards/Spec review of changes since a fixed point. Use when the user wants a branch, PR, or "review since X" quality report. Not whole-repo improve scan.
 ---
 
 # sdd-review
 
-Two-axis delivery review of an increment diff:
+Independent two-axis **quality report** of `HEAD` vs a fixed point (Matt Pocock `code-review` shape). Usable alone — not tied to Spec/Plan/Build. **No HTML**. Read-only.
 
-- **Standards** — does the diff conform to this repo's documented standards and baseline quality bar?
-- **Spec** — does the diff faithfully implement the originating issue / PRD / spec / plan?
+- **Standards** — repo standards + shared baseline?
+- **Spec** — originating issue / PRD / spec / plan (when one exists)?
 
-Both axes may run as parallel sub-agents so they do not pollute each other's context. This skill aggregates their findings and gives a delivery verdict. Read-only: no file edits, plan edits, commits, or fixes.
+Parallel sub-agents when available; aggregate findings + one-line summary + **Verdict**.
 
 ## Process
 
-### 1. Pin the scope
+### 1. Pin the fixed point
 
-Use the fixed point or range the user supplies: commit SHA, branch, tag, PR, `main`, `HEAD~5`, etc.
+User supplies commit / branch / tag / PR / `main` / `HEAD~5`, etc.
 
-If they did not specify one, infer from the current task/spec/plan or current branch merge-base. Ask only when the scope is ambiguous: path-only request, unrelated dirty files, unknown integration branch, multiple topics, or a very large diff.
+**If missing**, resolve the repo default branch — do **not** hard-code `main`:
 
-For a very large diff, triage before deep review: record file count and diffstat, group changed files by subsystem, identify public API / docs / tests / build / migration hotspots, then inspect the highest-risk hunks first. If time or context limits prevent full coverage, say exactly which groups were sampled and which remain unreviewed.
+1. `git symbolic-ref refs/remotes/origin/HEAD` → use that ref (e.g. `origin/master`)
+2. Else `git rev-parse origin/main origin/master main master` — first that resolves
+3. Else **ask** (offer any candidates you found)
 
-Capture once:
+Always record the **actual** ref used. In **Summary**, label it `fixed point: <ref> (default)` when step 1–2 chose it, or `fixed point: <ref> (user)` when the user supplied it.
 
-- Diff command: `git diff <fixed-point>...HEAD` when a fixed point exists
-- WIP commands when scope includes working tree changes: `git diff` and `git diff --cached`
-- WIP file list: `git status --short` so untracked files are not missed
-- Commit list: `git log <fixed-point>..HEAD --oneline` when useful
-- Diff kind: `code` / `prose/docs-only`; mixed diffs count as `code`
+Capture: `git diff <fixed-point>...HEAD`, `git log <fixed-point>..HEAD --oneline`, diff kind (`code` / `prose/docs-only`).
 
-Confirm the scope resolves and has reviewable changes before reviewing. Bad ref or empty committed/staged/unstaged scope fails here, not inside sub-agents.
+Confirm ref resolves and committed diff is non-empty — fail here, not in sub-agents. **Committed range only**; uncommitted WIP is out of scope.
 
-### 2. Identify the spec source
+Large diff: triage by subsystem/risk; note sampled/skipped on the Summary meta line.
 
-Look for the originating contract, in this order:
+### 2. Spec source
 
-- A spec / plan path the user passed
-- Issue or PR references in commit messages
-- A PRD/spec file under `docs/`, `specs/`, or `wiki/` matching the branch or feature
-- Repository docs that define expected behavior for this increment
+Order: user path → issue/PR in commits → `docs/` / `specs/` / `wiki/` / `.scratch/` → related repo docs.
 
-If nothing is found, disclose it. Skip the Spec axis only when no local source is discoverable or the user says there is no spec. In that case, do not claim **Spec pass**. For an SDD delivery gate, do not route to `sdd-ship` unless the user explicitly accepts a standards-only review; otherwise route to `sdd-spec` / `sdd-plan`.
+Nothing found → ask once. No spec → skip Spec sub-agent (**Standards-only**); under `## Spec` write `no spec available` — do not claim Spec pass.
 
-### 3. Identify the standards sources
+### 3. Standards sources
 
-Use repo guidance such as `AGENTS.md`, README, CONTRIBUTING, CODING_STANDARDS, CI docs, and touched-area conventions.
+Repo docs (`AGENTS.md`, README, CONTRIBUTING, CODING_STANDARDS, CI, …) plus:
 
-On top of documented standards, carry this baseline:
+- Fowler smells under **Structure** — paste full [references/smell-baseline.md](references/smell-baseline.md) into the Standards sub-agent
+- Four dimensions — [references/standards-baseline.md](references/standards-baseline.md): Correctness · Structure · Verification · Traceability
 
-- **Correctness** — changed code behaves correctly under real inputs, edge cases, failures, state, lifecycle, and concurrency.
-- **Maintainability** — names, duplication, KISS, DRY, SLAP, YAGNI, immutability, and avoidable complexity stay reasonable.
-- **Tests / verification** — changed behavior has convincing behavior-focused coverage, CI/local verification covers the risk, or there is a deterministic alternative proof.
-- **Docs / traceability / compatibility / DX** — spec, plan, CHANGELOG, links, install examples, local setup, tooling, developer workflow, public APIs, config keys, package names, migration paths, skill lists, and routing tables still match the tree.
-- **Architecture** — for code diffs only: boundaries, responsibilities, dependency direction, half migrations, dead code, parallel APIs, and large duplication.
-- **Conditionals** — security, performance, dependencies, data/migration/persistence, observability, accessibility, and operations only when the diff has real signals.
+Repo overrides baseline. Hard vs judgement per those files. Skip tooling-enforced style.
 
-Repo standards override the baseline. Baseline findings are judgement calls; documented-standard breaches may be hard violations. Skip style nits already enforced by tooling.
+### 4. Spawn both axes
 
-### 4. Review both axes
+Parallel when possible; else sequential (note in Summary).
 
-Prefer two parallel sub-agents when available.
+**Standards** — diff + commits + standards paths + **full** smell baseline + four dimensions. Present as Matt **(a)/(b)** with Delivery Group emoji on every finding (under 400 words):
 
-**Standards brief:** inspect the scoped diff against documented standards and the baseline. Quote file/hunk evidence. Classify each finding as **🔴 must-fix**, **🟡 should-fix**, or **🟢 suggestion**.
+- **(a) Documented standards & baseline dimensions** — cite repo standard file + rule when one applies; else cite [`standards-baseline.md`](references/standards-baseline.md) + dimension (Correctness / Structure / Verification / Traceability). Hard vs judgement; `file:line`; 🔴/🟡/🟢. Use this bucket for correctness/verification/traceability gaps that are **not** Fowler smells.
+- **(b) Baseline smells** — name the Fowler smell; quote hunk; usually Structure; judgement only unless also breaking a documented rule or AC; smells default 🟢/🟡; 🔴 only with AC gap or hard rule; `file:line`
 
-**Spec brief:** compare the scoped diff to the spec/plan. Report missing/partial requirements, scope creep, and wrong-looking implementations. Quote spec lines when possible. Classify each finding as **🔴 must-fix**, **🟡 should-fix**, or **🟢 suggestion**.
+**Spec** — diff + commits + spec contents. Present as Matt **(a)/(b)/(c)** with Delivery Group emoji on every finding (under 400 words):
 
-If sub-agents are unavailable, run the two passes sequentially and disclose that in Coverage.
+- **(a) Missing / partial** — quote `AC-n` / spec lines (including AC that requires proof but evidence is absent/weak)
+- **(b) Scope creep** — behaviour in the diff not asked for
+- **(c) Looks implemented but wrong** — quote spec; use recorded test/close-out evidence when present
 
-Run only relevant, non-mutating verification commands when they materially reduce uncertainty. Report command outcomes as evidence, not as a substitute for review. Tie each skipped command to the risk it leaves open, especially for integration tests, generated docs, package metadata, and release notes.
+**Bucket routing (do not duplicate across axes):**
+
+| Situation | Put it in |
+| --- | --- |
+| Breaks `AGENTS.md` / CONTRIBUTING / CI-documented rule | Standards **(a)** · cite that file |
+| Correctness / Verification / Traceability friction; no Fowler name | Standards **(a)** · dimension on `standards-baseline.md` |
+| Named Fowler smell | Standards **(b)** |
+| Test/proof gap vs repo test norms | Standards **(a)** · **Verification** first |
+| Same gap also violates an `AC-n` / Constraints proof line | Spec **(a)** only if the AC/constraint is the contract; else keep Standards — **do not double-file** |
+| Out of committed range (other repo, ops manual step) | Spec **(a)** partial *or* Summary meta note — not a fake Standards smell |
+| Product taste / whole-repo debt not worsened by diff | Out of scope → [`sdd-improve`](../sdd-improve/SKILL.md) |
+
+No spec → skip Spec sub-agent. Optional non-mutating commands only when they cut uncertainty; report evidence, not a review substitute.
 
 ### 5. Aggregate
 
-Present `Standards` and `Spec` separately. Do not merge or rerank the axes.
+Present under `## Standards` and `## Spec` separately — verbatim or lightly cleaned. **Do not merge, rerank, or pick one winner across axes.**
 
-Delivery verdict:
+**Summary** (after both axes) — keep short:
 
-- **blocked** — any unresolved **🔴 must-fix**
-- **pass** — no unresolved **🔴 must-fix** and no unaccepted **🟡 should-fix**
-- **pass pending risk acceptance** — no **🔴 must-fix**, but **🟡 should-fix** remains for the user to accept or route to `sdd-build`
+```markdown
+- Meta: fixed point: <ref> (user|default) · diff: code|prose · [sampled/skipped if any]
+- Standards: <n> findings · worst: <one line or none>
+- Spec: <n> findings · worst: <one line or none>   # or: Spec: Standards-only (no spec available)
+```
 
-End with one next route:
+**Verdict** (gate only, last): **blocked** (any 🔴) | **pass** (no 🔴, no unaccepted 🟡) | **pass pending risk acceptance** (🟡 until the user **explicitly accepts** the risk). Verdict must not rewrite or blend axis prose. When pending, Ask once: *Accept these 🟡 risks, or fix first?*
 
-- **`sdd-build`** when blocked
-- **`sdd-ship`** when pass
-- **`sdd-spec`** when the spec/AC must change before judging the diff
+**Stop** after the report. Do not auto-chain fixes, git, PR, or merge. Wait for the user.
 
 ## Present
 
-Write a concise report. Keep literal: `AC-n`, `file:line`, git refs, skill ids, and **🔴/🟡/🟢** groups.
+**Locale (hard rule):** Write the Present in the **user's language** for this conversation (findings, Summary prose, Ask, localized section titles). Do **not** default to English because skill templates are English. Keep untranslated: `AC-n`, skill ids, `file:line`, git refs, 🔴/🟡/🟢. Verdict tokens may stay as `blocked` / `pass` / `pass pending risk acceptance` with a short localized gloss, or fully localized if the user prefers.
 
-Optimize for a clear, readable review, not a formal dump. Findings and verdict matter more than the template, but the reader must be able to scan scope, coverage, evidence, and next route quickly.
+Literals: `AC-n`, `file:line`, refs, skill ids, 🔴/🟡/🟢.
 
-Required semantic sections:
+**Report Present** (Matt-shaped: axes first). Sections: **Standards** · **Spec** · **Summary** · **Verdict**.
 
-- **Scope** — baseline/range, diff kind, spec source, standards sources
-- **Coverage** — examined axes/dimensions, large-diff triage if any, commands run/skipped, and limits
-- **Standards**
-- **Spec**
-- **Verdict**
-- **Suggested next steps** — always last
+### Standards body
+
+```markdown
+## Standards
+
+### (a) Documented standards & baseline dimensions
+- 🔴/🟡/🟢 **Title** · Dimension · hard|judgement — evidence · `path:line` — cite AGENTS/… or standards-baseline
+
+### (b) Baseline smells
+- 🔴/🟡/🟢 **Smell name** · Structure — quote hunk · `path:line`
+```
+
+Omit an empty subsection, or write `none` / 中文等价（如「无」）. Four dimensions label **(a)** findings; Fowler names live only under **(b)**. Do **not** replace (a)/(b) with dimension-first headings. Localize the title text after `(a)`/`(b)` (e.g. `(a) 文档标准与基线维度`).
+
+### Spec body
+
+```markdown
+## Spec
+
+### (a) Missing / partial
+- 🔴/🟡/🟢 **Title** — quote `AC-n` / spec line — evidence
+
+### (b) Scope creep
+- 🔴/🟡/🟢 **Title** — what landed that was not asked for
+
+### (c) Looks implemented but wrong
+- 🔴/🟡/🟢 **Title** — quote spec — why the implementation mismatches
+```
+
+No spec → `## Spec` / 用户语言写「无规格可用」类文案（可用 `no spec available` 作机读旁注）. Omit empty (a)/(b)/(c) or write `none`/「无」。Localize titles after `(a)`/`(b)`/`(c)` (e.g. `(a) 缺失/部分实现`).
+
+- Axes stay unmerged — never one blended findings list
+- **Summary** — meta + one Standards line + one Spec line (template above)
+- **Verdict** — gate only; pending → short Accept Ask
+
+No standalone **Scope** / **Coverage**. No **Suggested next steps** — Stop is enough.
 
 ## Guidelines
 
-### Delivery groups
-
-| Group | Use when |
+| Group | When |
 | --- | --- |
-| **🔴 must-fix** | Blocks delivery: correctness, security, spec/AC gap, data loss, non-goal violation |
-| **🟡 should-fix** | Fix unless user accepts risk: half migration, changed-path test gap, meaningful duplication |
-| **🟢 suggestion** | Non-blocking: docs, small DRY/KISS, readability in the diff |
+| **🔴 must-fix** | Blocks: correctness, security, AC/spec gap, data loss, non-goal break |
+| **🟡 should-fix** | Fix or explicit accept: half migration, test gap, serious smell |
+| **🟢 suggestion** | Non-blocking / mild smell |
 
-### Disambiguation
+Smells default 🟢/🟡; 🔴 only with AC/spec gap or documented hard rule. Not improve-pass priority labels.
 
 | Request | Route |
 | --- | --- |
-| Whole-repo / module / area audit | [`sdd-audit`](../sdd-audit/SKILL.md) |
-| Fresh health roadmap | [`sdd-audit`](../sdd-audit/SKILL.md) |
-| Final AC evidence / delivery verification | [`sdd-ship`](../sdd-ship/SKILL.md) |
-| Fix review findings | [`sdd-build`](../sdd-build/SKILL.md) |
+| Branch / PR / since X / quality report | **This skill** (missing fixed point → default branch via `origin/HEAD`) |
+| Repo / module / area improve pass | [`sdd-improve`](../sdd-improve/SKILL.md) |
+| Over-engineering / bloat / what to delete only | [`ponytail-audit`](../ponytail-audit/SKILL.md) |
+| Push / PR / merge / tag | Out of pack |
 
-### What NOT to do
-
-Do not:
-
-- Edit files while reviewing
-- Treat whole-repo patterns as must-fix unless the diff introduced or worsened them
-- Use audit P0/P1/P2 as the delivery gate
-- Claim spec compliance without reading the spec when it exists
-- Pick one winner across Standards and Spec
+Do not: edit files; review WIP by default; treat pre-existing whole-repo debt as must-fix unless this diff worsened it; claim Spec pass without a spec; pick one winner across axes; auto-start follow-up work after the report.
 
 ## Why two axes
 
-A change can pass one axis and fail the other:
-
-- Code that follows every standard but implements the wrong thing → **Standards pass, Spec fail.**
-- Code that does exactly what the issue asked but breaks repo conventions → **Spec pass, Standards fail.**
-
-Keeping the axes separate stops one from masking the other.
+Standards pass + Spec fail (right style, wrong thing) vs Spec pass + Standards fail (right thing, wrong conventions). Keep axes separate so one cannot mask the other.

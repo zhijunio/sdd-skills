@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Verify every cross-skill routing link (../<name>/SKILL.md) referenced in a
 # SKILL.md points to an existing skills/<name>/SKILL.md. Guards the review ->
-# build -> ship -> spec/audit routing graph against rename/delete drift.
+# build / improve / spec routing graph against rename/delete drift.
 set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"

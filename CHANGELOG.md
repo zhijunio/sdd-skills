@@ -9,34 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- [`docs/adr/0001-sdd-skill-pack-shape.md`](docs/adr/0001-sdd-skill-pack-shape.md) — pack shape: three-stage loop + independent review/improve
+- [`CONTEXT.md`](CONTEXT.md) — ubiquitous language for Spec/Plan/Build and independent Delivery Review / Improve Pass
+- [`skills/sdd-review/references/`](skills/sdd-review/references/) — shared Standards baselines (four dimensions + Fowler smells)
 - Design principle docs — [`docs/design/design.md`](docs/design/design.md), 33 framework-neutral principles extracted and deduplicated from Spring Boot conventions
-
 
 ### Changed
 
-- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) — absorbs `repo-audit-full` as the single whole-repo / module / area / branch health audit entry, using the same Standards dimensions as `sdd-review` without auditing Spec; compressed to a single-file skill with no `references/`
-- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) and [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — align Standards coverage for docs, traceability, public API compatibility, config keys, package names, and migration paths
-- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) and [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — expand Standards coverage to include CI/local verification evidence and data / migration / persistence signals
-- [`skills/sdd-audit/SKILL.md`](skills/sdd-audit/SKILL.md) and [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — make DX / tooling an explicit Standards dimension without adding product direction review
-- [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — absorbs the former `repo-audit` two-axis Standards / Spec review style while keeping SDD delivery groups, verdict, and `sdd-build` / `sdd-ship` handoff semantics
-- [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — adds large-diff triage and explicit verification coverage reporting after the rose repo review exposed those failure modes
-- [`skills/sdd-review/SKILL.md`](skills/sdd-review/SKILL.md) — clarifies that report headings must be localized to the user's language while preserving the required semantic sections
-- [`skills/sdd-spec/SKILL.md`](skills/sdd-spec/SKILL.md), [`skills/sdd-plan/SKILL.md`](skills/sdd-plan/SKILL.md), [`skills/sdd-build/SKILL.md`](skills/sdd-build/SKILL.md), and [`skills/sdd-ship/SKILL.md`](skills/sdd-ship/SKILL.md) — tighten lightweight SDD trigger, proof, approval, and write boundaries while keeping the core skills concise
-- SDD skills — remove explicit output-language localization rules; skill contracts remain English-only
-- [`skills/create-readme/SKILL.md`](skills/create-readme/SKILL.md) and [`skills/create-agentsmd/SKILL.md`](skills/create-agentsmd/SKILL.md) — tighten evidence, preservation, project-shape, agent-risk, size, and repo-specific convention rules; paired prompts aligned
-- [`docs/prompts/review-code.prompt.md`](docs/prompts/review-code.prompt.md) — align code-review dimensions with `sdd-review` using six compact areas, including DX, tooling, traceability, compatibility, and consolidated architecture signals
-- [`README.md`](README.md) and [`AGENTS.md`](AGENTS.md) — remove repo-local CI workflow references and point maintainers to the local validation commands instead
-- [`README.md`](README.md) — remove the retired `git-release.prompt.md` entry so the prompt registry matches `docs/prompts/`
+- Pack shape — core loop **`sdd-spec` → `sdd-plan` → `sdd-build` → Stop**; [`sdd-review`](skills/sdd-review/SKILL.md) and [`sdd-improve`](skills/sdd-improve/SKILL.md) are **independent** (usable without Spec/Plan/Build)
+- [`sdd-spec`](skills/sdd-spec/SKILL.md) / [`sdd-plan`](skills/sdd-plan/SKILL.md) / [`sdd-build`](skills/sdd-build/SKILL.md) (+ templates) — conversational Approval, AC-only binding, thin plans OK, close-out verification on build, review-fix path
+- [`sdd-review`](skills/sdd-review/SKILL.md) — Matt-style two-axis report; missing fixed point → `origin/HEAD` (not hard-coded `main`); Spec Present **(a)/(b)/(c)**; Standards Present **(a)/(b)** + 🔴/🟡/🟢; bucket routing (Verification → Standards (a) first; no double-file); lean Summary + Verdict gate; no hard route to loop skills
+- [`ponytail-audit`](skills/ponytail-audit/SKILL.md) — hotspot-aware scope, Top cut, disambiguation vs `sdd-improve` / `sdd-review`; stays one-shot over-engineering cuts only
+- [`sdd-improve`](skills/sdd-improve/SKILL.md) — Structure cuts may use ponytail tags (`delete`/`stdlib`/`native`/`yagni`/`shrink`) + optional `net` / Largest Structure cut; four dimensions unchanged
+- Present chrome — **Approval Present** / **Report Present**; restore **Present locale** hard rule (user language, not English by default); review Matt-shaped buckets + short Summary/Verdict; improve optional sections default off; terms in [`CONTEXT.md`](CONTEXT.md)
+- [`docs/prompts/review-code.prompt.md`](docs/prompts/review-code.prompt.md) — aligned with four Standards dimensions + Spec
+- [`README.md`](README.md) / [`AGENTS.md`](AGENTS.md) — skill tables, install examples, and validation commands match the ten-skill pack
+- [`skills/create-readme/SKILL.md`](skills/create-readme/SKILL.md) and [`skills/create-agentsmd/SKILL.md`](skills/create-agentsmd/SKILL.md) — Present locale + confirm-before-write; `create-agentsmd`: **primary**/**also OK**, **stable vs ephemeral**, inventory→manifest, optional docs without invented ceremony, convention-conflict ask before write; `create-readme`: stack-agnostic, inventory→manifest, setup **primary**/**also OK**, evidenced architecture/deploy, illustrative diagrams, external URL provenance, AGENTS cross-link, **P3** rearrange-OK; paired prompts aligned
 
 ### Removed
 
-- **`repo-audit`** — merged into `sdd-review`
-- **`repo-audit-full`** — merged into `sdd-audit`
-- **`sdd-grill`** — use an upstream design-interview skill
-- **`git-release`** — absorbed into `sdd-ship`
-- **`git-release.prompt.md`** — prompt absorbed into `sdd-ship`
-- Local design-interview prompt — use an upstream design-interview skill
-- **`sdd-zoom`** — territory map skill; map-only requests declined in audit/review or handled ad hoc
+- **`sdd-ship`** / **`sdd-verify`** / **`git-release`** (+ prompt) — close-out lives in build; git/PR out of pack
+- **`sdd-audit`** / **`repo-audit-full`** — use **`sdd-improve`**
+- **`repo-audit`** — merged into **`sdd-review`**
+- **`docs/design/sdd-skill-design.md`** — superseded by ADR-0001
+- **`sdd-grill`** / **`sdd-zoom`** / local design-interview prompt — use upstream skills or ad hoc as noted in AGENTS
 
 ## [0.3.1] - 2026-06-11
 

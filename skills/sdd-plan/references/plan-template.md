@@ -2,10 +2,13 @@
 
 <!--
   Plan writing guide:
-  - Each slice must be independently testable and deliver observable behavior.
-  - Prefer vertical slices (thin end-to-end functionality) over horizontal layers.
+  - Each slice must be independently testable and deliver observable behavior
+    (user or external system) plus a verification command — not layer-only scaffolds.
+  - Prefer vertical slices over horizontal layers. A single thin slice is valid
+    when it covers every AC; do not invent slices for ceremony.
   - Target 15–60 minutes per slice. If a slice is larger, split it.
-  - Every acceptance criterion from the spec must be covered by at least one slice.
+  - Every acceptance criterion (`AC-n`) from the spec must be covered by at least
+    one slice. Requirements text alone does not bind slices.
   - Risks / Dependencies (optional): build-affecting risks, external deps, or rollback
     notes that change slice order or verification — add this section only when needed;
     do not leave an empty heading in the plan file.
