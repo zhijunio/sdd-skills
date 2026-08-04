@@ -13,6 +13,14 @@ Independent two-axis **quality report** of `HEAD` vs a fixed point (Matt Pocock 
 
 Parallel sub-agents when available; aggregate findings + one-line summary + **Verdict**.
 
+## When
+
+Use for an incremental branch, PR, or fixed-point review. It checks the committed diff against repository Standards and an available Spec.
+
+## Skip
+
+Use [`sdd-improve`](../sdd-improve/SKILL.md) for a broad repo or module health scan. Use [`sdd-build`](../sdd-build/SKILL.md) to implement approved fixes after this report.
+
 ## Process
 
 ### 1. Pin the fixed point

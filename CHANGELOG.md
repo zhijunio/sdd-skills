@@ -13,9 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`CONTEXT.md`](CONTEXT.md) — ubiquitous language for Spec/Plan/Build and independent Delivery Review / Improve Pass
 - [`skills/sdd-review/references/`](skills/sdd-review/references/) — shared Standards baselines (four dimensions + Fowler smells)
 - Design principle docs — [`docs/design/design.md`](docs/design/design.md), 33 framework-neutral principles extracted and deduplicated from Spring Boot conventions
+- [`java-test`](skills/java-test/SKILL.md) / [`generate-java-tests.prompt.md`](docs/prompts/generate-java-tests.prompt.md) — Java unit/integration tests for class, package, module, or project scopes; defaults to `both`, preserves existing coverage policy, reports `not measured` when no coverage tool exists, and stops on non-Java scopes instead of becoming a generic audit
 
 ### Changed
 
+- `scripts/check-skills.sh` now derives the eleven-skill inventory from `skills/` and validates frontmatter structure, the README inventory, routing, prompt pairs, behavior-contract markers, and local Markdown files/anchors.
+- Removed local `skills-lock.json` and ignored `.agents/`/`skills-lock.json`; machine-specific skills CLI state is not a portable package artifact.
+- Completed the package-wide Present contract for runtime skills and paired prompts: user-language output followed by explicit Stop, without automatic chaining.
+- Expanded `.github/workflows/check.yml` path filters so every Markdown change runs the package contract checker.
 - Pack shape — core loop **`sdd-spec` → `sdd-plan` → `sdd-build` → Stop**; [`sdd-review`](skills/sdd-review/SKILL.md) and [`sdd-improve`](skills/sdd-improve/SKILL.md) are **independent** (usable without Spec/Plan/Build)
 - [`sdd-spec`](skills/sdd-spec/SKILL.md) / [`sdd-plan`](skills/sdd-plan/SKILL.md) / [`sdd-build`](skills/sdd-build/SKILL.md) (+ templates) — conversational Approval, AC-only binding, thin plans OK, close-out verification on build, review-fix path
 - [`sdd-review`](skills/sdd-review/SKILL.md) — Matt-style two-axis report; missing fixed point → `origin/HEAD` (not hard-coded `main`); Spec Present **(a)/(b)/(c)**; Standards Present **(a)/(b)** + 🔴/🟡/🟢; bucket routing (Verification → Standards (a) first; no double-file); lean Summary + Verdict gate; no hard route to loop skills

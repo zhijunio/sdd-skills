@@ -13,9 +13,9 @@
 
 - **交付环**：`sdd-spec` → `sdd-plan` → `sdd-build` → Stop（用户显式审批；不自动串阶段）
 - **独立质量**：`sdd-review`（增量双轴报告）、`sdd-improve`（广范围 Standards 候选）
-- **独立工具**：README / AGENTS / 解释代码 / 入职计划 / 过度工程审计 — 与 SDD 环无耦合
+- **独立工具**：README / AGENTS / 解释代码 / 入职计划 / Java 测试 / 过度工程审计 — 与 SDD 环无耦合
 
-完整 skill 目录以 [`skills/`](skills/) 为准（当前 **10** 个）。
+完整 skill 目录以 [`skills/`](skills/) 为唯一来源（当前 **11** 个）。维护校验会检查目录、文档声明和配对 prompt 是否一致。
 
 ## 安装
 
@@ -81,8 +81,9 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md
 | [`explain-code`](skills/explain-code/SKILL.md) | 解释选中代码或片段 |
 | [`onboarding-plan`](skills/onboarding-plan/SKILL.md) | 新贡献者分阶段入职计划 |
 | [`ponytail-audit`](skills/ponytail-audit/SKILL.md) | 仅过度工程：排序删除/简化/换 stdlib·native；一次性报告，不自动改代码 |
+| [`java-test`](skills/java-test/SKILL.md) | 为 Java 类、包、模块或项目生成单元/集成测试 |
 
-部分 skill 在 [`docs/prompts/`](docs/prompts/) 有内容对齐的 Cursor prompt（文件独立、与 skill **无交叉链接**）。另有仅 prompt、无 skill 的文件（如 `review-code.prompt.md`）— 有对应 skill 时优先用 skill。
+部分 skill 在 [`docs/prompts/`](docs/prompts/) 有内容对齐的 Cursor prompt（文件独立、与 skill **无交叉链接**）。另有未配对 skill 的独立 prompt（如 `document-api.prompt.md`）；存在配对 skill 时优先用 skill。
 
 ## 仓库里有什么
 
@@ -90,12 +91,12 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md
 | --- | --- |
 | `skills/<name>/SKILL.md` | 运行时契约 |
 | `skills/<name>/references/` | 该 skill 模板/基线（如有） |
-| `docs/prompts/` | Cursor prompts |
+| `docs/prompts/` | 与部分 skill 对齐的 Cursor prompts；配对关系由维护校验脚本维护 |
 | `docs/adr/` | ADR |
 | `docs/design/` | 维护者设计笔记 |
 | `docs/references.md` | 上游灵感链接 |
-| `scripts/check-skills.sh` | 交叉 skill 链接检查 |
-| `.github/workflows/check.yml` | CI：对 `skills/**` / `scripts/**` 跑上述脚本 |
+| `scripts/check-skills.sh` | 技能清单、frontmatter 结构、README 清单、路由、配对 prompt 和 Markdown 文件/锚点检查 |
+| `.github/workflows/check.yml` | CI：对 `skills/**`、`scripts/**` 及全部 Markdown 变更跑统一维护校验 |
 
 无应用运行时、无 `package.json` 测试脚本。
 
@@ -103,20 +104,7 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md
 
 **primary**（[AGENTS.md](AGENTS.md)）：
 
-```bash
-test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10
-test ! -e skills/repo-audit
-test ! -e skills/repo-audit-full
-test ! -e skills/sdd-grill
-test ! -e skills/git-release
-test ! -e skills/sdd-ship
-test ! -e skills/sdd-verify
-test ! -e skills/sdd-audit
-test -f skills/sdd-improve/SKILL.md
-test -f skills/sdd-review/SKILL.md
-```
-
-**also OK：**
+需要 Bash 3.2+ 与 Python 3（仅标准库）。
 
 ```bash
 ./scripts/check-skills.sh
