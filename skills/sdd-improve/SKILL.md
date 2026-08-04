@@ -14,6 +14,14 @@ Independent Standards-only **improve pass** over a broad scope (Matt Pocock `imp
 
 Read-only: no file edits, installs, formatters, commits, or fixes.
 
+## When
+
+Use for a broad repo, module, area, or branch health scan that produces improvement candidates.
+
+## Skip
+
+Use [`sdd-review`](../sdd-review/SKILL.md) for an incremental fixed-point, branch, or PR review. This skill does not implement fixes or act as a delivery gate.
+
 ## Process
 
 ### 1. Scope before you scan (YAGNI / hotspot-first)

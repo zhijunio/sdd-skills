@@ -5,11 +5,13 @@ on:
     paths:
       - 'skills/**'
       - 'scripts/**'
+      - '**/*.md'
       - '.github/workflows/check.yml'
   pull_request:
     paths:
       - 'skills/**'
       - 'scripts/**'
+      - '**/*.md'
       - '.github/workflows/check.yml'
 
 jobs:
@@ -18,7 +20,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Verify cross-skill routing links
+      - name: Verify skill package contracts
         run: |
           chmod +x scripts/check-skills.sh
           ./scripts/check-skills.sh

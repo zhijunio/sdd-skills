@@ -5,7 +5,7 @@
 ## Context
 
 - 包形态（ADR）：交付环 `sdd-spec` → `sdd-plan` → `sdd-build` → **Stop**；`sdd-review` 与 `sdd-improve` **独立**，不要求先走 Spec/Plan/Build。
-- Skill 总数与 id 以 [`skills/`](skills/) 目录为准（当前 10 个）。不要在本文件维护会腐烂的全表。
+- Skill 总数与 id 以 [`skills/`](skills/) 目录为唯一来源（当前 11 个）。不要在本文件维护会腐烂的全表。
 - Skill 指令正文用 **English**。对用户的 Present 用对话语言（见各 skill Present）。
 - 一阶段结束必须 **Stop**，等用户再 `@`。禁止自动串环，也禁止把 Stop 自动路由到 `sdd-review` / `sdd-improve` / 非 SDD 工具。
 - 除非用户要求：不要新增 hooks、slash commands、中央路由文档、运行时状态文件。
@@ -17,11 +17,11 @@
 | --- | --- |
 | `skills/<name>/SKILL.md` | 运行时契约 |
 | `skills/<name>/references/` | 该 skill 模板/基线（如有）；Standards 共享基线在 `skills/sdd-review/references/` |
-| `docs/prompts/` | Cursor prompt；与 skill 内容对齐时 **互不交叉链接**；配对表只放 README |
+| `docs/prompts/` | Cursor prompt；与 skill 内容对齐时 **互不交叉链接**；配对关系由维护校验脚本维护 |
 | `docs/adr/` | ADR |
 | `docs/design/` | 维护者设计笔记 |
-| `scripts/check-skills.sh` | 交叉 skill 链接检查 |
-| `.github/workflows/check.yml` | 对 skills/scripts 变更跑上述脚本 |
+| `scripts/check-skills.sh` | 统一检查技能清单、frontmatter 结构、README 清单、路由、配对 prompt 和 Markdown 文件/锚点 |
+| `.github/workflows/check.yml` | 对 skills/scripts 及全部 Markdown 变更跑统一校验 |
 
 消费方可用 `docs/sdd/*-spec.md` / `*-plan.md`。本维护仓 **不强制** 每次改动都走 SDD；有对应契约时再读。
 
@@ -31,20 +31,7 @@
 
 **primary（开 PR 前）：**
 
-```bash
-test "$(find skills -mindepth 2 -maxdepth 2 -name SKILL.md | wc -l)" -eq 10
-test ! -e skills/sdd-ship
-test ! -e skills/sdd-verify
-test ! -e skills/git-release
-test ! -e skills/sdd-audit
-test ! -e skills/repo-audit
-test ! -e skills/repo-audit-full
-test ! -e skills/sdd-grill
-test -f skills/sdd-improve/SKILL.md
-test -f skills/sdd-review/SKILL.md
-```
-
-**also OK：**
+依赖 Bash 3.2+ 与 Python 3（仅标准库）。
 
 ```bash
 ./scripts/check-skills.sh
