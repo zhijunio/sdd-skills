@@ -1,5 +1,5 @@
 ---
-name: java-test
+name: generate-java-test
 description: Use when the user wants Java unit or integration tests for a class, package, module, or project.
 ---
 

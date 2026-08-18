@@ -5,7 +5,7 @@
 ## Context
 
 - 包形态（ADR）：交付环 `sdd-spec` → `sdd-plan` → `sdd-build` → **Stop**；`sdd-review` 与 `sdd-improve` **独立**，不要求先走 Spec/Plan/Build。
-- Skill 总数与 id 以 [`skills/`](skills/) 目录为唯一来源（当前 11 个）。不要在本文件维护会腐烂的全表。
+- Skill 总数与 id 以 [`skills/`](skills/) 目录为唯一来源（当前 9 个）。不要在本文件维护会腐烂的全表。
 - Skill 指令正文用 **English**。对用户的 Present 用对话语言（见各 skill Present）。
 - 一阶段结束必须 **Stop**，等用户再 `@`。禁止自动串环，也禁止把 Stop 自动路由到 `sdd-review` / `sdd-improve` / 非 SDD 工具。
 - 除非用户要求：不要新增 hooks、slash commands、中央路由文档、运行时状态文件。
@@ -23,7 +23,7 @@
 | `scripts/check-skills.sh` | 统一检查技能清单、frontmatter 结构、README 清单、路由、配对 prompt 和 Markdown 文件/锚点 |
 | `.github/workflows/check.yml` | 对 skills/scripts 及全部 Markdown 变更跑统一校验 |
 
-消费方可用 `docs/sdd/*-spec.md` / `*-plan.md`。本维护仓 **不强制** 每次改动都走 SDD；有对应契约时再读。
+消费方可用 `docs/sdd/00N-<topic>-spec.md` / `00N-<topic>-plan.md`，其中 `00N` 为项目内递增的三位编号。本维护仓 **不强制** 每次改动都走 SDD；有对应契约时再读。
 
 ## Commands
 

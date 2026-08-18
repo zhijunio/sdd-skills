@@ -15,7 +15,7 @@
 - **独立质量**：`sdd-review`（增量双轴报告）、`sdd-improve`（广范围 Standards 候选）
 - **独立工具**：README / AGENTS / 解释代码 / 入职计划 / Java 测试 / 过度工程审计 — 与 SDD 环无耦合
 
-完整 skill 目录以 [`skills/`](skills/) 为唯一来源（当前 **11** 个）。维护校验会检查目录、文档声明和配对 prompt 是否一致。
+完整 skill 目录以 [`skills/`](skills/) 为唯一来源（当前 **9** 个）。维护校验会检查目录、文档声明和配对 prompt 是否一致。
 
 ## 安装
 
@@ -49,9 +49,11 @@ flowchart LR
 消费方项目里常用约定（本维护仓不强制）：
 
 ```text
-docs/sdd/YYYY-MM-DD-<topic>-spec.md
-docs/sdd/YYYY-MM-DD-<topic>-plan.md
+docs/sdd/00N-<topic>-spec.md
+docs/sdd/00N-<topic>-plan.md
 ```
+
+其中 `00N` 是按项目内文档递增的三位编号，例如 `001`、`002`。
 
 ## Skills 一览
 
@@ -76,12 +78,10 @@ docs/sdd/YYYY-MM-DD-<topic>-plan.md
 
 | Skill | 何时用 |
 | --- | --- |
-| [`create-readme`](skills/create-readme/SKILL.md) | 编写或修订给人看的 README.md |
-| [`create-agentsmd`](skills/create-agentsmd/SKILL.md) | 编写或修订 AGENTS.md |
 | [`explain-code`](skills/explain-code/SKILL.md) | 解释选中代码或片段 |
 | [`onboarding-plan`](skills/onboarding-plan/SKILL.md) | 新贡献者分阶段入职计划 |
 | [`ponytail-audit`](skills/ponytail-audit/SKILL.md) | 仅过度工程：排序删除/简化/换 stdlib·native；一次性报告，不自动改代码 |
-| [`java-test`](skills/java-test/SKILL.md) | 为 Java 类、包、模块或项目生成单元/集成测试 |
+| [`generate-java-test`](skills/generate-java-test/SKILL.md) | 为 Java 类、包、模块或项目生成单元/集成测试 |
 
 部分 skill 在 [`docs/prompts/`](docs/prompts/) 有内容对齐的 Cursor prompt（文件独立、与 skill **无交叉链接**）。另有未配对 skill 的独立 prompt（如 `document-api.prompt.md`）；存在配对 skill 时优先用 skill。
 
