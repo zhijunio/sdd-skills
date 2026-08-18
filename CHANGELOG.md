@@ -13,10 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`CONTEXT.md`](CONTEXT.md) — ubiquitous language for Spec/Plan/Build and independent Delivery Review / Improve Pass
 - [`skills/sdd-review/references/`](skills/sdd-review/references/) — shared Standards baselines (four dimensions + Fowler smells)
 - Design principle docs — [`docs/design/design.md`](docs/design/design.md), 33 framework-neutral principles extracted and deduplicated from Spring Boot conventions
-- [`java-test`](skills/java-test/SKILL.md) / [`generate-java-tests.prompt.md`](docs/prompts/generate-java-tests.prompt.md) — Java unit/integration tests for class, package, module, or project scopes; defaults to `both`, preserves existing coverage policy, reports `not measured` when no coverage tool exists, and stops on non-Java scopes instead of becoming a generic audit
+- [`generate-java-test`](skills/generate-java-test/SKILL.md) / [`generate-java-tests.prompt.md`](docs/prompts/generate-java-tests.prompt.md) — Java unit/integration tests for class, package, module, or project scopes; defaults to `both`, preserves existing coverage policy, reports `not measured` when no coverage tool exists, and stops on non-Java scopes instead of becoming a generic audit
 
 ### Changed
 
+- Consumer Spec/Plan documents now use the next available three-digit project number prefix, such as `001-<topic>-spec.md` and `002-<topic>-plan.md`, instead of date prefixes.
 - `scripts/check-skills.sh` now derives the eleven-skill inventory from `skills/` and validates frontmatter structure, the README inventory, routing, prompt pairs, behavior-contract markers, and local Markdown files/anchors.
 - Removed local `skills-lock.json` and ignored `.agents/`/`skills-lock.json`; machine-specific skills CLI state is not a portable package artifact.
 - Completed the package-wide Present contract for runtime skills and paired prompts: user-language output followed by explicit Stop, without automatic chaining.
@@ -29,11 +30,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Present chrome — **Approval Present** / **Report Present**; restore **Present locale** hard rule (user language, not English by default); review Matt-shaped buckets + short Summary/Verdict; improve optional sections default off; terms in [`CONTEXT.md`](CONTEXT.md)
 - [`docs/prompts/review-code.prompt.md`](docs/prompts/review-code.prompt.md) — aligned with four Standards dimensions + Spec
 - [`README.md`](README.md) / [`AGENTS.md`](AGENTS.md) — skill tables, install examples, and validation commands match the ten-skill pack
-- [`skills/create-readme/SKILL.md`](skills/create-readme/SKILL.md) and [`skills/create-agentsmd/SKILL.md`](skills/create-agentsmd/SKILL.md) — Present locale + confirm-before-write; `create-agentsmd`: **primary**/**also OK**, **stable vs ephemeral**, inventory→manifest, optional docs without invented ceremony, convention-conflict ask before write; `create-readme`: stack-agnostic, inventory→manifest, setup **primary**/**also OK**, evidenced architecture/deploy, illustrative diagrams, external URL provenance, AGENTS cross-link, **P3** rearrange-OK; paired prompts aligned
+- `create-readme` / `create-agentsmd` retired from the package; their standalone prompts remain available.
 
 ### Removed
 
 - **`sdd-ship`** / **`sdd-verify`** / **`git-release`** (+ prompt) — close-out lives in build; git/PR out of pack
+- **`create-readme`** / **`create-agentsmd`** — standalone prompts remain; runtime skills removed
 - **`sdd-audit`** / **`repo-audit-full`** — use **`sdd-improve`**
 - **`repo-audit`** — merged into **`sdd-review`**
 - **`docs/design/sdd-skill-design.md`** — superseded by ADR-0001

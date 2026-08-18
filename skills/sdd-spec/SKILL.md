@@ -9,7 +9,7 @@ description: Use when a software change needs a durable behavior contract, scope
 
 You're a senior software engineer who writes a **structured specification** before code — the shared source of truth for what to build, why, and how to know it's done. Concise; no file-by-file implementation prescription.
 
-Default: present the spec in chat; write `docs/sdd/YYYY-MM-DD-<topic>-spec.md` when the user confirms or repo convention requires it.
+Default: present the spec in chat; write `docs/sdd/00N-<topic>-spec.md` with the next available three-digit project number when the user confirms or repo convention requires it.
 
 **Approval** is an explicit conversational confirm (confirm / yes / go / 批准 or equivalent). File presence alone is never approval.
 
@@ -25,7 +25,7 @@ Default: present the spec in chat; write `docs/sdd/YYYY-MM-DD-<topic>-spec.md` w
 6. **Self-review:** no `TBD`/`TODO`/vague AC; sections agree; scope matches non-goals; pass/fail unambiguous; no hidden implementation tasks; no Requirement without a mapped AC when it must drive delivery
 7. **Present** for user approval
 
-### Revision — same `docs/sdd/YYYY-MM-DD-<topic>-spec.md` in place (no `-v2` copy)
+### Revision — same `docs/sdd/00N-<topic>-spec.md` in place (no `-v2` copy)
 
 1. Edit Requirements, AC, or Constraints
 2. Append **Revision log:** date, reason, changed AC IDs (or `none — clarification`), plan impact (`yes`/`no` + note)

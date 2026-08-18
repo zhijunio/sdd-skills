@@ -19,4 +19,4 @@ This pack is Markdown skills for Spec-Driven Development without owning a PM, st
 - Runtime truth is each `skills/*/SKILL.md`; this ADR records *why* the pack is shaped this way.
 - `sdd-review` / `sdd-improve` must not hard-route to spec/plan/build.
 - Shared Standards live under `skills/sdd-review/references/*-baseline.md`.
-- Consumer docs stay `docs/sdd/*-spec.md` / `*-plan.md` by convention (optional).
+- Consumer docs stay `docs/sdd/00N-<topic>-spec.md` / `00N-<topic>-plan.md` by convention (optional), using the next available three-digit project number.

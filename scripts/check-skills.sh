@@ -43,10 +43,8 @@ done
 
 # Explicit prompt/skill pairs. Other prompts are standalone by design.
 pairs=(
-  "create-agentsmd:docs/prompts/create-agentsmd.prompt.md"
-  "create-readme:docs/prompts/create-readme.prompt.md"
   "explain-code:docs/prompts/explain-code.prompt.md"
-  "java-test:docs/prompts/generate-java-tests.prompt.md"
+  "generate-java-test:docs/prompts/generate-java-tests.prompt.md"
   "onboarding-plan:docs/prompts/onboarding-plan.prompt.md"
   "sdd-review:docs/prompts/review-code.prompt.md"
 )
@@ -94,7 +92,7 @@ while IFS= read -r f; do
 done < <(printf '%s\n' "${skill_files[@]}")
 
 # Keep the stable cross-skill behavior contract text present without snapshotting prose.
-for requirement in "skills/sdd-review/SKILL.md:## When" "skills/sdd-review/SKILL.md:## Skip" "skills/sdd-improve/SKILL.md:- **Standards**" "skills/sdd-improve/SKILL.md:Correctness" "skills/sdd-improve/SKILL.md:Structure" "skills/sdd-improve/SKILL.md:Verification" "skills/sdd-improve/SKILL.md:Traceability" "skills/java-test/SKILL.md:default to" "skills/java-test/SKILL.md:not measured" "docs/prompts/generate-java-tests.prompt.md:default to" "docs/prompts/generate-java-tests.prompt.md:not measured"; do
+for requirement in "skills/sdd-review/SKILL.md:## When" "skills/sdd-review/SKILL.md:## Skip" "skills/sdd-improve/SKILL.md:- **Standards**" "skills/sdd-improve/SKILL.md:Correctness" "skills/sdd-improve/SKILL.md:Structure" "skills/sdd-improve/SKILL.md:Verification" "skills/sdd-improve/SKILL.md:Traceability" "skills/generate-java-test/SKILL.md:default to" "skills/generate-java-test/SKILL.md:not measured" "docs/prompts/generate-java-tests.prompt.md:default to" "docs/prompts/generate-java-tests.prompt.md:not measured"; do
   file="${requirement%%:*}"; text="${requirement#*:}"
   if grep -qF -- "$text" "$file"; then echo "OK   contract $file contains '$text'"; else echo "MISS contract $file contains '$text'"; fail=1; fi
 done

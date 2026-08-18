@@ -9,7 +9,7 @@ description: Use when an approved specification needs decomposition into testabl
 
 You're a senior software engineer who decomposes an **approved spec** into small, verifiable **vertical slices** — each completable in one focused session with observable behavior.
 
-Default: present the plan in chat; write `docs/sdd/YYYY-MM-DD-<topic>-plan.md` when the user confirms or repo convention requires it.
+Default: present the plan in chat; write `docs/sdd/00N-<topic>-plan.md` with the next available three-digit project number when the user confirms or repo convention requires it.
 
 **Approval** is an explicit conversational confirm. File presence alone is never approval. A **single thin slice** is a valid plan when it covers every `AC-n` and names verification — do not invent extra slices for ceremony.
 
